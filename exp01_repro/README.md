@@ -565,10 +565,10 @@ The cost of the correction, on the heads that gain nothing from it (median step,
 | | Qwen3-8B | Gemma 4 E4B |
 |---|---|---|
 | Batch 1 | 2.02 → 2.06 ms (+2%) | 2.13 → 2.23 ms (+5%) |
-| Batch 16 | 2.06 → 2.21 ms (+8%) | 2.29 → 2.49 ms (+9%) |
+| Batch 16 | 2.06 → 2.21 ms (+7%) | 2.29 → 2.49 ms (+9%) |
 
 The overhead is 0.04 to 0.20 ms. It has not been profiled; the corrected step computes `α` and `h − αp` in FP64 on the device with several small launches before the first pass, which is the first place to look.
 
-Against the predictions: controls held. Sarvam batch 1: median unchanged (+0.6%), `pca1` p99 below 3.7 ms and mean below 3.45 ms (3.46, 3.41), `mu` p99 in between (4.02): held. Sarvam batch 16 with `pca1` below 3.9 ms and 0.45: held (3.62, 0.41); with `mu` between 0.45 and 0.62: just outside (0.449). Overhead within 3% on Qwen and Gemma at both batch sizes: missed except Qwen at batch 1 (+2%, +5%, +8%, +9%).
+Against the predictions: controls held. Sarvam batch 1: median unchanged (+0.6%), `pca1` p99 below 3.7 ms and mean below 3.45 ms (3.46, 3.41), `mu` p99 in between (4.02): held. Sarvam batch 16 with `pca1` below 3.9 ms and 0.45: held (3.62, 0.41); with `mu` between 0.45 and 0.62: just outside (0.449). Overhead within 3% on Qwen and Gemma at both batch sizes: missed except Qwen at batch 1 (+2%, +5%, +7%, +9%).
 
 Limits: greedy only. The 512 timed states are a random sample of all greedy states, so about half come from prompts `pca1` was fitted on; the K2 addendum found the fit without the state's language to be the same direction on Sarvam (cosine above 0.998), and `mu` uses no states. Head alone, not end-to-end decoding. One run per head; the earlier sections show the graph step's medians move by about 2% between runs.
