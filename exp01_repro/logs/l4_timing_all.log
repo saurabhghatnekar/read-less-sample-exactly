@@ -1,0 +1,231 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-Gx76dn9yk5EjcWraHNDHBJ
+✓ Created objects.
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/l4_bench_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/l4_cert.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/subg_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/l4_kernels.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_lib.py
+└── ✓ Created Function bench.
+/usr/local/lib/python3.12/site-packages/triton/knobs.py:504: UserWarning: TRITON_DEFAULT_FP_FUSION is unset: defaulting to FP fusion ENABLED for backward compatibility in Triton 3.9. The default will change to DISABLED in Triton 3.10; set TRITON_DEFAULT_FP_FUSION=1 to keep fusion enabled or =0 to adopt the new default early and silence this warning.
+  warn_once(FP_FUSION_DEFAULT_WARNING)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+{
+ "model": "qwen3_8b",
+ "V": 151936,
+ "D": 4096,
+ "t": 0.5,
+ "gpu": "NVIDIA L4",
+ "torch": "2.15.0+cu132",
+ "first_pass_bytes_over_bf16": 0.2578125,
+ "B1": {
+  "bf16_ms": {
+   "median": 4.948623895645142,
+   "p99": 4.981272087097168,
+   "mean": 4.950321248732507
+  },
+  "cert_ms": {
+   "median": 3.99510395526886,
+   "p99": 4.558510007858277,
+   "mean": 4.835897832643241
+  },
+  "kernel_ms": {
+   "median": 1.9522719979286194,
+   "p99": 1.9832626819610595,
+   "mean": 1.9549721907824278
+  },
+  "cert_over_bf16": {
+   "median": 0.807196045749668,
+   "p99": 0.920009810877107,
+   "mean": 0.9769203112979912
+  },
+  "kernel_over_bf16": 0.3945080570068471,
+  "bytes_over_bf16": {
+   "median": 0.25782237579165734,
+   "p99": 0.2579438362989289,
+   "mean": 0.25783464627649566
+  },
+  "bf16_GBps": 251.51632822516942,
+  "kernel_GBps": 164.3668670863826,
+  "mismatches": 0
+ },
+ "B16": {
+  "bf16_ms": {
+   "median": 5.0873119831085205,
+   "p99": 5.162771067619324,
+   "mean": 5.091517969965935
+  },
+  "cert_ms": {
+   "median": 4.336127996444702,
+   "p99": 4.943093786239624,
+   "mean": 4.390112981200218
+  },
+  "kernel_ms": {
+   "median": 2.0500481128692627,
+   "p99": 2.0696473836898805,
+   "mean": 2.048446998000145
+  },
+  "cert_over_bf16": {
+   "median": 0.8524677046695057,
+   "p99": 0.9705146216087492,
+   "mean": 0.8622399507057322
+  },
+  "kernel_over_bf16": 0.40297275254123766,
+  "bytes_over_bf16": {
+   "median": 0.2581285446154137,
+   "p99": 0.258286726709766,
+   "mean": 0.2581279472633883
+  },
+  "bf16_GBps": 244.6595994373183,
+  "kernel_GBps": 156.52746390955753,
+  "mismatches": 0
+ }
+}
+{
+ "model": "gemma4_e4b",
+ "V": 262144,
+ "D": 2560,
+ "t": 1.5,
+ "gpu": "NVIDIA L4",
+ "torch": "2.15.0+cu132",
+ "first_pass_bytes_over_bf16": 0.2578125,
+ "B1": {
+  "bf16_ms": {
+   "median": 5.335119962692261,
+   "p99": 5.413750510215759,
+   "mean": 5.33842261787504
+  },
+  "cert_ms": {
+   "median": 4.1113600730896,
+   "p99": 5.192970442771911,
+   "mean": 5.0128937205299735
+  },
+  "kernel_ms": {
+   "median": 2.0787200927734375,
+   "p99": 2.1508607268333435,
+   "mean": 2.082604957278818
+  },
+  "cert_over_bf16": {
+   "median": 0.7705722284023584,
+   "p99": 0.965921004393221,
+   "mean": 0.9388720525112632
+  },
+  "kernel_over_bf16": 0.38962949423998583,
+  "bytes_over_bf16": {
+   "median": 0.2578201353549957,
+   "p99": 0.2585467834472656,
+   "mean": 0.25786225484916936
+  },
+  "bf16_GBps": 251.5739644817091,
+  "kernel_GBps": 166.46304675793323,
+  "mismatches": 0
+ },
+ "B16": {
+  "bf16_ms": {
+   "median": 5.539711952209473,
+   "p99": 5.623666472434998,
+   "mean": 5.546553999185562
+  },
+  "cert_ms": {
+   "median": 5.132800102233887,
+   "p99": 5.412177958488464,
+   "mean": 5.152798995375633
+  },
+  "kernel_ms": {
+   "median": 2.145279884338379,
+   "p99": 2.1781913304328917,
+   "mean": 2.147936001420021
+  },
+  "cert_over_bf16": {
+   "median": 0.9247024078222077,
+   "p99": 0.9716169213108792,
+   "mean": 0.928990143119851
+  },
+  "kernel_over_bf16": 0.3872547711587694,
+  "bytes_over_bf16": {
+   "median": 0.2583672717213631,
+   "p99": 0.2611146768629551,
+   "mean": 0.25857753641903397
+  },
+  "bf16_GBps": 242.282864448337,
+  "kernel_GBps": 161.298338051922,
+  "mismatches": 0
+ }
+}
+{
+ "model": "sarvam_30b",
+ "V": 262144,
+ "D": 4096,
+ "t": 0.5,
+ "gpu": "NVIDIA L4",
+ "torch": "2.15.0+cu132",
+ "first_pass_bytes_over_bf16": 0.2578125,
+ "B1": {
+  "bf16_ms": {
+   "median": 8.490079879760742,
+   "p99": 8.546386013031006,
+   "mean": 8.497239824384451
+  },
+  "cert_ms": {
+   "median": 5.416959762573242,
+   "p99": 7.458498635292053,
+   "mean": 5.611430426128209
+  },
+  "kernel_ms": {
+   "median": 3.2921600341796875,
+   "p99": 3.3380146265029906,
+   "mean": 3.2942949938587844
+  },
+  "cert_over_bf16": {
+   "median": 0.6377322797659282,
+   "p99": 0.8765747881912072,
+   "mean": 0.6603344947844667
+  },
+  "kernel_over_bf16": 0.38776549582622577,
+  "bytes_over_bf16": {
+   "median": 0.2583222482353449,
+   "p99": 0.533566661272198,
+   "mean": 0.28546437121985946
+  },
+  "bf16_GBps": 252.94033488652147,
+  "kernel_GBps": 168.171693432866,
+  "mismatches": 0
+ },
+ "B16": {
+  "bf16_ms": {
+   "median": 8.76260757446289,
+   "p99": 8.86806897163391,
+   "mean": 8.76952800154686
+  },
+  "cert_ms": {
+   "median": 9.077759742736816,
+   "p99": 10.12789270401001,
+   "mean": 8.836544036865234
+  },
+  "kernel_ms": {
+   "median": 3.398655891418457,
+   "p99": 3.429130198955536,
+   "mean": 3.4006720036268234
+  },
+  "cert_over_bf16": {
+   "median": 1.0372502526190366,
+   "p99": 1.1546758040021523,
+   "mean": 1.0075967123304495
+  },
+  "kernel_over_bf16": 0.3878589635034272,
+  "bytes_over_bf16": {
+   "median": 0.49673470109701157,
+   "p99": 0.5466873711906374,
+   "mean": 0.47134759422624484
+  },
+  "bf16_GBps": 245.07358451820562,
+  "kernel_GBps": 162.9020841438968,
+  "mismatches": 0
+ }
+}
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-Gx76dn9yk5EjcWraHNDHBJ

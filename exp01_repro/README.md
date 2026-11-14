@@ -255,3 +255,39 @@ Sub-Gaussian + INT8 at the validation-selected shift, test prompts (status over 
 Pre-registered prediction: Sarvam greedy p99 about 0.55 (got 0.512), greedy mean below 0.33 (got 0.279), status stays UNDER_HALF (held for greedy, did not hold for Gumbel T = 1, which passes). Sarvam greedy misses GATES_PASS only on p99 bytes (0.512 against < 0.5).
 
 The shift and the bound combine: on Sarvam the sub-Gaussian cascade's best t is 0.5. At t = 1 the language groups' greedy means are 0.27–0.30 and p99s 0.48–0.52.
+
+## L4 timing, first kernel version (14 Nov 2026, smoke and profiling only)
+
+Protocol and prediction: `l4_protocol.json` (hash in `logs/a3_decision_rule.log`). Kernels: `l4_kernels.py` (fused dithered-INT4 first pass that also produces the sub-Gaussian variance term; row-gather GEMV for the INT8 and BF16 stages). Step: `l4_cert.py`. Bench: `l4_bench_modal.py`. Profiles: `l4_nsight_modal.py`, reports in `profiles/` (not published; `.nsys-rep` and `.ncu-rep` open in Nsight Systems and Nsight Compute).
+
+Smoke, Qwen3-8B, 64 greedy states, batch 1 (`logs/l4_timing_qwen3_8b_smoke.json`); no token mismatches:
+
+| | median ms | vs cuBLAS BF16 |
+|---|---|---|
+| cuBLAS BF16 head + argmax | 5.03 | 1 |
+| INT4 first-pass kernel alone | 1.98 | 0.39 |
+| full certified step | 4.85 | 0.96 |
+
+Nsight Compute (`profiles/qwen3_8b_ncu.txt`, run with `--clock-control none` because Modal does not allow clock locking): the INT4 kernel runs at 92.7% of DRAM peak (278 GB/s, 1.79 ms, 56% achieved occupancy, 72 registers per thread). cuBLAS's BF16 GEMV takes 4.89 ms (about 255 GB/s). The first pass is therefore at the bandwidth roofline: 0.258 of the bytes in 0.37 of the time.
+
+Nsight Systems (`profiles/qwen3_8b_nsys.txt`, 10 steps): the certified step's NVTX range has a median of 5.46 ms while its GPU kernels add up to about 2.1 ms. Each step makes about 100 kernel launches (about 9 µs of CPU each), 6 `cudaStreamSynchronize` calls and 10 small copies or memsets. The step is bound by the host: Python and launch overhead, plus a sync before each data-dependent row set.
+
+Next: one graph-capturable step: bound and block maximum fused into the first-pass kernel, candidate rows compacted on the device into fixed-capacity buffers, one INT8 round and one BF16 round, and a single sync at the end that returns the token and an overflow flag (an overflow falls back to the current path).
+
+### Full L4 timing, all three heads (14 Nov 2026)
+
+`logs/l4_timing_<model>.json`; 512 greedy states per model at batch 1, 32 groups of 16 at batch 16; sub-Gaussian + INT8 at the B1 shifts. No token mismatch on any step (1,536 batch-1 steps and 1,536 states at batch 16).
+
+| Model, batch | cuBLAS BF16 ms | certified ms (median, p99) | certified / BF16 (median, p99) | kernel / BF16 | bytes / BF16 (median, p99) |
+|---|---|---|---|---|---|
+| Qwen3-8B, 1 | 4.95 | 4.00, 4.56 | 0.81, 0.92 | 0.39 | 0.258, 0.258 |
+| Gemma 4, 1 | 5.34 | 4.11, 5.19 | 0.77, 0.97 | 0.39 | 0.258, 0.260 |
+| Sarvam-30B, 1 | 8.49 | 5.42, 7.46 | 0.64, 0.88 | 0.39 | 0.258, 0.53 |
+| Qwen3-8B, 16 | 5.09 | 4.34, 4.94 | 0.85, 0.97 | 0.40 | 0.258, 0.258 |
+| Gemma 4, 16 | 5.54 | 5.13, 5.41 | 0.92, 0.97 | 0.39 | 0.258, 0.259 |
+| Sarvam-30B, 16 | 8.76 | 9.08, 10.13 | 1.04, 1.15 | 0.39 | 0.50, 0.55 |
+
+- The first pass holds at 0.39 of BF16 on every head and batch size. The rest of the step costs about 2 ms of host time whatever the head, so the larger the head, the better the ratio (Sarvam 0.64 at batch 1).
+- At batch 16 the rows are read once for the union of all 16 states. On Sarvam that union is about 125,000 INT8 rows at the median, half the vocabulary, and the step is slower than BF16. Batched certification needs per-state row sets or a smaller union.
+- On Qwen3-8B and Gemma 4 the batch-1 mean (4.84 and 5.01 ms) is above the p99, so fewer than 1% of the steps are very slow. Likely cause, untested: Triton compiling a new specialization when the gather kernel's row count `N` first hits a new case (1, or a multiple of 16). Marking `N` as not specialized would test this.
+- Against the prediction: the kernel at 0.30–0.40 held (0.39). The batch-1 step at 0.45–0.65 held only for Sarvam (0.64); Qwen and Gemma came in at 0.77–0.81, because of fixed host time. "Sarvam p99 exceeds BF16" did not hold (0.88). Batch 16 at 0.6–0.9 held for Qwen (0.85) and not for Gemma (0.92) or Sarvam (1.04).

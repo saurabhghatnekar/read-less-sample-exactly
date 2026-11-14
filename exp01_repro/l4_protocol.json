@@ -1,0 +1,15 @@
+{
+  "experiment": "L4 timing of the certified head (greedy), first kernel version",
+  "written": "2026-11-14, before any timing run",
+  "hardware": "NVIDIA L4 on Modal (24 GB, about 300 GB/s HBM nominal)",
+  "certificate": "the B1 headline: dithered INT4 g128 first pass with the sub-Gaussian bound (fused Triton kernel l4_kernels.int4_head), INT8 stage and BF16 stage via the row-gather Triton kernel; shifts t = 0.5 (Qwen3-8B), 1.5 (Gemma 4), 0.5 (Sarvam-30B), the B1 greedy selections",
+  "baseline": "torch.matmul of BF16 h with the BF16 head (cuBLAS), then argmax; same states",
+  "states": "512 greedy states per model, sampled with seed 0 from the exp01 states; batch 1 (one state per step) and batch 16 (random groups of 16; rows read once for the group)",
+  "timing": "CUDA events around the whole step including host syncs for the data-dependent row sets; 20 warm-up steps; per-step times reported as median, p99 and mean; the kernel alone also timed",
+  "checks": "every certified token is compared with the argmax of the FP32 product of BF16 h and the BF16 head; any mismatch is reported with the top-two margin",
+  "prediction": {
+    "batch1": "The first-pass kernel alone runs at 0.30 to 0.40 of the cuBLAS BF16 head's time (bytes 0.258, but a first Triton kernel will not reach peak bandwidth). The full certified step lands at 0.45 to 0.65 of BF16 at the median, because of three or four host syncs and small launches; Sarvam's p99 exceeds BF16.",
+    "batch16": "Gains shrink: the union of rows across 16 states grows and BF16 cuBLAS amortizes better; the certified step is 0.6 to 0.9 of BF16 at the median.",
+    "takeaway_if_wrong": "If the kernel alone is above 0.5 of BF16, the kernel, not the certificate, is the bottleneck and gets work first."
+  }
+}
