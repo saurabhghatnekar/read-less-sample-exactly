@@ -1,0 +1,56 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-MA9EtC2RfQYq0BvqxLNxqu
+✓ Created objects.
+├── 🔨 Created mount 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/crosscheck_modal.py
+├── 🔨 Created mount 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/../vizuara_certified_sampl
+│   ing/cert_core.py
+├── 🔨 Created mount 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/crosscheck_lib.py
+├── 🔨 Created mount 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+└── 🔨 Created function run_chunk.
+gemma4_e4b: 29574 T=1 states, 8 jobs
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+wrote /Volumes/attic/GpuKernelEngg/research/exp01_repro/results/crosscheck_gemma4_e4b.json
+A/ours-iv/ours-plan/gumbel_1.0/S                   median    31.0000  p99 22891.0000  mean 1894.3317
+A/ours-iv/ours-plan/gumbel_1.0/bytes               median     0.2583  p99     0.3020  mean 0.2618
+A/ours-iv/ours-plan/gumbel_1.0/mismatch            sum 0  mean 0.00000
+A/ours-iv/ours-plan/top50/S                        median 118715.0000  p99 199602.0000  mean 92489.2335
+A/ours-iv/ours-plan/top50/bytes                    median     0.4862  p99     0.6406  mean 0.4356
+A/ours-iv/ours-plan/top50/mismatch                 sum 0  mean 0.00000
+A/ours-iv/theirs-plan/gumbel_1.0/S                 median    31.0000  p99 22891.0000  mean 1894.3317
+A/ours-iv/theirs-plan/gumbel_1.0/bytes             median     0.2583  p99     0.3020  mean 0.2618
+A/ours-iv/theirs-plan/gumbel_1.0/mismatch          sum 0  mean 0.00000
+A/ours-iv/theirs-plan/top50/S                      median 118715.0000  p99 199602.0000  mean 92489.2334
+A/ours-iv/theirs-plan/top50/bytes                  median     0.4862  p99     0.6406  mean 0.4356
+A/ours-iv/theirs-plan/top50/mismatch               sum 0  mean 0.00000
+A/theirs-iv/ours-plan/gumbel_1.0/S                 median    32.0000  p99 22750.0000  mean 1968.0311
+A/theirs-iv/ours-plan/gumbel_1.0/bytes             median     0.2583  p99     0.3017  mean 0.2620
+A/theirs-iv/ours-plan/gumbel_1.0/mismatch          sum 0  mean 0.00000
+A/theirs-iv/ours-plan/top50/S                      median 120945.0000  p99 200606.0000  mean 93961.3687
+A/theirs-iv/ours-plan/top50/bytes                  median     0.4914  p99     0.6431  mean 0.4390
+A/theirs-iv/ours-plan/top50/mismatch               sum 0  mean 0.00000
+A/theirs-iv/theirs-plan/gumbel_1.0/S               median    32.0000  p99 22750.0000  mean 1968.0311
+A/theirs-iv/theirs-plan/gumbel_1.0/bytes           median     0.2583  p99     0.3017  mean 0.2620
+A/theirs-iv/theirs-plan/gumbel_1.0/mismatch        sum 0  mean 0.00000
+A/theirs-iv/theirs-plan/top50/S                    median 120945.0000  p99 200606.0000  mean 93961.3686
+A/theirs-iv/theirs-plan/top50/bytes                median     0.4914  p99     0.6431  mean 0.4390
+A/theirs-iv/theirs-plan/top50/mismatch             sum 0  mean 0.00000
+B/ours-quant/ours-pipe/gumbel_1.0/bytes            median     1.0929  p99     1.2894  mean 0.8478
+B/ours-quant/ours-pipe/gumbel_1.0/mismatch         sum 0  mean 0.00000
+B/ours-quant/theirs-pipe/gumbel_1.0/bytes          median     1.1000  p99     1.2894  mean 0.8500
+B/ours-quant/theirs-pipe/gumbel_1.0/mismatch       sum 0  mean 0.00000
+B/theirs-quant/ours-pipe/gumbel_1.0/bytes          median     1.1892  p99     1.2894  mean 0.8808
+B/theirs-quant/ours-pipe/gumbel_1.0/mismatch       sum 0  mean 0.00000
+B/theirs-quant/theirs-pipe/gumbel_1.0/bytes        median     1.1936  p99     1.2894  mean 0.8826
+B/theirs-quant/theirs-pipe/gumbel_1.0/mismatch     sum 0  mean 0.00000
+refagree/gumbel_1.0                                sum 29574  mean 1.00000
+refagree/top50                                     sum 29574  mean 1.00000
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-MA9EtC2RfQYq0BvqxLNxqu

@@ -1,0 +1,78 @@
+{
+ "model": "qwen3_8b",
+ "c7": {
+  "greedy/hindi": {
+   "median": 1.0,
+   "min": 0.8317757009345794,
+   "prompts": 40
+  },
+  "greedy/bengali": {
+   "median": 1.0,
+   "min": 0.9791666666666666,
+   "prompts": 40
+  },
+  "greedy/tamil": {
+   "median": 1.0,
+   "min": 0.9591836734693877,
+   "prompts": 40
+  },
+  "greedy/telugu": {
+   "median": 1.0,
+   "min": 0.9054054054054054,
+   "prompts": 40
+  },
+  "t1/hindi": {
+   "median": 1.0,
+   "min": 0.7878787878787878,
+   "prompts": 40
+  },
+  "t1/bengali": {
+   "median": 1.0,
+   "min": 1.0,
+   "prompts": 40
+  },
+  "t1/tamil": {
+   "median": 1.0,
+   "min": 0.9578947368421052,
+   "prompts": 40
+  },
+  "t1/telugu": {
+   "median": 1.0,
+   "min": 0.9358974358974359,
+   "prompts": 40
+  }
+ },
+ "c8": {
+  "all": {
+   "ratio": 1.0185260425409273,
+   "mean_nll": 0.22065704504570108,
+   "mean_entropy": 0.2166434983785252
+  },
+  "bengali": {
+   "ratio": 1.0283054684204087,
+   "n": 5120
+  },
+  "code": {
+   "ratio": 1.1659644019917152,
+   "n": 3760
+  },
+  "english": {
+   "ratio": 1.0118037335490973,
+   "n": 4672
+  },
+  "hindi": {
+   "ratio": 0.9629239342189981,
+   "n": 5079
+  },
+  "tamil": {
+   "ratio": 1.0273765187891664,
+   "n": 5120
+  },
+  "telugu": {
+   "ratio": 1.0433525869669602,
+   "n": 5120
+  }
+ },
+ "n_greedy": 28940,
+ "n_t1": 28871
+}

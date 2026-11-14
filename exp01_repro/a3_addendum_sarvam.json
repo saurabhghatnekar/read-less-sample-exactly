@@ -1,0 +1,19 @@
+{
+  "addendum_to": "a3_decision_rule.json (sha256 1cb364151716cfc877617fba7cb47ff82c258c1547f34a451927936bfe513620)",
+  "written": "2026-11-14, after the Qwen3-8B and Gemma 4 A3 results were read, and before any Sarvam-30B state was dumped",
+  "model": "sarvamai/sarvam-30b 071ae95e, untied 262,144 x 4,096 head (stored F32, run in BF16 as the model loads it), no soft-cap",
+  "states": "sarvam_modal.py: this reproduction's 240 prompts (Flores-IN for the four Indian languages), batch 16, 128 new tokens, greedy and T = 1, with Vizuara run B's '<think></think>\\n' prefill and their Sarvam lockfile (torch 2.5.1, transformers 4.57.2). The analysis runs on the reproduction's main image, as Vizuara's did.",
+  "unchanged": "grid, split, selection, certificates, rules, primary outcome, verdicts, controls and invalid_if, all as in a3_decision_rule.json",
+  "added": {
+    "exp01_baseline": "exp01_modal.py analyze on the same Sarvam states first, so the T0 control has exp01 arrays to match. Its tables are reported as the reproduction's Sarvam exp01 result. They are compared descriptively with Vizuara's run B, which used other prompts; this is not a reproduction claim.",
+    "C7_language": "median target-script share of letters per Indian-language group and mode, from the dump. Below 0.9 in any group flags that group, as in the lab's rule; flagged groups stay in every table and are named.",
+    "C1_alignment": "share of greedy states where the BF16 product from the stored h equals the emitted token, from the exp01 analysis; reported, with the lab's 95% gate."
+  },
+  "known_weaknesses": "Selection is still on even prompt ids and the verdict on odd ones. The rule's C5 band was breached on Gemma 4 at |t| far from the selected values; for Sarvam it is reported in the same way. The Qwen and Gemma results were seen before this addendum was written.",
+  "prediction_written_before_dumping": {
+    "bounds": "Hoeffding mean bound at t = 1 is 0.88 to 0.93 of t = 0 (mean-row notebook: Sarvam's INT4 group scale at t = 1 is 0.904 of t = 0).",
+    "selection": "t* is 1 or 1.5 for greedy and Gumbel T = 1; t = 4 is worse than t = 0.",
+    "verdict": "HELPS, with a mean-bytes reduction larger than Gemma 4's 0.0015 for greedy and Gumbel T = 1.",
+    "gates": "Sarvam still fails the lab's confirm gates at t*: median headline bytes stay above 0.30 for greedy, and p99 stays above 0.5."
+  }
+}

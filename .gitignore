@@ -1,0 +1,33 @@
+# Allowlist: everything is ignored unless named below.
+# Not published: paper PDFs (third-party copyright), the topic brief and Vizuara's literature review
+# (prepared privately), the clone of Vizuara's repository (public at github.com/VizuaraAI/certified-sampling),
+# prompts and model outputs (Flores-IN text is cleared for evaluation, not redistribution), per-state result
+# arrays (large; regenerable), and archives.
+*
+!.gitignore
+!README.md
+
+!exp01_repro/
+exp01_repro/*
+!exp01_repro/*.py
+!exp01_repro/*.json
+!exp01_repro/README.md
+!exp01_repro/logs/
+!exp01_repro/logs/*
+!exp01_repro/results/
+exp01_repro/results/*
+!exp01_repro/results/*.json
+
+!notebooks/
+notebooks/*
+!notebooks/head_mean_row.py
+!notebooks/head_mean_row.ipynb
+!notebooks/run_head_mean_row_modal.py
+!notebooks/outputs/
+!notebooks/outputs/*
+
+__pycache__/
+*.pyc
+.DS_Store
+prompts.jsonl
+outputs_*.jsonl

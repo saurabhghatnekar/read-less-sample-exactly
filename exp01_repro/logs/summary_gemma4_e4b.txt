@@ -1,0 +1,59 @@
+states: greedy 29641, T=1 29574
+C1 alignment (BF16 product argmax == emitted greedy token): 0.9980
+C2 wc/res violations: 0   C3 non-dither mismatches: 0
+dither: violations 0, mismatches 0, normalized MSE 0.9992 over 15,522,856,960 rows
+
+Dithered INT4 g128 + INT8 stage (Hoeffding). S, R: median, p99. Bytes: median, p99, mean | lab median, p99
+  greedy      S      24    21525  R    1     10  bytes 0.258 0.299 0.261  | lab 0.258 0.302  | INT8 cert 0.501 0.501
+  gumbel_0.6  S      27    22807  R    1     10  bytes 0.258 0.301 0.261  | lab 0.258 0.308  | INT8 cert 0.501 0.501
+  gumbel_1.0  S      31    22887  R    1     12  bytes 0.258 0.302 0.261  | lab 0.258 0.307  | INT8 cert 0.501 0.501
+  top50       S  118718   199601  R    1   7831  bytes 0.486 0.640 0.435  | lab 0.503 0.644  | INT8 cert 0.501 0.531
+  minp_0.05   S     103    37525  R    1     37  bytes 0.258 0.330 0.265  | lab 0.259 0.340  | INT8 cert 0.501 0.501
+
+Best single-stage deterministic 4-bit certificate, median bytes:
+  greedy      1.089 (nvfp4/res)
+  gumbel_0.6  1.097 (nvfp4/res)
+  gumbel_1.0  1.093 (nvfp4/res)
+  top50       1.266 (int4_g128/res)
+  minp_0.05   1.194 (nvfp4/res)
+
+Readouts on greedy states (medians) | lab
+  ratio_mean_wc_over_mean_dither      3.654 | 3.35
+  ratio_wc_over_true_max             17.563 | 17.3
+  ratio_dither_over_true_max          6.227 | 6.3
+  true_largest_error_int4             4.911 | 4.94
+  top_two_margin                      7.137 | 5.6
+  largest dithered bound             34.107 | 34.1
+  top logit                          35.542 | ~38 (smoke)
+  h concentration l1/(sqrt(d) l2)     0.628 | ~0.70
+
+Median S of dithered+INT8 by group (greedy) | bytes median at T=1:
+  english  S      2 | lab    2   bytes T=1 0.258   bytes p99 T=1 0.259
+  code     S      1 | lab    1   bytes T=1 0.258   bytes p99 T=1 0.258
+  hindi    S     14 | lab   18   bytes T=1 0.258   bytes p99 T=1 0.281
+  bengali  S    292 | lab  490   bytes T=1 0.259   bytes p99 T=1 0.310
+  tamil    S    458 | lab  576   bytes T=1 0.259   bytes p99 T=1 0.315
+  telugu   S    290 | lab  326   bytes T=1 0.258   bytes p99 T=1 0.309
+
+Decision-rule checks:
+  PASS  C2/C3 clean
+  PASS  median greedy within 0.01
+  PASS  median gumbel_0.6 within 0.01
+  PASS  median gumbel_1.0 within 0.01
+  FAIL  median top50 within 0.01
+  PASS  median minp_0.05 within 0.01
+  PASS  p99 greedy within 0.05
+  PASS  p99 gumbel_0.6 within 0.05
+  PASS  p99 gumbel_1.0 within 0.05
+  PASS  p99 minp_0.05 within 0.05
+  PASS  ratio_mean_wc_over_mean_dither within 30%
+  PASS  ratio_wc_over_true_max within 30%
+  PASS  ratio_dither_over_true_max within 30%
+  PASS  true_largest_error_int4 within 30%
+  PASS  top_two_margin within 30%
+  PASS  status greedy: ours GATES_PASS, lab GATES_PASS
+  PASS  status gumbel_0.6: ours GATES_PASS, lab GATES_PASS
+  PASS  status gumbel_1.0: ours GATES_PASS, lab GATES_PASS
+  FAIL  status top50: ours UNDER_HALF, lab DEAD
+  PASS  status minp_0.05: ours GATES_PASS, lab GATES_PASS
+OUTCOME: PARTIAL

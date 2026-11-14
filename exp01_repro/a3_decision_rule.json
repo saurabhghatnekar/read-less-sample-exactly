@@ -1,0 +1,43 @@
+{
+  "experiment": "Ablation A3: mean-row shift (Kadav et al., arXiv:2609.31291) and the 4-bit certificate",
+  "written": "2026-11-14, before any A3 code was run on real states",
+  "question": "Does building the low-bit head copies from W_t = W - t * 1 mu^T (mu = vocabulary-row mean, FP64) shrink the bounds and the bytes the certificate reads, and does a fidelity-style search over t pick a different t than Kadav's KL search would?",
+  "models": {
+    "qwen3_8b": "Qwen/Qwen3-8B b968826d, untied 151,936 x 4,096, no soft-cap",
+    "gemma4_e4b": "google/gemma-4-E4B-it 4ecc2ba6, tied 262,144 x 2,560, soft-cap 30",
+    "sarvam_30b": "not in this run: the repro volume has no Sarvam states. A Sarvam dump is a separate step with its own rule addendum."
+  },
+  "states": "the exp01 reproduction states on the exp01-repro Modal volume, unchanged (greedy and T=1 modes)",
+  "reference": "unchanged from exp01: FP32-accumulated product of the original BF16 rows and BF16 h, TF32 off. The shift never touches the reference.",
+  "shift_construction": [
+    "mu = mean of the BF16 rows in FP64. W_t = float32(W - t * mu) computed in FP64. t = 0 uses W itself, so the t = 0 arm runs the exp01 code path unchanged.",
+    "All low-bit copies (INT8 per row, INT4 g128 RTN, dithered INT4 g128) are built from W_t with the exp01 quantizers.",
+    "Approximate logits are mapped back to the original frame before any rule: z~ = h Wq^T + t * (h . mu), with h . mu in FP64 (rank-one correction, Kadav App. B). This makes the soft-cap path exact for Gemma 4.",
+    "Extra interval slack when t != 0: U32 * ||h|| * ||W_t row|| (FP32 rounding of W_t) plus 2 * U32 * (|z~| + |t h.mu|) (cast and add)."
+  ],
+  "grid": [0.0, 1.0, 0.5, -0.5, -1.0, 1.5, 2.0, 3.0, 4.0],
+  "grid_note": "Order matters only for ties: the earlier entry wins, so t = 0 wins any tie. 4 is Kadav's Phi choice; the mean-row notebook shows INT4 group scales rising again by t = 2.",
+  "certificates": {
+    "headline": "dithered INT4 g128, Hoeffding delta = 1e-15 per row, with the INT8 stage (min of worst-case and residual bounds), all copies at the same t",
+    "secondary": ["dithered INT4 g128 single stage (Hoeffding)", "INT4 g128 RTN residual bound with INT8 stage (deterministic)", "INT8 per row alone, min of worst-case and residual"]
+  },
+  "rules": "greedy on greedy states; Gumbel T=0.6, Gumbel T=1, top-50 then Gumbel T=1, min-p 0.05 then Gumbel T=1 on T=1 states (exp01 read plans unchanged)",
+  "split": "by prompt id: even ids are validation, odd ids are test (20 prompts per language group in each). Selection never sees test states.",
+  "selection": "for each model, rule and certificate separately: t* = argmin over the grid of mean bytes (fraction of BF16 head) on validation states; ties go to the earlier grid entry.",
+  "primary_outcome": "headline certificate, greedy and Gumbel T=1: test mean bytes at t* minus test mean bytes at t = 0, with a 95% interval from 10,000 bootstrap resamples of test prompts (clusters).",
+  "verdicts": {
+    "HELPS": "t* != 0 and the interval lies entirely below 0, for greedy and for Gumbel T=1",
+    "NO_EFFECT": "t* = 0, or the interval contains 0, for greedy or for Gumbel T=1",
+    "HURTS": "the interval lies entirely above 0 for greedy or Gumbel T=1 (possible: selection is on validation)",
+    "reported_regardless": "the same contrast for t = 1 (fixed mean-centering), every rule, the secondary certificates, median and p99 bytes, median and p99 S and R, mean Hoeffding and residual bound width relative to t = 0, bound over true max error, and the results by language group"
+  },
+  "expectation_written_before_running": "Small or no effect on Qwen3-8B (shared energy 5.1%, group scale at t=1 is 0.967 of t=0); a larger but still modest narrowing on Gemma 4 (12.0%, 0.935). Medians already sit at the 0.258 first-pass floor on both, so any gain shows in p99 and mean bytes, not the median. We expect t* in [0.5, 1.5], not 4.",
+  "controls": {
+    "C2": "zero violations of worst-case and residual bounds at every t, every variant",
+    "C3": "zero token mismatches for every non-dither certificate at every t",
+    "C5": "dither normalised squared error within 0.98 to 1.02 at every t",
+    "T0": "the t = 0 per-state bytes, S and R arrays equal the exp01 arrays for the same certificate and rule on every state",
+    "C6_shift": "planted fault on the first 128 states of each mode: omit the t * (h . mu) add-back at t = 1. Every state where |h . mu| exceeds twice the largest residual bound must show a violation (zero misses). The share of all states caught, and the number of such states, are reported."
+  },
+  "invalid_if": "any C2, C3, T0 or C6_shift failure; the run is then debugged and rerun, and this file is not edited"
+}

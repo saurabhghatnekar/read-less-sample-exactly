@@ -1,0 +1,39 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-gQkICOoO7Gh7ItKGlCwKiY
+✓ Created objects.
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/shared_err_modal.py
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/shared_err_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+└── ✓ Created Function run.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+== qwen3_8b
+t0/int8_row             rmean: E0.000 mean1.000 max1.000  r1: E0.004 mean0.992 max1.000  r4: E0.005 mean0.992 max0.804  r16: E0.009 mean0.990 max0.724
+t0/int4_g128            rmean: E0.000 mean1.000 max1.000  r1: E0.003 mean0.994 max1.000  r4: E0.004 mean0.993 max1.000  r16: E0.008 mean0.991 max0.998
+t0/int4d_g128           rmean: E0.000 mean1.000 max1.000  r1: E0.003 mean0.994 max1.000  r4: E0.004 mean0.993 max0.999  r16: E0.008 mean0.991 max0.995  hoeff/res 0.242
+t1/int8_row             rmean: E0.000 mean1.000 max1.000  r1: E0.002 mean0.995 max1.000  r4: E0.003 mean0.994 max0.776  r16: E0.007 mean0.992 max0.689
+t1/int4_g128            rmean: E0.000 mean1.000 max1.000  r1: E0.001 mean0.997 max1.000  r4: E0.002 mean0.996 max0.997  r16: E0.006 mean0.994 max0.992
+t1/int4d_g128           rmean: E0.000 mean1.000 max1.000  r1: E0.001 mean0.997 max1.000  r4: E0.002 mean0.996 max1.000  r16: E0.006 mean0.994 max0.997  hoeff/res 0.241
+
+== gemma4_e4b
+t0/int8_row             rmean: E0.000 mean1.000 max1.000  r1: E0.001 mean1.000 max1.000  r4: E0.003 mean0.999 max1.000  r16: E0.009 mean0.996 max0.823
+t0/int4_g128            rmean: E0.001 mean1.000 max1.000  r1: E0.026 mean0.989 max0.999  r4: E0.029 mean0.988 max0.999  r16: E0.035 mean0.984 max0.995
+t0/int4d_g128           rmean: E0.001 mean1.000 max1.000  r1: E0.026 mean0.989 max1.000  r4: E0.029 mean0.988 max1.000  r16: E0.036 mean0.984 max0.996  hoeff/res 0.310
+t1/int8_row             rmean: E0.000 mean1.000 max1.000  r1: E0.001 mean1.000 max1.000  r4: E0.003 mean0.999 max0.951  r16: E0.009 mean0.996 max0.823
+t1/int4_g128            rmean: E0.000 mean1.000 max1.000  r1: E0.017 mean0.993 max1.000  r4: E0.020 mean0.991 max1.000  r16: E0.027 mean0.988 max0.998
+t1/int4d_g128           rmean: E0.001 mean1.000 max1.000  r1: E0.019 mean0.992 max1.000  r4: E0.023 mean0.990 max0.999  r16: E0.030 mean0.987 max0.997  hoeff/res 0.309
+
+== sarvam_30b
+t0/int8_row             rmean: E0.001 mean1.000 max1.000  r1: E0.017 mean0.989 max1.000  r4: E0.023 mean0.983 max1.000  r16: E0.029 mean0.979 max0.677
+t0/int4_g128            rmean: E0.001 mean0.999 max1.000  r1: E0.020 mean0.980 max1.000  r4: E0.021 mean0.978 max0.999  r16: E0.025 mean0.976 max0.997
+t0/int4d_g128           rmean: E0.001 mean0.999 max1.000  r1: E0.021 mean0.979 max1.000  r4: E0.023 mean0.977 max0.999  r16: E0.027 mean0.975 max0.989  hoeff/res 0.240
+t1/int8_row             rmean: E0.000 mean1.000 max1.000  r1: E0.002 mean0.997 max1.000  r4: E0.005 mean0.995 max0.999  r16: E0.009 mean0.992 max0.565
+t1/int4_g128            rmean: E0.000 mean1.000 max1.000  r1: E0.002 mean0.996 max1.000  r4: E0.003 mean0.995 max0.978  r16: E0.007 mean0.993 max0.925
+t1/int4d_g128           rmean: E0.000 mean1.000 max1.000  r1: E0.002 mean0.996 max0.999  r4: E0.003 mean0.995 max0.984  r16: E0.007 mean0.993 max0.875  hoeff/res 0.239
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-gQkICOoO7Gh7ItKGlCwKiY

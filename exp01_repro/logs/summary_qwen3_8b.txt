@@ -1,0 +1,54 @@
+states: greedy 28940, T=1 28871
+C1 alignment (BF16 product argmax == emitted greedy token): 1.0000
+C2 wc/res violations: 0   C3 non-dither mismatches: 0
+dither: violations 0, mismatches 0, normalized MSE 1.0007 over 8,783,572,096 rows
+
+Dithered INT4 g128 + INT8 stage (Hoeffding). S, R: median, p99. Bytes: median, p99, mean | lab median, p99
+  greedy      S       3      157  R    1      9  bytes 0.258 0.258 0.258  | lab 0.258 0.259  | INT8 cert 0.500 0.501
+  gumbel_0.6  S       3      170  R    1      9  bytes 0.258 0.258 0.258  | lab 0.258 0.259  | INT8 cert 0.500 0.501
+  gumbel_1.0  S       3      179  R    1      9  bytes 0.258 0.258 0.258  | lab 0.258 0.259  | INT8 cert 0.500 0.501
+  top50       S       6    82589  R    1     10  bytes 0.258 0.530 0.315  | lab 0.258 0.540  | INT8 cert 0.500 0.501
+  minp_0.05   S       6      629  R    1     20  bytes 0.258 0.260 0.258  | lab 0.258 0.261  | INT8 cert 0.500 0.501
+
+Best single-stage deterministic 4-bit certificate, median bytes:
+  greedy      0.668 (nvfp4/res)
+  gumbel_0.6  0.654 (nvfp4/res)
+  gumbel_1.0  0.652 (nvfp4/res)
+  top50       1.266 (int4_g128/res)
+  minp_0.05   0.946 (nvfp4/res)
+
+Readouts on greedy states (medians) | lab
+  ratio_mean_wc_over_mean_dither      5.137 | 4.87
+  ratio_wc_over_true_max             26.036 | 26.2
+  ratio_dither_over_true_max          5.535 | 5.5
+  true_largest_error_int4             2.195 | 2.19
+  top_two_margin                      8.534 | 8.16
+  largest dithered bound             12.766 | 12.6
+  top logit                          37.706 | ~38 (smoke)
+  h concentration l1/(sqrt(d) l2)     0.696 | ~0.70
+
+Median S of dithered+INT8 by group (greedy) | bytes median at T=1:
+  english  S      4   bytes T=1 0.258
+  code     S      1   bytes T=1 0.258
+  hindi    S      3   bytes T=1 0.258
+  bengali  S      4   bytes T=1 0.258
+  tamil    S      5   bytes T=1 0.258
+  telugu   S      3   bytes T=1 0.258
+
+Decision-rule checks:
+  PASS  C2/C3 clean
+  PASS  median greedy within 0.01
+  PASS  median gumbel_0.6 within 0.01
+  PASS  median gumbel_1.0 within 0.01
+  PASS  median top50 within 0.01
+  PASS  median minp_0.05 within 0.01
+  PASS  p99 greedy within 0.05
+  PASS  p99 gumbel_0.6 within 0.05
+  PASS  p99 gumbel_1.0 within 0.05
+  PASS  p99 minp_0.05 within 0.05
+  PASS  ratio_mean_wc_over_mean_dither within 30%
+  PASS  ratio_wc_over_true_max within 30%
+  PASS  ratio_dither_over_true_max within 30%
+  PASS  true_largest_error_int4 within 30%
+  PASS  top_two_margin within 30%
+OUTCOME: REPRODUCED

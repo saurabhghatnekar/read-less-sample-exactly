@@ -1,0 +1,3 @@
+2026-11-14 07:58:04 IST a3_decision_rule.json sha256 1cb364151716cfc877617fba7cb47ff82c258c1547f34a451927936bfe513620 (written before any A3 run on real states; code tested on synthetic heads only)
+2026-11-14 08:43:56 IST a3_addendum_sarvam.json sha256 ddbcb7c4272d11d0fda2bd69a7187568d1a2a7a41e609378e38a36b3fa8480e5 (written before any Sarvam dump)
+2026-11-14 09:46:45 IST subg_rule.json sha256 5d8c3ac63ddb6f47429315ce4ed9548c5c5768d325c83e5b2d3cd01180152431 (written before any B1 run)

@@ -1,0 +1,184 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-PrVzjOUJMYW6Fvr5ja5wFS
+Building image im-iG3TbD3Ouhs9ku6F89S3vq
+
+=> Step 0: FROM base
+
+=> Step 1: COPY /.requirements.txt /.requirements.txt
+
+=> Step 2: RUN python -m pip install -r /.requirements.txt
+Looking in indexes: http://pypi-mirror.modal.local:5555/simple
+Collecting accelerate==1.6.0 (from -r /.requirements.txt (line 1))
+  Downloading http://pypi-mirror.modal.local:5555/simple/accelerate/accelerate-1.6.0-py3-none-any.whl (354 kB)
+Collecting certifi==2026.10.19 (from -r /.requirements.txt (line 4))
+  Downloading http://pypi-mirror.modal.local:5555/simple/certifi/certifi-2026.10.19-py3-none-any.whl (136 kB)
+Collecting charset-normalizer==3.5.2 (from -r /.requirements.txt (line 7))
+  Downloading http://pypi-mirror.modal.local:5555/simple/charset-normalizer/charset_normalizer-3.5.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (269 kB)
+Collecting filelock==4.2.4 (from -r /.requirements.txt (line 180))
+  Downloading http://pypi-mirror.modal.local:5555/simple/filelock/filelock-4.2.4-py3-none-any.whl (162 kB)
+Collecting fsspec==2026.9.0 (from -r /.requirements.txt (line 183))
+  Downloading http://pypi-mirror.modal.local:5555/simple/fsspec/fsspec-2026.9.0-py3-none-any.whl (221 kB)
+Collecting hf-xet==1.7.0 (from -r /.requirements.txt (line 186))
+  Downloading http://pypi-mirror.modal.local:5555/simple/hf-xet/hf_xet-1.7.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.2/4.2 MB 307.4 MB/s  0:00:00
+Collecting huggingface-hub==0.36.2 (from -r /.requirements.txt (line 204))
+  Downloading http://pypi-mirror.modal.local:5555/simple/huggingface-hub/huggingface_hub-0.36.2-py3-none-any.whl (566 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 566.4/566.4 kB 493.9 MB/s  0:00:00
+Collecting idna==3.20 (from -r /.requirements.txt (line 207))
+  Downloading http://pypi-mirror.modal.local:5555/simple/idna/idna-3.20-py3-none-any.whl (69 kB)
+Collecting jinja2==3.1.6 (from -r /.requirements.txt (line 210))
+  Downloading http://pypi-mirror.modal.local:5555/simple/jinja2/jinja2-3.1.6-py3-none-any.whl (134 kB)
+Collecting markupsafe==3.0.4 (from -r /.requirements.txt (line 213))
+  Downloading http://pypi-mirror.modal.local:5555/simple/markupsafe/markupsafe-3.0.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+Collecting mpmath==1.3.0 (from -r /.requirements.txt (line 365))
+  Downloading http://pypi-mirror.modal.local:5555/simple/mpmath/mpmath-1.3.0-py3-none-any.whl (536 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 536.2/536.2 kB 358.2 MB/s  0:00:00
+Collecting networkx==3.6.1 (from -r /.requirements.txt (line 368))
+  Downloading http://pypi-mirror.modal.local:5555/simple/networkx/networkx-3.6.1-py3-none-any.whl (2.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 280.5 MB/s  0:00:00
+Collecting numpy==2.1.3 (from -r /.requirements.txt (line 371))
+  Downloading http://pypi-mirror.modal.local:5555/simple/numpy/numpy-2.1.3-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (16.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.3/16.3 MB 270.4 MB/s  0:00:00
+Collecting nvidia-cublas-cu12==12.4.5.8 (from -r /.requirements.txt (line 427))
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cublas-cu12/nvidia_cublas_cu12-12.4.5.8-py3-none-manylinux2014_x86_64.whl (363.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 363.4/363.4 MB 253.0 MB/s  0:00:01
+Collecting nvidia-cuda-cupti-cu12==12.4.127 (from -r /.requirements.txt (line 431))
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cuda-cupti-cu12/nvidia_cuda_cupti_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl (13.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 13.8/13.8 MB 241.7 MB/s  0:00:00
+Collecting nvidia-cuda-nvrtc-cu12==12.4.127 (from -r /.requirements.txt (line 435))
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cuda-nvrtc-cu12/nvidia_cuda_nvrtc_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl (24.6 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 24.6/24.6 MB 249.9 MB/s  0:00:00
+Collecting nvidia-cuda-runtime-cu12==12.4.127 (from -r /.requirements.txt (line 439))
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cuda-runtime-cu12/nvidia_cuda_runtime_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl (883 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 883.7/883.7 kB 326.0 MB/s  0:00:00
+Collecting nvidia-cudnn-cu12==9.1.0.70 (from -r /.requirements.txt (line 443))
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cudnn-cu12/nvidia_cudnn_cu12-9.1.0.70-py3-none-manylinux2014_x86_64.whl (664.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 664.8/664.8 MB 254.4 MB/s  0:00:02
+Collecting nvidia-cufft-cu12==11.2.1.3 (from -r /.requirements.txt (line 446))
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cufft-cu12/nvidia_cufft_cu12-11.2.1.3-py3-none-manylinux2014_x86_64.whl (211.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 211.5/211.5 MB 261.9 MB/s  0:00:00
+Collecting nvidia-curand-cu12==10.3.5.147 (from -r /.requirements.txt (line 450))
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-curand-cu12/nvidia_curand_cu12-10.3.5.147-py3-none-manylinux2014_x86_64.whl (56.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 56.3/56.3 MB 259.8 MB/s  0:00:00
+Collecting nvidia-cusolver-cu12==11.6.1.9 (from -r /.requirements.txt (line 454))
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cusolver-cu12/nvidia_cusolver_cu12-11.6.1.9-py3-none-manylinux2014_x86_64.whl (127.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 127.9/127.9 MB 261.3 MB/s  0:00:00
+Collecting nvidia-cusparse-cu12==12.3.1.170 (from -r /.requirements.txt (line 458))
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cusparse-cu12/nvidia_cusparse_cu12-12.3.1.170-py3-none-manylinux2014_x86_64.whl (207.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 207.5/207.5 MB 241.3 MB/s  0:00:00
+Collecting nvidia-nccl-cu12==2.21.5 (from -r /.requirements.txt (line 462))
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-nccl-cu12/nvidia_nccl_cu12-2.21.5-py3-none-manylinux2014_x86_64.whl (188.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 188.7/188.7 MB 207.7 MB/s  0:00:00
+Collecting nvidia-nvjitlink-cu12==12.4.127 (from -r /.requirements.txt (line 464))
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-nvjitlink-cu12/nvidia_nvjitlink_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl (21.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 21.1/21.1 MB 232.0 MB/s  0:00:00
+Collecting nvidia-nvtx-cu12==12.4.127 (from -r /.requirements.txt (line 468))
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-nvtx-cu12/nvidia_nvtx_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl (99 kB)
+Collecting packaging==26.3 (from -r /.requirements.txt (line 472))
+  Downloading http://pypi-mirror.modal.local:5555/simple/packaging/packaging-26.3-py3-none-any.whl (129 kB)
+Collecting psutil==7.2.2 (from -r /.requirements.txt (line 475))
+  Downloading http://pypi-mirror.modal.local:5555/simple/psutil/psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl (155 kB)
+Collecting pyyaml==6.0.3 (from -r /.requirements.txt (line 497))
+  Downloading http://pypi-mirror.modal.local:5555/simple/pyyaml/pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (806 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 806.6/806.6 kB 442.4 MB/s  0:00:00
+Collecting regex==2026.9.29 (from -r /.requirements.txt (line 571))
+  Downloading http://pypi-mirror.modal.local:5555/simple/regex/regex-2026.9.29-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (804 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 805.0/805.0 kB 109.2 MB/s  0:00:00
+Collecting requests==2.34.2 (from -r /.requirements.txt (line 702))
+  Downloading http://pypi-mirror.modal.local:5555/simple/requests/requests-2.34.2-py3-none-any.whl (73 kB)
+Collecting safetensors==0.5.3 (from -r /.requirements.txt (line 705))
+  Downloading http://pypi-mirror.modal.local:5555/simple/safetensors/safetensors-0.5.3-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (471 kB)
+Collecting sympy==1.13.1 (from -r /.requirements.txt (line 721))
+  Downloading http://pypi-mirror.modal.local:5555/simple/sympy/sympy-1.13.1-py3-none-any.whl (6.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.2/6.2 MB 177.1 MB/s  0:00:00
+Collecting tokenizers==0.22.2 (from -r /.requirements.txt (line 724))
+  Downloading http://pypi-mirror.modal.local:5555/simple/tokenizers/tokenizers-0.22.2-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.3/3.3 MB 321.9 MB/s  0:00:00
+Collecting torch==2.5.1 (from -r /.requirements.txt (line 749))
+  Downloading http://pypi-mirror.modal.local:5555/simple/torch/torch-2.5.1-cp311-cp311-manylinux1_x86_64.whl (906.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 906.5/906.5 MB 214.3 MB/s  0:00:04
+Collecting tqdm==4.70.1 (from -r /.requirements.txt (line 767))
+  Downloading http://pypi-mirror.modal.local:5555/simple/tqdm/tqdm-4.70.1-py3-none-any.whl (80 kB)
+Collecting transformers==4.57.2 (from -r /.requirements.txt (line 770))
+  Downloading http://pypi-mirror.modal.local:5555/simple/transformers/transformers-4.57.2-py3-none-any.whl (12.0 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.0/12.0 MB 45.6 MB/s  0:00:00
+Collecting triton==3.1.0 (from -r /.requirements.txt (line 773))
+  Downloading http://pypi-mirror.modal.local:5555/simple/triton/triton-3.1.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (209.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 209.5/209.5 MB 228.7 MB/s  0:00:00
+Collecting typing-extensions==4.16.0 (from -r /.requirements.txt (line 779))
+  Downloading http://pypi-mirror.modal.local:5555/simple/typing-extensions/typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+Collecting urllib3==2.8.0 (from -r /.requirements.txt (line 782))
+  Downloading http://pypi-mirror.modal.local:5555/simple/urllib3/urllib3-2.8.0-py3-none-any.whl (135 kB)
+Installing collected packages: mpmath, urllib3, typing-extensions, tqdm, sympy, safetensors, regex, pyyaml, psutil, packaging, nvidia-nvtx-cu12, nvidia-nvjitlink-cu12, nvidia-nccl-cu12, nvidia-curand-cu12, nvidia-cufft-cu12, nvidia-cuda-runtime-cu12, nvidia-cuda-nvrtc-cu12, nvidia-cuda-cupti-cu12, nvidia-cublas-cu12, numpy, networkx, markupsafe, idna, hf-xet, fsspec, filelock, charset-normalizer, certifi, triton, requests, nvidia-cusparse-cu12, nvidia-cudnn-cu12, jinja2, nvidia-cusolver-cu12, huggingface-hub, torch, tokenizers, transformers, accelerate
+
+Successfully installed accelerate-1.6.0 certifi-2026.10.19 charset-normalizer-3.5.2 filelock-4.2.4 fsspec-2026.9.0 hf-xet-1.7.0 huggingface-hub-0.36.2 idna-3.20 jinja2-3.1.6 markupsafe-3.0.4 mpmath-1.3.0 networkx-3.6.1 numpy-2.1.3 nvidia-cublas-cu12-12.4.5.8 nvidia-cuda-cupti-cu12-12.4.127 nvidia-cuda-nvrtc-cu12-12.4.127 nvidia-cuda-runtime-cu12-12.4.127 nvidia-cudnn-cu12-9.1.0.70 nvidia-cufft-cu12-11.2.1.3 nvidia-curand-cu12-10.3.5.147 nvidia-cusolver-cu12-11.6.1.9 nvidia-cusparse-cu12-12.3.1.170 nvidia-nccl-cu12-2.21.5 nvidia-nvjitlink-cu12-12.4.127 nvidia-nvtx-cu12-12.4.127 packaging-26.3 psutil-7.2.2 pyyaml-6.0.3 regex-2026.9.29 requests-2.34.2 safetensors-0.5.3 sympy-1.13.1 tokenizers-0.22.2 torch-2.5.1 tqdm-4.70.1 transformers-4.57.2 triton-3.1.0 typing-extensions-4.16.0 urllib3-2.8.0
+
+[notice] A new release of pip is available: 25.2 -> 26.3
+[notice] To update, run: pip install --upgrade pip
+Saving image...
+Image saved, took 6.68s
+
+Built image im-iG3TbD3Ouhs9ku6F89S3vq in 84.88s
+
+
+Building image im-hvPSANxef08IwiScEpD6kt
+
+=> Step 0: FROM base
+
+=> Step 1: ENV PYTHONUNBUFFERED=1
+
+=> Step 2: ENV HF_HOME=/vol/hf
+
+=> Step 3: ENV TOKENIZERS_PARALLELISM=false
+Saving image...
+Image saved, took 713.85ms
+
+Built image im-hvPSANxef08IwiScEpD6kt in 1.32s
+
+
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/sarvam_modal.py
+├── ✓ Created Function fetch_model.
+└── ✓ Created Function dump_states.
+
+[1AFetching 39 files:   0%|          | 0/39 [00:00<?, ?it/s]
+[1AFetching 39 files:  18%|█▊        | 7/39 [00:10<00:45,  1.43s/it]
+[1AFetching 39 files:  21%|██        | 8/39 [00:49<03:11,  6.19s/it]
+[1AFetching 39 files:  23%|██▎       | 9/39 [01:01<03:24,  6.81s/it]
+[1AFetching 39 files:  26%|██▌       | 10/39 [01:15<03:39,  7.58s/it]
+[1AFetching 39 files:  28%|██▊       | 11/39 [01:38<04:11,  8.97s/it]
+[1AFetching 39 files:  31%|███       | 12/39 [02:03<04:38, 10.30s/it]
+[1AFetching 39 files:  33%|███▎      | 13/39 [02:04<04:08,  9.56s/it]
+[1AFetching 39 files:  36%|███▌      | 14/39 [02:07<03:47,  9.10s/it]
+[1AFetching 39 files:  38%|███▊      | 15/39 [02:09<03:27,  8.65s/it]
+[1AFetching 39 files:  41%|████      | 16/39 [02:25<03:29,  9.12s/it]
+[1AFetching 39 files:  44%|████▎     | 17/39 [02:40<03:27,  9.45s/it]
+[1AFetching 39 files:  46%|████▌     | 18/39 [02:53<03:22,  9.65s/it]
+[1AFetching 39 files:  49%|████▊     | 19/39 [03:07<03:17,  9.86s/it][modal-client] 2026-11-14T03:18:58+0000 Modal Client → Modal Worker Heartbeat attempt failed (attempt_dur=61.78, time_since_heartbeat_success=61.78, error=ConnectionError('Deadline exceeded'))
+
+[1AFetching 39 files:  51%|█████▏    | 20/39 [03:33<03:23, 10.69s/it]
+[1AFetching 39 files:  54%|█████▍    | 21/39 [03:47<03:14, 10.81s/it]
+[1AFetching 39 files:  56%|█████▋    | 22/39 [04:18<03:19, 11.73s/it]
+[1AFetching 39 files:  59%|█████▉    | 23/39 [04:18<03:00, 11.26s/it]
+[1AFetching 39 files:  62%|██████▏   | 24/39 [04:28<02:47, 11.19s/it]
+[1AFetching 39 files:  64%|██████▍   | 25/39 [04:54<02:45, 11.79s/it]
+[1AFetching 39 files:  67%|██████▋   | 26/39 [05:13<02:36, 12.05s/it]
+[1AFetching 39 files:  69%|██████▉   | 27/39 [05:13<02:19, 11.61s/it]
+[1AFetching 39 files:  72%|███████▏  | 28/39 [05:13<02:03, 11.20s/it]
+[1AFetching 39 files:  74%|███████▍  | 29/39 [05:15<01:48, 10.87s/it]
+[1AFetching 39 files:  77%|███████▋  | 30/39 [05:15<01:34, 10.52s/it]
+[1AFetching 39 files:  79%|███████▉  | 31/39 [05:18<01:22, 10.29s/it]
+[1AFetching 39 files:  82%|████████▏ | 32/39 [05:19<01:09,  9.97s/it]
+[1AFetching 39 files:  85%|████████▍ | 33/39 [05:22<00:58,  9.77s/it]
+[1AFetching 39 files:  87%|████████▋ | 34/39 [05:32<00:48,  9.79s/it][modal-client] 2026-11-14T03:21:16+0000 Modal Client → Modal Worker Heartbeat attempt failed (attempt_dur=61.70, time_since_heartbeat_success=61.70, error=ConnectionError('Deadline exceeded'))
+
+[1AFetching 39 files:  90%|████████▉ | 35/39 [06:06<00:41, 10.48s/it]
+[1AFetching 39 files:  92%|█████████▏| 36/39 [06:09<00:30, 10.28s/it]
+[1AFetching 39 files:  95%|█████████▍| 37/39 [06:13<00:20, 10.09s/it]
+[1AFetching 39 files:  97%|█████████▋| 38/39 [06:17<00:09,  9.93s/it]
+[1AFetching 39 files: 100%|██████████| 39/39 [06:23<00:00,  9.83s/it]Fetching 39 files: 100%|██████████| 39/39 [06:23<00:00,  9.83s/it]
+['.cache', '.complete', '.gitattributes', 'README.md', 'chat_template.jinja', 'config.json', 'configuration_sarvam_moe.py', 'generation_config.json', 'hotpatch_vllm.py', 'model-00001-of-00026.safetensors', 'model-00002-of-00026.safetensors', 'model-00003-of-00026.safetensors', 'model-00004-of-00026.safetensors', 'model-00005-of-00026.safetensors', 'model-00006-of-00026.safetensors', 'model-00007-of-00026.safetensors', 'model-00008-of-00026.safetensors', 'model-00009-of-00026.safetensors', 'model-00010-of-00026.safetensors', 'model-00011-of-00026.safetensors', 'model-00012-of-00026.safetensors', 'model-00013-of-00026.safetensors', 'model-00014-of-00026.safetensors', 'model-00015-of-00026.safetensors', 'model-00016-of-00026.safetensors', 'model-00017-of-00026.safetensors', 'model-00018-of-00026.safetensors', 'model-00019-of-00026.safetensors', 'model-00020-of-00026.safetensors', 'model-00021-of-00026.safetensors', 'model-00022-of-00026.safetensors', 'model-00023-of-00026.safetensors', 'model-00024-of-00026.safetensors', 'model-00025-of-00026.safetensors', 'model-00026-of-00026.safetensors', 'model.safetensors.index.json', 'modeling_sarvam_moe.py', 'sarvam.py', 'special_tokens_map.json', 'tokenizer.json', 'tokenizer_config.json']
+Stopping app - local entrypoint completed.
+[modal-client] 2026-11-14T08:52:18+0530 Timed out waiting for final app logs.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-PrVzjOUJMYW6Fvr5ja5wFS

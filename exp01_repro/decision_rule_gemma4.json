@@ -1,0 +1,33 @@
+{
+  "experiment": "Exp01 independent reproduction, Gemma 4 E4B",
+  "written": "2026-11-09, after the Qwen3-8B run and before any Gemma 4 dump or measurement",
+  "target": "Vizuara lab note Exp01 (5 Nov 2026), Gemma 4 E4B rows and readouts",
+  "reference_definition": "FP32-accumulated product of BF16 head rows and BF16 h, TF32 disabled; rules applied to soft-capped logits (cap 30, monotone, intervals mapped through it)",
+  "model": {"repo": "google/gemma-4-E4B-it", "revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c", "head": "tied model.language_model.embed_tokens.weight, 262,144 x 2,560"},
+  "prompts": "same 240 prompts as the Qwen3-8B run (prompts.jsonl sha256 d2dd0a665d435a74...)",
+  "generation": "chat template (no thinking switch in this template), batch 16, BF16, 128 new tokens, greedy and T=1 (top_k=0, top_p=1); states after EOS dropped",
+  "scoring": "as decision_rule.json",
+  "headline_certificate": "dithered INT4 g128 (Hoeffding, delta=1e-15 per row) with INT8 stage",
+  "lab_note_values": {
+    "dither_int8_bytes_median": {"greedy": 0.258, "gumbel_0.6": 0.258, "gumbel_1.0": 0.258, "top50": 0.503, "minp_0.05": 0.259},
+    "dither_int8_bytes_p99": {"greedy": 0.302, "gumbel_0.6": 0.308, "gumbel_1.0": 0.307, "top50": 0.644, "minp_0.05": 0.340},
+    "ratio_mean_wc_over_mean_dither": 3.35,
+    "ratio_wc_over_true_max": 17.3,
+    "ratio_dither_over_true_max": 6.3,
+    "true_largest_error_int4": 4.94,
+    "top_two_margin": 5.60,
+    "largest_dithered_bound": 34.1,
+    "median_S_greedy_by_group": {"english": 2, "code": 1, "hindi": 18, "bengali": 490, "tamil": 576, "telugu": 326},
+    "statuses": {"greedy": "GATES_PASS", "gumbel_0.6": "GATES_PASS", "gumbel_1.0": "GATES_PASS", "top50": "DEAD", "minp_0.05": "GATES_PASS"}
+  },
+  "reproduced_if": [
+    "C2: zero violations of worst-case and residual bounds; C3: zero token mismatches for non-dither certificates",
+    "dither+INT8 median bytes within 0.01 of the lab value for every rule",
+    "dither+INT8 p99 bytes within 0.05 of the lab value for greedy, both Gumbel temperatures and min-p",
+    "each of the five readout ratios/values within 30% of the lab value",
+    "same status as the lab note for every rule"
+  ],
+  "not_reproduced_if": "any C2/C3 failure, or dither+INT8 median bytes off by more than 0.05 for greedy or Gumbel T=1",
+  "otherwise": "partial; report which items differ and by how much",
+  "also_reported_not_gated": "median S by language group on greedy (the lab saw Bengali, Tamil, Telugu 150-600x wider than English); our prompts are Flores-IN, the lab's were newspaper OCR, so this is where a difference is most expected"
+}

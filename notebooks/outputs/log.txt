@@ -1,0 +1,37 @@
+== gemma4_e4b: google/gemma-4-E4B-it :: model.language_model.embed_tokens.weight
+  downloaded 1.25 GiB in 6s
+  commit 4ecc2ba63bcac23ba4a767fc87025b1450f84c9c  dtype BF16  shape (262144, 2560)
+  stats in 9s
+== qwen3_8b: Qwen/Qwen3-8B :: lm_head.weight
+  downloaded 1.16 GiB in 6s
+  commit b968826d9c46dd6066d109eabc6255188de91218  dtype BF16  shape (151936, 4096)
+  stats in 19s
+== sarvam_30b: sarvamai/sarvam-30b :: lm_head.weight
+  downloaded 4.00 GiB in 67s
+  commit 071ae95e933605ca1104a6b4524a36a98488efa4  dtype F32  shape (262144, 4096)
+  stats in 65s
+                                  gemma4_e4b        qwen3_8b      sarvam_30b
+V                                     262144          151936          262144
+d                                       2560            4096            4096
+dtype                                   BF16            BF16             F32
+mu_norm                               0.4184          0.3764          0.7298
+row_norm_median                        1.218           1.699           1.609
+row_norm_p10                           1.082           1.322           1.217
+row_norm_p90                           1.301           1.915           1.946
+mu_over_median_row                    0.3435          0.2216          0.4536
+energy_share_mu                       0.1197         0.05108           0.201
+centered_over_raw_median              0.9373          0.9754          0.8848
+cos_median                             0.347          0.2419          0.4738
+cos_p10                               0.2952          0.1274          0.3287
+cos_p90                               0.3945          0.3238          0.6281
+frac_rows_cos_gt_0                         1          0.9812          0.9985
+top_eig_share                         0.1214         0.05805          0.2075
+cos_v1_mu                             0.9997          0.9994          0.9949
+mu_linf_over_l2                       0.1377         0.09148         0.09766
+mu_top8_share                        0.06663         0.05017         0.05312
+mu_top8_dims                [634, 435, 1612, 2050, 2498, 1224, 607, 65][994, 233, 929, 3522, 1443, 3717, 270, 3666][3444, 2819, 276, 131, 2493, 2412, 544, 1915]
+
+INT4 group-128 scale (median max|w| per group) for W - t*mu, relative to t=0:
+  gemma4_e4b   t=0.0: 1.000  t=0.5: 0.952  t=1.0: 0.935  t=1.5: 0.950  t=2.0: 1.000
+  qwen3_8b     t=0.0: 1.000  t=0.5: 0.976  t=1.0: 0.967  t=1.5: 0.972  t=2.0: 0.991
+  sarvam_30b   t=0.0: 1.000  t=0.5: 0.925  t=1.0: 0.904  t=1.5: 0.914  t=2.0: 0.967

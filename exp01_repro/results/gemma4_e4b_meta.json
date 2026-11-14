@@ -1,0 +1,8 @@
+{
+ "torch": "2.15.0+cu132",
+ "transformers": "5.22.2",
+ "repo": "google/gemma-4-E4B-it",
+ "rev": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+ "n_states": 59215,
+ "seconds": 314.8439612388611
+}

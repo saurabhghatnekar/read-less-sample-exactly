@@ -1,0 +1,43 @@
+# B1 sub-Gaussian bound, Qwen3-8B
+
+greedy: 28940 states. S1 values differing from A3: 0. S2 sub-Gaussian violations {'t0': 0, 't1': 0, 't0.5': 0, 't1.5': 0}, largest excess -0.1675. Dithered-token mismatches 0. S4 {t0: 1.0009, t1: 0.9972, t0.5: 0.9961, t1.5: 0.9969}. Bound ratio subg/hoeff 0.5844
+t1: 28871 states. S1 values differing from A3: 0. S2 sub-Gaussian violations {'t0': 0, 't1': 0, 't0.5': 0, 't1.5': 0}, largest excess -0.1957. Dithered-token mismatches 0. S4 {t0: 1.0006, t1: 0.9971, t0.5: 0.9960, t1.5: 0.9970}. Bound ratio subg/hoeff 0.5844
+
+## sub-Gaussian + INT8
+
+| Rule | t* | Status (all states, t*) | Test bytes at t* (median, p99, mean) | R median, p99 | Δmean vs Hoeffding+INT8 at t=0 [95%] |
+|---|---|---|---|---|---|
+| greedy | 0.5 | GATES_PASS | 0.258, 0.258, 0.258 | 1, 9 | -0.0000 [-0.0001, -0.0000] |
+| gumbel_0.6 | 0.5 | GATES_PASS | 0.258, 0.258, 0.258 | 1, 9 | -0.0000 [-0.0001, -0.0000] |
+| gumbel_1.0 | 0.5 | GATES_PASS | 0.258, 0.258, 0.258 | 1, 8 | -0.0000 [-0.0001, -0.0000] |
+| top50 | 0.5 | GATES_PASS | 0.258, 0.274, 0.258 | 1, 10 | -0.0569 [-0.0630, -0.0508] |
+| minp_0.05 | 0.5 | GATES_PASS | 0.258, 0.258, 0.258 | 1, 20 | -0.0001 [-0.0002, -0.0001] |
+
+## sub-Gaussian, single stage
+
+| Rule | t* | Status (all states, t*) | Test bytes at t* (median, p99, mean) | R median, p99 | Δmean vs Hoeffding+INT8 at t=0 [95%] |
+|---|---|---|---|---|---|
+| greedy | 0.5 | GATES_PASS | 0.258, 0.258, 0.258 | 1, 21 | -0.0000 [-0.0001, -0.0000] |
+| gumbel_0.6 | 0 | GATES_PASS | 0.258, 0.258, 0.258 | 1, 22 | -0.0000 [-0.0001, -0.0000] |
+| gumbel_1.0 | 0.5 | GATES_PASS | 0.258, 0.258, 0.258 | 1, 22 | -0.0000 [-0.0001, -0.0000] |
+| top50 | 0.5 | UNDER_HALF | 0.258, 0.289, 0.259 | 1, 4671 | -0.0564 [-0.0624, -0.0503] |
+| minp_0.05 | 0 | GATES_PASS | 0.258, 0.258, 0.258 | 2, 54 | -0.0001 [-0.0002, -0.0001] |
+
+## Hoeffding + INT8 (A3 headline)
+
+| Rule | t* | Status (all states, t*) | Test bytes at t* (median, p99, mean) | R median, p99 | Δmean vs Hoeffding+INT8 at t=0 [95%] |
+|---|---|---|---|---|---|
+| greedy | 0.5 | GATES_PASS | 0.258, 0.258, 0.258 | 1, 9 | -0.0000 [-0.0000, +0.0000] |
+| gumbel_0.6 | 0.5 | GATES_PASS | 0.258, 0.258, 0.258 | 1, 9 | -0.0000 [-0.0000, +0.0000] |
+| gumbel_1.0 | 0.5 | GATES_PASS | 0.258, 0.259, 0.258 | 1, 8 | -0.0000 [-0.0000, +0.0000] |
+| top50 | 0.5 | UNDER_HALF | 0.258, 0.516, 0.310 | 1, 10 | -0.0049 [-0.0057, -0.0041] |
+| minp_0.05 | 0.5 | GATES_PASS | 0.258, 0.260, 0.258 | 1, 20 | -0.0000 [-0.0000, +0.0000] |
+
+## Sub-Gaussian + INT8, greedy, t = 1: bytes by language group (median, p99, mean)
+
+- bengali: 0.258, 0.258, 0.258
+- code: 0.258, 0.258, 0.258
+- english: 0.258, 0.258, 0.258
+- hindi: 0.258, 0.258, 0.258
+- tamil: 0.258, 0.258, 0.258
+- telugu: 0.258, 0.258, 0.258

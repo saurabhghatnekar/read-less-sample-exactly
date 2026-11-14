@@ -1,0 +1,8 @@
+{
+ "torch": "2.15.0+cu132",
+ "transformers": "5.22.2",
+ "repo": "Qwen/Qwen3-8B",
+ "rev": "b968826d9c46dd6066d109eabc6255188de91218",
+ "n_states": 57811,
+ "seconds": 187.90994715690613
+}

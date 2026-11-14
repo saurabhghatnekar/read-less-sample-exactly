@@ -1,0 +1,30 @@
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-baC3fQqL8eZ50NaQlYN0cV
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-8IrbwTqRYzuM5CJArzvDrO
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/exp01_modal.py
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+16 analysis jobs
+{'mode': 'greedy', 'start': 28672, 'n': 268, 'c2': 0, 'c3': 0}
+{'mode': 'greedy', 'start': 0, 'n': 4096, 'c2': 0, 'c3': 0}
+{'mode': 'greedy', 'start': 16384, 'n': 4096, 'c2': 0, 'c3': 0}
+{'mode': 'greedy', 'start': 12288, 'n': 4096, 'c2': 0, 'c3': 0}
+{'mode': 'greedy', 'start': 8192, 'n': 4096, 'c2': 0, 'c3': 0}
+{'mode': 'greedy', 'start': 4096, 'n': 4096, 'c2': 0, 'c3': 0}
+{'mode': 'greedy', 'start': 24576, 'n': 4096, 'c2': 0, 'c3': 0}
+{'mode': 'greedy', 'start': 20480, 'n': 4096, 'c2': 0, 'c3': 0}
+{'mode': 't1', 'start': 28672, 'n': 199, 'c2': 0, 'c3': 0}
+{'mode': 't1', 'start': 4096, 'n': 4096, 'c2': 0, 'c3': 0}
+{'mode': 't1', 'start': 0, 'n': 4096, 'c2': 0, 'c3': 0}
+{'mode': 't1', 'start': 12288, 'n': 4096, 'c2': 0, 'c3': 0}
+{'mode': 't1', 'start': 8192, 'n': 4096, 'c2': 0, 'c3': 0}
+{'mode': 't1', 'start': 16384, 'n': 4096, 'c2': 0, 'c3': 0}
+{'mode': 't1', 'start': 24576, 'n': 4096, 'c2': 0, 'c3': 0}
+{'mode': 't1', 'start': 20480, 'n': 4096, 'c2': 0, 'c3': 0}
+TOTAL {'n': 57811, 'c2': 0, 'c3': 0}
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-8IrbwTqRYzuM5CJArzvDrO
+✓ Finished downloading files to local!
+✓ Finished downloading files to local!

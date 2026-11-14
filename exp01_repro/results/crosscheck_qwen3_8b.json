@@ -1,0 +1,402 @@
+{
+ "model": "qwen3_8b",
+ "n_states": 28871,
+ "cells": {
+  "A/ours-iv/ours-plan/gumbel_1.0/R": {
+   "median": 1.0,
+   "p99": 9.0,
+   "mean": 1.6676595892071628
+  },
+  "A/ours-iv/ours-plan/gumbel_1.0/S": {
+   "median": 3.0,
+   "p99": 180.0,
+   "mean": 14.968307297980672,
+   "by_group": {
+    "bengali": 5.0,
+    "code": 1.0,
+    "english": 5.0,
+    "hindi": 3.0,
+    "tamil": 5.0,
+    "telugu": 3.0
+   }
+  },
+  "A/ours-iv/ours-plan/gumbel_1.0/bytes": {
+   "median": 0.25807639956474304,
+   "p99": 0.25867918133735657,
+   "mean": 0.2581169334153193,
+   "by_group": {
+    "bengali": 0.2580797076225281,
+    "code": 0.2580665349960327,
+    "english": 0.2580829858779907,
+    "hindi": 0.2580731213092804,
+    "tamil": 0.2580829858779907,
+    "telugu": 0.25807639956474304
+   }
+  },
+  "A/ours-iv/ours-plan/gumbel_1.0/mismatch": {
+   "sum": 0.0,
+   "mean": 0.0
+  },
+  "A/ours-iv/ours-plan/top50/R": {
+   "median": 1.0,
+   "p99": 10.0,
+   "mean": 3.5956149769665062
+  },
+  "A/ours-iv/ours-plan/top50/S": {
+   "median": 6.0,
+   "p99": 82598.0,
+   "mean": 17339.55696027155,
+   "by_group": {
+    "bengali": 25641.0,
+    "code": 1.0,
+    "english": 4172.0,
+    "hindi": 4.0,
+    "tamil": 22767.0,
+    "telugu": 8.0
+   }
+  },
+  "A/ours-iv/ours-plan/top50/bytes": {
+   "median": 0.2580895721912384,
+   "p99": 0.5301602482795715,
+   "mean": 0.31519808093840274,
+   "by_group": {
+    "bengali": 0.34252655506134033,
+    "code": 0.2580665349960327,
+    "english": 0.27183905243873596,
+    "hindi": 0.2580797076225281,
+    "tamil": 0.33307257294654846,
+    "telugu": 0.2580961585044861
+   }
+  },
+  "A/ours-iv/ours-plan/top50/mismatch": {
+   "sum": 0.0,
+   "mean": 0.0
+  },
+  "A/ours-iv/theirs-plan/gumbel_1.0/R": {
+   "median": 1.0,
+   "p99": 9.0,
+   "mean": 1.6676595892071628
+  },
+  "A/ours-iv/theirs-plan/gumbel_1.0/S": {
+   "median": 3.0,
+   "p99": 180.0,
+   "mean": 14.968307297980672,
+   "by_group": {
+    "bengali": 5.0,
+    "code": 1.0,
+    "english": 5.0,
+    "hindi": 3.0,
+    "tamil": 5.0,
+    "telugu": 3.0
+   }
+  },
+  "A/ours-iv/theirs-plan/gumbel_1.0/bytes": {
+   "median": 0.25807639956474304,
+   "p99": 0.25867918133735657,
+   "mean": 0.2581169334153193,
+   "by_group": {
+    "bengali": 0.2580797076225281,
+    "code": 0.2580665349960327,
+    "english": 0.2580829858779907,
+    "hindi": 0.2580731213092804,
+    "tamil": 0.2580829858779907,
+    "telugu": 0.25807639956474304
+   }
+  },
+  "A/ours-iv/theirs-plan/gumbel_1.0/mismatch": {
+   "sum": 0.0,
+   "mean": 0.0
+  },
+  "A/ours-iv/theirs-plan/top50/R": {
+   "median": 1.0,
+   "p99": 10.0,
+   "mean": 3.594749056146306
+  },
+  "A/ours-iv/theirs-plan/top50/S": {
+   "median": 6.0,
+   "p99": 82598.0,
+   "mean": 17339.55249212012,
+   "by_group": {
+    "bengali": 25641.0,
+    "code": 1.0,
+    "english": 4172.0,
+    "hindi": 4.0,
+    "tamil": 22767.0,
+    "telugu": 8.0
+   }
+  },
+  "A/ours-iv/theirs-plan/top50/bytes": {
+   "median": 0.2580895721912384,
+   "p99": 0.5301602482795715,
+   "mean": 0.31519806052756416,
+   "by_group": {
+    "bengali": 0.34252655506134033,
+    "code": 0.2580665349960327,
+    "english": 0.27183905243873596,
+    "hindi": 0.2580797076225281,
+    "tamil": 0.33307257294654846,
+    "telugu": 0.2580961585044861
+   }
+  },
+  "A/ours-iv/theirs-plan/top50/mismatch": {
+   "sum": 0.0,
+   "mean": 0.0
+  },
+  "A/ours/w4_mean": {
+   "median": 13.560242652893066,
+   "p99": 21.505353927612305,
+   "mean": 14.020398804347932
+  },
+  "A/theirs-iv/ours-plan/gumbel_1.0/R": {
+   "median": 1.0,
+   "p99": 9.0,
+   "mean": 1.7459388313532611
+  },
+  "A/theirs-iv/ours-plan/gumbel_1.0/S": {
+   "median": 3.0,
+   "p99": 200.0,
+   "mean": 15.666031658065187,
+   "by_group": {
+    "bengali": 5.0,
+    "code": 1.0,
+    "english": 5.0,
+    "hindi": 3.0,
+    "tamil": 5.0,
+    "telugu": 3.0
+   }
+  },
+  "A/theirs-iv/ours-plan/gumbel_1.0/bytes": {
+   "median": 0.25807639956474304,
+   "p99": 0.25876808166503906,
+   "mean": 0.25811974689555917,
+   "by_group": {
+    "bengali": 0.2580797076225281,
+    "code": 0.2580665349960327,
+    "english": 0.2580829858779907,
+    "hindi": 0.2580731213092804,
+    "tamil": 0.2580829858779907,
+    "telugu": 0.25807639956474304
+   }
+  },
+  "A/theirs-iv/ours-plan/gumbel_1.0/mismatch": {
+   "sum": 0.0,
+   "mean": 0.0
+  },
+  "A/theirs-iv/ours-plan/top50/R": {
+   "median": 1.0,
+   "p99": 14.0,
+   "mean": 5.261611998198885
+  },
+  "A/theirs-iv/ours-plan/top50/S": {
+   "median": 7.0,
+   "p99": 84824.0,
+   "mean": 18220.519864223614,
+   "by_group": {
+    "bengali": 28168.0,
+    "code": 1.0,
+    "english": 4560.0,
+    "hindi": 4.0,
+    "tamil": 26009.0,
+    "telugu": 7.0
+   }
+  },
+  "A/theirs-iv/ours-plan/top50/bytes": {
+   "median": 0.25809288024902344,
+   "p99": 0.53748619556427,
+   "mean": 0.3181110017948984,
+   "by_group": {
+    "bengali": 0.35086384415626526,
+    "code": 0.2580665349960327,
+    "english": 0.2731171250343323,
+    "hindi": 0.2580797076225281,
+    "tamil": 0.3437519371509552,
+    "telugu": 0.25809288024902344
+   }
+  },
+  "A/theirs-iv/ours-plan/top50/mismatch": {
+   "sum": 0.0,
+   "mean": 0.0
+  },
+  "A/theirs-iv/theirs-plan/gumbel_1.0/R": {
+   "median": 1.0,
+   "p99": 9.0,
+   "mean": 1.7459388313532611
+  },
+  "A/theirs-iv/theirs-plan/gumbel_1.0/S": {
+   "median": 3.0,
+   "p99": 200.0,
+   "mean": 15.666031658065187,
+   "by_group": {
+    "bengali": 5.0,
+    "code": 1.0,
+    "english": 5.0,
+    "hindi": 3.0,
+    "tamil": 5.0,
+    "telugu": 3.0
+   }
+  },
+  "A/theirs-iv/theirs-plan/gumbel_1.0/bytes": {
+   "median": 0.25807639956474304,
+   "p99": 0.25876808166503906,
+   "mean": 0.25811974689555917,
+   "by_group": {
+    "bengali": 0.2580797076225281,
+    "code": 0.2580665349960327,
+    "english": 0.2580829858779907,
+    "hindi": 0.2580731213092804,
+    "tamil": 0.2580829858779907,
+    "telugu": 0.25807639956474304
+   }
+  },
+  "A/theirs-iv/theirs-plan/gumbel_1.0/mismatch": {
+   "sum": 0.0,
+   "mean": 0.0
+  },
+  "A/theirs-iv/theirs-plan/top50/R": {
+   "median": 1.0,
+   "p99": 14.0,
+   "mean": 5.260538256381836
+  },
+  "A/theirs-iv/theirs-plan/top50/S": {
+   "median": 7.0,
+   "p99": 84824.0,
+   "mean": 18220.515015067023,
+   "by_group": {
+    "bengali": 28168.0,
+    "code": 1.0,
+    "english": 4560.0,
+    "hindi": 4.0,
+    "tamil": 26009.0,
+    "telugu": 7.0
+   }
+  },
+  "A/theirs-iv/theirs-plan/top50/bytes": {
+   "median": 0.25809288024902344,
+   "p99": 0.53748619556427,
+   "mean": 0.318110978752834,
+   "by_group": {
+    "bengali": 0.35086384415626526,
+    "code": 0.2580665349960327,
+    "english": 0.2731171250343323,
+    "hindi": 0.2580797076225281,
+    "tamil": 0.3437519371509552,
+    "telugu": 0.25809288024902344
+   }
+  },
+  "A/theirs-iv/theirs-plan/top50/mismatch": {
+   "sum": 0.0,
+   "mean": 0.0
+  },
+  "A/theirs/w4_mean": {
+   "median": 13.684571266174316,
+   "p99": 21.703594207763672,
+   "mean": 14.149049120381072
+  },
+  "B/ours-quant/ours-pipe/gumbel_1.0/R": {
+   "median": 55147.0,
+   "p99": 147791.0,
+   "mean": 63421.647431678844
+  },
+  "B/ours-quant/ours-pipe/gumbel_1.0/bytes": {
+   "median": 0.652268648147583,
+   "p99": 1.2620253562927246,
+   "mean": 0.7067300692287887,
+   "by_group": {
+    "bengali": 0.9262655973434448,
+    "code": 0.2912745773792267,
+    "english": 0.5460660457611084,
+    "hindi": 0.5873861312866211,
+    "tamil": 0.9310505390167236,
+    "telugu": 0.7185465693473816
+   }
+  },
+  "B/ours-quant/ours-pipe/gumbel_1.0/mismatch": {
+   "sum": 0.0,
+   "mean": 0.0
+  },
+  "B/ours-quant/resid_g_mean": {
+   "median": 0.02742752432823181,
+   "p99": 0.02742752432823181,
+   "mean": 0.02742752432823181
+  },
+  "B/ours-quant/theirs-pipe/gumbel_1.0/R": {
+   "median": 57137.0,
+   "p99": 147868.0,
+   "mean": 64438.98867375567
+  },
+  "B/ours-quant/theirs-pipe/gumbel_1.0/bytes": {
+   "median": 0.6653662919998169,
+   "p99": 1.2625322341918945,
+   "mean": 0.7134259231591149,
+   "by_group": {
+    "bengali": 0.9379613399505615,
+    "code": 0.29144570231437683,
+    "english": 0.5586503148078918,
+    "hindi": 0.599509596824646,
+    "tamil": 0.9426409006118774,
+    "telugu": 0.7320917844772339
+   }
+  },
+  "B/ours-quant/theirs-pipe/gumbel_1.0/mismatch": {
+   "sum": 0.0,
+   "mean": 0.0
+  },
+  "B/theirs-quant/ours-pipe/gumbel_1.0/R": {
+   "median": 81842.0,
+   "p99": 148771.0,
+   "mean": 76537.65373558241
+  },
+  "B/theirs-quant/ours-pipe/gumbel_1.0/bytes": {
+   "median": 0.827967643737793,
+   "p99": 1.2684755325317383,
+   "mean": 0.7930559305465323,
+   "by_group": {
+    "bengali": 1.0709383487701416,
+    "code": 0.2950459122657776,
+    "english": 0.6983736157417297,
+    "hindi": 0.7491317987442017,
+    "tamil": 1.0745582580566406,
+    "telugu": 0.8955157995223999
+   }
+  },
+  "B/theirs-quant/ours-pipe/gumbel_1.0/mismatch": {
+   "sum": 0.0,
+   "mean": 0.0
+  },
+  "B/theirs-quant/resid_g_mean": {
+   "median": 0.029051274061203003,
+   "p99": 0.029051274061203003,
+   "mean": 0.029051274061203003
+  },
+  "B/theirs-quant/theirs-pipe/gumbel_1.0/R": {
+   "median": 83820.0,
+   "p99": 148854.0,
+   "mean": 77522.2788265041
+  },
+  "B/theirs-quant/theirs-pipe/gumbel_1.0/bytes": {
+   "median": 0.8409863114356995,
+   "p99": 1.26902174949646,
+   "mean": 0.7995364556503818,
+   "by_group": {
+    "bengali": 1.0795998573303223,
+    "code": 0.2955987751483917,
+    "english": 0.7129915952682495,
+    "hindi": 0.762749433517456,
+    "tamil": 1.0826998949050903,
+    "telugu": 0.9077907204627991
+   }
+  },
+  "B/theirs-quant/theirs-pipe/gumbel_1.0/mismatch": {
+   "sum": 0.0,
+   "mean": 0.0
+  },
+  "refagree/gumbel_1.0": {
+   "sum": 28871.0,
+   "mean": 1.0
+  },
+  "refagree/top50": {
+   "sum": 28871.0,
+   "mean": 1.0
+  }
+ }
+}

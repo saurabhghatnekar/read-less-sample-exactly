@@ -1,0 +1,35 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-wK0B7PGBqb2j6mWjRm94Zz
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+└── ✓ Created Function a3_chunk.
+16 jobs, rule 1cb364151716
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+{'mode': 'greedy', 'start': 0, 'n': 4096, 'c2': 0, 'c3': 0, 'c6': 54}
+{'mode': 'greedy', 'start': 4096, 'n': 4096, 'c2': 0, 'c3': 0, 'c6': None}
+{'mode': 'greedy', 'start': 8192, 'n': 4096, 'c2': 0, 'c3': 0, 'c6': None}
+{'mode': 'greedy', 'start': 12288, 'n': 4096, 'c2': 0, 'c3': 0, 'c6': None}
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+{'mode': 'greedy', 'start': 20480, 'n': 4096, 'c2': 0, 'c3': 0, 'c6': None}
+{'mode': 'greedy', 'start': 16384, 'n': 4096, 'c2': 0, 'c3': 0, 'c6': None}
+{'mode': 'greedy', 'start': 24576, 'n': 4096, 'c2': 0, 'c3': 0, 'c6': None}
+{'mode': 'greedy', 'start': 28672, 'n': 969, 'c2': 0, 'c3': 0, 'c6': None}
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+{'mode': 't1', 'start': 0, 'n': 4096, 'c2': 0, 'c3': 0, 'c6': 53}
+{'mode': 't1', 'start': 4096, 'n': 4096, 'c2': 0, 'c3': 0, 'c6': None}
+{'mode': 't1', 'start': 8192, 'n': 4096, 'c2': 0, 'c3': 0, 'c6': None}
+{'mode': 't1', 'start': 28672, 'n': 902, 'c2': 0, 'c3': 0, 'c6': None}
+{'mode': 't1', 'start': 12288, 'n': 4096, 'c2': 0, 'c3': 0, 'c6': None}
+{'mode': 't1', 'start': 20480, 'n': 4096, 'c2': 0, 'c3': 0, 'c6': None}
+{'mode': 't1', 'start': 16384, 'n': 4096, 'c2': 0, 'c3': 0, 'c6': None}
+{'mode': 't1', 'start': 24576, 'n': 4096, 'c2': 0, 'c3': 0, 'c6': None}
+TOTAL {'n': 59215, 'c2': 0, 'c3': 0}
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-wK0B7PGBqb2j6mWjRm94Zz

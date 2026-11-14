@@ -1,0 +1,30 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-OM3QzYP1gJIvEIpnaj6u5L
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/subg_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/subg_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+└── ✓ Created Function chunk.
+16 jobs, rule 5d8c3ac63ddb
+{'mode': 'greedy', 'start': 0, 'n': 4096, 'viol': 0, 'mism': 0}
+{'mode': 'greedy', 'start': 4096, 'n': 4096, 'viol': 0, 'mism': 0}
+{'mode': 'greedy', 'start': 8192, 'n': 4096, 'viol': 0, 'mism': 0}
+{'mode': 'greedy', 'start': 12288, 'n': 4096, 'viol': 0, 'mism': 0}
+{'mode': 'greedy', 'start': 20480, 'n': 4096, 'viol': 0, 'mism': 0}
+{'mode': 'greedy', 'start': 16384, 'n': 4096, 'viol': 0, 'mism': 0}
+{'mode': 'greedy', 'start': 24576, 'n': 4096, 'viol': 0, 'mism': 0}
+{'mode': 'greedy', 'start': 28672, 'n': 1154, 'viol': 0, 'mism': 0}
+{'mode': 't1', 'start': 28672, 'n': 835, 'viol': 0, 'mism': 0}
+{'mode': 't1', 'start': 0, 'n': 4096, 'viol': 0, 'mism': 0}
+{'mode': 't1', 'start': 4096, 'n': 4096, 'viol': 0, 'mism': 0}
+{'mode': 't1', 'start': 16384, 'n': 4096, 'viol': 0, 'mism': 0}
+{'mode': 't1', 'start': 24576, 'n': 4096, 'viol': 0, 'mism': 0}
+{'mode': 't1', 'start': 12288, 'n': 4096, 'viol': 0, 'mism': 0}
+{'mode': 't1', 'start': 8192, 'n': 4096, 'viol': 0, 'mism': 0}
+{'mode': 't1', 'start': 20480, 'n': 4096, 'viol': 0, 'mism': 0}
+TOTAL {'n': 59333, 'viol': 0, 'mism': 0}
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-OM3QzYP1gJIvEIpnaj6u5L

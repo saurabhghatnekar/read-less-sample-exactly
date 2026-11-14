@@ -1,0 +1,30 @@
+{
+  "experiment": "Exp01 independent reproduction, Qwen3-8B first",
+  "written": "2026-11-09, before any dump or measurement",
+  "target": "Vizuara lab note Exp01 (5 Nov 2026), Qwen3-8B rows and readouts",
+  "reference_definition": "FP32-accumulated product of BF16 head rows and BF16 h, TF32 disabled; 'exact' means equal to this reference",
+  "model": {"repo": "Qwen/Qwen3-8B", "revision": "b968826d9c46dd6066d109eabc6255188de91218"},
+  "prompts": "40 MT-Bench first turns (5 per category), 40 HumanEval (first 40 task ids), 40 each Hindi, Bengali, Tamil, Telugu: Flores-IN en->xx dev, 5 consecutive source sentences per prompt (differs from the lab note, which used newspaper OCR because Flores was not yet cleared)",
+  "generation": "chat template, enable_thinking=False, batch 16, BF16, 128 new tokens, one greedy and one T=1 (top_k=0, top_p=1) continuation per prompt; states after EOS dropped",
+  "scoring": "greedy rule on greedy states; Gumbel T=0.6, Gumbel T=1, top-50 then Gumbel T=1, min-p 0.05 then Gumbel T=1 on T=1 states",
+  "headline_certificate": "dithered INT4 g128 (Hoeffding, delta=1e-15 per row) with INT8 stage (min of worst-case and residual bounds)",
+  "lab_note_values": {
+    "dither_int8_bytes_median": {"greedy": 0.258, "gumbel_0.6": 0.258, "gumbel_1.0": 0.258, "top50": 0.258, "minp_0.05": 0.258},
+    "dither_int8_bytes_p99": {"greedy": 0.259, "gumbel_0.6": 0.259, "gumbel_1.0": 0.259, "top50": 0.540, "minp_0.05": 0.261},
+    "best_single_stage_deterministic_median_T1": 0.866,
+    "ratio_mean_wc_over_mean_dither": 4.87,
+    "ratio_wc_over_true_max": 26.2,
+    "ratio_dither_over_true_max": 5.5,
+    "true_largest_error_int4": 2.19,
+    "top_two_margin": 8.16
+  },
+  "reproduced_if": [
+    "C2: zero violations of worst-case and residual bounds; C3: zero token mismatches for non-dither certificates",
+    "dither+INT8 median bytes within 0.01 of the lab value for every rule",
+    "dither+INT8 p99 bytes within 0.05 of the lab value for greedy, both Gumbel temperatures and min-p",
+    "each of the five readout ratios/values within 30% of the lab value"
+  ],
+  "not_reproduced_if": "any C2/C3 failure, or dither+INT8 median bytes off by more than 0.05 for greedy or Gumbel T=1",
+  "otherwise": "partial; report which items differ and by how much",
+  "notes": "Top-50 uses the pre-registered 'read all uncertain rows' plan plus rows overlapping the k-th value interval. Per-state readouts: medians over greedy states of (max bound / max true error) and (mean wc bound / mean dither bound)."
+}

@@ -1,0 +1,67 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-g9TBobFSzlkWs1DI6q8zpk
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/sarvam_modal.py
+├── ✓ Created Function fetch_model.
+└── ✓ Created Function dump_states.
+`torch_dtype` is deprecated! Use `dtype` instead!
+
+[1ALoading checkpoint shards:   0%|          | 0/26 [00:00<?, ?it/s]
+[1ALoading checkpoint shards:   4%|▍         | 1/26 [00:01<00:37,  1.48s/it]
+[1ALoading checkpoint shards:   8%|▊         | 2/26 [00:03<00:46,  1.92s/it]
+[1ALoading checkpoint shards:  12%|█▏        | 3/26 [00:05<00:47,  2.05s/it]
+[1ALoading checkpoint shards:  15%|█▌        | 4/26 [00:08<00:49,  2.24s/it]
+[1ALoading checkpoint shards:  19%|█▉        | 5/26 [00:10<00:48,  2.29s/it]
+[1ALoading checkpoint shards:  23%|██▎       | 6/26 [00:13<00:45,  2.28s/it]
+[1ALoading checkpoint shards:  27%|██▋       | 7/26 [00:15<00:45,  2.39s/it]
+[1ALoading checkpoint shards:  31%|███       | 8/26 [00:18<00:43,  2.40s/it]
+[1ALoading checkpoint shards:  35%|███▍      | 9/26 [00:20<00:40,  2.40s/it]
+[1ALoading checkpoint shards:  38%|███▊      | 10/26 [00:22<00:38,  2.39s/it]
+[1ALoading checkpoint shards:  42%|████▏     | 11/26 [00:25<00:35,  2.38s/it]
+[1ALoading checkpoint shards:  46%|████▌     | 12/26 [00:27<00:33,  2.37s/it]
+[1ALoading checkpoint shards:  50%|█████     | 13/26 [00:30<00:31,  2.41s/it]
+[1ALoading checkpoint shards:  54%|█████▍    | 14/26 [00:32<00:27,  2.33s/it]
+[1ALoading checkpoint shards:  58%|█████▊    | 15/26 [00:34<00:25,  2.30s/it]
+[1ALoading checkpoint shards:  62%|██████▏   | 16/26 [00:36<00:21,  2.17s/it]
+[1ALoading checkpoint shards:  65%|██████▌   | 17/26 [00:38<00:18,  2.07s/it]
+[1ALoading checkpoint shards:  69%|██████▉   | 18/26 [00:40<00:16,  2.01s/it]
+[1ALoading checkpoint shards:  73%|███████▎  | 19/26 [00:42<00:14,  2.01s/it]
+[1ALoading checkpoint shards:  77%|███████▋  | 20/26 [00:43<00:11,  1.96s/it]
+[1ALoading checkpoint shards:  81%|████████  | 21/26 [00:45<00:09,  1.93s/it]
+[1ALoading checkpoint shards:  85%|████████▍ | 22/26 [00:47<00:07,  1.91s/it]
+[1ALoading checkpoint shards:  88%|████████▊ | 23/26 [00:49<00:05,  1.92s/it]
+[1ALoading checkpoint shards:  92%|█████████▏| 24/26 [00:51<00:03,  1.88s/it]
+[1ALoading checkpoint shards:  96%|█████████▌| 25/26 [00:52<00:01,  1.80s/it]
+[1ALoading checkpoint shards: 100%|██████████| 26/26 [00:53<00:00,  1.55s/it]
+[1ALoading checkpoint shards: 100%|██████████| 26/26 [00:53<00:00,  2.07s/it]
+greedy batch 0: 1524 states, 14s
+t1 batch 0: 1453 states, 28s
+{
+ "torch": "2.5.1+cu124",
+ "transformers": "4.57.2",
+ "repo": "sarvamai/sarvam-30b",
+ "rev": "071ae95e933605ca1104a6b4524a36a98488efa4",
+ "prefill": "<think></think>\n",
+ "eos": [
+  26
+ ],
+ "head_dtype": "torch.bfloat16",
+ "tied": false,
+ "n_states": 2977,
+ "seconds": 28.1,
+ "c7_median_target_script_share": {
+  "greedy/bengali": 0.713,
+  "greedy/hindi": 0.989,
+  "greedy/tamil": 0.949,
+  "greedy/telugu": 0.992,
+  "t1/bengali": 0.631,
+  "t1/hindi": 0.989,
+  "t1/tamil": 0.967,
+  "t1/telugu": 0.953
+ },
+ "mean_tokens_per_prompt": 124.0
+}
+Stopping app - local entrypoint completed.
+Runner terminated.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-g9TBobFSzlkWs1DI6q8zpk

@@ -1,0 +1,29 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-gvZLWURJFfVIRWxewz6UKb
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+└── ✓ Created Function a3_chunk.
+16 jobs, rule 1cb364151716
+{'mode': 'greedy', 'start': 28672, 'n': 1154, 'c2': 0, 'c3': 0, 'c6': None}
+{'mode': 'greedy', 'start': 4096, 'n': 4096, 'c2': 0, 'c3': 0, 'c6': None}
+{'mode': 'greedy', 'start': 12288, 'n': 4096, 'c2': 0, 'c3': 0, 'c6': None}
+{'mode': 'greedy', 'start': 0, 'n': 4096, 'c2': 0, 'c3': 0, 'c6': 128}
+{'mode': 'greedy', 'start': 16384, 'n': 4096, 'c2': 0, 'c3': 0, 'c6': None}
+{'mode': 'greedy', 'start': 8192, 'n': 4096, 'c2': 0, 'c3': 0, 'c6': None}
+{'mode': 'greedy', 'start': 20480, 'n': 4096, 'c2': 0, 'c3': 0, 'c6': None}
+Container terminated due to preemption. Your Function will be restarted with the same input. For more details, see https://modal.com/docs/guide/preemption
+{'mode': 't1', 'start': 28672, 'n': 835, 'c2': 0, 'c3': 0, 'c6': None}
+{'mode': 'greedy', 'start': 24576, 'n': 4096, 'c2': 0, 'c3': 0, 'c6': None}
+{'mode': 't1', 'start': 4096, 'n': 4096, 'c2': 0, 'c3': 0, 'c6': None}
+{'mode': 't1', 'start': 16384, 'n': 4096, 'c2': 0, 'c3': 0, 'c6': None}
+{'mode': 't1', 'start': 24576, 'n': 4096, 'c2': 0, 'c3': 0, 'c6': None}
+{'mode': 't1', 'start': 20480, 'n': 4096, 'c2': 0, 'c3': 0, 'c6': None}
+{'mode': 't1', 'start': 12288, 'n': 4096, 'c2': 0, 'c3': 0, 'c6': None}
+{'mode': 't1', 'start': 8192, 'n': 4096, 'c2': 0, 'c3': 0, 'c6': None}
+{'mode': 't1', 'start': 0, 'n': 4096, 'c2': 0, 'c3': 0, 'c6': 128}
+TOTAL {'n': 59333, 'c2': 0, 'c3': 0}
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-gvZLWURJFfVIRWxewz6UKb

@@ -1,0 +1,95 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-CdocPeUwpy0V49GOa6pADu
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/sarvam_modal.py
+├── ✓ Created Function fetch_model.
+└── ✓ Created Function dump_states.
+`torch_dtype` is deprecated! Use `dtype` instead!
+
+[1ALoading checkpoint shards:   0%|          | 0/26 [00:00<?, ?it/s]
+[1ALoading checkpoint shards:   4%|▍         | 1/26 [00:01<00:42,  1.69s/it]
+[1ALoading checkpoint shards:   8%|▊         | 2/26 [00:04<01:01,  2.55s/it]
+[1ALoading checkpoint shards:  12%|█▏        | 3/26 [00:07<01:04,  2.79s/it]
+[1ALoading checkpoint shards:  15%|█▌        | 4/26 [00:10<01:02,  2.85s/it]
+[1ALoading checkpoint shards:  19%|█▉        | 5/26 [00:13<01:00,  2.88s/it]
+[1ALoading checkpoint shards:  23%|██▎       | 6/26 [00:16<00:57,  2.89s/it]
+[1ALoading checkpoint shards:  27%|██▋       | 7/26 [00:19<00:54,  2.85s/it]
+[1ALoading checkpoint shards:  31%|███       | 8/26 [00:22<00:50,  2.80s/it]
+[1ALoading checkpoint shards:  35%|███▍      | 9/26 [00:24<00:47,  2.78s/it]
+[1ALoading checkpoint shards:  38%|███▊      | 10/26 [00:27<00:44,  2.78s/it]
+[1ALoading checkpoint shards:  42%|████▏     | 11/26 [00:30<00:41,  2.79s/it]
+[1ALoading checkpoint shards:  46%|████▌     | 12/26 [00:33<00:39,  2.79s/it]
+[1ALoading checkpoint shards:  50%|█████     | 13/26 [00:36<00:36,  2.80s/it]
+[1ALoading checkpoint shards:  54%|█████▍    | 14/26 [00:39<00:33,  2.83s/it]
+[1ALoading checkpoint shards:  58%|█████▊    | 15/26 [00:41<00:31,  2.82s/it]
+[1ALoading checkpoint shards:  62%|██████▏   | 16/26 [00:44<00:28,  2.83s/it]
+[1ALoading checkpoint shards:  65%|██████▌   | 17/26 [00:47<00:25,  2.82s/it]
+[1ALoading checkpoint shards:  69%|██████▉   | 18/26 [00:50<00:22,  2.81s/it]
+[1ALoading checkpoint shards:  73%|███████▎  | 19/26 [00:53<00:19,  2.82s/it]
+[1ALoading checkpoint shards:  77%|███████▋  | 20/26 [00:55<00:17,  2.84s/it]
+[1ALoading checkpoint shards:  81%|████████  | 21/26 [00:58<00:14,  2.85s/it]
+[1ALoading checkpoint shards:  85%|████████▍ | 22/26 [01:01<00:11,  2.84s/it]
+[1ALoading checkpoint shards:  88%|████████▊ | 23/26 [01:04<00:08,  2.80s/it]
+[1ALoading checkpoint shards:  92%|█████████▏| 24/26 [01:07<00:05,  2.82s/it]
+[1ALoading checkpoint shards:  96%|█████████▌| 25/26 [01:09<00:02,  2.73s/it]
+[1ALoading checkpoint shards: 100%|██████████| 26/26 [01:10<00:00,  2.25s/it]
+[1ALoading checkpoint shards: 100%|██████████| 26/26 [01:10<00:00,  2.73s/it]
+greedy batch 0: 1770 states, 22s
+greedy batch 1: 3818 states, 44s
+greedy batch 2: 5856 states, 64s
+greedy batch 3: 7617 states, 80s
+greedy batch 4: 9475 states, 96s
+greedy batch 5: 11523 states, 113s
+greedy batch 6: 13571 states, 131s
+greedy batch 7: 15605 states, 150s
+greedy batch 8: 17634 states, 168s
+greedy batch 9: 19676 states, 186s
+greedy batch 10: 21705 states, 204s
+greedy batch 11: 23722 states, 224s
+greedy batch 12: 25746 states, 243s
+greedy batch 13: 27778 states, 262s
+greedy batch 14: 29826 states, 280s
+t1 batch 0: 1771 states, 303s
+t1 batch 1: 3819 states, 324s
+t1 batch 2: 5783 states, 344s
+t1 batch 3: 7565 states, 360s
+t1 batch 4: 9343 states, 377s
+t1 batch 5: 11357 states, 396s
+t1 batch 6: 13399 states, 414s
+t1 batch 7: 15426 states, 433s
+t1 batch 8: 17468 states, 452s
+t1 batch 9: 19510 states, 471s
+t1 batch 10: 21558 states, 489s
+t1 batch 11: 23577 states, 507s
+t1 batch 12: 25527 states, 527s
+t1 batch 13: 27511 states, 545s
+t1 batch 14: 29507 states, 563s
+{
+ "torch": "2.5.1+cu124",
+ "transformers": "4.57.2",
+ "repo": "sarvamai/sarvam-30b",
+ "rev": "071ae95e933605ca1104a6b4524a36a98488efa4",
+ "prefill": "<think></think>\n",
+ "eos": [
+  26
+ ],
+ "head_dtype": "torch.bfloat16",
+ "tied": false,
+ "n_states": 59333,
+ "seconds": 563.9,
+ "c7_median_target_script_share": {
+  "greedy/bengali": 0.991,
+  "greedy/hindi": 0.976,
+  "greedy/tamil": 0.956,
+  "greedy/telugu": 0.985,
+  "t1/bengali": 0.573,
+  "t1/hindi": 0.977,
+  "t1/tamil": 0.961,
+  "t1/telugu": 0.915
+ },
+ "mean_tokens_per_prompt": 123.6
+}
+Stopping app - local entrypoint completed.
+[modal-client] 2026-11-14T09:08:08+0530 Timed out waiting for final app logs.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-CdocPeUwpy0V49GOa6pADu

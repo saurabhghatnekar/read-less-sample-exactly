@@ -1,0 +1,23 @@
+{
+  "experiment": "Ablation B1: sub-Gaussian bound for the dithered INT4 head",
+  "written": "2026-11-14, after the A3 and shared-error results were read, before any B1 code ran on real states",
+  "bound": {
+    "statement": "With subtractive dither, the error of row v at dimension j is s_vg * eps_j with eps_j ~ U(-1/2, 1/2), independent across j and of the weights. U(-a, a) satisfies E exp(lambda X) = sinh(lambda a)/(lambda a) <= exp(lambda^2 a^2 / 6), since k! 6^k <= (2k+1)! term by term. So h . e_v is sub-Gaussian with proxy sigma^2 = sum_j h_j^2 s_vg(j)^2 / 12, and P(|h . e_v| >= x) <= 2 exp(-x^2 / (2 sigma^2)).",
+    "formula": "b_subg = sqrt(ln(2/delta) / 6) * sqrt(sum_g ||h_g||^2 s_vg^2) + the same FP32 slack as every exp01/A3 bound",
+    "relation": "exactly 1/sqrt(3) = 0.577 of the Hoeffding term, same delta = 1e-15 per row, same union bound, same dither assumption",
+    "why_not_bernstein": "Bernstein's bound has the same variance term plus a non-negative max term, so it is never tighter than this one"
+  },
+  "states_and_models": "the exp01 reproduction states of Qwen3-8B, Gemma 4 E4B and Sarvam-30B (sarvam_modal.py)",
+  "heads": "dithered INT4 g128 (seed 1234) with and without the INT8 stage (min of worst-case and residual), at shifts t in {0, 0.5, 1, 1.5} built as in a3_lib.py",
+  "rules": "the five exp01 rules and read plans, unchanged",
+  "split_and_selection": "as A3: even prompt ids validation, odd ids test; t chosen per model and rule by validation mean bytes of the sub-Gaussian cascade, ties to the earlier of (0, 1, 0.5, 1.5)",
+  "primary_outcome": "Sarvam-30B, sub-Gaussian cascade at its selected t, greedy and Gumbel T = 1 on test states: median, p99 and mean bytes, and the status under table.py's definitions (GATES_PASS: median R <= 0.1% of V, p99 R <= 1% of V, p99 bytes < 0.5; DEAD: median bytes >= 0.5; else UNDER_HALF)",
+  "secondary": "the same for Qwen3-8B and Gemma 4, all five rules, single-stage sub-Gaussian, and Hoeffding at the same t for comparison",
+  "controls": {
+    "S1": "the Hoeffding-cascade arrays at t = 0 equal exp01's and at t = 1 equal A3's on every state",
+    "S2": "count of rows whose true error exceeds the sub-Gaussian bound, over all states, rows and shifts. Expected 0; any violation is reported with its size. The guarantee is probabilistic, so a violation does not invalidate the run, but more than 10 across all three models would mean the independence assumption fails and the bound is withdrawn",
+    "S3": "token mismatches for every non-dither certificate: 0",
+    "S4": "dither normalised squared error per t, as C5"
+  },
+  "prediction_written_before_running": "Sub-Gaussian bounds are 0.577 of Hoeffding by construction. Gemma 4 and Qwen3-8B: medians stay at 0.258 and p99 bytes move to 0.258-0.27. Sarvam-30B: greedy p99 bytes fall from 0.68 (A3, t = 1) to about 0.55, still above 0.5, so the status stays UNDER_HALF; greedy mean bytes fall below 0.33."
+}

@@ -1,0 +1,52 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-eKRIwCcpdPJS17WMmNyHgp
+✓ Created objects.
+├── 🔨 Created mount 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/crosscheck_modal.py
+├── 🔨 Created mount 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/../vizuara_certified_sampl
+│   ing/cert_core.py
+├── 🔨 Created mount 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/crosscheck_lib.py
+├── 🔨 Created mount 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+└── 🔨 Created function run_chunk.
+qwen3_8b: 28871 T=1 states, 8 jobs
+wrote /Volumes/attic/GpuKernelEngg/research/exp01_repro/results/crosscheck_qwen3_8b.json
+A/ours-iv/ours-plan/gumbel_1.0/S                   median     3.0000  p99   180.0000  mean 14.9683
+A/ours-iv/ours-plan/gumbel_1.0/bytes               median     0.2581  p99     0.2587  mean 0.2581
+A/ours-iv/ours-plan/gumbel_1.0/mismatch            sum 0  mean 0.00000
+A/ours-iv/ours-plan/top50/S                        median     6.0000  p99 82598.0000  mean 17339.5570
+A/ours-iv/ours-plan/top50/bytes                    median     0.2581  p99     0.5302  mean 0.3152
+A/ours-iv/ours-plan/top50/mismatch                 sum 0  mean 0.00000
+A/ours-iv/theirs-plan/gumbel_1.0/S                 median     3.0000  p99   180.0000  mean 14.9683
+A/ours-iv/theirs-plan/gumbel_1.0/bytes             median     0.2581  p99     0.2587  mean 0.2581
+A/ours-iv/theirs-plan/gumbel_1.0/mismatch          sum 0  mean 0.00000
+A/ours-iv/theirs-plan/top50/S                      median     6.0000  p99 82598.0000  mean 17339.5525
+A/ours-iv/theirs-plan/top50/bytes                  median     0.2581  p99     0.5302  mean 0.3152
+A/ours-iv/theirs-plan/top50/mismatch               sum 0  mean 0.00000
+A/theirs-iv/ours-plan/gumbel_1.0/S                 median     3.0000  p99   200.0000  mean 15.6660
+A/theirs-iv/ours-plan/gumbel_1.0/bytes             median     0.2581  p99     0.2588  mean 0.2581
+A/theirs-iv/ours-plan/gumbel_1.0/mismatch          sum 0  mean 0.00000
+A/theirs-iv/ours-plan/top50/S                      median     7.0000  p99 84824.0000  mean 18220.5199
+A/theirs-iv/ours-plan/top50/bytes                  median     0.2581  p99     0.5375  mean 0.3181
+A/theirs-iv/ours-plan/top50/mismatch               sum 0  mean 0.00000
+A/theirs-iv/theirs-plan/gumbel_1.0/S               median     3.0000  p99   200.0000  mean 15.6660
+A/theirs-iv/theirs-plan/gumbel_1.0/bytes           median     0.2581  p99     0.2588  mean 0.2581
+A/theirs-iv/theirs-plan/gumbel_1.0/mismatch        sum 0  mean 0.00000
+A/theirs-iv/theirs-plan/top50/S                    median     7.0000  p99 84824.0000  mean 18220.5150
+A/theirs-iv/theirs-plan/top50/bytes                median     0.2581  p99     0.5375  mean 0.3181
+A/theirs-iv/theirs-plan/top50/mismatch             sum 0  mean 0.00000
+B/ours-quant/ours-pipe/gumbel_1.0/bytes            median     0.6523  p99     1.2620  mean 0.7067
+B/ours-quant/ours-pipe/gumbel_1.0/mismatch         sum 0  mean 0.00000
+B/ours-quant/theirs-pipe/gumbel_1.0/bytes          median     0.6654  p99     1.2625  mean 0.7134
+B/ours-quant/theirs-pipe/gumbel_1.0/mismatch       sum 0  mean 0.00000
+B/theirs-quant/ours-pipe/gumbel_1.0/bytes          median     0.8280  p99     1.2685  mean 0.7931
+B/theirs-quant/ours-pipe/gumbel_1.0/mismatch       sum 0  mean 0.00000
+B/theirs-quant/theirs-pipe/gumbel_1.0/bytes        median     0.8410  p99     1.2690  mean 0.7995
+B/theirs-quant/theirs-pipe/gumbel_1.0/mismatch     sum 0  mean 0.00000
+refagree/gumbel_1.0                                sum 28871  mean 1.00000
+refagree/top50                                     sum 28871  mean 1.00000
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-eKRIwCcpdPJS17WMmNyHgp

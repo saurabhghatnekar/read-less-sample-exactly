@@ -1,0 +1,302 @@
+{
+ "model": "gemma4_e4b",
+ "n_states": 512,
+ "cells": {
+  "A/ours-iv/ours-plan/gumbel_1.0/R": {
+   "median": 1.0,
+   "p99": 4.0,
+   "mean": 1.1796875
+  },
+  "A/ours-iv/ours-plan/gumbel_1.0/S": {
+   "median": 1.0,
+   "p99": 37.0,
+   "mean": 3.451171875,
+   "by_group": {
+    "english": 1.0
+   }
+  },
+  "A/ours-iv/ours-plan/gumbel_1.0/bytes": {
+   "median": 0.25820884108543396,
+   "p99": 0.25829097628593445,
+   "mean": 0.2582142089959234,
+   "by_group": {
+    "english": 0.25820884108543396
+   }
+  },
+  "A/ours-iv/ours-plan/gumbel_1.0/mismatch": {
+   "sum": 0.0,
+   "mean": 0.0
+  },
+  "A/ours-iv/ours-plan/top50/R": {
+   "median": 1.0,
+   "p99": 4.0,
+   "mean": 1.1796875
+  },
+  "A/ours-iv/ours-plan/top50/S": {
+   "median": 1.0,
+   "p99": 131776.0,
+   "mean": 11315.712890625,
+   "by_group": {
+    "english": 1.0
+   }
+  },
+  "A/ours-iv/ours-plan/top50/bytes": {
+   "median": 0.25820884108543396,
+   "p99": 0.5099424123764038,
+   "mean": 0.27982434880686924,
+   "by_group": {
+    "english": 0.25820884108543396
+   }
+  },
+  "A/ours-iv/ours-plan/top50/mismatch": {
+   "sum": 0.0,
+   "mean": 0.0
+  },
+  "A/ours-iv/theirs-plan/gumbel_1.0/R": {
+   "median": 1.0,
+   "p99": 4.0,
+   "mean": 1.1796875
+  },
+  "A/ours-iv/theirs-plan/gumbel_1.0/S": {
+   "median": 1.0,
+   "p99": 37.0,
+   "mean": 3.451171875,
+   "by_group": {
+    "english": 1.0
+   }
+  },
+  "A/ours-iv/theirs-plan/gumbel_1.0/bytes": {
+   "median": 0.25820884108543396,
+   "p99": 0.25829097628593445,
+   "mean": 0.2582142089959234,
+   "by_group": {
+    "english": 0.25820884108543396
+   }
+  },
+  "A/ours-iv/theirs-plan/gumbel_1.0/mismatch": {
+   "sum": 0.0,
+   "mean": 0.0
+  },
+  "A/ours-iv/theirs-plan/top50/R": {
+   "median": 1.0,
+   "p99": 4.0,
+   "mean": 1.1796875
+  },
+  "A/ours-iv/theirs-plan/top50/S": {
+   "median": 1.0,
+   "p99": 131776.0,
+   "mean": 11315.712890625,
+   "by_group": {
+    "english": 1.0
+   }
+  },
+  "A/ours-iv/theirs-plan/top50/bytes": {
+   "median": 0.25820884108543396,
+   "p99": 0.5099424123764038,
+   "mean": 0.27982434880686924,
+   "by_group": {
+    "english": 0.25820884108543396
+   }
+  },
+  "A/ours-iv/theirs-plan/top50/mismatch": {
+   "sum": 0.0,
+   "mean": 0.0
+  },
+  "A/ours/w4_mean": {
+   "median": 11.513110160827637,
+   "p99": 16.512741088867188,
+   "mean": 11.402372369542718
+  },
+  "A/theirs-iv/ours-plan/gumbel_1.0/R": {
+   "median": 1.0,
+   "p99": 4.0,
+   "mean": 1.18359375
+  },
+  "A/theirs-iv/ours-plan/gumbel_1.0/S": {
+   "median": 1.0,
+   "p99": 39.0,
+   "mean": 3.53125,
+   "by_group": {
+    "english": 1.0
+   }
+  },
+  "A/theirs-iv/ours-plan/gumbel_1.0/bytes": {
+   "median": 0.25820884108543396,
+   "p99": 0.2582966983318329,
+   "mean": 0.2582143766921945,
+   "by_group": {
+    "english": 0.25820884108543396
+   }
+  },
+  "A/theirs-iv/ours-plan/gumbel_1.0/mismatch": {
+   "sum": 0.0,
+   "mean": 0.0
+  },
+  "A/theirs-iv/ours-plan/top50/R": {
+   "median": 1.0,
+   "p99": 4.0,
+   "mean": 1.18359375
+  },
+  "A/theirs-iv/ours-plan/top50/S": {
+   "median": 1.0,
+   "p99": 130878.0,
+   "mean": 11931.69921875,
+   "by_group": {
+    "english": 1.0
+   }
+  },
+  "A/theirs-iv/ours-plan/top50/bytes": {
+   "median": 0.25820884108543396,
+   "p99": 0.5082269906997681,
+   "mean": 0.281001100607682,
+   "by_group": {
+    "english": 0.25820884108543396
+   }
+  },
+  "A/theirs-iv/ours-plan/top50/mismatch": {
+   "sum": 0.0,
+   "mean": 0.0
+  },
+  "A/theirs-iv/theirs-plan/gumbel_1.0/R": {
+   "median": 1.0,
+   "p99": 4.0,
+   "mean": 1.18359375
+  },
+  "A/theirs-iv/theirs-plan/gumbel_1.0/S": {
+   "median": 1.0,
+   "p99": 39.0,
+   "mean": 3.53125,
+   "by_group": {
+    "english": 1.0
+   }
+  },
+  "A/theirs-iv/theirs-plan/gumbel_1.0/bytes": {
+   "median": 0.25820884108543396,
+   "p99": 0.2582966983318329,
+   "mean": 0.2582143766921945,
+   "by_group": {
+    "english": 0.25820884108543396
+   }
+  },
+  "A/theirs-iv/theirs-plan/gumbel_1.0/mismatch": {
+   "sum": 0.0,
+   "mean": 0.0
+  },
+  "A/theirs-iv/theirs-plan/top50/R": {
+   "median": 1.0,
+   "p99": 4.0,
+   "mean": 1.18359375
+  },
+  "A/theirs-iv/theirs-plan/top50/S": {
+   "median": 1.0,
+   "p99": 130878.0,
+   "mean": 11931.697265625,
+   "by_group": {
+    "english": 1.0
+   }
+  },
+  "A/theirs-iv/theirs-plan/top50/bytes": {
+   "median": 0.25820884108543396,
+   "p99": 0.5082269906997681,
+   "mean": 0.28100109682418406,
+   "by_group": {
+    "english": 0.25820884108543396
+   }
+  },
+  "A/theirs-iv/theirs-plan/top50/mismatch": {
+   "sum": 0.0,
+   "mean": 0.0
+  },
+  "A/theirs/w4_mean": {
+   "median": 11.566814422607422,
+   "p99": 16.568344116210938,
+   "mean": 11.451635799370706
+  },
+  "B/ours-quant/ours-pipe/gumbel_1.0/R": {
+   "median": 423.0,
+   "p99": 183331.0,
+   "mean": 16346.572265625
+  },
+  "B/ours-quant/ours-pipe/gumbel_1.0/bytes": {
+   "median": 0.2910667359828949,
+   "p99": 0.9888054132461548,
+   "mean": 0.3518103464739397,
+   "by_group": {
+    "english": 0.2910667359828949
+   }
+  },
+  "B/ours-quant/ours-pipe/gumbel_1.0/mismatch": {
+   "sum": 0.0,
+   "mean": 0.0
+  },
+  "B/ours-quant/resid_g_mean": {
+   "median": 0.02545875310897827,
+   "p99": 0.02545875310897827,
+   "mean": 0.02545875310897827
+  },
+  "B/ours-quant/theirs-pipe/gumbel_1.0/R": {
+   "median": 439.0,
+   "p99": 185373.0,
+   "mean": 16713.75390625
+  },
+  "B/ours-quant/theirs-pipe/gumbel_1.0/bytes": {
+   "median": 0.2911277711391449,
+   "p99": 0.996595025062561,
+   "mean": 0.3532110333908349,
+   "by_group": {
+    "english": 0.2911277711391449
+   }
+  },
+  "B/ours-quant/theirs-pipe/gumbel_1.0/mismatch": {
+   "sum": 0.0,
+   "mean": 0.0
+  },
+  "B/theirs-quant/ours-pipe/gumbel_1.0/R": {
+   "median": 984.0,
+   "p99": 208464.0,
+   "mean": 22960.123046875
+  },
+  "B/theirs-quant/ours-pipe/gumbel_1.0/bytes": {
+   "median": 0.2932067811489105,
+   "p99": 1.084680199623108,
+   "mean": 0.3770390418358147,
+   "by_group": {
+    "english": 0.2932067811489105
+   }
+  },
+  "B/theirs-quant/ours-pipe/gumbel_1.0/mismatch": {
+   "sum": 0.0,
+   "mean": 0.0
+  },
+  "B/theirs-quant/resid_g_mean": {
+   "median": 0.02696836367249489,
+   "p99": 0.02696836367249489,
+   "mean": 0.02696836367249489
+  },
+  "B/theirs-quant/theirs-pipe/gumbel_1.0/R": {
+   "median": 1045.0,
+   "p99": 210128.0,
+   "mean": 23415.296875
+  },
+  "B/theirs-quant/theirs-pipe/gumbel_1.0/bytes": {
+   "median": 0.29343947768211365,
+   "p99": 1.091027855873108,
+   "mean": 0.3787753921933472,
+   "by_group": {
+    "english": 0.29343947768211365
+   }
+  },
+  "B/theirs-quant/theirs-pipe/gumbel_1.0/mismatch": {
+   "sum": 0.0,
+   "mean": 0.0
+  },
+  "refagree/gumbel_1.0": {
+   "sum": 512.0,
+   "mean": 1.0
+  },
+  "refagree/top50": {
+   "sum": 512.0,
+   "mean": 1.0
+  }
+ }
+}
