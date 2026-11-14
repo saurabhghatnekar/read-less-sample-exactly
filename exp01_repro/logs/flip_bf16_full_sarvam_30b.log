@@ -1,0 +1,31 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-Qk5K0CtUZoAEt5crxKhI1K
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/flip_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/flip_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+├── ✓ Created Function chunk.
+└── ✓ Created Function bf16_chunk.
+16 jobs, addendum 8f2e0e91e40f
+{'mode': 'greedy', 'start': 0, 'n': 4096, 'ref_diff': 0, 'c1': 3990, 'c1_exp01': 3990, 'flips': {'greedy': 222}}
+{'mode': 'greedy', 'start': 4096, 'n': 4096, 'ref_diff': 0, 'c1': 4082, 'c1_exp01': 4082, 'flips': {'greedy': 55}}
+{'mode': 'greedy', 'start': 8192, 'n': 4096, 'ref_diff': 0, 'c1': 4042, 'c1_exp01': 4042, 'flips': {'greedy': 98}}
+{'mode': 'greedy', 'start': 16384, 'n': 4096, 'ref_diff': 0, 'c1': 4057, 'c1_exp01': 4057, 'flips': {'greedy': 96}}
+{'mode': 'greedy', 'start': 12288, 'n': 4096, 'ref_diff': 0, 'c1': 4034, 'c1_exp01': 4034, 'flips': {'greedy': 121}}
+{'mode': 'greedy', 'start': 20480, 'n': 4096, 'ref_diff': 0, 'c1': 4046, 'c1_exp01': 4046, 'flips': {'greedy': 82}}
+{'mode': 'greedy', 'start': 24576, 'n': 4096, 'ref_diff': 0, 'c1': 4074, 'c1_exp01': 4074, 'flips': {'greedy': 65}}
+{'mode': 'greedy', 'start': 28672, 'n': 1154, 'ref_diff': 0, 'c1': 1149, 'c1_exp01': 1149, 'flips': {'greedy': 19}}
+{'mode': 't1', 'start': 0, 'n': 4096, 'ref_diff': 0, 'c1': None, 'c1_exp01': None, 'flips': {'gumbel_0.6': 149, 'gumbel_1.0': 175, 'top50': 177, 'minp_0.05': 201}}
+{'mode': 't1', 'start': 4096, 'n': 4096, 'ref_diff': 0, 'c1': None, 'c1_exp01': None, 'flips': {'gumbel_0.6': 52, 'gumbel_1.0': 56, 'top50': 56, 'minp_0.05': 62}}
+{'mode': 't1', 'start': 8192, 'n': 4096, 'ref_diff': 0, 'c1': None, 'c1_exp01': None, 'flips': {'gumbel_0.6': 65, 'gumbel_1.0': 78, 'top50': 81, 'minp_0.05': 91}}
+{'mode': 't1', 'start': 12288, 'n': 4096, 'ref_diff': 0, 'c1': None, 'c1_exp01': None, 'flips': {'gumbel_0.6': 87, 'gumbel_1.0': 97, 'top50': 100, 'minp_0.05': 108}}
+{'mode': 't1', 'start': 20480, 'n': 4096, 'ref_diff': 0, 'c1': None, 'c1_exp01': None, 'flips': {'gumbel_0.6': 74, 'gumbel_1.0': 63, 'top50': 70, 'minp_0.05': 72}}
+{'mode': 't1', 'start': 16384, 'n': 4096, 'ref_diff': 0, 'c1': None, 'c1_exp01': None, 'flips': {'gumbel_0.6': 88, 'gumbel_1.0': 108, 'top50': 108, 'minp_0.05': 113}}
+{'mode': 't1', 'start': 28672, 'n': 835, 'ref_diff': 0, 'c1': None, 'c1_exp01': None, 'flips': {'gumbel_0.6': 8, 'gumbel_1.0': 7, 'top50': 7, 'minp_0.05': 7}}
+{'mode': 't1', 'start': 24576, 'n': 4096, 'ref_diff': 0, 'c1': None, 'c1_exp01': None, 'flips': {'gumbel_0.6': 69, 'gumbel_1.0': 70, 'top50': 73, 'minp_0.05': 72}}
+TOTAL {'n': 59333, 'ref_diff': 0} C1 here 29474 C1 exp01 29474
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-Qk5K0CtUZoAEt5crxKhI1K

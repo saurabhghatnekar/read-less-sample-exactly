@@ -1,0 +1,16 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-hMt8YjYk0wDq8EdMghXPJq
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/flip_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/flip_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+└── ✓ Created Function chunk.
+2 jobs, rule 41c0a6312f33
+{'mode': 'greedy', 'start': 0, 'n': 512, 'f0': 0, 'f0_max': 0.0, 'flips_t0': {'t0/int4_g128/greedy': 9, 't0/int4d_g128/greedy': 12, 't0/int8_row/greedy': 1}}
+{'mode': 't1', 'start': 0, 'n': 512, 'f0': 0, 'f0_max': 0.0, 'flips_t0': {'t0/int4_g128/gumbel_0.6': 11, 't0/int4_g128/gumbel_1.0': 16, 't0/int4_g128/top50': 16, 't0/int4_g128/minp_0.05': 16, 't0/int4d_g128/gumbel_0.6': 15, 't0/int4d_g128/gumbel_1.0': 18, 't0/int4d_g128/top50': 18, 't0/int4d_g128/minp_0.05': 15, 't0/int8_row/gumbel_0.6': 1, 't0/int8_row/gumbel_1.0': 0, 't0/int8_row/top50': 0, 't0/int8_row/minp_0.05': 1}}
+TOTAL {'n': 1024, 'f0': 0} F0 largest difference 0.0
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-hMt8YjYk0wDq8EdMghXPJq

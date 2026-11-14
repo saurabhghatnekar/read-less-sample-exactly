@@ -1,0 +1,31 @@
+# F1 addendum: the BF16 product against the FP32 reference, Qwen3-8B
+
+greedy: 28940 states. Reference tokens differing from the F1 run: 0. F1 corrected: BF16-product argmax equals the emitted token on 28940 states; exp01 stored 28940 (match in every job; 100.00%).
+t1: 28871 states. Reference tokens differing from the F1 run: 0.
+
+Flip rate per state against the reference, with a 95% interval from resampling prompts.
+
+| Rule | BF16 product | INT8, t = 0 | INT4 dithered, t = 0 | INT4 round-to-nearest, t = 0 |
+|---|---|---|---|---|
+| greedy | 0.41% [0.33, 0.49] | 0.14% [0.10, 0.19] | 2.26% [2.00, 2.52] | 1.89% [1.66, 2.13] |
+| gumbel_0.6 | 0.32% [0.26, 0.39] | 0.19% [0.14, 0.25] | 2.44% [2.19, 2.70] | 2.14% [1.89, 2.41] |
+| gumbel_1.0 | 0.25% [0.19, 0.31] | 0.14% [0.10, 0.18] | 2.26% [2.02, 2.51] | 2.07% [1.85, 2.30] |
+| top50 | 0.25% [0.19, 0.31] | 0.14% [0.10, 0.18] | 2.26% [2.02, 2.50] | 2.07% [1.86, 2.31] |
+| minp_0.05 | 0.26% [0.20, 0.32] | 0.14% [0.10, 0.19] | 2.34% [2.10, 2.59] | 2.10% [1.85, 2.35] |
+
+Greedy: 118 flips of 28940; prompts with at least one flip 89 of 240. States with tied top BF16 logits: 236 (0.82%); flips that are ties: 118 (100.0% of flips).
+Gap on flipped greedy states: median 0.051, p90 0.147, max 0.234 logits. Median largest |BF16 product - reference| over rows: 0.067 logits.
+Overlap with INT8's greedy flips: 13 states flip under both (BF16 product 118, INT8 41).
+
+| Group | States | BF16 product, greedy |
+|---|---|---|
+| bengali | 5083 | 0.33% [0.18, 0.51] |
+| code | 3787 | 0.03% [0.00, 0.09] |
+| english | 4712 | 0.72% [0.48, 0.99] |
+| hindi | 5120 | 0.31% [0.20, 0.45] |
+| tamil | 5118 | 0.59% [0.43, 0.74] |
+| telugu | 5120 | 0.39% [0.20, 0.62] |
+
+top50: kept set differs on 37.07% [36.27, 37.88] of states; emitted token outside the reference set on 0.00% [0.00, 0.00].
+
+minp_0.05: kept set differs on 1.54% [1.36, 1.73] of states; emitted token outside the reference set on 0.00% [0.00, 0.00].

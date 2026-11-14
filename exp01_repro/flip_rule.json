@@ -1,0 +1,38 @@
+{
+  "experiment": "F1: how often an uncertified low-bit head picks a different token from the BF16 reference",
+  "written": "2026-11-14, after the A3, B1 and L4 timing results were read, before any F1 code ran on real states",
+  "question": "The certified step costs about 5% more time than the 4-bit first pass alone (L4 timing). What does that buy: how often would the first pass alone, used without a certificate, emit a different token?",
+  "states_and_models": "the exp01 reproduction states of Qwen3-8B, Gemma 4 E4B and Sarvam-30B (all greedy and T = 1 states, no subsampling)",
+  "reference": "as everywhere in exp01: FP32 product of the BF16 state and the BF16 head, the rule applied by cert_core.decide with the counter-based Gumbel noise of cert_core.gumbel",
+  "copies": {
+    "int4_g128": "round-to-nearest INT4, groups of 128, FP16 scales (the plain 4-bit baseline)",
+    "int4d_g128": "dithered INT4 g128, seed 1234 (the copy the certified first pass reads)",
+    "int8_row": "INT8 with one FP16 scale per row"
+  },
+  "shifts": "t = 0 (plain quantization) and the model's B1 greedy shift already fixed in l4_protocol.json: 0.5 (Qwen3-8B), 1.5 (Gemma 4), 0.5 (Sarvam-30B). Copies are built by a3_lib.build and the exact term t (h . mu) is added back, as in A3. Nothing is selected on these states, so there is no validation/test split.",
+  "rules": "the five exp01 rules: greedy on greedy states; Gumbel T = 0.6, Gumbel T = 1, top-50 and min-p 0.05 on T = 1 states. The uncertified decision is cert_core.decide on the copy's approximate logits with the same noise.",
+  "outcomes": {
+    "flip": "per state: the copy's token differs from the reference token",
+    "gap": "greedy and Gumbel, on flipped states: reference score of the reference token minus reference score of the emitted token (score = capped logit for greedy, capped logit / T + noise for Gumbel); 0 where there is no flip",
+    "setdiff": "top-50 and min-p: size of the symmetric difference between the copy's kept set and the reference kept set",
+    "outside": "top-50 and min-p: the emitted token is not in the reference kept set",
+    "any_flip_per_prompt": "greedy and Gumbel T = 1: share of prompts with at least one flipped state among their (up to 128) states. States follow the reference trajectory, so this is the chance that a generation departs from the reference somewhere, not a count of wrong tokens after the first departure"
+  },
+  "primary_outcome": "per-state flip rate of int4_g128 at t = 0 and of int4d_g128 at the model's shift, for greedy and Gumbel T = 1, each model, with a 95% interval from resampling prompts (10,000 draws)",
+  "secondary": "all five rules, all three copies, both shifts; greedy flip rate by language group; the gap distribution on flipped greedy states (median, p90, share above 1 logit); any-flip share per prompt",
+  "controls": {
+    "F0": "for every state, copy and shift, the largest absolute logit error computed here equals the value A3 stored for the same state (a3/<model>, key t<shift>/<copy>/maxerr). Any difference is counted and its largest size reported; a nonzero count means the copies or states differ from A3's and the run is invalid unless the largest difference is below 1e-4 logits",
+    "F1": "the share of greedy states whose reference token here equals the token the model emitted (rows_greedy.jsonl) matches exp01's C1 alignment to the digits reported there: 1.0000 (Qwen3-8B), 99.8% (Gemma 4), 98.8% (Sarvam-30B). The certificate's token mismatches on the same states are 0 (B1, subg_summary_<model>.txt), quoted for comparison",
+    "F2_cpu": "test_flip.py on synthetic heads: an exact copy gives 0 flips; a copy with rows rolled by one gives flips on at least 90% of states; flips recomputed by a plain per-state loop match; gap > 0 exactly on flipped greedy and Gumbel states"
+  },
+  "known_weaknesses": "The quantizers are this project's simple ones (round-to-nearest, absmax scales); calibrated 4-bit schemes would flip less often. One dither draw and one noise seed. Flips are counted along the reference trajectory only. A flip to a token that is nearly tied with the reference token is counted the same as any other; the gap outcome is there to separate them.",
+  "prediction_written_before_running": {
+    "greedy_int4_rtn_t0": "per-state flip rate 0.5% to 3% on Qwen3-8B, 1% to 6% on Gemma 4 and on Sarvam-30B",
+    "dither_vs_rtn": "the dithered copy's greedy flip rate is within a factor of 1.5 of the round-to-nearest copy's on every model at t = 0",
+    "gumbel": "Gumbel T = 1 flip rate is higher than greedy on every model for both INT4 copies, between 2% and 15%",
+    "int8": "INT8 greedy flip rate is below 0.3% on every model",
+    "languages": "on Gemma 4 the four Indian-language groups each flip more often than English on greedy",
+    "per_prompt": "more than half of the greedy prompts have at least one flip in their 128 states for int4_g128 at t = 0, on every model",
+    "severity": "the median gap on flipped greedy states is below 0.5 logits on every model: most flips are near-ties"
+  }
+}

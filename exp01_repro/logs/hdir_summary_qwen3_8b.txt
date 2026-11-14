@@ -1,0 +1,61 @@
+# K2 state-direction correction, Qwen3-8B
+
+Directions: 14488 calibration states (greedy, even prompt ids). Share of their second moment in the top 1, 4, 16, 64 eigenvectors: 0.138, 0.318, 0.467, 0.576. Cosine of mu with the top eigenvector: +0.188. ||mu|| = 0.376.
+
+greedy: 28940 states. H0 values differing from B1: 0. H1 bound violations: 0 (largest excess -0.1099 logits). H2 token mismatches: 0.
+t1: 28871 states. H0 values differing from B1: 0. H1 bound violations: 0 (largest excess -0.1127 logits). H2 token mismatches: 0.
+
+## greedy, t0: sub-Gaussian + INT8
+
+| Directions | Share of the state removed, median | Median-row bound vs none, median | Top-row bound vs none, median | S median, p99 | Status (all states) | Test bytes (median, p99, mean) | p99 bytes, all states | Δmean vs none [95%] |
+|---|---|---|---|---|---|---|---|---|
+| none | 0.000 | 1.000 | 1.000 | 1, 22 | GATES_PASS | 0.258, 0.258, 0.258 | 0.258 | +0.0000 [+0.0000, +0.0000] |
+| mu | 0.003 | 0.998 | 0.998 | 1, 22 | GATES_PASS | 0.258, 0.258, 0.258 | 0.258 | +0.0005 [+0.0005, +0.0005] |
+| pca1 | 0.092 | 0.954 | 0.953 | 1, 20 | GATES_PASS | 0.258, 0.258, 0.258 | 0.258 | +0.0005 [+0.0005, +0.0005] |
+| pca4 | 0.260 | 0.865 | 0.865 | 1, 15 | GATES_PASS | 0.260, 0.260, 0.260 | 0.260 | +0.0020 [+0.0020, +0.0020] |
+| pca16 | 0.414 | 0.774 | 0.773 | 1, 12 | GATES_PASS | 0.266, 0.266, 0.266 | 0.266 | +0.0078 [+0.0078, +0.0078] |
+| pca64 | 0.541 | 0.688 | 0.688 | 1, 11 | GATES_PASS | 0.289, 0.289, 0.289 | 0.289 | +0.0312 [+0.0312, +0.0312] |
+
+## greedy, t0.5: sub-Gaussian + INT8
+
+| Directions | Share of the state removed, median | Median-row bound vs none, median | Top-row bound vs none, median | S median, p99 | Status (all states) | Test bytes (median, p99, mean) | p99 bytes, all states | Δmean vs none [95%] |
+|---|---|---|---|---|---|---|---|---|
+| none | 0.000 | 1.000 | 1.000 | 1, 21 | GATES_PASS | 0.258, 0.258, 0.258 | 0.258 | +0.0000 [+0.0000, +0.0000] |
+| mu | 0.003 | 0.998 | 0.998 | 1, 21 | GATES_PASS | 0.258, 0.258, 0.258 | 0.258 | +0.0005 [+0.0005, +0.0005] |
+| pca1 | 0.092 | 0.954 | 0.953 | 1, 20 | GATES_PASS | 0.258, 0.258, 0.258 | 0.258 | +0.0005 [+0.0005, +0.0005] |
+| pca4 | 0.260 | 0.865 | 0.865 | 1, 15 | GATES_PASS | 0.260, 0.260, 0.260 | 0.260 | +0.0020 [+0.0020, +0.0020] |
+| pca16 | 0.414 | 0.773 | 0.773 | 1, 12 | GATES_PASS | 0.266, 0.266, 0.266 | 0.266 | +0.0078 [+0.0078, +0.0078] |
+| pca64 | 0.541 | 0.688 | 0.688 | 1, 10 | GATES_PASS | 0.289, 0.289, 0.289 | 0.289 | +0.0312 [+0.0312, +0.0312] |
+
+## gumbel_1.0, t0: sub-Gaussian + INT8
+
+| Directions | Share of the state removed, median | Median-row bound vs none, median | Top-row bound vs none, median | S median, p99 | Status (all states) | Test bytes (median, p99, mean) | p99 bytes, all states | Δmean vs none [95%] |
+|---|---|---|---|---|---|---|---|---|
+| none | 0.000 | 1.000 | 1.000 | 1, 22 | GATES_PASS | 0.258, 0.258, 0.258 | 0.258 | +0.0000 [+0.0000, +0.0000] |
+| mu | 0.003 | 0.998 | 0.998 | 1, 22 | GATES_PASS | 0.258, 0.258, 0.258 | 0.258 | +0.0005 [+0.0005, +0.0005] |
+| pca1 | 0.092 | 0.955 | 0.954 | 1, 20 | GATES_PASS | 0.258, 0.258, 0.258 | 0.258 | +0.0005 [+0.0005, +0.0005] |
+| pca4 | 0.257 | 0.867 | 0.867 | 1, 15 | GATES_PASS | 0.260, 0.260, 0.260 | 0.260 | +0.0020 [+0.0020, +0.0020] |
+| pca16 | 0.411 | 0.775 | 0.775 | 1, 12 | GATES_PASS | 0.266, 0.266, 0.266 | 0.266 | +0.0078 [+0.0078, +0.0078] |
+| pca64 | 0.540 | 0.689 | 0.689 | 1, 11 | GATES_PASS | 0.289, 0.289, 0.289 | 0.289 | +0.0312 [+0.0312, +0.0312] |
+
+## gumbel_1.0, t0.5: sub-Gaussian + INT8
+
+| Directions | Share of the state removed, median | Median-row bound vs none, median | Top-row bound vs none, median | S median, p99 | Status (all states) | Test bytes (median, p99, mean) | p99 bytes, all states | Δmean vs none [95%] |
+|---|---|---|---|---|---|---|---|---|
+| none | 0.000 | 1.000 | 1.000 | 1, 22 | GATES_PASS | 0.258, 0.258, 0.258 | 0.258 | +0.0000 [+0.0000, +0.0000] |
+| mu | 0.003 | 0.998 | 0.998 | 1, 22 | GATES_PASS | 0.258, 0.258, 0.258 | 0.258 | +0.0005 [+0.0005, +0.0005] |
+| pca1 | 0.092 | 0.955 | 0.954 | 1, 20 | GATES_PASS | 0.258, 0.258, 0.258 | 0.258 | +0.0005 [+0.0005, +0.0005] |
+| pca4 | 0.257 | 0.867 | 0.867 | 1, 15 | GATES_PASS | 0.260, 0.260, 0.260 | 0.260 | +0.0020 [+0.0019, +0.0020] |
+| pca16 | 0.411 | 0.775 | 0.774 | 1, 12 | GATES_PASS | 0.266, 0.266, 0.266 | 0.266 | +0.0078 [+0.0078, +0.0078] |
+| pca64 | 0.540 | 0.689 | 0.689 | 1, 10 | GATES_PASS | 0.289, 0.289, 0.289 | 0.289 | +0.0312 [+0.0312, +0.0312] |
+
+## Greedy, t0.5, by language group (all states)
+
+| Group | Share removed by mu, median | by pca16 | Mean bytes: none | mu | pca16 | p99 bytes: none | mu | pca16 |
+|---|---|---|---|---|---|---|---|---|
+| bengali | 0.003 | 0.431 | 0.258 | 0.258 | 0.266 | 0.258 | 0.258 | 0.266 |
+| code | 0.011 | 0.630 | 0.258 | 0.258 | 0.266 | 0.258 | 0.258 | 0.266 |
+| english | 0.005 | 0.554 | 0.258 | 0.258 | 0.266 | 0.258 | 0.259 | 0.266 |
+| hindi | 0.003 | 0.358 | 0.258 | 0.258 | 0.266 | 0.258 | 0.258 | 0.266 |
+| tamil | 0.002 | 0.290 | 0.258 | 0.258 | 0.266 | 0.258 | 0.258 | 0.266 |
+| telugu | 0.003 | 0.358 | 0.258 | 0.258 | 0.266 | 0.258 | 0.258 | 0.266 |

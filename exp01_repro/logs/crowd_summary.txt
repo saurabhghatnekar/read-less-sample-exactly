@@ -1,0 +1,130 @@
+# K1: crowding of the top reference logits (greedy states)
+
+Qwen3-8B: 28940 states. K0 shortlist values differing from A3 (Hoeffding): 0, from B1 (sub-Gaussian): 0.
+Gemma 4 E4B: 29641 states. K0 shortlist values differing from A3 (Hoeffding): 0, from B1 (sub-Gaussian): 0.
+Sarvam-30B: 29826 states. K0 shortlist values differing from A3 (Hoeffding): 0, from B1 (sub-Gaussian): 0.
+
+## Logit scale, offset and bounds
+
+| Median over greedy states | Qwen3-8B | Gemma 4 E4B | Sarvam-30B |
+|---|---|---|---|
+| Raw top logit | 37.71 | 35.54 | 112.60 |
+| Offset h . mu | -3.03 | -23.32 | 85.40 |
+| Offset share of the raw top logit | -0.08 | -0.66 | 0.77 |
+| Top logit minus the median logit (capped) | 40.67 | 43.10 | 28.78 |
+| Standard deviation of the logits (capped) | 3.51 | 3.88 | 2.92 |
+| Top probability at T = 1 | 1.000 | 0.999 | 0.993 |
+| Entropy at T = 1 (nats) | 0.003 | 0.010 | 0.053 |
+| Hoeffding bound, t = 0: median row | 6.97 | 14.90 | 10.37 |
+| Hoeffding bound, t = 0: top row | 6.07 | 14.46 | 10.18 |
+| Sub-Gaussian bound, t = 0: median row | 4.07 | 8.66 | 6.05 |
+| Sub-Gaussian bound, B1 shift: median row | 3.98 | 8.20 | 5.46 |
+| Bound in units of the logit spread (2 x median Hoeffding bound / (top - median logit)) | 0.34 | 0.66 | 0.78 |
+
+## Gaps below the top logit (capped logits)
+
+| Median over greedy states | Qwen3-8B | Gemma 4 E4B | Sarvam-30B |
+|---|---|---|---|
+| Top minus the 2-th largest | 8.53 | 7.14 | 5.49 |
+| Top minus the 10-th largest | 17.56 | 15.82 | 11.27 |
+| Top minus the 100-th largest | 26.70 | 22.92 | 15.98 |
+| Top minus the 1000-th largest | 31.37 | 28.50 | 19.51 |
+| Top minus the 10000-th largest | 35.54 | 34.04 | 23.01 |
+
+## Tokens within a fixed distance of the top (capped logits)
+
+| Median over greedy states | Qwen3-8B | Gemma 4 E4B | Sarvam-30B |
+|---|---|---|---|
+| Within 1 logits | 1 | 1 | 1 |
+| Within 2 logits | 1 | 1 | 1 |
+| Within 4 logits | 1 | 1 | 1 |
+| Within 8 logits | 1 | 2 | 3 |
+| Within 16 logits | 7 | 10 | 101 |
+| Within 32 logits | 1422 | 4041 | 207536 |
+| Within 64 logits | 151936 | 262144 | 262144 |
+
+## Headroom in bound units: gap / (2 x median Hoeffding bound, t = 0)
+
+| Median over greedy states | Qwen3-8B | Gemma 4 E4B | Sarvam-30B |
+|---|---|---|---|
+| 2-th largest | 0.62 | 0.24 | 0.24 |
+| 10-th largest | 1.25 | 0.54 | 0.47 |
+| 100-th largest | 1.93 | 0.80 | 0.67 |
+| 1000-th largest | 2.27 | 1.02 | 0.84 |
+| 10000-th largest | 2.57 | 1.23 | 1.03 |
+
+Same with the sub-Gaussian bound at the B1 shift
+
+| Median over greedy states | Qwen3-8B | Gemma 4 E4B | Sarvam-30B |
+|---|---|---|---|
+| 2-th largest | 1.08 | 0.44 | 0.44 |
+| 10-th largest | 2.19 | 0.97 | 0.87 |
+| 100-th largest | 3.38 | 1.46 | 1.25 |
+| 1000-th largest | 3.97 | 1.85 | 1.56 |
+| 10000-th largest | 4.50 | 2.24 | 1.92 |
+
+## Shortlist: copy's own centres against exact centres
+
+| Median over greedy states | Qwen3-8B | Gemma 4 E4B | Sarvam-30B |
+|---|---|---|---|
+| Hoeffding, t = 0: need_actual, median | 3 | 24 | 17262 |
+| Hoeffding, t = 0: need_exact, median | 3 | 23 | 15948 |
+| Hoeffding, t = 0: need_actual, p99 | 157 | 21525 | 262112 |
+| Hoeffding, t = 0: need_exact, p99 | 157 | 21321 | 262144 |
+| Hoeffding, t = 0: median of need_actual / need_exact | 1.00 | 1.00 | 1.00 |
+| Hoeffding, t = 0: sum of need_actual / sum of need_exact | 1.00 | 1.01 | 0.99 |
+| sub-Gaussian, t = 0: need_actual, median | 1 | 2 | 138 |
+| sub-Gaussian, t = 0: need_exact, median | 1 | 2 | 123 |
+| sub-Gaussian, t = 0: need_actual, p99 | 22 | 383 | 140760 |
+| sub-Gaussian, t = 0: need_exact, p99 | 21 | 353 | 143703 |
+| sub-Gaussian, t = 0: median of need_actual / need_exact | 1.00 | 1.00 | 1.00 |
+| sub-Gaussian, t = 0: sum of need_actual / sum of need_exact | 1.00 | 1.06 | 0.96 |
+| sub-Gaussian, B1 shift: need_actual, median | 1 | 2 | 149 |
+| sub-Gaussian, B1 shift: need_exact, median | 1 | 2 | 111 |
+| sub-Gaussian, B1 shift: need_actual, p99 | 21 | 285 | 133642 |
+| sub-Gaussian, B1 shift: need_exact, p99 | 21 | 266 | 138276 |
+| sub-Gaussian, B1 shift: median of need_actual / need_exact | 1.00 | 1.00 | 1.06 |
+| sub-Gaussian, B1 shift: sum of need_actual / sum of need_exact | 1.00 | 1.00 | 0.94 |
+
+## By language group
+
+Qwen3-8B
+
+| Group | need_actual (Hoeffding, t = 0), median | Within 16 logits, median | Top minus 1000-th, median | 2 x median Hoeffding bound, median | Entropy, median |
+|---|---|---|---|---|---|
+| bengali | 4 | 9 | 30.03 | 14.38 | 0.004 |
+| code | 1 | 1 | 55.02 | 18.19 | 0.000 |
+| english | 4 | 9 | 30.31 | 14.32 | 0.061 |
+| hindi | 3 | 7 | 32.81 | 13.91 | 0.002 |
+| tamil | 5 | 11 | 28.18 | 13.31 | 0.020 |
+| telugu | 3 | 7 | 30.38 | 13.51 | 0.005 |
+
+Gemma 4 E4B
+
+| Group | need_actual (Hoeffding, t = 0), median | Within 16 logits, median | Top minus 1000-th, median | 2 x median Hoeffding bound, median | Entropy, median |
+|---|---|---|---|---|---|
+| bengali | 292 | 22 | 26.30 | 33.19 | 0.076 |
+| code | 1 | 1 | 30.27 | 12.66 | 0.000 |
+| english | 2 | 12 | 26.37 | 15.30 | 0.041 |
+| hindi | 14 | 7 | 29.81 | 27.54 | 0.006 |
+| tamil | 458 | 24 | 26.73 | 31.96 | 0.080 |
+| telugu | 290 | 13 | 30.01 | 36.69 | 0.017 |
+
+Sarvam-30B
+
+| Group | need_actual (Hoeffding, t = 0), median | Within 16 logits, median | Top minus 1000-th, median | 2 x median Hoeffding bound, median | Entropy, median |
+|---|---|---|---|---|---|
+| bengali | 5384 | 263 | 17.85 | 18.14 | 0.120 |
+| code | 23999 | 12 | 23.53 | 18.80 | 0.000 |
+| english | 133244 | 183 | 18.74 | 27.37 | 0.292 |
+| hindi | 11000 | 147 | 18.77 | 20.52 | 0.100 |
+| tamil | 8904 | 174 | 18.62 | 20.63 | 0.139 |
+| telugu | 6449 | 144 | 19.01 | 20.36 | 0.078 |
+
+## Stock-BF16 ties against the raw top logit
+
+| Model | Median raw top logit | Tie share, lower half by raw top logit | Tie share, upper half | Tie share, raw top below 64 | 64 to 128 | 128 and above |
+|---|---|---|---|---|---|---|
+| Qwen3-8B | 37.7 | 1.47% (14470) | 0.17% (14470) | 0.83% (28299) | 0.00% (641) | none |
+| Gemma 4 E4B | 35.5 | 0.67% (14821) | 0.14% (14820) | 0.41% (29537) | 0.00% (104) | none |
+| Sarvam-30B | 112.6 | 3.38% (14913) | 6.42% (14913) | 1.62% (6377) | 4.70% (10449) | 6.67% (13000) |

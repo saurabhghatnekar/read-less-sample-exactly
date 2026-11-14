@@ -1,0 +1,23 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-TRsNT0hh849gQRoK6YE7KJ
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/crowd_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/crowd_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/subg_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+└── ✓ Created Function chunk.
+8 jobs, rule 2b03630012a2
+{'start': 0, 'n': 4096, 'k0': {'a3': 0, 'subg': 0}, 'need_median': 137295.5, 'n16_median': 162.0}
+{'start': 8192, 'n': 4096, 'k0': {'a3': 0, 'subg': 0}, 'need_median': 9847.5, 'n16_median': 50.0}
+{'start': 4096, 'n': 4096, 'k0': {'a3': 0, 'subg': 0}, 'need_median': 42136.0, 'n16_median': 15.0}
+{'start': 12288, 'n': 4096, 'k0': {'a3': 0, 'subg': 0}, 'need_median': 7755.5, 'n16_median': 230.0}
+{'start': 16384, 'n': 4096, 'k0': {'a3': 0, 'subg': 0}, 'need_median': 7543.0, 'n16_median': 199.0}
+{'start': 20480, 'n': 4096, 'k0': {'a3': 0, 'subg': 0}, 'need_median': 8853.5, 'n16_median': 169.5}
+{'start': 24576, 'n': 4096, 'k0': {'a3': 0, 'subg': 0}, 'need_median': 6768.0, 'n16_median': 151.0}
+{'start': 28672, 'n': 1154, 'k0': {'a3': 0, 'subg': 0}, 'need_median': 5503.0, 'n16_median': 142.0}
+TOTAL 29826 K0 differences {'a3': 0, 'subg': 0}
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-TRsNT0hh849gQRoK6YE7KJ

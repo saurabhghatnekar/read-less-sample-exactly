@@ -1,0 +1,35 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-7oKanKf19uJEfcF4reJ5Vg
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/hdir_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/hdir_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/subg_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+├── ✓ Created Function prep.
+├── ✓ Created Function chunk.
+├── ✓ Created Function prep_lolo.
+└── ✓ Created Function chunk_robust.
+lolo directions {"bengali": {"n_cal": 24745, "share": [0.7351942071363347, 0.8520063290188998], "cos_with_pca1": 0.9994589982401907}, "code": {"n_cal": 25193, "share": [0.7017445064234156, 0.82019432551053], "cos_with_pca1": 0.9995242501095201}, "english": {"n_cal": 24984, "share": [0.6803760406144723, 0.810506123680978], "cos_with_pca1": 0.9987556333943595}, "hindi": {"n_cal": 24706, "share": [0.7142938192036121, 0.8359090376271707], "cos_with_pca1": 0.9992669388581584}, "tamil": {"n_cal": 24756, "share": [0.7713309414723502, 0.8549915561670715], "cos_with_pca1": 0.9987298569800679}, "telugu": {"n_cal": 24746, "share": [0.7826387665391136, 0.8585372866827394], "cos_with_pca1": -0.9993305222216992}}
+16 jobs, addendum 44d0af47b69d
+{'mode': 'greedy', 'start': 0, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'greedy': {'none': 0.3013, 'pca1': 0.2584, 'lolo1': 0.2584}}}
+{'mode': 'greedy', 'start': 4096, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'greedy': {'none': 0.2988, 'pca1': 0.2583, 'lolo1': 0.2583}}}
+{'mode': 'greedy', 'start': 8192, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'greedy': {'none': 0.2757, 'pca1': 0.2583, 'lolo1': 0.2583}}}
+{'mode': 'greedy', 'start': 12288, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'greedy': {'none': 0.2662, 'pca1': 0.2583, 'lolo1': 0.2583}}}
+{'mode': 'greedy', 'start': 16384, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'greedy': {'none': 0.2703, 'pca1': 0.2584, 'lolo1': 0.2584}}}
+{'mode': 'greedy', 'start': 20480, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'greedy': {'none': 0.2721, 'pca1': 0.2585, 'lolo1': 0.2585}}}
+{'mode': 'greedy', 'start': 24576, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'greedy': {'none': 0.2687, 'pca1': 0.2585, 'lolo1': 0.2585}}}
+{'mode': 'greedy', 'start': 28672, 'n': 1154, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'greedy': {'none': 0.2678, 'pca1': 0.2585, 'lolo1': 0.2585}}}
+{'mode': 't1', 'start': 28672, 'n': 835, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'gumbel_0.6': {'none': 0.268, 'pca1': 0.2585, 'lolo1': 0.2585}, 'gumbel_1.0': {'none': 0.2664, 'pca1': 0.2585, 'lolo1': 0.2585}, 'top50': {'none': 0.3681, 'pca1': 0.2813, 'lolo1': 0.283}, 'minp_0.05': {'none': 0.2773, 'pca1': 0.2591, 'lolo1': 0.2592}}}
+{'mode': 't1', 'start': 12288, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'gumbel_0.6': {'none': 0.2703, 'pca1': 0.2584, 'lolo1': 0.2584}, 'gumbel_1.0': {'none': 0.2696, 'pca1': 0.2584, 'lolo1': 0.2584}, 'top50': {'none': 0.4012, 'pca1': 0.2687, 'lolo1': 0.2696}, 'minp_0.05': {'none': 0.2837, 'pca1': 0.2589, 'lolo1': 0.2589}}}
+{'mode': 't1', 'start': 4096, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'gumbel_0.6': {'none': 0.3038, 'pca1': 0.2583, 'lolo1': 0.2583}, 'gumbel_1.0': {'none': 0.3007, 'pca1': 0.2583, 'lolo1': 0.2583}, 'top50': {'none': 0.4725, 'pca1': 0.2707, 'lolo1': 0.273}, 'minp_0.05': {'none': 0.3297, 'pca1': 0.2585, 'lolo1': 0.2585}}}
+{'mode': 't1', 'start': 16384, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'gumbel_0.6': {'none': 0.2768, 'pca1': 0.2586, 'lolo1': 0.2586}, 'gumbel_1.0': {'none': 0.2747, 'pca1': 0.2585, 'lolo1': 0.2585}, 'top50': {'none': 0.4065, 'pca1': 0.2769, 'lolo1': 0.2788}, 'minp_0.05': {'none': 0.2959, 'pca1': 0.2604, 'lolo1': 0.2605}}}
+{'mode': 't1', 'start': 0, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'gumbel_0.6': {'none': 0.3048, 'pca1': 0.2584, 'lolo1': 0.2584}, 'gumbel_1.0': {'none': 0.3016, 'pca1': 0.2584, 'lolo1': 0.2584}, 'top50': {'none': 0.4901, 'pca1': 0.2707, 'lolo1': 0.2733}, 'minp_0.05': {'none': 0.3372, 'pca1': 0.2588, 'lolo1': 0.2588}}}
+{'mode': 't1', 'start': 8192, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'gumbel_0.6': {'none': 0.2778, 'pca1': 0.2584, 'lolo1': 0.2584}, 'gumbel_1.0': {'none': 0.2764, 'pca1': 0.2584, 'lolo1': 0.2584}, 'top50': {'none': 0.4229, 'pca1': 0.2675, 'lolo1': 0.2688}, 'minp_0.05': {'none': 0.2935, 'pca1': 0.2586, 'lolo1': 0.2586}}}
+{'mode': 't1', 'start': 20480, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'gumbel_0.6': {'none': 0.2725, 'pca1': 0.2586, 'lolo1': 0.2586}, 'gumbel_1.0': {'none': 0.2712, 'pca1': 0.2586, 'lolo1': 0.2586}, 'top50': {'none': 0.3837, 'pca1': 0.2863, 'lolo1': 0.2905}, 'minp_0.05': {'none': 0.2848, 'pca1': 0.2597, 'lolo1': 0.2599}}}
+{'mode': 't1', 'start': 24576, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'gumbel_0.6': {'none': 0.2705, 'pca1': 0.2586, 'lolo1': 0.2586}, 'gumbel_1.0': {'none': 0.2691, 'pca1': 0.2586, 'lolo1': 0.2586}, 'top50': {'none': 0.3666, 'pca1': 0.2865, 'lolo1': 0.2886}, 'minp_0.05': {'none': 0.2821, 'pca1': 0.26, 'lolo1': 0.2601}}}
+TOTAL {'n': 59333, 'h0': 0, 'viol': 0, 'mism': 0}
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-7oKanKf19uJEfcF4reJ5Vg

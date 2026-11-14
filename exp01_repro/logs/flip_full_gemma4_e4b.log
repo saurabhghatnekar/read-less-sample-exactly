@@ -1,0 +1,26 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-5r0l8OPJ4IP2bPNf8qNIjO
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/flip_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/flip_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+└── ✓ Created Function chunk.
+8 jobs, rule 41c0a6312f33
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+{'mode': 'greedy', 'start': 16384, 'n': 8192, 'f0': 0, 'f0_max': 0.0, 'flips_t0': {'t0/int4_g128/greedy': 343, 't0/int4d_g128/greedy': 328, 't0/int8_row/greedy': 22}}
+{'mode': 'greedy', 'start': 24576, 'n': 5065, 'f0': 0, 'f0_max': 0.0, 'flips_t0': {'t0/int4_g128/greedy': 137, 't0/int4d_g128/greedy': 172, 't0/int8_row/greedy': 11}}
+{'mode': 'greedy', 'start': 0, 'n': 8192, 'f0': 0, 'f0_max': 0.0, 'flips_t0': {'t0/int4_g128/greedy': 92, 't0/int4d_g128/greedy': 96, 't0/int8_row/greedy': 4}}
+{'mode': 'greedy', 'start': 8192, 'n': 8192, 'f0': 0, 'f0_max': 0.0, 'flips_t0': {'t0/int4_g128/greedy': 167, 't0/int4d_g128/greedy': 216, 't0/int8_row/greedy': 15}}
+{'mode': 't1', 'start': 8192, 'n': 8192, 'f0': 0, 'f0_max': 0.0, 'flips_t0': {'t0/int4_g128/gumbel_0.6': 189, 't0/int4_g128/gumbel_1.0': 175, 't0/int4_g128/top50': 174, 't0/int4_g128/minp_0.05': 177, 't0/int4d_g128/gumbel_0.6': 224, 't0/int4d_g128/gumbel_1.0': 223, 't0/int4d_g128/top50': 222, 't0/int4d_g128/minp_0.05': 225, 't0/int8_row/gumbel_0.6': 12, 't0/int8_row/gumbel_1.0': 19, 't0/int8_row/top50': 19, 't0/int8_row/minp_0.05': 14}}
+{'mode': 't1', 'start': 16384, 'n': 8192, 'f0': 0, 'f0_max': 0.0, 'flips_t0': {'t0/int4_g128/gumbel_0.6': 302, 't0/int4_g128/gumbel_1.0': 353, 't0/int4_g128/top50': 351, 't0/int4_g128/minp_0.05': 349, 't0/int4d_g128/gumbel_0.6': 354, 't0/int4d_g128/gumbel_1.0': 384, 't0/int4d_g128/top50': 382, 't0/int4d_g128/minp_0.05': 374, 't0/int8_row/gumbel_0.6': 28, 't0/int8_row/gumbel_1.0': 34, 't0/int8_row/top50': 33, 't0/int8_row/minp_0.05': 28}}
+{'mode': 't1', 'start': 0, 'n': 8192, 'f0': 0, 'f0_max': 0.0, 'flips_t0': {'t0/int4_g128/gumbel_0.6': 83, 't0/int4_g128/gumbel_1.0': 91, 't0/int4_g128/top50': 90, 't0/int4_g128/minp_0.05': 91, 't0/int4d_g128/gumbel_0.6': 97, 't0/int4d_g128/gumbel_1.0': 114, 't0/int4d_g128/top50': 113, 't0/int4d_g128/minp_0.05': 98, 't0/int8_row/gumbel_0.6': 9, 't0/int8_row/gumbel_1.0': 6, 't0/int8_row/top50': 6, 't0/int8_row/minp_0.05': 6}}
+{'mode': 't1', 'start': 24576, 'n': 4998, 'f0': 0, 'f0_max': 0.0, 'flips_t0': {'t0/int4_g128/gumbel_0.6': 124, 't0/int4_g128/gumbel_1.0': 148, 't0/int4_g128/top50': 148, 't0/int4_g128/minp_0.05': 148, 't0/int4d_g128/gumbel_0.6': 178, 't0/int4d_g128/gumbel_1.0': 186, 't0/int4d_g128/top50': 186, 't0/int4d_g128/minp_0.05': 181, 't0/int8_row/gumbel_0.6': 16, 't0/int8_row/gumbel_1.0': 11, 't0/int8_row/top50': 11, 't0/int8_row/minp_0.05': 10}}
+TOTAL {'n': 59215, 'f0': 0} F0 largest difference 0.0
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-5r0l8OPJ4IP2bPNf8qNIjO

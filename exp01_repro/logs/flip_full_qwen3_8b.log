@@ -1,0 +1,22 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-ySMOBY3ldUes42LOu6BIvo
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/flip_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/flip_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_lib.py
+└── ✓ Created Function chunk.
+8 jobs, rule 41c0a6312f33
+{'mode': 'greedy', 'start': 0, 'n': 8192, 'f0': 0, 'f0_max': 0.0, 'flips_t0': {'t0/int4_g128/greedy': 167, 't0/int4d_g128/greedy': 219, 't0/int8_row/greedy': 15}}
+{'mode': 'greedy', 'start': 8192, 'n': 8192, 'f0': 0, 'f0_max': 0.0, 'flips_t0': {'t0/int4_g128/greedy': 113, 't0/int4d_g128/greedy': 140, 't0/int8_row/greedy': 7}}
+{'mode': 'greedy', 'start': 16384, 'n': 8192, 'f0': 0, 'f0_max': 0.0, 'flips_t0': {'t0/int4_g128/greedy': 182, 't0/int4d_g128/greedy': 206, 't0/int8_row/greedy': 14}}
+{'mode': 'greedy', 'start': 24576, 'n': 4364, 'f0': 0, 'f0_max': 0.0, 'flips_t0': {'t0/int4_g128/greedy': 86, 't0/int4d_g128/greedy': 88, 't0/int8_row/greedy': 5}}
+{'mode': 't1', 'start': 0, 'n': 8192, 'f0': 0, 'f0_max': 0.0, 'flips_t0': {'t0/int4_g128/gumbel_0.6': 188, 't0/int4_g128/gumbel_1.0': 177, 't0/int4_g128/top50': 177, 't0/int4_g128/minp_0.05': 183, 't0/int4d_g128/gumbel_0.6': 204, 't0/int4d_g128/gumbel_1.0': 201, 't0/int4d_g128/top50': 201, 't0/int4d_g128/minp_0.05': 206, 't0/int8_row/gumbel_0.6': 18, 't0/int8_row/gumbel_1.0': 9, 't0/int8_row/top50': 9, 't0/int8_row/minp_0.05': 9}}
+{'mode': 't1', 'start': 24576, 'n': 4295, 'f0': 0, 'f0_max': 0.0, 'flips_t0': {'t0/int4_g128/gumbel_0.6': 89, 't0/int4_g128/gumbel_1.0': 74, 't0/int4_g128/top50': 74, 't0/int4_g128/minp_0.05': 75, 't0/int4d_g128/gumbel_0.6': 104, 't0/int4d_g128/gumbel_1.0': 94, 't0/int4d_g128/top50': 94, 't0/int4d_g128/minp_0.05': 96, 't0/int8_row/gumbel_0.6': 7, 't0/int8_row/gumbel_1.0': 3, 't0/int8_row/top50': 3, 't0/int8_row/minp_0.05': 0}}
+{'mode': 't1', 'start': 8192, 'n': 8192, 'f0': 0, 'f0_max': 0.0, 'flips_t0': {'t0/int4_g128/gumbel_0.6': 126, 't0/int4_g128/gumbel_1.0': 142, 't0/int4_g128/top50': 142, 't0/int4_g128/minp_0.05': 138, 't0/int4d_g128/gumbel_0.6': 158, 't0/int4d_g128/gumbel_1.0': 168, 't0/int4d_g128/top50': 168, 't0/int4d_g128/minp_0.05': 177, 't0/int8_row/gumbel_0.6': 15, 't0/int8_row/gumbel_1.0': 13, 't0/int8_row/top50': 13, 't0/int8_row/minp_0.05': 15}}
+{'mode': 't1', 'start': 16384, 'n': 8192, 'f0': 0, 'f0_max': 0.0, 'flips_t0': {'t0/int4_g128/gumbel_0.6': 216, 't0/int4_g128/gumbel_1.0': 206, 't0/int4_g128/top50': 206, 't0/int4_g128/minp_0.05': 210, 't0/int4d_g128/gumbel_0.6': 238, 't0/int4d_g128/gumbel_1.0': 189, 't0/int4d_g128/top50': 189, 't0/int4d_g128/minp_0.05': 196, 't0/int8_row/gumbel_0.6': 15, 't0/int8_row/gumbel_1.0': 15, 't0/int8_row/top50': 15, 't0/int8_row/minp_0.05': 17}}
+TOTAL {'n': 57811, 'f0': 0} F0 largest difference 0.0
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-ySMOBY3ldUes42LOu6BIvo

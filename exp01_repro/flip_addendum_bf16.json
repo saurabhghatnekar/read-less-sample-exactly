@@ -1,0 +1,25 @@
+{
+  "addendum_to": "flip_rule.json (sha256 41c0a6312f3300366c8cc298b5c75e03bd62d971ccc1d2a466a3b2c2381745ed)",
+  "written": "2026-11-14, after the F1 results were read, before any code of this addendum ran on real states",
+  "why": "Control F1 of flip_rule.json expected the FP32 reference token to equal the emitted token as often as exp01's C1 alignment. That was a mis-specification: C1 compares the emitted token with the argmax of the BF16 product, not with the reference. The F1 results measured 99.59% (Qwen3-8B), 99.57% (Gemma 4) and 97.44% (Sarvam-30B) against C1's 1.0000, 99.8% and 98.8%. flip_rule.json is left as hashed. This addendum states the control as it should have been and adds the measurement the mismatch points to.",
+  "unchanged": "states, reference, rules, noise, outcomes, intervals and the F0 control, all as in flip_rule.json. The results already reported under flip_rule.json are not rerun or changed.",
+  "copy_added": "bf16_prod: the BF16 product of the BF16 state and the BF16 head, computed as exp01 computes it for C1 ((h.bfloat16() @ Wb.T) on the GPU, read back as FP32), 128 states at a time. It stands for the stock head. No shift.",
+  "controls": {
+    "F1_corrected": "on greedy states, the number of states whose bf16_prod argmax equals the emitted token equals the c1_match count exp01 stored for the same states (results/<model>/greedy_*.json), exactly, in every job. Stored totals: 28,940 of 28,940 (Qwen3-8B), 29,581 of 29,641 (Gemma 4); Sarvam-30B's is read from the volume. A mismatch means this product is not exp01's and the bf16_prod numbers are reported as a different BF16 implementation, not as the stock head.",
+    "F0": "rerun as in flip_rule.json is not needed: bf16_prod has no A3 counterpart. The reference tokens stored here must equal the reference tokens stored by the F1 run on every state and rule (flip/<model>, key ref/<rule>); any difference invalidates this addendum's run."
+  },
+  "outcomes": {
+    "flip": "per state and rule: cert_core.decide on the bf16_prod logits (soft-cap applied in FP32, same noise) differs from the reference token",
+    "gap, setdiff, outside, any_flip_per_prompt": "as in flip_rule.json",
+    "tie": "greedy: the two largest bf16_prod logits are equal"
+  },
+  "primary_outcome": "greedy flip rate of bf16_prod against the reference, each model, with the 95% prompt-bootstrap interval, set beside the INT8 and first-pass-alone rates of F1",
+  "known_weaknesses": "The BF16 product depends on the BLAS path (batch shape, library version); this is the analysis image's, as in exp01's C1, not the generating run's. On Sarvam-30B the generating run used another torch version, which is why C1 is 98.8% there. Gemma 4's stock head applies the soft-cap in BF16; here it is applied in FP32 to the BF16 logits. Written after seeing F1's results, including the 118 Qwen3-8B states where the reference differs from the emitted token.",
+  "prediction_written_before_running": {
+    "qwen3_8b": "F1_corrected holds, and since every emitted token is the bf16_prod argmax, exactly 118 of 28,940 greedy states flip (0.41%)",
+    "gemma4_e4b": "greedy flip rate between 0.3% and 0.6%",
+    "sarvam_30b": "greedy flip rate between 1.5% and 3.5%, higher than INT8's 1.18%",
+    "gaps": "median gap on flipped greedy states below 0.15 logits on every model (rounding-level), and more than a third of greedy flips are exact ties in the BF16 logits",
+    "vs_int8": "bf16_prod flips more often than INT8 on greedy, on every model"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "experiment": "K2: does the part of the state along a few fixed directions inflate the dither bound, and does cancelling its error exactly narrow the certificate?",
+  "written": "2026-11-14, after the K1 results were read, before any K2 code ran on real states",
+  "lead_from_K1": "On Sarvam-30B the bound follows the offset h . mu across states (Spearman 0.83) and the shortlist follows the bound. The part of h along mu adds the same amount to every logit, so it widens every interval without separating any two tokens. K1 could not tell this from h simply being longer in those states.",
+  "method": {
+    "identity": "For the dithered copy of W_t with error rows e_v = Wq_v - W_t,v, and any fixed directions P (d x K) with coefficients alpha = P^T h: h . e_v = alpha . (P^T e_v) + (h - P alpha) . e_v. The first term is known exactly: r_v = P^T e_v is K numbers per row, computed offline. The corrected first-pass logit is zt_v - alpha . r_v, and its error is (h - P alpha) . e_v.",
+    "bound": "The dither argument of B1 applies unchanged to the remainder, since h - P alpha does not depend on the dither: b = sqrt(ln(2/delta)/6) * sqrt(sum_g ||(h - P alpha)_g||^2 s_vg^2) x (1 + 1e-6) + the A3/B1 slack + 3 u |alpha| . |r_v| + 2 u |alpha . r_v| for the FP32 storage and arithmetic of the correction (u = 2^-24), delta = 1e-15 per row.",
+    "cost": "r is stored in FP32 and read for every row in the first pass: 2K/d of the BF16 head's bytes, added to every state's byte count",
+    "directions": {
+      "mu": "K = 1, the unit mean head row (from the head alone, the K1 lead)",
+      "pca1, pca4, pca16, pca64": "the top K eigenvectors of the uncentred second moment of the calibration states: the greedy states of the even prompt ids"
+    }
+  },
+  "states_and_models": "all greedy and T = 1 exp01 states of Qwen3-8B, Gemma 4 E4B and Sarvam-30B; directions come from even prompt ids, tables are reported on odd prompt ids (test), status over all states as in B1",
+  "certificates": "sub-Gaussian + INT8 cascade exactly as B1, at t = 0 and at the model's B1 greedy shift (0.5, 1.5, 0.5), with no correction (must reproduce B1) and with each direction set; rules greedy (greedy states) and Gumbel T = 1 (T = 1 states)",
+  "primary_outcome": "Sarvam-30B at t = 0.5, greedy and Gumbel T = 1, test prompts: median, p99 and mean bytes and the status under table.py's definitions, for mu and for pca16, against no correction; mean difference with a 95% prompt-bootstrap interval",
+  "secondary": "per state: the share of ||h||^2 removed (rho), the median-row and top-row bound against no correction, the shortlist S; the same for Qwen3-8B and Gemma 4; by language group on Sarvam-30B; the second-moment spectrum of the calibration states and the cosine between mu and the top eigenvector",
+  "controls": {
+    "H0": "with no correction, bytes and S equal B1's stored values (subg/<model>, t<shift>/int4d_g128/subg/casc/<rule>) on every state; any difference invalidates the run",
+    "H1": "rows whose true error exceeds the corrected bound, over all states, rows, shifts and direction sets: expected 0, reported with the largest excess; more than 10 across the three models withdraws the corrected bound",
+    "H2": "token mismatches of every certificate against the reference: 0",
+    "H3_cpu": "test_hdir.py on a synthetic head: the corrected error equals (h - P alpha) . e_v computed directly; no violations or mismatches; no correction reproduces subg_lib; a planted fault (r from rolled rows) produces violations"
+  },
+  "known_weaknesses": "Directions are fitted on half of the same prompts' states and evaluated on the other half; a deployment would fit them on other text. r is kept in FP32 (FP16 would halve its cost and need a rounding term). One dither draw and one noise seed. Reporting five direction sets invites picking the best; mu and pca16 are named as primary before the run. Timing is not measured: the correction adds a K-term dot product per row to the first pass.",
+  "prediction_written_before_running": {
+    "share_along_mu": "the median share of ||h||^2 along mu (rho for mu) on Sarvam-30B greedy states is between 0.3 and 0.7, and is larger than on Qwen3-8B; English has the largest median share of the six Sarvam groups",
+    "spectrum": "the top eigenvector holds more than 0.4 of the calibration second moment on Sarvam-30B and its cosine with mu is above 0.8 in absolute value",
+    "bound": "on Sarvam-30B the median-row bound with mu is between 0.55 and 0.85 of the uncorrected one at the median state, and with pca16 it is below 0.6",
+    "sarvam_gate": "Sarvam-30B greedy at t = 0.5 with mu: p99 bytes fall below 0.5 over all states (GATES_PASS) and mean bytes fall below 0.275; with pca16 the p99 is below 0.40",
+    "others": "Qwen3-8B and Gemma 4 medians stay at 0.258 and their mean bytes change by less than 0.01 for mu and pca16",
+    "controls": "H0 holds, no violations, no mismatches",
+    "falsifier": "if the median share along mu on Sarvam-30B is below 0.15, or the median-row bound with mu is above 0.93 of the uncorrected one, the K1 lead is wrong: the offset in the state is not what widens Sarvam's intervals"
+  }
+}

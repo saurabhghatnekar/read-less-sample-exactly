@@ -32,3 +32,6 @@ __pycache__/
 .DS_Store
 prompts.jsonl
 outputs_*.jsonl
+
+# The K1 rule as hashed before its run quotes a non-public note; the published copy is crowd_rule.json.
+exp01_repro/crowd_rule.original.json

@@ -1,0 +1,17 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-hgKdGpJXq6qcWGgx6olTR6
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/flip_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/flip_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_lib.py
+├── ✓ Created Function chunk.
+└── ✓ Created Function bf16_chunk.
+2 jobs, addendum 8f2e0e91e40f
+{'mode': 'greedy', 'start': 0, 'n': 512, 'ref_diff': 0, 'c1': 512, 'c1_exp01': None, 'flips': {'greedy': 4}}
+{'mode': 't1', 'start': 0, 'n': 512, 'ref_diff': 0, 'c1': None, 'c1_exp01': None, 'flips': {'gumbel_0.6': 2, 'gumbel_1.0': 0, 'top50': 0, 'minp_0.05': 0}}
+TOTAL {'n': 1024, 'ref_diff': 0} C1 here 512 C1 exp01 0
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-hgKdGpJXq6qcWGgx6olTR6

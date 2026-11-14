@@ -1,0 +1,19 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-YF1rGZapMvu96kq9JsmTBB
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/hdir_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/hdir_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/subg_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+├── ✓ Created Function prep.
+└── ✓ Created Function chunk.
+directions {'n_cal': 14488, 'share': [0.13783652041630173, 0.3176317806034101, 0.46726988242715156, 0.5755244519734597], 'cos_mu_pc1': 0.18790863222563503, 'mu_norm': 0.3764161239290578}
+2 jobs, rule 76d198b215a0
+{'mode': 'greedy', 'start': 0, 'n': 512, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'none': 0.2578, 'mu': 0.2583, 'pca16': 0.2656}, 'rho_mu': 0.007}
+{'mode': 't1', 'start': 0, 'n': 512, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'none': 0.2578, 'mu': 0.2583, 'pca16': 0.2656}, 'rho_mu': 0.006}
+TOTAL {'n': 1024, 'h0': 0, 'viol': 0, 'mism': 0}
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-YF1rGZapMvu96kq9JsmTBB

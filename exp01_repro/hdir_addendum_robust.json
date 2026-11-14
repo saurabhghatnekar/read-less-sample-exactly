@@ -1,0 +1,23 @@
+{
+  "addendum_to": "hdir_rule.json (sha256 76d198b215a04531ccf6c8e3d5ada313cd2d35c2094fd380b671b8ef05e559dc)",
+  "written": "2026-11-14, after the K2 results were read, before any code of this addendum ran on real states",
+  "why": "K2 ran greedy and Gumbel T = 1 only, and its eigenvector directions were fitted on half of the same prompts' states. This addendum runs the other three rules and tests whether the directions transfer to a language group they were not fitted on.",
+  "unchanged": "method, bound, slack, cost accounting, states, reference, controls H0 to H2 and the certificates (sub-Gaussian + INT8 at t = 0 and at the model's B1 greedy shift), all as in hdir_rule.json. K2's reported results are not rerun or changed.",
+  "added": {
+    "rules": "all five exp01 rules: greedy on greedy states; Gumbel T = 0.6, Gumbel T = 1, top-50 and min-p 0.05 on T = 1 states. H0 is checked against B1 for all five.",
+    "direction_sets": {
+      "none, mu, pca1, pca4": "as in K2 (pca from the greedy states of the even prompt ids)",
+      "lolo1, lolo4": "leave one language out: for each of the six groups (English, code, Hindi, Bengali, Tamil, Telugu), the top 1 and top 4 eigenvectors of the uncentred second moment of the greedy states of the other five groups, all prompt ids. Each state is corrected with the directions fitted without its own group, so every state is out of sample by language."
+    },
+    "reported": "per model, rule and shift: test-prompt bytes (median, p99, mean), S, status over all states, for each set; the cosine between each left-out fit's top eigenvector and K2's pca1; per group on Sarvam-30B, lolo1 against pca1"
+  },
+  "known_weaknesses": "Leaving out a language still leaves the same model, the same chat template and the same kind of prompt; it tests transfer across language and domain, not across tasks or lengths. The shifts are the B1 greedy shifts for every rule, where B1 selected 1 for top-50 on Sarvam-30B and Gemma 4, so the uncorrected top-50 rows here are not B1's headline rows.",
+  "prediction_written_before_running": {
+    "transfer": "on Sarvam-30B every left-out fit's top eigenvector has cosine above 0.99 with K2's pca1, and lolo1's greedy p99 bytes over all states is within 0.01 of pca1's (0.260)",
+    "gumbel_0.6": "Sarvam-30B at t = 0.5 with pca1 or lolo1: GATES_PASS with p99 below 0.30 (0.514 without)",
+    "minp": "Sarvam-30B min-p 0.05 at t = 0.5 with pca1: p99 below 0.35 (0.561 without) and GATES_PASS",
+    "top50": "Sarvam-30B top-50 at t = 0.5 with pca4: median below 0.30 and mean below 0.33; the status is not predicted, since B1's top-50 plan reads every uncertain row",
+    "gemma_top50": "Gemma 4 top-50 stays UNDER_HALF with every set: its miss is R p99 above 1% of the vocabulary, which the INT8 stage sets, not the first pass",
+    "controls": "H0 holds for all five rules; no bound violations; no token mismatches"
+  }
+}

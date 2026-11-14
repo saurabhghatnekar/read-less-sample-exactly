@@ -1,0 +1,38 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-u2wBRI9gPtVpdQ0MlNcK0X
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/hdir_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/hdir_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/subg_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_lib.py
+├── ✓ Created Function prep.
+└── ✓ Created Function chunk.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+directions {'n_cal': 14839, 'share': [0.22169622933233196, 0.5246436854138299, 0.6061840404351755, 0.6676592256469787], 'cos_mu_pc1': -0.32870471863438716, 'mu_norm': 0.4184182139978479}
+16 jobs, rule 76d198b215a0
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+{'mode': 'greedy', 'start': 0, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'none': 0.2578, 'mu': 0.2586, 'pca16': 0.2703}, 'rho_mu': 0.042}
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+{'mode': 'greedy', 'start': 4096, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'none': 0.2578, 'mu': 0.2586, 'pca16': 0.2703}, 'rho_mu': 0.072}
+{'mode': 'greedy', 'start': 8192, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'none': 0.2578, 'mu': 0.2586, 'pca16': 0.2703}, 'rho_mu': 0.044}
+{'mode': 'greedy', 'start': 20480, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'none': 0.2579, 'mu': 0.2587, 'pca16': 0.2703}, 'rho_mu': 0.029}
+{'mode': 'greedy', 'start': 16384, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'none': 0.2579, 'mu': 0.2587, 'pca16': 0.2703}, 'rho_mu': 0.027}
+{'mode': 'greedy', 'start': 12288, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'none': 0.2579, 'mu': 0.2586, 'pca16': 0.2703}, 'rho_mu': 0.033}
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+{'mode': 'greedy', 'start': 28672, 'n': 969, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'none': 0.2579, 'mu': 0.2587, 'pca16': 0.2703}, 'rho_mu': 0.029}
+{'mode': 'greedy', 'start': 24576, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'none': 0.2579, 'mu': 0.2587, 'pca16': 0.2703}, 'rho_mu': 0.03}
+{'mode': 't1', 'start': 0, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'none': 0.2578, 'mu': 0.2586, 'pca16': 0.2703}, 'rho_mu': 0.042}
+{'mode': 't1', 'start': 4096, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'none': 0.2578, 'mu': 0.2586, 'pca16': 0.2703}, 'rho_mu': 0.073}
+{'mode': 't1', 'start': 12288, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'none': 0.2579, 'mu': 0.2586, 'pca16': 0.2703}, 'rho_mu': 0.032}
+{'mode': 't1', 'start': 8192, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'none': 0.2578, 'mu': 0.2586, 'pca16': 0.2703}, 'rho_mu': 0.043}
+{'mode': 't1', 'start': 28672, 'n': 902, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'none': 0.2579, 'mu': 0.2587, 'pca16': 0.2703}, 'rho_mu': 0.029}
+{'mode': 't1', 'start': 16384, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'none': 0.2579, 'mu': 0.2587, 'pca16': 0.2703}, 'rho_mu': 0.027}
+{'mode': 't1', 'start': 20480, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'none': 0.2579, 'mu': 0.2587, 'pca16': 0.2703}, 'rho_mu': 0.029}
+{'mode': 't1', 'start': 24576, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'none': 0.2579, 'mu': 0.2587, 'pca16': 0.2703}, 'rho_mu': 0.03}
+TOTAL {'n': 59215, 'h0': 0, 'viol': 0, 'mism': 0}
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-u2wBRI9gPtVpdQ0MlNcK0X

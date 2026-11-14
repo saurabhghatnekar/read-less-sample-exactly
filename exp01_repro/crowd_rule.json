@@ -1,0 +1,28 @@
+{
+  "experiment": "K1: is Sarvam-30B's wide certificate a loose bound or crowded top logits?",
+  "written": "2026-11-14, after the A3, B1 and F1 results and a note from the lab were read, before any K1 code ran on real states",
+  "context": "A note from the lab (14 Nov, not public) reported results on Sarvam-30B's shared head offset. Its figures are left out of this published copy until the lab publishes them; the copy hashed before the run (sha256 2b03630012a24be2659973ed55c12405015123bb98cd5747d6f908c9bc4877ad) is kept unpublished and differs from this one only in this field. Our A3, shared-error and F1 results show that centring the head rows narrows the bound by about 12% and leaves Sarvam's tail. Our inference, untested until now: the bound is no looser on Sarvam than elsewhere (bound over true largest error is about 6 on all three models); what differs is how many tokens lie within reach of the leader.",
+  "states_and_models": "all greedy exp01 states of Qwen3-8B, Gemma 4 E4B and Sarvam-30B",
+  "measured_per_state": {
+    "logits": "reference logits z (FP32 product of BF16 values) and capped logits c: top logit (raw and capped), gaps c_top - c_(k) for k = 2, 10, 100, 1000, 10000, the count of tokens with c >= c_top - w for w = 1, 2, 4, 8, 16, 32, 64 logits, the standard deviation and median of c over the vocabulary, the top probability and the entropy at T = 1",
+    "offset": "h . mu, and its share of the raw top logit",
+    "bounds": "for the dithered INT4 g128 copy: the Hoeffding and sub-Gaussian bounds at t = 0 and the sub-Gaussian bound at the model's B1 shift (0.5, 1.5, 0.5); for each, the bound of the top row and the median bound over rows",
+    "need_actual": "rows the greedy rule needs after the first pass, with the copy's own logits as interval centres (the INT8 shortlist S of the cascade)",
+    "need_exact": "the same count with the exact reference logits as centres and the same widths: what the bound's width alone costs, with no estimation error"
+  },
+  "derived": "headroom in bound units: (c_top - c_(k)) / (2 x median bound) for each k; the ratio need_actual / need_exact; ties in the stock BF16 logits (from the F1 addendum arrays) against the raw top logit",
+  "controls": {
+    "K0": "need_actual with the Hoeffding bound at t = 0 equals A3's stored t0/int4d_g128/hoeff/casc/greedy/S on every state, and with the sub-Gaussian bound at t = 0 equals B1's stored t0/int4d_g128/subg/casc/greedy/S on every state; any difference invalidates the run",
+    "K0_cpu": "test_crowd.py on a synthetic head: counts and gaps match a brute-force computation, and need_actual equals the size of the set cert_core.certify reads in a single stage"
+  },
+  "status": "exploratory: one pass, no selection, no verdict rule; the predictions below are what would count against our inference",
+  "prediction_written_before_running": {
+    "offset_share": "median (h . mu) / raw top logit is between 0.7 and 0.9 on Sarvam-30B and below 0.5 on Qwen3-8B and Gemma 4",
+    "bound_size": "Sarvam-30B's median sub-Gaussian bound at t = 0 (median over rows, then over states) is within a factor of 1.5 of Gemma 4's",
+    "estimation_error_is_not_the_cost": "need_actual / need_exact has a median between 0.5 and 2 on every model: the shortlist is set by the bound's width, not by where the estimates happen to fall",
+    "crowding_in_bound_units": "the median headroom (c_top - c_(1000)) / (2 x median Hoeffding bound at t = 0) is below 1 on Sarvam-30B and above 1 on Qwen3-8B and Gemma 4: on Sarvam a thousand tokens sit within reach of the leader",
+    "crowding_in_logits": "at a fixed width of 16 logits, Sarvam-30B's median count of tokens within reach of the top is at least 10 times Gemma 4's and Qwen3-8B's. If instead the counts are similar and only the bound differs, the cause is the bound's size relative to the logit scale, and our inference is wrong as stated",
+    "language": "on Sarvam-30B, English has the largest median need_actual of the six groups",
+    "ties": "the median raw top logit on Sarvam-30B is above 64 (BF16 spacing at least 0.5), and stock-BF16 ties are more frequent in the upper half of Sarvam's states by raw top logit than in the lower half"
+  }
+}

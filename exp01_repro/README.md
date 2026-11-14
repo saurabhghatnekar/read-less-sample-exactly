@@ -295,18 +295,18 @@ Next: one graph-capturable step: bound and block maximum fused into the first-pa
 - At batch 16 the rows are read once for the union of all 16 states. On Sarvam that union is about 125,000 INT8 rows at the median, half the vocabulary, and the step is slower than BF16. Batched certification needs per-state row sets or a smaller union.
 - On Qwen3-8B and Gemma 4 the batch-1 mean (4.84 and 5.01 ms) is above the p99, so fewer than 1% of the steps are very slow. Likely cause, untested: Triton compiling a new specialization when the gather kernel's row count `N` first hits a new case (1, or a multiple of 16). Marking `N` as not specialized would test this.
 - Against the prediction: the kernel at 0.30–0.40 held (0.39). The batch-1 step at 0.45–0.65 held only for Sarvam (0.64); Qwen and Gemma came in at 0.77–0.81, because of fixed host time. "Sarvam p99 exceeds BF16" did not hold (0.88). Batch 16 at 0.6–0.9 held for Qwen (0.85) and not for Gemma (0.92) or Sarvam (1.04).
-- Run-to-run variation (added in review, 14 Nov). Two later runs of the same bench (`logs/l4_graph_timing_all.log`, `logs/l4_graph_timing_sarvam_rerun.log`) gave different certified-step medians, while the BF16 head stayed within 1% and the kernel within 3%:
+- Run-to-run variation (added in review, 14 Nov). Two later runs of the same bench per model (`logs/l4_graph_timing_all.log`, then `logs/l4_graph_timing_sarvam_rerun.log` and `logs/l4_graph_timing_qg_rerun.log`) gave different certified-step medians, while the BF16 head stayed within 1% and the kernel within 3%:
 
   | Certified / BF16, median | this table | later runs |
   |---|---|---|
-  | Qwen3-8B, 1 | 0.81 | 0.86 |
-  | Gemma 4, 1 | 0.77 | 0.66 |
+  | Qwen3-8B, 1 | 0.81 | 0.86, 0.85 |
+  | Gemma 4, 1 | 0.77 | 0.66, 0.79 |
   | Sarvam-30B, 1 | 0.64 | 0.56, 0.66 |
-  | Qwen3-8B, 16 | 0.85 | 0.91 |
-  | Gemma 4, 16 | 0.92 | 0.82 |
+  | Qwen3-8B, 16 | 0.85 | 0.91, 0.91 |
+  | Gemma 4, 16 | 0.92 | 0.82, 0.95 |
   | Sarvam-30B, 16 | 1.04 | 0.99, 1.04 |
 
-  The host-bound part of the step moves by up to 15% between Modal containers, so the certified ratios are good to about ±0.1. Of the median verdicts above, only "Qwen misses at batch 1" and "Sarvam misses at batch 16" are the same in every run. Gemma at batch 1 (0.66), Sarvam at batch 1 in one run (0.66) and both Qwen and Gemma at batch 16 land on the other side of the predicted band in the later runs. Sarvam's batch-1 p99 stays under BF16 in all three (0.82 to 0.90).
+  The host-bound part of the step moves by up to 15% between Modal containers, so the certified ratios are good to about ±0.1. Against the predicted bands, Qwen and Gemma miss at batch 1 and Sarvam misses at batch 16 in every run. Sarvam at batch 1 (0.56 to 0.66) and Qwen and Gemma at batch 16 fall on both sides of the band across runs. Sarvam's batch-1 p99 stays under BF16 in all three (0.82 to 0.90).
 
 ### Single-sync, graph-captured step (14 Nov 2026)
 
@@ -333,3 +333,206 @@ No token mismatch and no fallback on any model or batch size:
 - Sarvam's batch-1 median matches the others. Its tail follows its INT8 rows (p99 144,000 rows, about 0.53 of the BF16 head's bytes).
 - At batch 16 Sarvam reads the union of 16 candidate sets (median about 125,000 INT8 rows), so it stays at 0.67. Per-state row sets would be the next step for batched Sarvam.
 - This is the head alone. End-to-end decode time depends on the head's share of each step (Sarvam about 31% of weight bytes with a BF16 body, 64% with a 4-bit one; see the lab note), and that has not been measured.
+
+## F1: flip rate of the uncertified heads (14 Nov 2026)
+
+Question: the certified step costs about 5% more time than the 4-bit first pass alone. What does that buy? F1 counts how often a low-bit copy, used with no certificate, emits a different token from the reference.
+
+Rule `flip_rule.json` (sha256 `41c0a631…`, logged before any run on real states). Code `flip_lib.py`, `flip_modal.py`, `flip_summarize.py`, `test_flip.py`. Summaries `logs/flip_summary_<model>.txt`; per-state arrays in `results/flip/<model>` (not published). Every exp01 state, no subsampling. Copies: INT4 round-to-nearest g128, dithered INT4 g128 and INT8 per row, at t = 0 and at the model's B1 greedy shift. Nothing is selected on these states.
+
+```bash
+python3 -I test_flip.py
+modal run flip_modal.py::main --model qwen3_8b --smoke
+modal run flip_modal.py::main --model qwen3_8b
+modal volume get exp01-repro flip/qwen3_8b ./results/flip/
+python3 -I flip_summarize.py results/flip/qwen3_8b "Qwen3-8B"
+```
+
+Controls:
+- **F0: pass.** The largest logit error of every state, copy and shift equals the value A3 stored, bit for bit (0 of 176,359 states differ), so the copies and states are A3's.
+- **F1: did not match as written, because the rule misdescribed C1.** The rule expected the reference token to equal the emitted token as often as exp01's C1 (1.0000, 99.8%, 98.8%). It measured 99.59% (Qwen3-8B), 99.57% (Gemma 4) and 97.44% (Sarvam-30B). C1 compares the emitted token with the argmax of the BF16 product; F1 compares it with the reference, which accumulates in FP32. The gap is itself a result, measured under a hashed addendum below: the stock BF16 head does not reproduce the reference either.
+- **F2: pass** (`test_flip.py`): an exact copy never flips, rolled rows flip at least 91% of states, and flips match a plain per-state loop.
+
+Flip rate per state, with a 95% interval from resampling prompts. "First pass alone" is the dithered copy at the B1 shift, the one the certified step reads:
+
+| Model | Rule | INT4 round-to-nearest, t = 0 | First pass alone (dithered, B1 shift) | INT8, t = 0 | Certified |
+|---|---|---|---|---|---|
+| Qwen3-8B | greedy | 1.89% [1.67, 2.13] | 2.04% [1.81, 2.27] | 0.14% [0.10, 0.19] | 0 |
+| Qwen3-8B | Gumbel T = 1 | 2.07% [1.84, 2.31] | 2.31% [2.07, 2.56] | 0.14% [0.10, 0.19] | 0 |
+| Gemma 4 E4B | greedy | 2.49% [2.24, 2.75] | 2.66% [2.40, 2.93] | 0.18% [0.12, 0.23] | 0 |
+| Gemma 4 E4B | Gumbel T = 1 | 2.59% [2.33, 2.86] | 2.85% [2.58, 3.13] | 0.24% [0.18, 0.29] | 0 |
+| Sarvam-30B | greedy | 22.87% [21.21, 24.63] | 8.84% [8.08, 9.67] | 1.18% [1.01, 1.37] | 0 |
+| Sarvam-30B | Gumbel T = 1 | 27.59% [25.65, 29.58] | 11.52% [10.59, 12.52] | 1.46% [1.25, 1.68] | 0 |
+
+Gumbel T = 0.6, top-50 and min-p 0.05 are within 0.5 points of Gumbel T = 1 in every column of this table (`logs/flip_summary_<model>.txt`).
+
+| Greedy, of 240 prompts | Qwen3-8B | Gemma 4 E4B | Sarvam-30B |
+|---|---|---|---|
+| Prompts with at least one flip, first pass alone | 193 | 188 | 230 |
+| Same, INT8 | 34 | 41 | 152 |
+| Gap on flipped states, first pass alone: median, p90 (logits) | 0.27, 0.78 | 0.35, 1.03 | 0.92, 4.99 |
+| Share of those flips with a gap above 1 logit | 3.2% | 11.2% | 47.6% |
+| Median largest error over rows, dithered / round-to-nearest (logits, t = 0) | 2.37 / 2.20 | 5.39 / 4.91 | 5.09 / 10.00 |
+
+- **What the certificate buys.** Without it, the first pass emits a different token on about 2% of steps on Qwen3-8B, 2.7% on Gemma 4 and 9% on Sarvam-30B, and about four prompts in five depart from the reference somewhere in 128 tokens (all but ten on Sarvam). States follow the reference trajectory, so this is the chance of a first departure, not a count of wrong tokens after it.
+- **On Qwen3-8B and Gemma 4 most flips are near-ties**: the emitted token's reference score is a median 0.27 to 0.35 logits below the reference token's. On Sarvam they are not: the median is 0.92 logits and nearly half are above 1.
+- **Round-to-nearest INT4 breaks on Sarvam**: 23% of greedy tokens flip, with a median gap of 12.4 logits, and the shift makes it worse (44% at t = 0.5, median largest error 10.0 → 17.9 logits). The dithered copy does not have this failure. Untested guess: with absmax scales most of a Sarvam row rounds to zero, and the shared mean row was acting as an accidental dither that the shift removes.
+- **The shift does not reduce flips.** Dithered greedy flips go 2.26% → 2.04% on Qwen, 2.74% → 2.66% on Gemma and 8.00% → 8.84% on Sarvam. The Sarvam rise is unexplained: A3's mean bound shrinks there, but the median largest error does not (5.09 → 5.12 logits).
+- **INT8 flips 0.14% to 0.18% of greedy steps on Qwen and Gemma, 1.2% on Sarvam.** On Qwen and Sarvam that is fewer than the stock BF16 head's flips against the same reference (addendum below).
+- **Truncation rules.** The top-50 set differs on almost every state for both INT4 copies (median 6 to 26 tokens of symmetric difference), but the emitted token is outside the reference set on at most 0.01% of states on Qwen and Gemma (0.17% on Sarvam, dithered; 11% for round-to-nearest). For min-p 0.05 it is outside on 0.2% to 0.4% (3.4% on Sarvam).
+- By language group (greedy, first pass alone): code flips least on Qwen and Gemma (0.2%, 0.04%); English is the worst group on Sarvam (18.8%) and on Qwen (3.7%); Bengali and Tamil are worst on Gemma (4.0%, 4.2%).
+
+Against the predictions: the Qwen and Gemma ones held and every Sarvam one missed.
+
+| Prediction | Qwen3-8B | Gemma 4 | Sarvam-30B |
+|---|---|---|---|
+| Greedy, round-to-nearest, t = 0: 0.5–3% (Qwen), 1–6% (others) | held (1.89%) | held (2.49%) | missed (22.87%) |
+| Dithered within a factor of 1.5 of round-to-nearest | held (1.19) | held (1.10) | missed (0.35) |
+| Gumbel T = 1 higher than greedy, in 2–15% | held for round-to-nearest; dithered equal (2.26%) | held | higher, but round-to-nearest out of range (27.6%) |
+| INT8 greedy below 0.3% | held | held | missed (1.18%) |
+| More than half the greedy prompts flip somewhere | held (178) | held (187) | held (240) |
+| Median gap on flipped greedy states below 0.5 logits | held (0.27) | held (0.32) | missed (12.4) |
+
+The language prediction (each Indian-language group flips more than English on Gemma 4) did not hold: Hindi is at 1.87% against English at 1.92%.
+
+Limits: these are this project's simple quantizers (absmax scales, no calibration); a calibrated 4-bit scheme would flip less. One dither draw and one noise seed.
+
+### F1 addendum: the stock BF16 head against the reference (14 Nov 2026)
+
+`flip_addendum_bf16.json` (sha256 `8f2e0e91…`, logged after the F1 results were read and before this ran). `flip_modal.py::bf16`, `flip_lib.run_bf16_chunk`, `flip_bf16_summarize.py`; summaries `logs/flip_bf16_summary_<model>.txt`. The copy is the BF16 product exactly as exp01's C1 computes it, standing for the stock head. `flip_rule.json` is unchanged.
+
+Controls: the corrected F1 passes. The BF16-product argmax equals the emitted token on exactly the number of greedy states exp01 stored, in every job: 28,940 of 28,940 (Qwen3-8B), 29,581 of 29,641 (Gemma 4), 29,474 of 29,826 (Sarvam-30B). Reference tokens equal the F1 run's on every state and rule.
+
+| Greedy, against the FP32 reference | Qwen3-8B | Gemma 4 E4B | Sarvam-30B |
+|---|---|---|---|
+| Stock BF16 head, flips | 0.41% [0.33, 0.49] (118) | 0.23% [0.17, 0.29] (68) | 2.54% [2.26, 2.83] (758) |
+| INT8, t = 0 | 0.14% | 0.18% | 1.18% |
+| First pass alone (dithered INT4, B1 shift) | 2.04% | 2.66% | 8.84% |
+| Certified | 0 | 0 | 0 |
+| Flips that are exact ties in the BF16 logits | 118 of 118 | 68 of 68 | 758 of 758 |
+| States with tied top BF16 logits | 0.82% | 0.40% | 4.90% |
+| Prompts (of 240) with at least one flip | 89 | 54 | 189 |
+| Gap on flipped states: median, max (logits) | 0.05, 0.23 | 0.02, 0.07 | 0.20, 1.68 |
+
+- **The stock BF16 head does not emit the reference tokens.** It differs on 0.2% to 0.4% of greedy steps on Qwen and Gemma and 2.5% on Sarvam, and on Sarvam 189 of 240 prompts depart from the reference within 128 tokens.
+- **Every one of these flips is a tie.** BF16 logits are coarse (0.25 apart near 37, Qwen's typical top logit; on Sarvam tokens up to 1.7 logits apart in the reference come out tied, and the logit scale there was not checked), the two largest come out equal, and argmax takes the lower token id. On Sarvam the top two BF16 logits are tied on 4.9% of greedy states, so the stock model's greedy output is decided by token order that often.
+- **What "exact" means here.** The certified head reproduces the FP32-accumulated reference, not the stock BF16 run. The reference is the better-defined target, since it does not depend on tie order or on the BLAS path, but a claim of "the same tokens as the BF16 model" would be wrong on the shares above. Reproducing the stock run instead would mean certifying its rounding and tie order.
+- INT8 with FP32 accumulation is closer to the reference than the stock head on Qwen and Sarvam; on Gemma the two are within each other's intervals (68 against 52 flips).
+- Sampling rules: 0.25% to 0.32% (Qwen), 0.10% to 0.16% (Gemma) and 2.0% to 2.5% (Sarvam), with the same noise.
+
+Against the addendum's predictions: Qwen exactly 118 flips held. Sarvam between 1.5% and 3.5% and above INT8 held. Gemma between 0.3% and 0.6% missed (0.23%). Median gap below 0.15 logits held on Qwen and Gemma and missed on Sarvam (0.20). "More than a third of flips are ties" held (all of them). "More flips than INT8 on every model" held in counts, but not outside the intervals on Gemma.
+
+Limits: the BF16 product is the analysis image's, on an A100, 128 states at a time; another BLAS path or batch shape can round differently (Sarvam's generating run already differs from it on 1.2% of states). Gemma 4's soft-cap is applied in FP32 to the BF16 logits here, in BF16 in the stock model.
+
+## K1: why Sarvam's certificate is wide (14 Nov 2026, exploratory)
+
+Prompted by a note from the lab (14 Nov, not public) about Sarvam-30B's shared head offset. A3 above found that centring the head rows narrows the bound by only 12% and leaves Sarvam's tail, and the shared-error probe found the quantization error to be row-specific. K1 asks what does make the certificate wide.
+
+Rule `crowd_rule.json` (hashed before any run as sha256 `2b036300…`; exploratory, predictions but no verdict rule). The published copy leaves the lab's figures out of its `context` field and differs from the hashed one in that field only; both hashes are in `logs/a3_decision_rule.log`, and the hashed copy will be published once the lab's note is. Code `crowd_lib.py`, `crowd_modal.py`, `crowd_summarize.py`, `test_crowd.py`. Summary `logs/crowd_summary.txt`; arrays in `results/crowd/<model>` (not published). All greedy states of the three models.
+
+Control K0: pass. The shortlist recomputed here equals A3's (Hoeffding) and B1's (sub-Gaussian) stored value on every one of the 88,407 states.
+
+| Median over greedy states | Qwen3-8B | Gemma 4 E4B | Sarvam-30B |
+|---|---|---|---|
+| Raw top logit | 37.7 | 35.5 | 112.6 |
+| Offset `h · µ` (share of the raw top logit) | −3.0 (−0.08) | −23.3 (−0.66) | 85.4 (0.77) |
+| Hoeffding bound, median row, t = 0 (logits) | 7.0 | 14.9 | 10.4 |
+| Sub-Gaussian bound, median row, B1 shift | 4.0 | 8.2 | 5.5 |
+| Top logit minus the 2nd, 1,000th largest | 8.5, 31.4 | 15.8, 39.5 (raw) | 5.5, 19.5 |
+| Top logit minus the median logit | 40.7 | 58.4 (raw) | 28.8 |
+| The same in units of 2 × the Hoeffding bound | 2.93 | 2.13 | 1.29 |
+| 1,000th largest, in the same units | 2.27 | 1.44 | 0.84 |
+| Tokens within 16, 32 logits of the top (capped for Gemma) | 7, 1,422 | 10, 4,041 | 101, 207,536 |
+| Shortlist with the copy's logits as centres (Hoeffding, t = 0) | 3 | 24 | 17,262 |
+| Shortlist with exact logits as centres, same widths | 3 | 23 | 15,948 |
+| Entropy at T = 1 (nats), top probability | 0.003, 1.000 | 0.010, 0.999 | 0.053, 0.993 |
+
+- **The bound is not unusually wide on Sarvam.** In logits it sits between Qwen's and Gemma's (10.4 against 7.0 and 14.9), and bound over true largest error is about 6 on all three (exp01, A3).
+- **Estimation error is not the cost.** Replacing the copy's logits by the exact ones as interval centres leaves the shortlist unchanged (median ratio 1.00 on every model). The shortlist is set by the width of the intervals alone.
+- **Sarvam's logits are packed under the leader.** The whole vocabulary lies closer to the top: the median token is 28.8 logits below it, against 40.7 (Qwen) and 58.4 (Gemma, raw). At the median state 79% of Sarvam's vocabulary is within 32 logits of the top, against 0.9% and 1.5%. In units of the interval's width, the median token is 1.29 widths away and the 1,000th token 0.84. So a slightly wider bound or a slightly lower top logit pulls in a large part of the vocabulary, which is the cliff in Sarvam's tail (p99 shortlist: every row).
+- **This is not uncertainty about the next token.** Sarvam's top probability is 0.993 at the median and the runner-up is 5.5 logits down. The rows that cost bytes are tokens 15 to 30 logits below the top, with no chance of being sampled.
+- **The shared offset is large on Sarvam**: 85.4 of 112.6, a share of 0.77. Gemma 4 has a large offset of the opposite sign (−23.3 against a top logit of 35.5).
+- **The offset explains the stock head's ties** (F1 addendum). BF16 is coarser at larger magnitudes, and Sarvam's tie share rises with the raw top logit: 1.6% of states below 64, 4.7% from 64 to 128, 6.7% above 128. On Qwen and Gemma almost every state is below 64.
+- By language on Sarvam: English has the largest offset (163), the largest top logit (194), the widest bound (13.7 against 9 to 10) and the largest shortlist (median 133,244 rows).
+
+A lead, post hoc (tested in K2 below, where it holds): across Sarvam's states the bound follows the offset (Spearman 0.83) and the shortlist follows the bound (0.86), not the gap to the 1,000th token (−0.26). The bound grows with the length of `h` in each group, and the part of `h` along `µ` adds the same amount to every logit: it widens every interval without separating any two tokens. Centring the head rows does not remove that part of `h`, which would explain why centring gains so little in A3. If so, the fix is on the state side: store each row's quantization-error projection on `µ̂` (one number per row, exact, computed offline), subtract `(h · µ̂)` times it from the first-pass logit, and bound only the error against the part of `h` orthogonal to `µ`. The correlations cannot separate this from `h` simply being longer in those states (Qwen and Gemma show 0.61 and 0.68); the probe that would is the share of each group's `‖h‖²` that lies along `µ`.
+
+Against the predictions: all seven held as written (offset share 0.77; Sarvam's bound 0.70 of Gemma's; shortlist ratio 1.00; headroom of the 1,000th token below 1 on Sarvam only; 101 tokens within 16 logits against 10 and 7; English worst; median raw top above 64 with more ties in the upper half, 6.4% against 3.4%). Two notes on them. The offset prediction said "below 0.5" for Gemma and did not anticipate a large negative offset. And the rule's headroom divides capped gaps by raw bounds, which is wrong for Gemma's soft-cap: as written Gemma is 1.02, and with gaps mapped back to raw logits it is 1.44, the figure in the table.
+
+Limits: greedy states only; medians over states hide the tail; the lead above rests on correlations found after the fact.
+
+## K2: cancelling the error along the state's dominant directions (14 Nov 2026)
+
+K1's lead: the part of the state `h` that lies along a few fixed directions widens every interval without separating any two tokens. K2 removes it exactly.
+
+For the dithered copy with error rows `e_v`, any fixed directions `P` (d × K) and `α = Pᵀh`:
+
+`h · e_v = α · (Pᵀe_v) + (h − Pα) · e_v`
+
+The first term is K stored numbers per row (`r_v = Pᵀe_v`, computed offline) times K numbers per state, so it is subtracted from the first-pass logit exactly. Only the second term is bounded, by B1's sub-Gaussian bound with `h` replaced by `h − Pα`. The dither argument is unchanged because `h − Pα` does not depend on the dither. Storing `r` in FP32 costs 2K/d of the BF16 head's bytes, which is charged to every state.
+
+Rule `hdir_rule.json` (sha256 `76d198b2…`, logged before any run). Code `hdir_lib.py`, `hdir_modal.py`, `hdir_summarize.py`, `test_hdir.py`. Summaries `logs/hdir_summary_<model>.txt`; arrays in `results/hdir/<model>` (not published). Direction sets: `mu` (the unit mean head row, K = 1) and `pca1`, `pca4`, `pca16`, `pca64` (top eigenvectors of the uncentred second moment of the greedy states of the even prompt ids). Tables are on the odd prompt ids; status is over all states, as in B1. Primary sets named before the run: `mu` and `pca16`.
+
+Controls, all three models: with no correction, bytes and S equal B1's on every one of the 176,359 states (H0). No row exceeded a corrected bound at any shift or direction set (H1; closest 0.11 logits under on Qwen, 0.17 on Sarvam, 0.46 on Gemma). No token mismatch (H2). CPU test passes, including a planted fault (H3).
+
+| Calibration states | Qwen3-8B | Gemma 4 E4B | Sarvam-30B |
+|---|---|---|---|
+| Share of the second moment in the top 1, 4, 16 eigenvectors | 0.14, 0.32, 0.47 | 0.22, 0.52, 0.61 | 0.74, 0.84, 0.89 |
+| Cosine of `µ` with the top eigenvector | +0.19 | −0.33 | +0.78 |
+| Share of `‖h‖²` along `µ`, median greedy state | 0.003 | 0.034 | 0.378 |
+
+Sarvam-30B, sub-Gaussian + INT8 at t = 0.5 (B1's configuration), test prompts:
+
+| Rule | Directions | Share of `‖h‖²` removed | Bound vs none | S median, p99 | Status | Bytes median, p99, mean | Δmean vs none [95%] |
+|---|---|---|---|---|---|---|---|
+| greedy | none (B1) | 0 | 1 | 149, 133,642 | UNDER_HALF | 0.258, 0.512, 0.279 | |
+| greedy | `mu`, K = 1 | 0.38 | 0.80 | 30, 23,954 | GATES_PASS | 0.258, 0.305, 0.260 | −0.0183 [−0.0211, −0.0157] |
+| greedy | `pca1`, K = 1 | 0.64 | 0.62 | 3, 614 | GATES_PASS | 0.258, 0.260, 0.258 | −0.0203 [−0.0233, −0.0174] |
+| greedy | `pca4` | 0.80 | 0.46 | 2, 167 | GATES_PASS | 0.260, 0.260, 0.260 | −0.0189 [−0.0219, −0.0161] |
+| greedy | `pca16` | 0.86 | 0.40 | 2, 54 | GATES_PASS | 0.266, 0.266, 0.266 | −0.0131 [−0.0161, −0.0103] |
+| Gumbel T = 1 | none (B1) | 0 | 1 | 326, 123,945 | GATES_PASS | 0.258, 0.496, 0.281 | |
+| Gumbel T = 1 | `mu`, K = 1 | 0.42 | 0.77 | 65, 24,590 | GATES_PASS | 0.258, 0.306, 0.261 | −0.0198 [−0.0227, −0.0170] |
+| Gumbel T = 1 | `pca1`, K = 1 | 0.70 | 0.57 | 5, 1,006 | GATES_PASS | 0.258, 0.260, 0.258 | −0.0222 [−0.0253, −0.0192] |
+| Gumbel T = 1 | `pca16` | 0.87 | 0.38 | 2, 150 | GATES_PASS | 0.266, 0.266, 0.266 | −0.0150 [−0.0182, −0.0120] |
+
+- **Sarvam's tail is gone with one stored number per row.** With the states' top eigenvector the greedy p99 falls from 0.512 to 0.260 of the BF16 head and the p99 shortlist from 133,642 rows to 614. Over all 29,826 greedy states the largest byte count is 0.332 (0.562 without) and one state is above 0.30 (3,650 without). Sarvam now sits at the 0.258 floor like the other two heads.
+- **The mean head row alone is enough to pass the gates** (p99 0.305, no states needed to fit it), but it is not the best single direction: it removes 38% of `‖h‖²` against 64% for the top eigenvector, and only 10% to 16% on Tamil and Telugu.
+- **This is why centring the head gained so little.** On Sarvam 74% of the states' second moment lies in one direction, which has cosine 0.78 with `µ`. Centring changes the rows; this component is in the state, and it enters the bound through `‖h‖`.
+- **The shift is no longer needed on Sarvam.** At t = 0 with `pca1`: greedy 0.258, 0.260, 0.258, the same as at t = 0.5.
+- **More directions buy little here and cost bytes.** `pca4` is flat at 0.260; `pca16` (0.266) and `pca64` (0.289) are above the floor because of their own storage, and `pca64`'s mean is worse than no correction.
+- **Qwen3-8B and Gemma 4 gain nothing in bytes** (already at the floor) and pay the storage: +0.0005 and +0.0008 for K = 1. Their bounds do narrow with more directions (`pca4`: 0.87 and 0.73 of the uncorrected bound; Gemma's p99 shortlist 285 → 28), which matters for time and for batched steps, not for these byte counts. The addendum below shows that most of this narrowing does not carry over to a language the directions were not fitted on.
+- By language on Sarvam (greedy, t = 0.5, all states): every group's p99 with `mu` is 0.27 to 0.32 (0.46 to 0.53 without), and 0.266 with `pca16`.
+
+Against the predictions: share along `µ` on Sarvam 0.3–0.7, above Qwen's, English largest: held (0.378; 0.003; English 0.561). Top eigenvector above 0.4 of the second moment: held (0.74); its cosine with `µ` above 0.8: missed (0.78). Bound with `mu` 0.55–0.85 and with `pca16` below 0.6: held (0.80, 0.40). Sarvam greedy with `mu`: p99 below 0.5 over all states and mean below 0.275, `pca16` p99 below 0.40: held (0.304, 0.260, 0.266). Qwen and Gemma "medians stay at 0.258 and means change by less than 0.01 for `mu` and `pca16`": held for `mu`, missed for `pca16`, whose own storage is 0.008 (Qwen) and 0.0125 (Gemma). Controls: held. The falsifier was not triggered.
+
+Limits:
+- The eigenvectors were fitted on half of the same 240 prompts' states and tested on the other half. Directions fitted on unrelated text are untested. `mu` needs no fitting and already passes.
+- Greedy and Gumbel T = 1 only. Gumbel T = 0.6, top-50 and min-p 0.05 were not rerun.
+- Byte counts, not timings. The correction adds K multiply-adds per row to the first pass and changes two of its inputs; the L4 kernels do not implement it yet. Batched steps should gain most, since Sarvam's union of 16 shortlists was half the vocabulary, but that is not measured.
+- `r` is kept in FP32. One dither draw and one noise seed.
+- Five direction sets were run; `mu` and `pca16` were the pre-named primaries, and `pca1` is the best by bytes. Treat `pca1`'s margin over `pca4` as selected after the fact.
+
+### K2 addendum: the other rules, and directions fitted without the state's language (14 Nov 2026)
+
+`hdir_addendum_robust.json` (sha256 `44d0af47…`, logged after K2's results were read and before this ran). `hdir_modal.py::robust`, `hdir_lib.run_chunk_sets`, `hdir_robust_summarize.py`; summaries `logs/hdir_robust_summary_<model>.txt`. All five rules, at t = 0 and the B1 greedy shift. New sets `lolo1` and `lolo4`: for each of the six language groups, eigenvectors fitted on the other five groups' greedy states, so every state is corrected with directions that never saw its language.
+
+Controls, all three models: with no correction every rule reproduces B1 on all 176,359 states; no bound violation (closest 0.19 logits under on Qwen, 0.23 on Sarvam, 0.66 on Gemma); no token mismatch.
+
+Sarvam-30B at t = 0.5, test prompts, one direction fitted without the state's language (`lolo1`) against none:
+
+| Rule | none: bytes median, p99, mean | `lolo1`: bytes median, p99, mean | Status none → `lolo1` | S p99 none → `lolo1` |
+|---|---|---|---|---|
+| greedy | 0.258, 0.512, 0.279 | 0.258, 0.260, 0.258 | UNDER_HALF → GATES_PASS | 133,642 → 673 |
+| Gumbel T = 0.6 | 0.258, 0.514, 0.283 | 0.258, 0.260, 0.258 | UNDER_HALF → GATES_PASS | 133,949 → 1,209 |
+| Gumbel T = 1 | 0.258, 0.496, 0.281 | 0.258, 0.260, 0.258 | GATES_PASS → GATES_PASS | 123,945 → 1,093 |
+| min-p 0.05 | 0.260, 0.561, 0.301 | 0.258, 0.271, 0.259 | UNDER_HALF → GATES_PASS | 158,350 → 8,500 |
+| top-50 | 0.386, 0.697, 0.420 | 0.270, 0.370, 0.277 | UNDER_HALF → UNDER_HALF | 182,431 → 55,243 |
+
+- **The first direction transfers.** On Sarvam each left-out fit's top eigenvector has cosine 0.9987 to 0.9995 with K2's, and `lolo1` matches `pca1` on every rule (greedy p99 0.260 for both; per group, p99 0.258 to 0.260 either way). The mean head row, which needs no states at all, also passes greedy, both Gumbel temperatures and min-p (p99 0.305, 0.316, 0.306, 0.411).
+- **Directions two to four do not transfer.** `lolo4` is no better than `lolo1` (bound 0.61 against 0.61 of the uncorrected one; in-sample `pca4` reaches 0.46). They are language-specific, so K2's in-sample gain from `pca4` over `pca1` should not be expected on new text. The robust recipe is K = 1.
+- **Sarvam now passes four of the five rules** with one out-of-language direction. Top-50 improves from a mean of 0.420 to 0.277 but stays UNDER_HALF: its R p99 is 10,145 rows, above 1% of the vocabulary, the same miss Gemma 4 has.
+- **Gemma 4 and Qwen3-8B: the narrowing was mostly in-sample.** With left-out directions the bound is 0.96 (Gemma, `lolo4`) and 0.92 (Qwen) of the uncorrected one, against 0.73 and 0.87 in-sample. On Gemma the left-out top eigenvector's cosine with K2's falls to 0.82 (Telugu) and 0.89 (Bengali). Gemma's top-50 passes with in-sample `pca1` and `pca4` and stays UNDER_HALF with `mu`, `lolo1` and `lolo4`. Their states have no single dominant direction (14% and 22% of the second moment in the first eigenvector, against Sarvam's 74%), so there is nothing shared to cancel.
+
+Against the addendum's predictions: transfer on Sarvam (cosine above 0.99, `lolo1` p99 within 0.01 of `pca1`): held. Gumbel T = 0.6 passes with p99 below 0.30: held (0.260). Min-p passes with p99 below 0.35: held (0.270 with `pca1`, 0.271 with `lolo1`). Top-50 with `pca4` median below 0.30 and mean below 0.33: held (0.263, 0.268). Gemma top-50 stays UNDER_HALF with every set: missed for in-sample `pca1` and `pca4`, which pass; the stated reason (R is set by the INT8 stage alone) was wrong, since R p99 falls from 4,833 to 824 with `pca4`. Controls: held.
+
+Limits: leaving out a language keeps the same model, chat template and kind of prompt; it tests transfer across language and domain, not across tasks or lengths. The uncorrected top-50 row is at t = 0.5, not B1's selected t = 1 (0.385, 0.694, 0.418). Byte counts only.

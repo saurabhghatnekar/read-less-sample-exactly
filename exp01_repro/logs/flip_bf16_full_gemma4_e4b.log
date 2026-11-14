@@ -1,0 +1,37 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-WjGOm9P5ZIo4E6fWWBr6Ky
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/flip_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/flip_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+├── ✓ Created Function chunk.
+└── ✓ Created Function bf16_chunk.
+16 jobs, addendum 8f2e0e91e40f
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+{'mode': 'greedy', 'start': 0, 'n': 4096, 'ref_diff': 0, 'c1': 4081, 'c1_exp01': 4081, 'flips': {'greedy': 13}}
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+{'mode': 'greedy', 'start': 8192, 'n': 4096, 'ref_diff': 0, 'c1': 4090, 'c1_exp01': 4090, 'flips': {'greedy': 5}}
+{'mode': 'greedy', 'start': 4096, 'n': 4096, 'ref_diff': 0, 'c1': 4095, 'c1_exp01': 4095, 'flips': {'greedy': 3}}
+{'mode': 'greedy', 'start': 12288, 'n': 4096, 'ref_diff': 0, 'c1': 4089, 'c1_exp01': 4089, 'flips': {'greedy': 12}}
+{'mode': 'greedy', 'start': 20480, 'n': 4096, 'ref_diff': 0, 'c1': 4086, 'c1_exp01': 4086, 'flips': {'greedy': 7}}
+{'mode': 'greedy', 'start': 16384, 'n': 4096, 'ref_diff': 0, 'c1': 4084, 'c1_exp01': 4084, 'flips': {'greedy': 13}}
+{'mode': 'greedy', 'start': 24576, 'n': 4096, 'ref_diff': 0, 'c1': 4087, 'c1_exp01': 4087, 'flips': {'greedy': 14}}
+{'mode': 't1', 'start': 0, 'n': 4096, 'ref_diff': 0, 'c1': None, 'c1_exp01': None, 'flips': {'gumbel_0.6': 5, 'gumbel_1.0': 8, 'top50': 8, 'minp_0.05': 10}}
+{'mode': 'greedy', 'start': 28672, 'n': 969, 'ref_diff': 0, 'c1': 969, 'c1_exp01': 969, 'flips': {'greedy': 1}}
+{'mode': 't1', 'start': 4096, 'n': 4096, 'ref_diff': 0, 'c1': None, 'c1_exp01': None, 'flips': {'gumbel_0.6': 2, 'gumbel_1.0': 1, 'top50': 1, 'minp_0.05': 2}}
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+{'mode': 't1', 'start': 28672, 'n': 902, 'ref_diff': 0, 'c1': None, 'c1_exp01': None, 'flips': {'gumbel_0.6': 1, 'gumbel_1.0': 4, 'top50': 4, 'minp_0.05': 4}}
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+{'mode': 't1', 'start': 8192, 'n': 4096, 'ref_diff': 0, 'c1': None, 'c1_exp01': None, 'flips': {'gumbel_0.6': 4, 'gumbel_1.0': 6, 'top50': 6, 'minp_0.05': 4}}
+{'mode': 't1', 'start': 16384, 'n': 4096, 'ref_diff': 0, 'c1': None, 'c1_exp01': None, 'flips': {'gumbel_0.6': 6, 'gumbel_1.0': 8, 'top50': 8, 'minp_0.05': 10}}
+{'mode': 't1', 'start': 20480, 'n': 4096, 'ref_diff': 0, 'c1': None, 'c1_exp01': None, 'flips': {'gumbel_0.6': 5, 'gumbel_1.0': 4, 'top50': 4, 'minp_0.05': 6}}
+{'mode': 't1', 'start': 24576, 'n': 4096, 'ref_diff': 0, 'c1': None, 'c1_exp01': None, 'flips': {'gumbel_0.6': 0, 'gumbel_1.0': 5, 'top50': 5, 'minp_0.05': 6}}
+{'mode': 't1', 'start': 12288, 'n': 4096, 'ref_diff': 0, 'c1': None, 'c1_exp01': None, 'flips': {'gumbel_0.6': 8, 'gumbel_1.0': 8, 'top50': 8, 'minp_0.05': 5}}
+TOTAL {'n': 59215, 'ref_diff': 0} C1 here 29581 C1 exp01 29581
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-WjGOm9P5ZIo4E6fWWBr6Ky

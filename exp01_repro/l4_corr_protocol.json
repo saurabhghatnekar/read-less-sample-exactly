@@ -1,0 +1,21 @@
+{
+  "experiment": "L4 timing of the certified greedy step with the K2 state-direction correction (K = 1)",
+  "written": "2026-11-14, after the K2 results and its addendum were read, before any kernel with the correction ran",
+  "addendum_to": "l4_protocol.json (sha256 cf78b83d594adb8ab7f13a05171b3d13a30f5ed2d0a44a5df66579677a246039): same hardware, baseline, states (512 greedy states, seed 0, batch 1 and batch 16), timing method and head copies (dithered INT4 g128, sub-Gaussian bound, INT8 and BF16 stages, B1 shifts)",
+  "change": "The first pass also reads one FP32 number per row, r_v = e_v . p, and one number per state, alpha = h . p. The logit becomes zt_v - alpha r_v, the variance term uses h - alpha p in place of h, the sub-Gaussian constant is multiplied by 1 + 1e-6, and the bound gains 3 u |alpha| |r_v| + 2 u |alpha r_v| (u = 2^-24). Everything else is the graph-captured step of l4_graph.py, whose kernels for selection and the INT8 and BF16 stages are reused unchanged. Code: l4_corr.py; the timed code of l4_cert.py, l4_graph.py and l4_kernels.py is not modified.",
+  "directions": "mu (unit mean head row) and pca1 (K2's top eigenvector of the even-prompt greedy states, read from the volume). The timed states are a random sample of all greedy states, so about half come from prompts that pca1 was fitted on; the K2 addendum found the left-out fit to be the same direction on Sarvam-30B (cosine above 0.998).",
+  "timed": "per step, on the same state: the cuBLAS BF16 head with argmax; the graph-captured step with no correction (l4_graph.GraphStep, as already timed), with mu and with pca1; the eager loop step with each correction, as the reference for row counts",
+  "checks": {
+    "tokens": "every token of every variant equals the argmax of the FP32 product of the BF16 state and head",
+    "intervals": "after each graph step, for every row of every state in the batch, the reference logit lies inside the interval left in the step's buffers (first-pass interval, or the INT8-tightened one); any row outside is counted",
+    "rows": "the graph step's INT8 and BF16 row counts equal the eager loop's for the same correction, on every step that did not fall back",
+    "bytes": "rows read are converted to bytes as in l4_bench_modal.py, plus 4 bytes per row for r"
+  },
+  "prediction": {
+    "controls": "no token mismatch, no row outside its interval, no fallback, row counts equal",
+    "overhead": "on Qwen3-8B and Gemma 4 the corrected graph step is within 3% of the uncorrected one at the median, at both batch sizes",
+    "sarvam_batch1": "median unchanged within 3% (about 3.4 ms, 0.40 of BF16); with pca1 the p99 falls from 5.8 ms (0.68) to below 3.7 ms (0.44) and the mean from 3.61 ms to below 3.45 ms; with mu the p99 is between pca1's and the uncorrected one",
+    "sarvam_batch16": "with pca1 the median falls from 5.9 ms (0.67 of BF16) to below 3.9 ms (0.45); with mu it lands between 0.45 and 0.62",
+    "takeaway_if_wrong": "If Sarvam at batch 16 with pca1 stays above 0.5 of BF16, the union of shortlists is not what costs time there, and the selection or INT8 kernels need profiling before any claim about batched Sarvam."
+  }
+}

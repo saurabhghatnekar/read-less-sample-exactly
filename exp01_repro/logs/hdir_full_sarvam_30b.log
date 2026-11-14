@@ -1,0 +1,33 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-TlbhKexiHBuoTt6DR3zrEE
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/hdir_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/hdir_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/subg_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+├── ✓ Created Function prep.
+└── ✓ Created Function chunk.
+directions {'n_cal': 15000, 'share': [0.7363647326526422, 0.8358954330199865, 0.8934218088789412, 0.9273717436381544], 'cos_mu_pc1': 0.7772612194045974, 'mu_norm': 0.7298419088275776}
+16 jobs, rule 76d198b215a0
+{'mode': 'greedy', 'start': 0, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'none': 0.3013, 'mu': 0.2628, 'pca16': 0.2657}, 'rho_mu': 0.563}
+{'mode': 'greedy', 'start': 28672, 'n': 1154, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'none': 0.2678, 'mu': 0.2596, 'pca16': 0.2656}, 'rho_mu': 0.091}
+{'mode': 'greedy', 'start': 4096, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'none': 0.2988, 'mu': 0.2611, 'pca16': 0.2656}, 'rho_mu': 0.523}
+{'mode': 'greedy', 'start': 8192, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'none': 0.2757, 'mu': 0.2595, 'pca16': 0.2656}, 'rho_mu': 0.478}
+{'mode': 'greedy', 'start': 20480, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'none': 0.2721, 'mu': 0.2606, 'pca16': 0.2656}, 'rho_mu': 0.163}
+{'mode': 'greedy', 'start': 16384, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'none': 0.2703, 'mu': 0.2597, 'pca16': 0.2656}, 'rho_mu': 0.344}
+{'mode': 't1', 'start': 4096, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'none': 0.3007, 'mu': 0.2617, 'pca16': 0.2656}, 'rho_mu': 0.548}
+{'mode': 't1', 'start': 0, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'none': 0.3016, 'mu': 0.2633, 'pca16': 0.2657}, 'rho_mu': 0.566}
+{'mode': 't1', 'start': 8192, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'none': 0.2764, 'mu': 0.2599, 'pca16': 0.2657}, 'rho_mu': 0.488}
+{'mode': 't1', 'start': 28672, 'n': 835, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'none': 0.2664, 'mu': 0.2596, 'pca16': 0.2656}, 'rho_mu': 0.17}
+{'mode': 't1', 'start': 12288, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'none': 0.2696, 'mu': 0.2595, 'pca16': 0.2657}, 'rho_mu': 0.421}
+{'mode': 'greedy', 'start': 12288, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'none': 0.2662, 'mu': 0.2589, 'pca16': 0.2656}, 'rho_mu': 0.401}
+{'mode': 't1', 'start': 20480, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'none': 0.2712, 'mu': 0.2605, 'pca16': 0.2657}, 'rho_mu': 0.182}
+{'mode': 't1', 'start': 16384, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'none': 0.2747, 'mu': 0.2605, 'pca16': 0.2657}, 'rho_mu': 0.355}
+{'mode': 't1', 'start': 24576, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'none': 0.2691, 'mu': 0.2602, 'pca16': 0.2657}, 'rho_mu': 0.134}
+{'mode': 'greedy', 'start': 24576, 'n': 4096, 'h0': 0, 'viol': 0, 'mism': 0, 'mean_bytes': {'none': 0.2687, 'mu': 0.2598, 'pca16': 0.2656}, 'rho_mu': 0.108}
+TOTAL {'n': 59333, 'h0': 0, 'viol': 0, 'mism': 0}
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-TlbhKexiHBuoTt6DR3zrEE

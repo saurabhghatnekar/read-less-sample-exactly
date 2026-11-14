@@ -1,0 +1,73 @@
+# F1 flip rate of uncertified heads, Sarvam-30B
+
+greedy: 29826 states, 240 prompts. F0 largest-error values differing from A3: 0 (largest difference 0.00e+00 logits). F1 reference token equals the emitted token on 97.44% of states.
+t1: 29507 states, 240 prompts. F0 largest-error values differing from A3: 0 (largest difference 0.00e+00 logits).
+
+Shifts: t = 0 and t = 0.5. Flip rate per state, with a 95% interval from resampling prompts.
+
+## Flip rate by rule and copy
+
+| Rule | Copy | t = 0 | t = 0.5 |
+|---|---|---|---|
+| greedy | INT4 round-to-nearest | 22.87% [21.21, 24.63] | 44.37% [41.32, 47.42] |
+| greedy | INT4 dithered | 8.00% [7.28, 8.76] | 8.84% [8.08, 9.67] |
+| greedy | INT8 | 1.18% [1.01, 1.37] | 0.98% [0.83, 1.15] |
+| gumbel_0.6 | INT4 round-to-nearest | 27.15% [25.17, 29.21] | 50.60% [47.64, 53.49] |
+| gumbel_0.6 | INT4 dithered | 10.07% [9.19, 10.97] | 11.43% [10.46, 12.49] |
+| gumbel_0.6 | INT8 | 1.44% [1.24, 1.66] | 1.30% [1.11, 1.50] |
+| gumbel_1.0 | INT4 round-to-nearest | 27.59% [25.65, 29.58] | 50.78% [47.85, 53.63] |
+| gumbel_1.0 | INT4 dithered | 10.65% [9.81, 11.50] | 11.52% [10.59, 12.52] |
+| gumbel_1.0 | INT8 | 1.46% [1.25, 1.68] | 1.34% [1.17, 1.51] |
+| top50 | INT4 round-to-nearest | 27.67% [25.78, 29.72] | 50.75% [47.86, 53.64] |
+| top50 | INT4 dithered | 10.71% [9.87, 11.58] | 11.64% [10.70, 12.61] |
+| top50 | INT8 | 1.45% [1.25, 1.66] | 1.37% [1.19, 1.55] |
+| minp_0.05 | INT4 round-to-nearest | 27.23% [25.28, 29.24] | 50.70% [47.85, 53.69] |
+| minp_0.05 | INT4 dithered | 10.42% [9.55, 11.30] | 11.41% [10.47, 12.41] |
+| minp_0.05 | INT8 | 1.46% [1.26, 1.66] | 1.37% [1.18, 1.57] |
+
+## Prompts with at least one flip (states follow the reference trajectory)
+
+| Rule | Copy | t = 0 | t = 0.5 |
+|---|---|---|---|
+| greedy | INT4 round-to-nearest | 240 of 240 | 240 of 240 |
+| greedy | INT4 dithered | 220 of 240 | 230 of 240 |
+| greedy | INT8 | 152 of 240 | 130 of 240 |
+| gumbel_1.0 | INT4 round-to-nearest | 240 of 240 | 240 of 240 |
+| gumbel_1.0 | INT4 dithered | 231 of 240 | 233 of 240 |
+| gumbel_1.0 | INT8 | 172 of 240 | 165 of 240 |
+
+## Greedy flip rate by language group
+
+| Group | States | INT4 round-to-nearest, t = 0 | INT4 dithered, t = 0.5 | INT8, t = 0 |
+|---|---|---|---|---|
+| bengali | 5081 | 15.59% [14.17, 17.22] | 6.38% [5.27, 7.44] | 0.83% [0.59, 1.08] |
+| code | 4633 | 24.30% [21.72, 27.10] | 5.83% [4.79, 6.93] | 0.15% [0.06, 0.26] |
+| english | 4842 | 47.44% [43.41, 51.52] | 18.75% [16.63, 20.84] | 3.33% [2.72, 3.96] |
+| hindi | 5120 | 21.97% [20.31, 23.91] | 7.13% [6.46, 7.79] | 1.05% [0.84, 1.27] |
+| tamil | 5070 | 15.64% [14.38, 16.96] | 8.42% [7.20, 9.70] | 0.91% [0.67, 1.15] |
+| telugu | 5080 | 13.52% [12.67, 14.36] | 6.73% [5.65, 7.79] | 0.85% [0.57, 1.14] |
+
+## How far off the flipped token is (gap in reference score, flipped states only)
+
+| Rule | Copy, shift | Flips | Gap median | Gap p90 | Gap max | Share of flips with gap > 1 |
+|---|---|---|---|---|---|---|
+| greedy | INT4 round-to-nearest, t0 | 6820 | 12.399 | 18.533 | 27.029 | 83.2% |
+| greedy | INT4 dithered, t0.5 | 2636 | 0.920 | 4.994 | 13.132 | 47.6% |
+| greedy | INT8, t0 | 353 | 0.125 | 0.820 | 2.097 | 6.5% |
+| gumbel_0.6 | INT4 round-to-nearest, t0 | 8011 | 19.071 | 29.847 | 46.272 | 88.2% |
+| gumbel_0.6 | INT4 dithered, t0.5 | 3374 | 1.587 | 7.301 | 22.639 | 63.7% |
+| gumbel_0.6 | INT8, t0 | 426 | 0.215 | 1.446 | 3.738 | 14.1% |
+| gumbel_1.0 | INT4 round-to-nearest, t0 | 8142 | 11.131 | 17.476 | 28.373 | 83.8% |
+| gumbel_1.0 | INT4 dithered, t0.5 | 3398 | 0.946 | 4.428 | 13.393 | 48.5% |
+| gumbel_1.0 | INT8, t0 | 432 | 0.133 | 0.834 | 2.319 | 6.2% |
+
+## Truncation rules: kept set and emitted token
+
+| Rule | Copy, shift | States whose kept set differs | Median set difference where it differs | Emitted token outside the reference set |
+|---|---|---|---|---|
+| top50 | INT4 round-to-nearest, t0 | 99.94% [99.86, 99.99] | 26 | 11.12% [9.75, 12.56] |
+| top50 | INT4 dithered, t0.5 | 99.94% [99.87, 99.99] | 18 | 0.17% [0.11, 0.25] |
+| top50 | INT8, t0 | 70.08% [68.65, 71.53] | 2 | 0.01% [0.00, 0.03] |
+| minp_0.05 | INT4 round-to-nearest, t0 | 46.17% [43.85, 48.63] | 3 | 21.87% [19.99, 23.76] |
+| minp_0.05 | INT4 dithered, t0.5 | 30.18% [28.10, 32.35] | 2 | 3.44% [3.07, 3.84] |
+| minp_0.05 | INT8, t0 | 6.78% [5.88, 7.80] | 1 | 0.13% [0.09, 0.17] |
