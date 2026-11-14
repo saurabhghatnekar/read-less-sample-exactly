@@ -1,0 +1,294 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-MmtDSlKRL3yuCHlQAkMX4D
+✓ Created objects.
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/l4_bench_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/l4_graph.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/l4_cert.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/l4_kernels.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/subg_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_modal.py
+└── ✓ Created Function bench.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+/usr/local/lib/python3.12/site-packages/triton/knobs.py:504: UserWarning: TRITON_DEFAULT_FP_FUSION is unset: defaulting to FP fusion ENABLED for backward compatibility in Triton 3.9. The default will change to DISABLED in Triton 3.10; set TRITON_DEFAULT_FP_FUSION=1 to keep fusion enabled or =0 to adopt the new default early and silence this warning.
+  warn_once(FP_FUSION_DEFAULT_WARNING)
+/usr/local/lib/python3.12/site-packages/triton/knobs.py:504: UserWarning: TRITON_DEFAULT_FP_FUSION is unset: defaulting to FP fusion ENABLED for backward compatibility in Triton 3.9. The default will change to DISABLED in Triton 3.10; set TRITON_DEFAULT_FP_FUSION=1 to keep fusion enabled or =0 to adopt the new default early and silence this warning.
+  warn_once(FP_FUSION_DEFAULT_WARNING)
+{
+ "model": "qwen3_8b",
+ "V": 151936,
+ "D": 4096,
+ "t": 0.5,
+ "gpu": "NVIDIA L4",
+ "torch": "2.15.0+cu132",
+ "first_pass_bytes_over_bf16": 0.2578125,
+ "B1": {
+  "bf16_ms": {
+   "median": 4.961919784545898,
+   "p99": 5.014235105514526,
+   "mean": 4.970658367499709
+  },
+  "cert_ms": {
+   "median": 4.250624179840088,
+   "p99": 4.852070178985596,
+   "mean": 5.180412130430341
+  },
+  "graph_ms": {
+   "median": 2.0584319829940796,
+   "p99": 2.1087484478950502,
+   "mean": 2.0634509939700365
+  },
+  "kernel_ms": {
+   "median": 1.9650559425354004,
+   "p99": 2.0109107732772826,
+   "mean": 1.9689679383300245
+  },
+  "cert_over_bf16": {
+   "median": 0.8565424503753616,
+   "p99": 0.9719363842837483,
+   "mean": 1.0398823630256848
+  },
+  "graph_over_bf16": {
+   "median": 0.41478098654910367,
+   "p99": 0.4242472631129668,
+   "mean": 0.41529016805825014
+  },
+  "kernel_over_bf16": 0.39602734986882443,
+  "bytes_over_bf16": {
+   "median": 0.25782237579165734,
+   "p99": 0.2579438362989289,
+   "mean": 0.25783464627649566
+  },
+  "graph_fallbacks": 0,
+  "mismatches": 0,
+  "graph_mismatches": 0
+ },
+ "B16": {
+  "bf16_ms": {
+   "median": 5.119984149932861,
+   "p99": 5.178980350494385,
+   "mean": 5.121525019407272
+  },
+  "cert_ms": {
+   "median": 4.667903900146484,
+   "p99": 5.336514654159546,
+   "mean": 4.674143999814987
+  },
+  "graph_ms": {
+   "median": 2.1489280462265015,
+   "p99": 2.2149779200553894,
+   "mean": 2.155492015182972
+  },
+  "kernel_ms": {
+   "median": 2.067968010902405,
+   "p99": 2.2466969418525697,
+   "mean": 2.075231984257698
+  },
+  "cert_over_bf16": {
+   "median": 0.9108265509303906,
+   "p99": 1.0303120014901213,
+   "mean": 0.912546442100538
+  },
+  "graph_over_bf16": {
+   "median": 0.42002215782585417,
+   "p99": 0.4311579881774539,
+   "mean": 0.4208681386798156
+  },
+  "kernel_over_bf16": 0.4039012524930418,
+  "bytes_over_bf16": {
+   "median": 0.2581285446154137,
+   "p99": 0.258286726709766,
+   "mean": 0.2581279472633883
+  },
+  "graph_fallbacks": 0,
+  "mismatches": 0,
+  "graph_mismatches": 0
+ }
+}
+{
+ "model": "gemma4_e4b",
+ "V": 262144,
+ "D": 2560,
+ "t": 1.5,
+ "gpu": "NVIDIA L4",
+ "torch": "2.15.0+cu132",
+ "first_pass_bytes_over_bf16": 0.2578125,
+ "B1": {
+  "bf16_ms": {
+   "median": 5.30620813369751,
+   "p99": 5.401300992965698,
+   "mean": 5.310539500787854
+  },
+  "cert_ms": {
+   "median": 3.506175994873047,
+   "p99": 4.61245455265045,
+   "mean": 4.106136104557663
+  },
+  "graph_ms": {
+   "median": 2.131824016571045,
+   "p99": 2.2053158593177793,
+   "mean": 2.1348638720810413
+  },
+  "kernel_ms": {
+   "median": 2.0285439491271973,
+   "p99": 2.069533762931824,
+   "mean": 2.0314129646867514
+  },
+  "cert_over_bf16": {
+   "median": 0.6608412438601193,
+   "p99": 0.8453135209083208,
+   "mean": 0.7732296382913701
+  },
+  "graph_over_bf16": {
+   "median": 0.4017262889223372,
+   "p99": 0.4114169912116709,
+   "mean": 0.40200512732128024
+  },
+  "kernel_over_bf16": 0.3822963400633991,
+  "bytes_over_bf16": {
+   "median": 0.2578201353549957,
+   "p99": 0.2585467834472656,
+   "mean": 0.25786225484916936
+  },
+  "graph_fallbacks": 0,
+  "mismatches": 0,
+  "graph_mismatches": 0
+ },
+ "B16": {
+  "bf16_ms": {
+   "median": 5.5116801261901855,
+   "p99": 5.556693487167358,
+   "mean": 5.514548033475876
+  },
+  "cert_ms": {
+   "median": 4.500432014465332,
+   "p99": 4.6635315799713135,
+   "mean": 4.508475035429001
+  },
+  "graph_ms": {
+   "median": 2.244480013847351,
+   "p99": 2.2716370487213133,
+   "mean": 2.2446619793772697
+  },
+  "kernel_ms": {
+   "median": 2.092031955718994,
+   "p99": 2.1151782774925234,
+   "mean": 2.0952099710702896
+  },
+  "cert_over_bf16": {
+   "median": 0.8163213903477464,
+   "p99": 0.8398599460919972,
+   "mean": 0.8175512199582803
+  },
+  "graph_over_bf16": {
+   "median": 0.40709619176239176,
+   "p99": 0.41170514133644043,
+   "mean": 0.4070434380590154
+  },
+  "kernel_over_bf16": 0.37956338318295335,
+  "bytes_over_bf16": {
+   "median": 0.2583672717213631,
+   "p99": 0.2611146768629551,
+   "mean": 0.25857753641903397
+  },
+  "graph_fallbacks": 0,
+  "mismatches": 0,
+  "graph_mismatches": 0
+ }
+}
+{
+ "model": "sarvam_30b",
+ "V": 262144,
+ "D": 4096,
+ "t": 0.5,
+ "gpu": "NVIDIA L4",
+ "torch": "2.15.0+cu132",
+ "first_pass_bytes_over_bf16": 0.2578125,
+ "B1": {
+  "bf16_ms": {
+   "median": 8.456319808959961,
+   "p99": 8.515556955337525,
+   "mean": 8.458010997623205
+  },
+  "cert_ms": {
+   "median": 4.719599962234497,
+   "p99": 6.964910159111023,
+   "mean": 5.480008453130722
+  },
+  "graph_ms": {
+   "median": 3.317631959915161,
+   "p99": 10.760136222839355,
+   "mean": 4.244737620931119
+  },
+  "kernel_ms": {
+   "median": 3.2071681022644043,
+   "p99": 3.247760274410248,
+   "mean": 3.208315570373088
+  },
+  "cert_over_bf16": {
+   "median": 0.5581317808618416,
+   "p99": 0.8239508106004824,
+   "mean": 0.6478911233005544
+  },
+  "graph_over_bf16": {
+   "median": 0.39243978053298156,
+   "p99": 1.272705909630737,
+   "mean": 0.5018710794384278
+  },
+  "kernel_over_bf16": 0.3792628678572709,
+  "bytes_over_bf16": {
+   "median": 0.2583222482353449,
+   "p99": 0.533566661272198,
+   "mean": 0.28546437121985946
+  },
+  "graph_fallbacks": 71,
+  "mismatches": 0,
+  "graph_mismatches": 0
+ },
+ "B16": {
+  "bf16_ms": {
+   "median": 8.723808288574219,
+   "p99": 8.863760633468628,
+   "mean": 8.7340889275074
+  },
+  "cert_ms": {
+   "median": 8.637951850891113,
+   "p99": 10.114703006744385,
+   "mean": 8.38767197728157
+  },
+  "graph_ms": {
+   "median": 12.674767971038818,
+   "p99": 13.736844749450684,
+   "mean": 11.80504097044468
+  },
+  "kernel_ms": {
+   "median": 3.290112018585205,
+   "p99": 3.641733160018921,
+   "mean": 3.316989988088608
+  },
+  "cert_over_bf16": {
+   "median": 0.9895406312404083,
+   "p99": 1.1554183883293863,
+   "mean": 0.9603410730562956
+  },
+  "graph_over_bf16": {
+   "median": 1.452348659566161,
+   "p99": 1.572827804220256,
+   "mean": 1.351597231896526
+  },
+  "kernel_over_bf16": 0.37714171491988696,
+  "bytes_over_bf16": {
+   "median": 0.49673470109701157,
+   "p99": 0.5466873711906374,
+   "mean": 0.47134759422624484
+  },
+  "graph_fallbacks": 29,
+  "mismatches": 0,
+  "graph_mismatches": 0
+ }
+}
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-MmtDSlKRL3yuCHlQAkMX4D

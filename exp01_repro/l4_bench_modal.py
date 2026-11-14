@@ -16,7 +16,7 @@ VOL = "/vol"
 image = (modal.Image.debian_slim(python_version="3.12")
          .pip_install("torch", "safetensors", "huggingface_hub", "numpy")
          .env({"HF_HOME": f"{VOL}/hf"}))
-for _f in ("cert_core.py", "a3_lib.py", "a3_modal.py", "subg_lib.py", "l4_kernels.py", "l4_cert.py"):
+for _f in ("cert_core.py", "a3_lib.py", "a3_modal.py", "subg_lib.py", "l4_kernels.py", "l4_cert.py", "l4_graph.py"):
     image = image.add_local_file(os.path.join(HERE, _f), f"/root/{_f}")
 
 T_STAR = {"qwen3_8b": 0.5, "gemma4_e4b": 1.5, "sarvam_30b": 0.5}
@@ -34,6 +34,7 @@ def bench(model: str, n: int = 512, warm: int = 20):
     import torch
 
     import l4_cert
+    import l4_graph
     import l4_kernels as K
     from a3_modal import MODELS, _load_head
 
@@ -63,18 +64,30 @@ def bench(model: str, n: int = 512, warm: int = 20):
     for B in (1, 16):
         steps = [H[i:i + B] for i in range(warm * B if B == 1 else 0, (warm + n) if B == 1 else n, B)][: (n if B == 1 else n // B)]
         for i in range(warm):                               # warm-up, autotune
-            hb = H[i * B % len(H): i * B % len(H) + B]
+            hb = H[(i * B) % (len(H) - B):][:B]
             torch.argmax(hb @ Wb.T, dim=1)
             head.step(hb)
+        gs = l4_graph.GraphStep(head, B)
+        gs.capture()
+        for i in range(warm):
+            gs.step(H[(i * B) % (len(H) - B):][:B])
         base, cert, kern, n8s, nRs, mism = [], [], [], [], [], []
+        graph_ms, g8s, gRs, gmism, fallbacks = [], [], [], [], 0
         for hb in steps:
             _, tb = timed(lambda: torch.argmax(hb @ Wb.T, dim=1))
             (tok, n8, nR), tc = timed(lambda: head.step(hb))
             H16 = head._pad(hb)
             z = torch.zeros(16, head.NG, device=dev)
             _, tk = timed(lambda: K.int4_head(H16, z, z, head.Q, head.S, torch.zeros(16, device=dev)))
+            (gtok, g8, gR, fb), tg = timed(lambda: gs.step(hb))
             ref = (hb.float() @ Wf.T)
             rt = ref.argmax(1)
+            fallbacks += int(fb)
+            graph_ms.append(tg); g8s.append(g8); gRs.append(gR)
+            for j in range(B):
+                if int(gtok[j]) != int(rt[j]):
+                    top2 = ref[j].topk(2).values
+                    gmism.append(dict(margin=float(top2[0] - top2[1]), fallback=bool(fb)))
             for j in range(B):
                 if tok[j] != rt[j]:
                     top2 = ref[j].topk(2).values
@@ -87,15 +100,18 @@ def bench(model: str, n: int = 512, warm: int = 20):
                             bytes_over_bf16=_stats(bytes_), rows_int8=_stats(n8s), rows_bf16=_stats(nRs),
                             bf16_GBps=float(2 * V * D / (np.median(base) * 1e6)),
                             kernel_GBps=float(head.first_pass_bytes() / (np.median(kern) * 1e6)),
-                            mismatches=len(mism), mismatch_detail=mism[:10])
+                            mismatches=len(mism), mismatch_detail=mism[:10],
+                            graph_ms=_stats(graph_ms), graph_over_bf16=_stats(np.array(graph_ms) / np.array(base)),
+                            graph_rows_int8=_stats(g8s), graph_rows_bf16=_stats(gRs), graph_fallbacks=fallbacks,
+                            graph_mismatches=len(gmism), graph_mismatch_detail=gmism[:10])
     return res
 
 
 @app.local_entrypoint()
 def main(model: str = "qwen3_8b,gemma4_e4b,sarvam_30b", n: int = 512):
     for r in bench.starmap([(m, n) for m in model.split(",")]):
-        path = os.path.join(HERE, "logs", f"l4_timing_{r['model']}{'' if n >= 512 else '_smoke'}.json")
+        path = os.path.join(HERE, "logs", f"l4_graph_timing_{r['model']}{'' if n >= 512 else '_smoke'}.json")
         json.dump(r, open(path, "w"), indent=1)
         print(json.dumps({k: (v if not isinstance(v, dict) else {kk: v[kk] for kk in
-              ("bf16_ms", "cert_ms", "kernel_ms", "cert_over_bf16", "kernel_over_bf16", "bytes_over_bf16",
-               "bf16_GBps", "kernel_GBps", "mismatches") if kk in v}) for k, v in r.items()}, indent=1))
+              ("bf16_ms", "cert_ms", "graph_ms", "kernel_ms", "cert_over_bf16", "graph_over_bf16", "kernel_over_bf16",
+               "bytes_over_bf16", "graph_fallbacks", "mismatches", "graph_mismatches") if kk in v}) for k, v in r.items()}, indent=1))

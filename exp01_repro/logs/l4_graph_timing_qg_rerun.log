@@ -1,0 +1,200 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-1UvQqM6LL5lfpQCqxOcJV7
+✓ Created objects.
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/l4_bench_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/l4_graph.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/l4_cert.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/l4_kernels.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/subg_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+└── ✓ Created Function bench.
+/usr/local/lib/python3.12/site-packages/triton/knobs.py:504: UserWarning: TRITON_DEFAULT_FP_FUSION is unset: defaulting to FP fusion ENABLED for backward compatibility in Triton 3.9. The default will change to DISABLED in Triton 3.10; set TRITON_DEFAULT_FP_FUSION=1 to keep fusion enabled or =0 to adopt the new default early and silence this warning.
+  warn_once(FP_FUSION_DEFAULT_WARNING)
+{
+ "model": "qwen3_8b",
+ "V": 151936,
+ "D": 4096,
+ "t": 0.5,
+ "gpu": "NVIDIA L4",
+ "torch": "2.15.0+cu132",
+ "first_pass_bytes_over_bf16": 0.2578125,
+ "B1": {
+  "bf16_ms": {
+   "median": 4.957167863845825,
+   "p99": 5.039470443725586,
+   "mean": 4.96482542809099
+  },
+  "cert_ms": {
+   "median": 4.232192039489746,
+   "p99": 5.3704804182052595,
+   "mean": 5.175214106217027
+  },
+  "graph_ms": {
+   "median": 2.042896032333374,
+   "p99": 2.113468737602234,
+   "mean": 2.0472756228409708
+  },
+  "kernel_ms": {
+   "median": 1.9568639993667603,
+   "p99": 2.017628264427185,
+   "mean": 1.9620223126839846
+  },
+  "cert_over_bf16": {
+   "median": 0.8540068616118064,
+   "p99": 1.0761318810807323,
+   "mean": 1.0424854758866335
+  },
+  "graph_over_bf16": {
+   "median": 0.41164021930186084,
+   "p99": 0.4229058726606316,
+   "mean": 0.41235390235810465
+  },
+  "kernel_over_bf16": 0.39475443501495705,
+  "bytes_over_bf16": {
+   "median": 0.25782237579165734,
+   "p99": 0.2579438362989289,
+   "mean": 0.25783464627649566
+  },
+  "graph_fallbacks": 0,
+  "mismatches": 0,
+  "graph_mismatches": 0
+ },
+ "B16": {
+  "bf16_ms": {
+   "median": 5.119456052780151,
+   "p99": 5.235251383781433,
+   "mean": 5.128023028373718
+  },
+  "cert_ms": {
+   "median": 4.663280010223389,
+   "p99": 5.640294299125673,
+   "mean": 4.719551995396614
+  },
+  "graph_ms": {
+   "median": 2.1396000385284424,
+   "p99": 2.197979545593262,
+   "mean": 2.142179027199745
+  },
+  "kernel_ms": {
+   "median": 2.053631901741028,
+   "p99": 2.0770612001419066,
+   "mean": 2.053631015121937
+  },
+  "cert_over_bf16": {
+   "median": 0.9116077588589172,
+   "p99": 1.0835661463918298,
+   "mean": 0.9200963643766875
+  },
+  "graph_over_bf16": {
+   "median": 0.416880879924427,
+   "p99": 0.42787277613902636,
+   "mean": 0.4177485562015989
+  },
+  "kernel_over_bf16": 0.401142598074612,
+  "bytes_over_bf16": {
+   "median": 0.2581285446154137,
+   "p99": 0.258286726709766,
+   "mean": 0.2581279472633883
+  },
+  "graph_fallbacks": 0,
+  "mismatches": 0,
+  "graph_mismatches": 0
+ }
+}
+{
+ "model": "gemma4_e4b",
+ "V": 262144,
+ "D": 2560,
+ "t": 1.5,
+ "gpu": "NVIDIA L4",
+ "torch": "2.15.0+cu132",
+ "first_pass_bytes_over_bf16": 0.2578125,
+ "B1": {
+  "bf16_ms": {
+   "median": 5.335008144378662,
+   "p99": 5.3742660665512085,
+   "mean": 5.337372004054487
+  },
+  "cert_ms": {
+   "median": 4.2393598556518555,
+   "p99": 5.249597597122192,
+   "mean": 5.216298209503293
+  },
+  "graph_ms": {
+   "median": 2.1856160163879395,
+   "p99": 2.2202928590774538,
+   "mean": 2.187536750920117
+  },
+  "kernel_ms": {
+   "median": 2.08076810836792,
+   "p99": 2.1686067819595336,
+   "mean": 2.086136581376195
+  },
+  "cert_over_bf16": {
+   "median": 0.7944734583018629,
+   "p99": 0.9815672166633336,
+   "mean": 0.9771276927677286
+  },
+  "graph_over_bf16": {
+   "median": 0.4095559136887965,
+   "p99": 0.4156250390918011,
+   "mean": 0.40985260277751234
+  },
+  "kernel_over_bf16": 0.39002154299621133,
+  "bytes_over_bf16": {
+   "median": 0.2578201353549957,
+   "p99": 0.2585467834472656,
+   "mean": 0.25786225484916936
+  },
+  "graph_fallbacks": 0,
+  "mismatches": 0,
+  "graph_mismatches": 0
+ },
+ "B16": {
+  "bf16_ms": {
+   "median": 5.5502238273620605,
+   "p99": 5.624449152946473,
+   "mean": 5.556243985891342
+  },
+  "cert_ms": {
+   "median": 5.246464014053345,
+   "p99": 6.440202221870423,
+   "mean": 5.347455993294716
+  },
+  "graph_ms": {
+   "median": 2.2867040634155273,
+   "p99": 2.342435564994812,
+   "mean": 2.294236995279789
+  },
+  "kernel_ms": {
+   "median": 2.1432321071624756,
+   "p99": 2.2166631388664246,
+   "mean": 2.149568051099777
+  },
+  "cert_over_bf16": {
+   "median": 0.9455555572494054,
+   "p99": 1.1463529346018209,
+   "mean": 0.9622977226982505
+  },
+  "graph_over_bf16": {
+   "median": 0.41232853818556714,
+   "p99": 0.421124983141942,
+   "mean": 0.41291072279138774
+  },
+  "kernel_over_bf16": 0.38615237399914415,
+  "bytes_over_bf16": {
+   "median": 0.2583672717213631,
+   "p99": 0.2611146768629551,
+   "mean": 0.25857753641903397
+  },
+  "graph_fallbacks": 0,
+  "mismatches": 0,
+  "graph_mismatches": 0
+ }
+}
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-1UvQqM6LL5lfpQCqxOcJV7

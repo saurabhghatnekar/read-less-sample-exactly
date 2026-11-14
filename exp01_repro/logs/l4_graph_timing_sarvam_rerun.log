@@ -1,0 +1,109 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-fJFTbvVaLS8GQXs3Lx1wJR
+✓ Created objects.
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/l4_bench_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/l4_cert.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/l4_graph.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/l4_kernels.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/subg_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+└── ✓ Created Function bench.
+/usr/local/lib/python3.12/site-packages/triton/knobs.py:504: UserWarning: TRITON_DEFAULT_FP_FUSION is unset: defaulting to FP fusion ENABLED for backward compatibility in Triton 3.9. The default will change to DISABLED in Triton 3.10; set TRITON_DEFAULT_FP_FUSION=1 to keep fusion enabled or =0 to adopt the new default early and silence this warning.
+  warn_once(FP_FUSION_DEFAULT_WARNING)
+{
+ "model": "sarvam_30b",
+ "V": 262144,
+ "D": 4096,
+ "t": 0.5,
+ "gpu": "NVIDIA L4",
+ "torch": "2.15.0+cu132",
+ "first_pass_bytes_over_bf16": 0.2578125,
+ "B1": {
+  "bf16_ms": {
+   "median": 8.501343727111816,
+   "p99": 8.575790643692017,
+   "mean": 8.507409062236547
+  },
+  "cert_ms": {
+   "median": 5.61356782913208,
+   "p99": 7.643064370155334,
+   "mean": 6.614122238010168
+  },
+  "graph_ms": {
+   "median": 3.375663995742798,
+   "p99": 5.788713130950927,
+   "mean": 3.609623748343438
+  },
+  "kernel_ms": {
+   "median": 3.259392023086548,
+   "p99": 3.3186713576316835,
+   "mean": 3.261707556899637
+  },
+  "cert_over_bf16": {
+   "median": 0.6601515618234097,
+   "p99": 0.8995336892619265,
+   "mean": 0.7775767098457599
+  },
+  "graph_over_bf16": {
+   "median": 0.39677384726641907,
+   "p99": 0.6792114430987601,
+   "mean": 0.42428759986422093
+  },
+  "kernel_over_bf16": 0.3833972755026892,
+  "bytes_over_bf16": {
+   "median": 0.2583222482353449,
+   "p99": 0.533566661272198,
+   "mean": 0.28546437121985946
+  },
+  "graph_fallbacks": 0,
+  "mismatches": 0,
+  "graph_mismatches": 0
+ },
+ "B16": {
+  "bf16_ms": {
+   "median": 8.773327827453613,
+   "p99": 9.13947684288025,
+   "mean": 8.795261025428772
+  },
+  "cert_ms": {
+   "median": 9.160704135894775,
+   "p99": 10.06698537826538,
+   "mean": 8.95711998641491
+  },
+  "graph_ms": {
+   "median": 5.899951934814453,
+   "p99": 6.331508450508117,
+   "mean": 5.646793976426125
+  },
+  "kernel_ms": {
+   "median": 3.3361918926239014,
+   "p99": 3.63591685295105,
+   "mean": 3.3490239903330803
+  },
+  "cert_over_bf16": {
+   "median": 1.0424074203756493,
+   "p99": 1.1406914958017662,
+   "mean": 1.0182978305505446
+  },
+  "graph_over_bf16": {
+   "median": 0.6713918259468232,
+   "p99": 0.72176526136131,
+   "mean": 0.6421638588667207
+  },
+  "kernel_over_bf16": 0.3802652719968181,
+  "bytes_over_bf16": {
+   "median": 0.49673470109701157,
+   "p99": 0.5466873711906374,
+   "mean": 0.47134759422624484
+  },
+  "graph_fallbacks": 0,
+  "mismatches": 0,
+  "graph_mismatches": 0
+ }
+}
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-fJFTbvVaLS8GQXs3Lx1wJR
