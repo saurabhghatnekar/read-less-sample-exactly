@@ -1,0 +1,25 @@
+# K3: one-direction share of the final hidden states, 14 models
+
+Control A1 (BF16-product argmax equals the emitted token): Sarvam-30B 0.987, Sarvam-1 1.000, Gemma 4 E2B 0.999, gpt-oss-20b (MoE) 1.000, SmolLM3-3B 1.000, Mistral-Nemo 1.000, Gemma 4 E4B 0.998, Phi-4-mini 1.000, Qwen3-8B 1.000, Qwen3-4B 1.000, Qwen3-14B 0.999, Qwen3-30B-A3B (MoE) 1.000, Sarvam-M 1.000, Granite 3.3 8B 0.998.
+Control A3: bound violations 0, token mismatches 0, over 13 models with a certificate.
+
+| Model | V | d | States' second moment in the top 1, 4, 16 directions | Share of the state along the top direction, median | Offset share of the top logit, median | Bound with pca1 vs none | Bytes none: median, p99, mean | Bytes pca1: median, p99, mean | S p99 none → pca1 |
+|---|---|---|---|---|---|---|---|---|---|
+| Sarvam-30B | 262,144 | 4,096 | 0.74, 0.84, 0.90 | 0.66 | +0.77 | 0.60 | 0.258, 0.530, 0.282 | 0.258, 0.260, 0.258 | 142,493 → 931 |
+| Sarvam-1 | 68,096 | 2,048 | 0.43, 0.86, 0.94 | 0.53 | +0.17 | 0.71 | 0.293, 0.759, 0.393 | 0.260, 0.760, 0.331 | 68,069 → 68,068 |
+| Gemma 4 E2B | 262,144 | 1,536 | 0.33, 0.60, 0.73 | 0.24 | -2.61 | 0.87 | 0.258, 0.288, 0.259 | 0.259, 0.265, 0.259 | 15,886 → 2,942 |
+| gpt-oss-20b (MoE) | 201,088 | 2,880 | 0.30, 0.49, 0.61 | 0.37 | -0.19 | no certificate (d not a multiple of 128) | | | |
+| SmolLM3-3B | 128,256 | 2,048 | 0.28, 0.48, 0.59 | 0.22 | +0.12 | 0.90 | 0.406, 1.069, 0.476 | 0.337, 0.837, 0.379 | 117,234 → 79,905 |
+| Mistral-Nemo | 131,072 | 5,120 | 0.23, 0.47, 0.62 | 0.00 | +0.10 | 1.00 | 0.258, 0.287, 0.259 | 0.258, 0.280, 0.259 | 7,370 → 5,514 |
+| Gemma 4 E4B | 262,144 | 2,560 | 0.22, 0.52, 0.61 | 0.08 | -0.67 | 0.96 | 0.258, 0.259, 0.258 | 0.259, 0.259, 0.259 | 416 → 150 |
+| Phi-4-mini | 200,064 | 3,072 | 0.16, 0.37, 0.54 | 0.03 | -0.32 | 0.99 | 0.258, 0.396, 0.278 | 0.259, 0.360, 0.268 | 42,479 → 26,432 |
+| Qwen3-8B | 151,936 | 4,096 | 0.14, 0.33, 0.48 | 0.09 | -0.08 | 0.96 | 0.258, 0.258, 0.258 | 0.258, 0.258, 0.258 | 23 → 21 |
+| Qwen3-4B | 151,936 | 2,560 | 0.13, 0.29, 0.44 | 0.10 | -0.11 | 0.94 | 0.258, 0.258, 0.258 | 0.259, 0.259, 0.259 | 26 → 24 |
+| Qwen3-14B | 151,936 | 5,120 | 0.13, 0.28, 0.42 | 0.10 | -0.07 | 0.95 | 0.258, 0.258, 0.258 | 0.258, 0.258, 0.258 | 17 → 15 |
+| Qwen3-30B-A3B (MoE) | 151,936 | 2,048 | 0.12, 0.32, 0.47 | 0.02 | -0.06 | 0.99 | 0.258, 0.258, 0.258 | 0.259, 0.259, 0.259 | 18 → 15 |
+| Sarvam-M | 131,072 | 5,120 | 0.09, 0.26, 0.42 | 0.03 | +0.04 | 0.98 | 0.258, 0.258, 0.258 | 0.258, 0.258, 0.258 | 6 → 6 |
+| Granite 3.3 8B | 49,159 | 4,096 | 0.07, 0.19, 0.35 | 0.06 | -0.03 | 0.97 | 0.258, 0.258, 0.258 | 0.258, 0.259, 0.258 | 9 → 9 |
+
+Across the 14 models: Spearman of the top-1 share with the offset share +0.14, with its absolute value +0.84, with the median share of the state along the top direction +0.69.
+p99 bytes saved by pca1: Sarvam-30B +0.270, Sarvam-1 -0.001, Gemma 4 E2B +0.023, SmolLM3-3B +0.231, Mistral-Nemo +0.007, Gemma 4 E4B -0.000, Phi-4-mini +0.036, Qwen3-8B -0.000, Qwen3-4B -0.001, Qwen3-14B -0.000, Qwen3-30B-A3B (MoE) -0.001, Sarvam-M -0.000, Granite 3.3 8B -0.000.
+Revisions: sarvamai/sarvam-30b@071ae95e93; sarvamai/sarvam-1@e960733728; google/gemma-4-E2B-it@4adf15748d; openai/gpt-oss-20b@6cee5e81ee; HuggingFaceTB/SmolLM3-3B@a07cc9a04f; mistralai/Mistral-Nemo-Instruct-2407@04d8a90549; google/gemma-4-E4B-it@4ecc2ba63b; microsoft/Phi-4-mini-instruct@cfbefacb99; Qwen/Qwen3-8B@b968826d9c; Qwen/Qwen3-4B@1cfa9a7208; Qwen/Qwen3-14B@40c069824f; Qwen/Qwen3-30B-A3B@ad44e777bc; sarvamai/sarvam-m@01534a53c4; ibm-granite/granite-3.3-8b-instruct@51dd4bc2ad.

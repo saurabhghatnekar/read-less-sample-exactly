@@ -1,0 +1,162 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-nOBCQbuWL8C05K2FOC9aG5
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/e2e_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/l4_corr.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/l4_graph.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/l4_cert.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/l4_kernels.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/subg_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_lib.py
+├── ✓ Created Function sarvam_stock.
+├── ✓ Created Function dense.
+└── ✓ Created Function sarvam_head.
+`torch_dtype` is deprecated! Use `dtype` instead!
+
+[1ALoading weights:   0%|          | 0/399 [00:00<?, ?it/s]
+[1ALoading weights:   0%|          | 0/2076 [00:00<?, ?it/s]
+[1ALoading weights:   8%|▊         | 167/2076 [00:00<00:01, 1657.85it/s]
+[1ALoading weights:  16%|█▌        | 333/2076 [00:00<00:01, 1319.96it/s]
+[1ALoading weights:  23%|██▎       | 470/2076 [00:00<00:01, 1318.01it/s]
+[1ALoading weights:  29%|██▉       | 605/2076 [00:00<00:01, 1324.17it/s]
+[1ALoading weights:  36%|███▌      | 751/2076 [00:01<00:03, 350.59it/s] 
+[1ALoading checkpoint shards:   0%|          | 0/26 [00:00<?, ?it/s]
+[1ALoading weights:   0%|          | 1/399 [00:03<23:48,  3.59s/it]
+[1ALoading weights:   2%|▏         | 6/399 [00:03<03:01,  2.17it/s]
+[1ALoading weights:   4%|▎         | 14/399 [00:03<01:03,  6.04it/s]
+[1ALoading weights:   6%|▌         | 23/399 [00:03<00:32, 11.47it/s]
+[1ALoading weights:   7%|▋         | 29/399 [00:04<00:24, 15.07it/s]
+[1ALoading weights:  10%|▉         | 38/399 [00:04<00:17, 20.57it/s]
+[1ALoading weights:  12%|█▏        | 48/399 [00:04<00:11, 29.74it/s]
+[1ALoading weights:  14%|█▍        | 55/399 [00:04<00:10, 31.95it/s]
+[1ALoading weights:  15%|█▌        | 61/399 [00:04<00:10, 33.02it/s]
+[1ALoading weights:  17%|█▋        | 69/399 [00:04<00:08, 39.15it/s]
+[1ALoading weights:  19%|█▉        | 75/399 [00:05<00:07, 41.58it/s]
+[1ALoading weights:  20%|██        | 81/399 [00:05<00:07, 44.90it/s]
+[1ALoading weights:  22%|██▏       | 87/399 [00:05<00:06, 44.90it/s]
+[1ALoading weights:  41%|████      | 843/2076 [00:05<00:14, 82.28it/s] 
+[1ALoading weights:  23%|██▎       | 93/399 [00:05<00:07, 39.70it/s]
+[1ALoading weights:  26%|██▌       | 103/399 [00:05<00:05, 52.01it/s]
+[1ALoading weights:  44%|████▎     | 904/2076 [00:05<00:12, 90.57it/s]
+[1ALoading weights:  28%|██▊       | 110/399 [00:05<00:05, 49.11it/s]
+[1ALoading weights:  29%|██▉       | 116/399 [00:05<00:06, 43.85it/s]
+[1ALoading weights:  46%|████▌     | 951/2076 [00:05<00:11, 96.82it/s]
+[1ALoading weights:  32%|███▏      | 126/399 [00:06<00:05, 51.10it/s]
+[1ALoading weights:  33%|███▎      | 132/399 [00:06<00:05, 51.06it/s]
+[1ALoading weights:  48%|████▊     | 988/2076 [00:06<00:10, 102.69it/s]
+[1ALoading weights:  35%|███▍      | 138/399 [00:06<00:05, 46.41it/s]
+[1ALoading weights:  49%|████▉     | 1018/2076 [00:06<00:09, 107.23it/s]
+[1ALoading weights:  37%|███▋      | 147/399 [00:06<00:05, 49.60it/s]
+[1ALoading weights:  50%|█████     | 1043/2076 [00:06<00:08, 115.17it/s]
+[1ALoading weights:  39%|███▊      | 154/399 [00:06<00:04, 52.35it/s]
+[1ALoading weights:  40%|████      | 160/399 [00:06<00:05, 46.62it/s]
+[1ALoading weights:  51%|█████▏    | 1066/2076 [00:06<00:08, 113.37it/s]
+[1ALoading weights:  42%|████▏     | 168/399 [00:06<00:04, 50.80it/s]
+[1ALoading weights:  52%|█████▏    | 1086/2076 [00:06<00:08, 121.50it/s]
+[1ALoading weights:  44%|████▎     | 174/399 [00:07<00:04, 50.52it/s]
+[1ALoading weights:  53%|█████▎    | 1105/2076 [00:06<00:07, 128.81it/s]
+[1ALoading weights:  54%|█████▍    | 1125/2076 [00:07<00:06, 137.36it/s]
+[1ALoading weights:  45%|████▌     | 180/399 [00:07<00:05, 42.56it/s]
+[1ALoading weights:  55%|█████▌    | 1144/2076 [00:07<00:06, 145.16it/s]
+[1ALoading weights:  48%|████▊     | 191/399 [00:07<00:03, 56.29it/s]
+[1ALoading weights:  56%|█████▌    | 1163/2076 [00:07<00:06, 132.83it/s]
+[1ALoading weights:  50%|████▉     | 198/399 [00:07<00:03, 55.92it/s]
+[1ALoading weights:  57%|█████▋    | 1179/2076 [00:07<00:06, 133.73it/s]
+[1ALoading weights:  51%|█████▏    | 205/399 [00:07<00:03, 49.22it/s]
+[1ALoading weights:  58%|█████▊    | 1195/2076 [00:07<00:07, 123.18it/s]
+[1ALoading weights:  53%|█████▎    | 213/399 [00:07<00:03, 52.33it/s]
+[1ALoading weights:  58%|█████▊    | 1210/2076 [00:07<00:06, 123.77it/s]
+[1ALoading weights:  55%|█████▍    | 219/399 [00:07<00:03, 47.22it/s]
+[1ALoading weights:  59%|█████▉    | 1224/2076 [00:07<00:06, 126.46it/s]
+[1ALoading weights:  56%|█████▋    | 225/399 [00:08<00:03, 48.72it/s]
+[1ALoading weights:  60%|█████▉    | 1238/2076 [00:07<00:06, 123.05it/s]
+[1ALoading weights:  58%|█████▊    | 231/399 [00:08<00:03, 48.78it/s]
+[1ALoading weights:  60%|██████    | 1251/2076 [00:08<00:06, 124.59it/s]
+[1ALoading weights:  59%|█████▉    | 237/399 [00:08<00:03, 42.97it/s]
+[1ALoading weights:  61%|██████    | 1265/2076 [00:08<00:06, 127.38it/s]
+[1ALoading weights:  62%|██████▏   | 247/399 [00:08<00:03, 50.55it/s]
+[1ALoading weights:  62%|██████▏   | 1279/2076 [00:08<00:06, 128.62it/s]
+[1ALoading weights:  62%|██████▏   | 1293/2076 [00:08<00:06, 114.80it/s]
+[1ALoading weights:  63%|██████▎   | 253/399 [00:08<00:02, 49.51it/s]
+[1ALoading weights:  63%|██████▎   | 1307/2076 [00:08<00:06, 119.83it/s]
+[1ALoading weights:  65%|██████▍   | 259/399 [00:08<00:03, 41.89it/s]
+[1ALoading weights:  64%|██████▎   | 1320/2076 [00:08<00:06, 117.37it/s]
+[1ALoading weights:  64%|██████▍   | 1332/2076 [00:08<00:06, 113.11it/s]
+[1ALoading weights:  67%|██████▋   | 268/399 [00:09<00:03, 40.01it/s]
+[1ALoading weights:  65%|██████▍   | 1344/2076 [00:08<00:07, 103.33it/s]
+[1ALoading weights:  70%|███████   | 280/399 [00:09<00:02, 51.05it/s]
+[1ALoading weights:  66%|██████▌   | 1362/2076 [00:08<00:05, 122.55it/s]
+[1ALoading weights:  66%|██████▌   | 1375/2076 [00:09<00:05, 121.77it/s]
+[1ALoading weights:  72%|███████▏  | 287/399 [00:09<00:02, 53.18it/s]
+[1ALoading weights:  67%|██████▋   | 1392/2076 [00:09<00:05, 125.72it/s]
+[1ALoading weights:  68%|██████▊   | 1405/2076 [00:09<00:05, 125.26it/s]
+[1ALoading weights:  73%|███████▎  | 293/399 [00:09<00:02, 48.75it/s]
+[1ALoading weights:  75%|███████▌  | 301/399 [00:09<00:01, 53.49it/s]
+[1ALoading weights:  72%|███████▏  | 1489/2076 [00:09<00:01, 319.79it/s]
+[1ALoading weights:  77%|███████▋  | 1596/2076 [00:09<00:00, 519.09it/s]
+[1ALoading weights:  77%|███████▋  | 307/399 [00:09<00:02, 45.56it/s]
+[1ALoading weights:  86%|████████▌ | 1778/2076 [00:09<00:00, 884.17it/s]
+[1ALoading weights:  96%|█████████▋| 2000/2076 [00:09<00:00, 1261.12it/s]
+[1ALoading weights:  78%|███████▊  | 313/399 [00:09<00:01, 45.32it/s]Loading weights: 100%|██████████| 2076/2076 [00:09<00:00, 212.91it/s]
+
+[1ALoading weights:  81%|████████  | 324/399 [00:10<00:01, 50.26it/s]
+[1ALoading weights:  84%|████████▍ | 335/399 [00:10<00:01, 57.34it/s]
+[1ALoading weights:  85%|████████▌ | 341/399 [00:10<00:01, 53.53it/s]
+[1ALoading weights:  87%|████████▋ | 347/399 [00:10<00:01, 48.40it/s]
+[1ALoading weights:  89%|████████▉ | 357/399 [00:10<00:00, 48.16it/s]
+[1ALoading weights:  92%|█████████▏| 367/399 [00:10<00:00, 49.31it/s]
+[1ALoading weights:  93%|█████████▎| 373/399 [00:11<00:00, 49.12it/s]
+[1ALoading weights:  95%|█████████▌| 380/399 [00:11<00:00, 48.53it/s]
+[1ALoading weights:  97%|█████████▋| 389/399 [00:11<00:00, 55.03it/s]
+[1ALoading weights:  99%|█████████▉| 395/399 [00:11<00:00, 51.24it/s]
+[1ALoading weights: 100%|██████████| 399/399 [00:11<00:00, 34.68it/s]
+/usr/local/lib/python3.12/site-packages/triton/knobs.py:504: UserWarning: TRITON_DEFAULT_FP_FUSION is unset: defaulting to FP fusion ENABLED for backward compatibility in Triton 3.9. The default will change to DISABLED in Triton 3.10; set TRITON_DEFAULT_FP_FUSION=1 to keep fusion enabled or =0 to adopt the new default early and silence this warning.
+  warn_once(FP_FUSION_DEFAULT_WARNING)
+/usr/local/lib/python3.12/site-packages/triton/knobs.py:504: UserWarning: TRITON_DEFAULT_FP_FUSION is unset: defaulting to FP fusion ENABLED for backward compatibility in Triton 3.9. The default will change to DISABLED in Triton 3.10; set TRITON_DEFAULT_FP_FUSION=1 to keep fusion enabled or =0 to adopt the new default early and silence this warning.
+  warn_once(FP_FUSION_DEFAULT_WARNING)
+/usr/local/lib/python3.12/site-packages/triton/knobs.py:504: UserWarning: TRITON_DEFAULT_FP_FUSION is unset: defaulting to FP fusion ENABLED for backward compatibility in Triton 3.9. The default will change to DISABLED in Triton 3.10; set TRITON_DEFAULT_FP_FUSION=1 to keep fusion enabled or =0 to adopt the new default early and silence this warning.
+  warn_once(FP_FUSION_DEFAULT_WARNING)
+
+[1ALoading checkpoint shards:   4%|▍         | 1/26 [00:38<16:13, 38.95s/it]
+[1ALoading checkpoint shards:   8%|▊         | 2/26 [01:38<20:29, 51.22s/it]
+[1ALoading checkpoint shards:  12%|█▏        | 3/26 [02:12<16:37, 43.38s/it]
+[1ALoading checkpoint shards:  15%|█▌        | 4/26 [02:51<15:10, 41.38s/it]
+[1ALoading checkpoint shards:  19%|█▉        | 5/26 [03:54<17:16, 49.35s/it]
+[1ALoading checkpoint shards:  23%|██▎       | 6/26 [04:32<15:05, 45.29s/it]
+qwen3_8b B1 steps 2832 body 61.98 head 0.80 tail 0.02 ms head share 0.013 cert 1.06 ms e2e 1.004 mism 0 fb 0
+qwen3_8b B16 steps 885 body 68.61 head 0.82 tail 0.02 ms head share 0.012 cert 0.97 ms e2e 1.002 mism 0 fb 0
+qwen3_8b T3 {'agree': 256, 'total': 256}
+[1ALoading checkpoint shards:  27%|██▋       | 7/26 [05:01<12:39, 39.97s/it]
+[1ALoading checkpoint shards:  31%|███       | 8/26 [06:03<14:11, 47.28s/it]
+[1ALoading checkpoint shards:  35%|███▍      | 9/26 [06:58<14:02, 49.58s/it]
+[1ALoading checkpoint shards:  38%|███▊      | 10/26 [08:11<15:08, 56.80s/it]gemma4_e4b B1 steps 2832 body 99.77 head 0.86 tail 0.03 ms head share 0.009 cert 1.11 ms e2e 1.002 mism 0 fb 0
+gemma4_e4b B16 steps 885 body 105.48 head 0.88 tail 0.06 ms head share 0.009 cert 1.16 ms e2e 1.002 mism 0 fb 0
+gemma4_e4b T3 {'agree': 256, 'total': 256}
+
+[1ALoading checkpoint shards:  42%|████▏     | 11/26 [09:31<15:58, 63.88s/it]
+[1ALoading checkpoint shards:  46%|████▌     | 12/26 [10:16<13:33, 58.11s/it]
+[1ALoading checkpoint shards:  50%|█████     | 13/26 [10:43<10:31, 48.60s/it]
+[1ALoading checkpoint shards:  54%|█████▍    | 14/26 [11:07<08:16, 41.41s/it]
+[1ALoading checkpoint shards:  58%|█████▊    | 15/26 [11:34<06:44, 36.81s/it]
+[1ALoading checkpoint shards:  62%|██████▏   | 16/26 [12:26<06:54, 41.48s/it]
+[1ALoading checkpoint shards:  65%|██████▌   | 17/26 [13:16<06:35, 43.99s/it]
+[1ALoading checkpoint shards:  69%|██████▉   | 18/26 [14:33<07:12, 54.10s/it]
+[1ALoading checkpoint shards:  73%|███████▎  | 19/26 [15:13<05:47, 49.69s/it]
+[1ALoading checkpoint shards:  77%|███████▋  | 20/26 [15:34<04:07, 41.17s/it]
+[1ALoading checkpoint shards:  81%|████████  | 21/26 [16:18<03:30, 42.01s/it]
+[1ALoading checkpoint shards:  85%|████████▍ | 22/26 [16:27<02:08, 32.10s/it]
+[1ALoading checkpoint shards:  88%|████████▊ | 23/26 [16:43<01:21, 27.26s/it]
+[1ALoading checkpoint shards:  92%|█████████▏| 24/26 [16:58<00:47, 23.50s/it]
+[1ALoading checkpoint shards:  96%|█████████▌| 25/26 [17:09<00:19, 19.82s/it]
+[1ALoading checkpoint shards: 100%|██████████| 26/26 [17:24<00:00, 18.49s/it]
+[1ALoading checkpoint shards: 100%|██████████| 26/26 [17:24<00:00, 40.19s/it]
+sarvam_30b_stock B1 steps 2832 body 28.75 head 1.22 tail 0.02 ms head share 0.041 
+sarvam_30b_stock B16 steps 885 body 75.59 head 1.34 tail 0.05 ms head share 0.018 
+sarvam_30b_head B1 bf16 head 1.23 ms cert 1.26 ms ratio 1.024 mism 0 fb 0
+sarvam_30b_head B16 bf16 head 1.38 ms cert 1.38 ms ratio 1.002 mism 0 fb 0
+Stopping app - local entrypoint completed.
+Runner terminated.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-nOBCQbuWL8C05K2FOC9aG5

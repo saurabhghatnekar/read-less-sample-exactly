@@ -1,0 +1,92 @@
+{
+ "model": "gemma4_e4b",
+ "n": 29641,
+ "d": 2560,
+ "top1_share_even": 0.22169622933233177,
+ "top1_share_svd_subsample": 0.2213528879834179,
+ "null_share_shuffled_coordinates": 0.000868184346019568,
+ "one_over_d": 0.000390625,
+ "mean_state_energy_share": 0.14920925090350823,
+ "cos_mean_state_top_direction": 0.9355578025284474,
+ "norm_mean_over_mean_norm": 0.3862761329716194,
+ "largest_coordinates_of_direction": [
+  [
+   2325,
+   0.42411947901514224
+  ],
+  [
+   427,
+   0.28665007076167637
+  ],
+  [
+   29,
+   0.28436022626219914
+  ],
+  [
+   1916,
+   -0.28380233447690834
+  ],
+  [
+   673,
+   0.2451928717602067
+  ]
+ ],
+ "energy_of_direction_in_top5_coordinates": 0.48356964324419893,
+ "rho_median_odd": 0.07772977331089209,
+ "by_group": {
+  "bengali": {
+   "states": 5064,
+   "own_top1_share": 0.6131766779219407,
+   "cos_own_with_global": 0.7221921980713422,
+   "rho_median": 0.3341069971856572
+  },
+  "code": {
+   "states": 4691,
+   "own_top1_share": 0.18058937091394525,
+   "cos_own_with_global": 0.41495842920154163,
+   "rho_median": 0.0284907877816119
+  },
+  "english": {
+   "states": 4574,
+   "own_top1_share": 0.09314994957361633,
+   "cos_own_with_global": 0.44511148984891213,
+   "rho_median": 0.015752474812327638
+  },
+  "hindi": {
+   "states": 5080,
+   "own_top1_share": 0.5256628406980413,
+   "cos_own_with_global": 0.15780615377972496,
+   "rho_median": 0.012240737406953944
+  },
+  "tamil": {
+   "states": 5116,
+   "own_top1_share": 0.5422003034926222,
+   "cos_own_with_global": 0.5027137543797489,
+   "rho_median": 0.1360070972654626
+  },
+  "telugu": {
+   "states": 5116,
+   "own_top1_share": 0.5684308572831112,
+   "cos_own_with_global": 0.8275205139448303,
+   "rho_median": 0.3773378231564991
+  }
+ },
+ "by_step": {
+  "0-0": {
+   "states": 240,
+   "rho_median": 0.03481644533042188
+  },
+  "1-7": {
+   "states": 1680,
+   "rho_median": 0.0720919787092199
+  },
+  "8-31": {
+   "states": 5714,
+   "rho_median": 0.08128801484824219
+  },
+  "32-127": {
+   "states": 22007,
+   "rho_median": 0.08062686320915388
+  }
+ }
+}

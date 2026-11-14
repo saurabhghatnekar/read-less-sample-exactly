@@ -1,0 +1,28 @@
+{
+  "experiment": "E1: the head's share of a decode step, and the end-to-end step time with the certified head",
+  "written": "2026-11-14, after the L4 timing with the correction was read, before any E1 code ran",
+  "question": "Every timing so far is the head alone. How much of a real greedy decode step is the output head, and how much of the step does the certified head save?",
+  "hardware": "NVIDIA A100-80GB on Modal for all three models, since Sarvam-30B does not fit an L4. Head timings on this GPU are measured here and are not the L4 figures.",
+  "stock_step": "a minimal greedy loop with the key-value cache: one model forward per new token, then argmax. No generate(), no logits processors, no stopping checks, which favours the stock path. Hugging Face transformers in BF16, the versions each model was dumped with.",
+  "split": "CUDA events at the start of the forward, at the entry and exit of the output head (hooks), and after the argmax: body = start to head entry; head = head entry to exit; tail = head exit to after the argmax (soft-cap where the model has one, and the argmax). Stock step = body + head + tail. Certified step = body + the certified head step, which returns the token.",
+  "certified_head": "the graph-captured greedy step (l4_graph.py; with the K2 pca1 correction, l4_corr.py, for Sarvam-30B), same copies and shifts as the L4 timing",
+  "models": {
+    "qwen3_8b, gemma4_e4b": "one process: the stock step and the certified head are timed on the same state at every step",
+    "sarvam_30b": "two containers on the same GPU type, because Sarvam's own model code needs its pinned environment (torch 2.5.1), which the kernels were not written for: (a) the stock loop, giving body, head and tail; (b) the BF16 head and the certified head on the saved greedy states, as in the L4 bench. The end-to-end figure combines (a)'s body with (b)'s certified head, and (b)'s BF16 head is compared with (a)'s head as a cross-check."
+  },
+  "runs": "batch 1: the first 48 prompts by id spread over the six groups (8 per group), 64 new tokens each; batch 16: all 240 prompts in 15 batches, 64 new tokens. EOS is ignored so every step is timed. The first 4 steps of each prompt are warm-up and excluded.",
+  "reported": "per model and batch size: body, head, tail and certified-head times (median, p99, mean); head share = (head + tail) / stock step; end-to-end ratio = certified step / stock step, per step (median, p99) and as a ratio of total times; the certified head over the stock head on this GPU; token agreement of the certified head with the FP32 reference (Qwen, Gemma)",
+  "controls": {
+    "T1": "Qwen and Gemma: every certified token equals the argmax of the FP32 product of the BF16 state and head; no fallback",
+    "T2": "Sarvam: the BF16 head time in container (b) is within 25% of the stock head time in container (a) at batch 1; otherwise the two containers are not comparable and the Sarvam end-to-end figure is reported as indicative only",
+    "T3": "the stock loop's tokens equal generate()'s greedy tokens on the first 4 prompts (Qwen, Gemma), so the loop is the model's real decode"
+  },
+  "known_weaknesses": "The stock loop runs Python model code, whose per-layer overhead inflates the body and so lowers the head's share; an optimised server would show a larger share. One GPU type, one run. Sarvam's figure joins two containers. Greedy only. Prompts are short (a chat turn), so the cache is small.",
+  "prediction_written_before_running": {
+    "head_share_batch1": "Qwen3-8B 2% to 8% (weight-byte share about 8%); Gemma 4 E4B 5% to 15%; Sarvam-30B 8% to 25% (weight-byte share of active parameters about 31%)",
+    "end_to_end_batch1": "certified step over stock step, ratio of totals: Qwen3-8B 0.95 to 0.99; Gemma 4 E4B 0.90 to 0.97; Sarvam-30B 0.85 to 0.95",
+    "batch16": "the head's share is lower at batch 16 than at batch 1 on every model",
+    "head_on_a100": "the certified head over the stock BF16 head at batch 1 is between 0.4 and 0.7 on the A100, worse than the L4's 0.40, because the fixed 0.1 ms of host time is a larger part of a faster head",
+    "takeaway_if_wrong": "If the head's share at batch 1 is below 3% on all three models, the head is not where decode time goes on this stack, and the time claim needs an optimised-server measurement before it means anything."
+  }
+}

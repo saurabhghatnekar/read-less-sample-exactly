@@ -572,3 +572,105 @@ The overhead is 0.04 to 0.20 ms. It has not been profiled; the corrected step co
 Against the predictions: controls held. Sarvam batch 1: median unchanged (+0.6%), `pca1` p99 below 3.7 ms and mean below 3.45 ms (3.46, 3.41), `mu` p99 in between (4.02): held. Sarvam batch 16 with `pca1` below 3.9 ms and 0.45: held (3.62, 0.41); with `mu` between 0.45 and 0.62: just outside (0.449). Overhead within 3% on Qwen and Gemma at both batch sizes: missed except Qwen at batch 1 (+2%, +5%, +7%, +9%).
 
 Limits: greedy only. The 512 timed states are a random sample of all greedy states, so about half come from prompts `pca1` was fitted on; the K2 addendum found the fit without the state's language to be the same direction on Sarvam (cosine above 0.998), and `mu` uses no states. Head alone, not end-to-end decoding. One run per head; the earlier sections show the graph step's medians move by about 2% between runs.
+
+## K3: is Sarvam-30B special? (14 Nov 2026, exploratory survey)
+
+K2's correction works on Sarvam-30B because one direction holds 74% of its states' second moment. K3 measures that share on eleven more open-weight models, chosen before any was run, to vary family, size, lab, and dense against mixture-of-experts.
+
+Rule `sweep_rule.json` (sha256 `2a7bee49…`, logged before any run). Code `sweep_modal.py`, `sweep_summarize.py`; per-model summaries `logs/sweep_<model>.json`, table `logs/sweep_summary.txt`. New models: this reproduction's 240 prompts, the model's own chat template, greedy, 64 new tokens, final state captured at the head's input. The three existing models use their saved states, steps 0 to 63. Directions are fitted on the even prompt ids and everything else is measured on the odd ones. The certificate is K2's greedy one (dithered INT4, sub-Gaussian bound, INT8 stage, t = 0), about 7,500 test states per model.
+
+Controls: all 14 models loaded and ran. A1, the BF16-product argmax equals the emitted token on 98.7% (Sarvam-30B) to 100% of states, so the captured state and head are the model's. A2, the three existing models reproduce K2's top-1 shares (0.14, 0.22, 0.74 against 0.14, 0.22, 0.74). A3, no bound violation and no token mismatch on the 13 models with a certificate (gpt-oss-20b's hidden size, 2,880, is not a multiple of 128).
+
+| Model | V | d | Second moment in the top 1, 4 directions | Offset share of the top logit | Bound with `pca1` vs none | Bytes, none: median, p99, mean | Bytes, `pca1`: median, p99, mean |
+|---|---|---|---|---|---|---|---|
+| Sarvam-30B (MoE) | 262,144 | 4,096 | 0.74, 0.84 | +0.77 | 0.60 | 0.258, 0.530, 0.282 | 0.258, 0.260, 0.258 |
+| Sarvam-1 | 68,096 | 2,048 | 0.43, 0.86 | +0.17 | 0.71 | 0.293, 0.759, 0.393 | 0.260, 0.760, 0.331 |
+| Gemma 4 E2B | 262,144 | 1,536 | 0.33, 0.60 | −2.61 | 0.87 | 0.258, 0.288, 0.259 | 0.259, 0.265, 0.259 |
+| gpt-oss-20b (MoE) | 201,088 | 2,880 | 0.30, 0.49 | −0.19 | no certificate | | |
+| SmolLM3-3B | 128,256 | 2,048 | 0.28, 0.48 | +0.12 | 0.90 | 0.406, 1.069, 0.476 | 0.337, 0.837, 0.379 |
+| Mistral-Nemo | 131,072 | 5,120 | 0.23, 0.47 | +0.10 | 1.00 | 0.258, 0.287, 0.259 | 0.258, 0.280, 0.259 |
+| Gemma 4 E4B | 262,144 | 2,560 | 0.22, 0.52 | −0.67 | 0.96 | 0.258, 0.259, 0.258 | 0.259, 0.259, 0.259 |
+| Phi-4-mini | 200,064 | 3,072 | 0.16, 0.37 | −0.32 | 0.99 | 0.258, 0.396, 0.278 | 0.259, 0.360, 0.268 |
+| Qwen3-8B | 151,936 | 4,096 | 0.14, 0.33 | −0.08 | 0.96 | 0.258, 0.258, 0.258 | 0.258, 0.258, 0.258 |
+| Qwen3-4B | 151,936 | 2,560 | 0.13, 0.29 | −0.11 | 0.94 | 0.258, 0.258, 0.258 | 0.259, 0.259, 0.259 |
+| Qwen3-14B | 151,936 | 5,120 | 0.13, 0.28 | −0.07 | 0.95 | 0.258, 0.258, 0.258 | 0.258, 0.258, 0.258 |
+| Qwen3-30B-A3B (MoE) | 151,936 | 2,048 | 0.12, 0.32 | −0.06 | 0.99 | 0.258, 0.258, 0.258 | 0.259, 0.259, 0.259 |
+| Sarvam-M | 131,072 | 5,120 | 0.09, 0.26 | +0.04 | 0.98 | 0.258, 0.258, 0.258 | 0.258, 0.258, 0.258 |
+| Granite 3.3 8B | 49,159 | 4,096 | 0.07, 0.19 | −0.03 | 0.97 | 0.258, 0.258, 0.258 | 0.258, 0.259, 0.258 |
+
+- **Sarvam-30B is the outlier.** No other model has a top-1 share above 0.5. The next is Sarvam-1 at 0.43; nine of the eleven new models are at 0.30 or below.
+- **It is not the family, the lab or the architecture.** Qwen3 is flat across sizes (0.12 to 0.14), mixture-of-experts included. Sarvam-M, from the same lab on a Mistral base, is at 0.09. The other mixture-of-experts model, gpt-oss-20b, is at 0.30.
+- **K2 as run is a fix for one model in this set**, not a general speed-up: on the seven models already at the floor it changes nothing and costs its storage.
+- **A finding the survey was not designed for: the uncorrected certificate is not at the floor everywhere.** Seven of the thirteen models have a p99 at or below 0.26. Gemma 4 E2B and Mistral-Nemo are at 0.29. Phi-4-mini (p99 0.396), Sarvam-30B (0.530), Sarvam-1 (0.759) and SmolLM3-3B (1.069, mean 0.476) are not. On SmolLM3-3B even the median state is at 0.41, and the p99 state costs more than reading the BF16 head.
+- **Where the certificate is off the floor, one direction helps some models and not others.** SmolLM3-3B's bytes fall from 0.406, 1.069, 0.476 (median, p99, mean) to 0.337, 0.837, 0.379 with a top-1 share of only 0.28; Sarvam-1's median falls from 0.293 to 0.260 and its mean from 0.393 to 0.331, but its p99 does not move. So the top-1 share is not the whole story: how close the model sits to the cliff matters as much.
+- The size of the offset tracks the top-1 share across models (Spearman +0.84 with the absolute offset share), but its sign does not (+0.14 signed): Gemma 4 E2B and E4B have large negative offsets.
+
+Against the predictions: "at most one new model above 0.5": held (none). "Qwen3-4B, Qwen3-14B and Gemma 4 E2B below 0.35": held (0.13, 0.13, 0.33). "The two mixture-of-experts models do not both exceed 0.5": held (0.12, 0.30). "Offset share and top-1 share positively rank-correlated, above 0.5": missed as written (+0.14 signed; +0.84 with the absolute value). "`pca1` lowers p99 bytes by more than 0.05 only on models with a top-1 share above 0.5, and on every such model": the second half held (Sarvam-30B, −0.27); the first half missed, since SmolLM3-3B gains 0.23 at a share of 0.28. The falsifier (four or more new models above 0.5) was not triggered.
+
+Limits: 64 new tokens per prompt and one prompt set, so these are not the 128-token figures of the main tables. t = 0 only; no mean-row shift was tried on the new models. Eleven models are not a census: all are small or mid-size open-weight chat models. The four models off the floor were not investigated; why SmolLM3-3B and Sarvam-1 are so wide is open.
+
+### Is the Sarvam result an artifact? Two checks (14 Nov 2026, diagnostic, no rule file)
+
+K3 raises the obvious worry: a method that helps one model of fourteen may be measuring something wrong on that model. Two checks were run after the fact, so they carry no predictions.
+
+**1. Does the correction reduce the real error, not just the bound?** From K2's stored arrays (`results/hdir/<model>`): the largest actual logit error over the vocabulary, per state, with no bound involved. If the split `h · e = α r + (h − αp) · e` is right, the error should shrink by √(1 − ρ) on every model, large or small.
+
+| Median over greedy test states | Largest error, no correction (logits) | With `pca1`, measured | √(1 − ρ) predicts |
+|---|---|---|---|
+| Sarvam-30B | 5.05 | × 0.609 | × 0.604 |
+| Qwen3-8B | 2.33 | × 0.957 | × 0.953 |
+| Gemma 4 E4B | 5.05 | × 0.955 | × 0.960 |
+
+The correction does what the algebra says on all three, to within 0.01. It gains little on Qwen and Gemma because ρ is small there, not because it fails.
+
+**2. Is the one-direction share real?** `spectrum_check_modal.py` recomputes it with numpy only and none of the project's analysis code (`logs/spectrum_check_<model>.json`).
+
+| | Sarvam-30B | Qwen3-8B | Gemma 4 E4B |
+|---|---|---|---|
+| Top-1 share, recomputed (K2's figure) | 0.736 (0.736) | 0.138 (0.138) | 0.222 (0.222) |
+| Same, from singular values of a random 4,096-state sample | 0.727 | 0.141 | 0.221 |
+| Null: each state's coordinates shuffled | 0.0007 | 0.0006 | 0.0009 |
+| Cosine of the top direction with the mean state | 0.995 | 0.963 | 0.936 |
+| Share of the states' energy that is the mean state | 0.50 | 0.11 | 0.15 |
+| Energy of the direction in its 5 largest coordinates | 0.08 | 0.67 | 0.48 |
+
+- The share reproduces through a separate route, and the shuffled null is at 0.001, so the measure is not high by construction.
+- **Sarvam's dominant direction is its mean state**: a fixed vector that is half of every state's energy. On Qwen and Gemma the mean state is 11% and 15%.
+- It is a dense vector on Sarvam (8% of it in its five largest coordinates). On Qwen the top direction is mostly a few large coordinates (one coordinate carries 39% of it).
+- It is present in every language group on Sarvam when fitted on that group alone (0.55 to 0.91), and at every position after the first token (median share 0.65 to 0.71; 0.38 on the first token). It is weakest on Tamil and Telugu (median share of the state 0.30 and 0.19, against 0.91 on English).
+
+Together with the K2 controls (no bound violation, no token mismatch, the uncorrected path reproducing B1 exactly), the L4 kernels (written separately, same row counts, real time saved), control A1 of K3 (the captured Sarvam state reproduces the emitted token on 98.7% of states) and the lab's own report of a large shared offset on Sarvam, this is a property of the model, not of our measurement. Why the model has a mean state that large is not known.
+
+## E1: the head's share of a decode step, and the step time with the certified head (14 Nov 2026)
+
+Every timing above is the head alone, on an L4. E1 times a whole greedy decode step.
+
+Rule `e2e_rule.json` (sha256 `81f81aed…`, logged before any run). Code `e2e_modal.py`, `e2e_summarize.py`; results `logs/e2e_<model>.json`, table `logs/e2e_summary.txt`. NVIDIA A100-80GB for all three models, since Sarvam-30B does not fit an L4. The stock step is a minimal greedy loop with the key-value cache (one forward per token, then argmax; no `generate()`, no logits processors), which favours the stock path. CUDA events split each step into body (everything up to the head's input), head and argmax. The certified head is the graph-captured step, with the K2 `pca1` correction for Sarvam. 48 prompts × 64 tokens at batch 1 and 240 prompts × 64 tokens at batch 16; the first 4 steps of each prompt are dropped.
+
+Controls: T1, no certified token differs from the FP32 reference and there is no fallback, on any model. T2, Sarvam's BF16 head in the second container is within 1% (batch 1) and 3% (batch 16) of the stock head in the first, so the two containers are comparable. T3, the loop's tokens equal `generate()`'s on all 256 checked tokens for Qwen and for Gemma.
+
+| Model, batch | Timed steps | Body ms (median, p99, mean) | Stock head + argmax ms (median) | Certified head ms (median, p99, mean) | Head's share of the stock step | Certified head / stock head (median) | Certified step / stock step (totals) |
+|---|---|---|---|---|---|---|---|
+| Qwen3-8B, 1 | 2,832 | 61.98, 75.58, 62.86 | 0.82 | 1.06, 1.17, 1.07 | 1.3% | 1.30 | 1.0038 |
+| Qwen3-8B, 16 | 885 | 68.61, 85.64, 69.93 | 0.84 | 0.97, 1.15, 0.98 | 1.2% | 1.15 | 1.0018 |
+| Gemma 4 E4B, 1 | 2,832 | 99.77, 133.92, 102.08 | 0.89 | 1.11, 1.22, 1.11 | 0.9% | 1.25 | 1.0022 |
+| Gemma 4 E4B, 16 | 885 | 105.48, 123.79, 106.49 | 0.94 | 1.16, 1.22, 1.13 | 0.9% | 1.24 | 1.0018 |
+| Sarvam-30B, 1 (two containers) | 2,832 | 28.75, 31.72, 28.76 | 1.24 | 1.26, 1.32, 1.26 | 4.1% | 1.02 | 1.0007 |
+| Sarvam-30B, 16 (two containers) | 885 | 75.59, 91.59, 75.77 | 1.39 | 1.38, 1.43, 1.38 | 1.8% | 1.00 | 0.9998 |
+
+- **The head is 1% to 4% of a decode step on this stack.** The body takes 29 to 100 ms per token and the BF16 head about 1 ms. Even a head that cost nothing would save at most that share.
+- **On the A100 the certified head is not faster than the stock head.** It takes 1.30 (Qwen), 1.25 (Gemma) and 1.02 (Sarvam) times as long at batch 1. On the L4 it took 0.40.
+- **So the end-to-end step is unchanged**: 1.000 to 1.004 times the stock step.
+- **Why the L4 result does not carry over.** From the L4 to the A100 the cuBLAS BF16 head gets 6.2 times faster on Qwen (4.96 → 0.80 ms, about 1,560 GB/s) and the certified step only 1.9 times (2.04 → 1.06 ms). The first pass reads 0.26 of the bytes; at the A100's rate that is about 0.21 ms, a fifth of what the step takes. The kernel is bound by its own arithmetic (unpacking nibbles, 16 padded states per row), not by memory, and a faster memory system exposes that. This is the roofline question the review of the first L4 timing left open, now answered against us.
+- **Why the head's share is so small here.** The body is bound by the host: 62 ms per token for Qwen3-8B, where reading its 16 GB of weights once at the A100's rate would take about 11 ms. Per-layer Python overhead in the model code inflates the body and not the head. Sarvam's body is the fastest of the three (29 ms) and its head share the largest (4.1%), on a different software stack. The lab's weight-byte arithmetic (head about 8% of bytes for Qwen3-8B, 31% for Sarvam-30B) describes a decode loop bound by memory, which this one is not.
+
+What still stands, and what does not:
+
+- **Stands:** the byte counts, the exactness (no mismatch here either), and the L4 head timings as measured.
+- **Does not stand as a general claim:** "the certified head takes 0.40 of the BF16 head's time". That is true on an L4 and false on an A100 with these kernels.
+- **Not shown either way:** a time saving in a decode loop that is bound by memory, such as an optimised server or a 4-bit body, where the head's share would be several times larger. Nothing here measures that.
+
+Against the predictions: all the numerical ones missed, in the same direction. Head share at batch 1: predicted 2–8% (Qwen), 5–15% (Gemma), 8–25% (Sarvam); measured 1.3%, 0.9%, 4.1%. End-to-end ratio at batch 1: predicted 0.95–0.99, 0.90–0.97, 0.85–0.95; measured 1.004, 1.002, 1.001. Certified over stock head on the A100: predicted 0.4–0.7; measured 1.02 to 1.30. "The head's share is lower at batch 16": held for Qwen and Sarvam, level for Gemma (0.9% both). The stated fallback ("below 3% on all three") was not met to the letter, since Sarvam is at 4.1%, but its conclusion applies: the time claim needs a memory-bound decode loop and a reworked first-pass kernel before it means anything.
+
+Limits: one GPU type, one run, greedy only, short prompts (context 28 to 438 tokens). Sarvam's figure joins two containers on different A100 variants (SXM4 and PCIe). The kernels' block sizes were tuned on the L4 and not retuned for the A100. Hugging Face transformers is not how a production server decodes.
+

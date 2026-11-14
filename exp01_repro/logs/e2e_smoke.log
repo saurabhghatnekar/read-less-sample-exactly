@@ -1,0 +1,148 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-dR5nojKuxXzdYUhRqV9wDR
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/e2e_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/l4_corr.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/l4_graph.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/l4_cert.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/l4_kernels.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/subg_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+├── ✓ Created Function sarvam_head.
+├── ✓ Created Function sarvam_stock.
+└── ✓ Created Function dense.
+`torch_dtype` is deprecated! Use `dtype` instead!
+
+[1ALoading weights:   0%|          | 0/399 [00:00<?, ?it/s]
+[1ALoading weights:   0%|          | 1/399 [00:00<04:36,  1.44it/s]
+[1ALoading weights:   1%|          | 2/399 [00:01<04:45,  1.39it/s]
+[1ALoading weights:   2%|▏         | 6/399 [00:01<01:17,  5.07it/s]
+[1ALoading weights:   4%|▍         | 16/399 [00:01<00:23, 16.38it/s]
+[1ALoading weights:   6%|▌         | 24/399 [00:01<00:14, 25.02it/s]
+[1ALoading weights:   8%|▊         | 30/399 [00:01<00:12, 29.38it/s]
+[1ALoading weights:  10%|▉         | 38/399 [00:02<00:09, 37.11it/s]
+[1ALoading weights:  11%|█         | 44/399 [00:02<00:08, 41.65it/s]
+[1ALoading weights:  13%|█▎        | 50/399 [00:02<00:08, 39.89it/s]
+[1ALoading weights:  15%|█▌        | 60/399 [00:02<00:06, 51.97it/s]
+[1ALoading weights:  17%|█▋        | 69/399 [00:02<00:05, 59.11it/s]
+[1ALoading weights:  19%|█▉        | 76/399 [00:02<00:06, 53.59it/s]
+[1ALoading weights:  21%|██        | 83/399 [00:02<00:06, 47.46it/s]
+[1ALoading weights:  23%|██▎       | 93/399 [00:03<00:05, 56.54it/s]
+[1ALoading weights:  25%|██▌       | 101/399 [00:03<00:05, 51.31it/s]
+[1ALoading weights:  28%|██▊       | 110/399 [00:03<00:04, 59.04it/s]
+[1ALoading weights:  29%|██▉       | 117/399 [00:03<00:04, 58.29it/s]
+[1ALoading weights:  32%|███▏      | 126/399 [00:03<00:05, 53.53it/s]
+[1ALoading weights:  34%|███▍      | 135/399 [00:03<00:04, 61.18it/s]
+[1ALoading weights:  36%|███▌      | 142/399 [00:03<00:04, 62.32it/s]
+[1ALoading weights:  37%|███▋      | 149/399 [00:04<00:04, 55.36it/s]
+[1ALoading weights:  40%|███▉      | 159/399 [00:04<00:03, 62.73it/s]
+[1ALoading weights:  42%|████▏     | 166/399 [00:04<00:04, 57.77it/s]
+[1ALoading weights:  43%|████▎     | 173/399 [00:04<00:03, 59.18it/s]
+[1ALoading weights:  45%|████▌     | 181/399 [00:04<00:03, 59.63it/s]
+[1ALoading weights:  47%|████▋     | 188/399 [00:04<00:03, 61.21it/s]
+[1ALoading weights:  49%|████▉     | 195/399 [00:04<00:03, 63.21it/s]
+[1ALoading weights:  51%|█████     | 203/399 [00:04<00:03, 61.01it/s]
+[1ALoading checkpoint shards:   0%|          | 0/26 [00:00<?, ?it/s]
+[1ALoading weights:  53%|█████▎    | 210/399 [00:05<00:03, 61.32it/s]
+[1ALoading weights:  54%|█████▍    | 217/399 [00:05<00:03, 57.51it/s]
+[1ALoading weights:  56%|█████▋    | 225/399 [00:05<00:03, 56.23it/s]
+[1ALoading weights:  59%|█████▉    | 235/399 [00:05<00:02, 63.41it/s]
+[1ALoading weights:  61%|██████    | 243/399 [00:05<00:02, 64.55it/s]
+[1ALoading weights:  63%|██████▎   | 250/399 [00:05<00:02, 60.22it/s]
+[1ALoading weights:  65%|██████▍   | 258/399 [00:05<00:02, 59.24it/s]
+[1ALoading weights:  67%|██████▋   | 266/399 [00:05<00:02, 53.82it/s]
+[1ALoading weights:  69%|██████▉   | 275/399 [00:06<00:02, 59.77it/s]
+[1ALoading weights:  71%|███████   | 282/399 [00:06<00:02, 53.85it/s]
+[1ALoading weights:  73%|███████▎  | 291/399 [00:06<00:01, 61.12it/s]
+[1ALoading weights:  75%|███████▍  | 299/399 [00:06<00:01, 64.08it/s]
+[1ALoading weights:  77%|███████▋  | 306/399 [00:06<00:01, 55.96it/s]
+[1ALoading weights:  79%|███████▊  | 314/399 [00:06<00:01, 55.61it/s]
+[1ALoading weights:  81%|████████  | 322/399 [00:06<00:01, 56.67it/s]
+[1ALoading weights:  83%|████████▎ | 330/399 [00:07<00:01, 61.25it/s]
+[1ALoading weights:  84%|████████▍ | 337/399 [00:07<00:01, 61.01it/s]
+[1ALoading weights:  87%|████████▋ | 346/399 [00:07<00:00, 65.94it/s]
+[1ALoading weights:  88%|████████▊ | 353/399 [00:07<00:00, 65.85it/s]
+[1ALoading weights:  90%|█████████ | 360/399 [00:07<00:00, 65.77it/s]
+[1ALoading weights:  92%|█████████▏| 367/399 [00:07<00:00, 46.68it/s]
+[1ALoading weights:  95%|█████████▍| 379/399 [00:07<00:00, 50.20it/s]
+[1ALoading weights:  98%|█████████▊| 390/399 [00:08<00:00, 58.69it/s]Loading weights: 100%|██████████| 399/399 [00:08<00:00, 48.70it/s]
+
+[1ALoading weights:   0%|          | 0/2076 [00:00<?, ?it/s]
+[1ALoading weights:  18%|█▊        | 376/2076 [00:00<00:00, 3160.63it/s]
+[1ALoading weights:  33%|███▎      | 693/2076 [00:00<00:01, 1308.57it/s]
+[1ALoading checkpoint shards:   4%|▍         | 1/26 [00:07<03:10,  7.62s/it]
+[1ALoading weights:  42%|████▏     | 875/2076 [00:06<00:13, 87.24it/s]  
+[1ALoading weights:  47%|████▋     | 976/2076 [00:07<00:11, 94.64it/s]
+[1ALoading checkpoint shards:   8%|▊         | 2/26 [00:13<02:41,  6.72s/it]/usr/local/lib/python3.12/site-packages/triton/knobs.py:504: UserWarning: TRITON_DEFAULT_FP_FUSION is unset: defaulting to FP fusion ENABLED for backward compatibility in Triton 3.9. The default will change to DISABLED in Triton 3.10; set TRITON_DEFAULT_FP_FUSION=1 to keep fusion enabled or =0 to adopt the new default early and silence this warning.
+  warn_once(FP_FUSION_DEFAULT_WARNING)
+
+[1ALoading weights:  50%|█████     | 1043/2076 [00:08<00:10, 98.67it/s]
+[1ALoading weights:  53%|█████▎    | 1091/2076 [00:08<00:09, 102.33it/s]
+[1ALoading weights:  54%|█████▍    | 1127/2076 [00:08<00:08, 105.49it/s]
+[1ALoading weights:  56%|█████▌    | 1156/2076 [00:09<00:08, 106.08it/s]
+[1ALoading weights:  57%|█████▋    | 1179/2076 [00:09<00:08, 103.89it/s]
+[1ALoading weights:  58%|█████▊    | 1198/2076 [00:09<00:08, 102.45it/s]
+[1ALoading weights:  58%|█████▊    | 1214/2076 [00:09<00:08, 104.28it/s]
+[1ALoading weights:  59%|█████▉    | 1229/2076 [00:09<00:07, 107.36it/s]
+[1ALoading weights:  60%|█████▉    | 1243/2076 [00:09<00:07, 110.81it/s]
+[1ALoading weights:  61%|██████    | 1257/2076 [00:09<00:07, 110.34it/s]
+[1ALoading weights:  61%|██████    | 1270/2076 [00:10<00:07, 108.77it/s]
+[1ALoading weights:  62%|██████▏   | 1283/2076 [00:10<00:07, 106.82it/s]
+[1ALoading weights:  62%|██████▏   | 1295/2076 [00:10<00:07, 103.20it/s]
+[1ALoading weights:  63%|██████▎   | 1308/2076 [00:10<00:07, 104.17it/s]
+[1ALoading weights:  64%|██████▎   | 1321/2076 [00:10<00:07, 107.83it/s]
+[1ALoading weights:  64%|██████▍   | 1336/2076 [00:10<00:06, 112.04it/s]
+[1ALoading weights:  65%|██████▍   | 1348/2076 [00:10<00:06, 104.05it/s]
+[1ALoading weights:  66%|██████▌   | 1371/2076 [00:10<00:05, 133.27it/s]
+[1ALoading weights:  67%|██████▋   | 1387/2076 [00:11<00:05, 125.81it/s]
+[1ALoading weights:  67%|██████▋   | 1401/2076 [00:11<00:05, 128.58it/s]
+[1ALoading weights:  68%|██████▊   | 1417/2076 [00:11<00:04, 134.47it/s]
+[1ALoading weights:  75%|███████▍  | 1555/2076 [00:11<00:01, 467.91it/s]
+[1ALoading weights:  83%|████████▎ | 1722/2076 [00:11<00:00, 797.77it/s]
+[1ALoading weights:  90%|█████████ | 1873/2076 [00:11<00:00, 991.33it/s]
+[1ALoading weights:  99%|█████████▉| 2051/2076 [00:11<00:00, 1214.77it/s]Loading weights: 100%|██████████| 2076/2076 [00:11<00:00, 177.06it/s]
+
+[1ALoading checkpoint shards:  12%|█▏        | 3/26 [00:20<02:38,  6.88s/it]/usr/local/lib/python3.12/site-packages/triton/knobs.py:504: UserWarning: TRITON_DEFAULT_FP_FUSION is unset: defaulting to FP fusion ENABLED for backward compatibility in Triton 3.9. The default will change to DISABLED in Triton 3.10; set TRITON_DEFAULT_FP_FUSION=1 to keep fusion enabled or =0 to adopt the new default early and silence this warning.
+  warn_once(FP_FUSION_DEFAULT_WARNING)
+
+qwen3_8b B1 steps 42 body 44.69 head 0.75 tail 0.02 ms head share 0.017 cert 0.85 ms e2e 1.002 mism 0 fb 0
+qwen3_8b B16 steps 7 body 49.79 head 0.77 tail 0.03 ms head share 0.016 cert 0.91 ms e2e 1.002 mism 0 fb 0
+qwen3_8b T3 {'agree': 48, 'total': 48}
+[1ALoading checkpoint shards:  15%|█▌        | 4/26 [00:27<02:28,  6.74s/it]/usr/local/lib/python3.12/site-packages/triton/knobs.py:504: UserWarning: TRITON_DEFAULT_FP_FUSION is unset: defaulting to FP fusion ENABLED for backward compatibility in Triton 3.9. The default will change to DISABLED in Triton 3.10; set TRITON_DEFAULT_FP_FUSION=1 to keep fusion enabled or =0 to adopt the new default early and silence this warning.
+  warn_once(FP_FUSION_DEFAULT_WARNING)
+
+[1ALoading checkpoint shards:  19%|█▉        | 5/26 [00:35<02:29,  7.13s/it]
+[1ALoading checkpoint shards:  23%|██▎       | 6/26 [00:40<02:12,  6.64s/it]
+[1ALoading checkpoint shards:  27%|██▋       | 7/26 [00:46<02:00,  6.35s/it]
+[1ALoading checkpoint shards:  31%|███       | 8/26 [00:52<01:52,  6.25s/it]
+[1ALoading checkpoint shards:  35%|███▍      | 9/26 [00:58<01:44,  6.17s/it]
+[1ALoading checkpoint shards:  38%|███▊      | 10/26 [01:07<01:51,  6.98s/it]
+[1ALoading checkpoint shards:  42%|████▏     | 11/26 [01:12<01:37,  6.52s/it]
+gemma4_e4b B1 steps 42 body 103.74 head 0.86 tail 0.03 ms head share 0.008 cert 1.11 ms e2e 1.002 mism 0 fb 0
+gemma4_e4b B16 steps 7 body 137.84 head 0.93 tail 0.05 ms head share 0.007 cert 1.06 ms e2e 1.001 mism 0 fb 0
+gemma4_e4b T3 {'agree': 48, 'total': 48}
+[1ALoading checkpoint shards:  46%|████▌     | 12/26 [01:18<01:26,  6.16s/it]
+[1ALoading checkpoint shards:  50%|█████     | 13/26 [01:24<01:20,  6.18s/it]
+[1ALoading checkpoint shards:  54%|█████▍    | 14/26 [01:32<01:19,  6.64s/it]
+[1ALoading checkpoint shards:  58%|█████▊    | 15/26 [01:42<01:25,  7.79s/it]
+[1ALoading checkpoint shards:  62%|██████▏   | 16/26 [01:50<01:18,  7.89s/it]
+[1ALoading checkpoint shards:  65%|██████▌   | 17/26 [01:56<01:05,  7.30s/it]
+[1ALoading checkpoint shards:  69%|██████▉   | 18/26 [02:03<00:56,  7.11s/it]
+[1ALoading checkpoint shards:  73%|███████▎  | 19/26 [02:09<00:47,  6.75s/it]
+[1ALoading checkpoint shards:  77%|███████▋  | 20/26 [02:17<00:43,  7.29s/it]
+[1ALoading checkpoint shards:  81%|████████  | 21/26 [02:23<00:33,  6.73s/it]
+[1ALoading checkpoint shards:  85%|████████▍ | 22/26 [02:29<00:26,  6.51s/it]
+[1ALoading checkpoint shards:  88%|████████▊ | 23/26 [02:35<00:18,  6.32s/it]
+[1ALoading checkpoint shards:  92%|█████████▏| 24/26 [02:40<00:11,  5.98s/it]
+[1ALoading checkpoint shards:  96%|█████████▌| 25/26 [02:45<00:05,  5.74s/it]
+[1ALoading checkpoint shards: 100%|██████████| 26/26 [02:48<00:00,  5.07s/it]Loading checkpoint shards: 100%|██████████| 26/26 [02:48<00:00,  6.50s/it]
+sarvam_30b_stock B1 steps 42 body 72.28 head 1.29 tail 0.03 ms head share 0.017 
+sarvam_30b_stock B16 steps 7 body 242.26 head 1.45 tail 0.06 ms head share 0.006 
+sarvam_30b_head B1 bf16 head 1.27 ms cert 1.55 ms ratio 1.226 mism 0 fb 0
+sarvam_30b_head B16 bf16 head 1.41 ms cert 1.66 ms ratio 1.177 mism 0 fb 0
+Stopping app - local entrypoint completed.
+[modal-client] 2026-11-14T14:54:29+0530 Timed out waiting for final app logs.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-dR5nojKuxXzdYUhRqV9wDR

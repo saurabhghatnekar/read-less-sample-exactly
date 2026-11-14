@@ -9,3 +9,5 @@
 2026-11-14 12:34:27 IST hdir_addendum_robust.json sha256 44d0af47b69dc051230eed4eb68c54e9079e39f8d2338f1369b32d8d8ea69ef8 (written after the K2 results were read, before any run of the addendum)
 2026-11-14 12:54:16 IST l4_corr_protocol.json sha256 bf4757b63ae78945bd862f61873218351b4f8e7aa3c7efe85f1dc5e3075cf063 (written before any kernel with the correction ran)
 2026-11-14 13:14:14 IST crowd_rule.json sha256 ad4fe6755623ec9ef05d9c0166499e44d9bfc16af78f2de977b2af6734552d0d (published copy, made after the K1 run: figures from a non-public note of the lab removed from the context field; every other field is identical to the copy hashed before the run, sha256 2b03630012a24be2659973ed55c12405015123bb98cd5747d6f908c9bc4877ad, which is kept unpublished)
+2026-11-14 14:48:48 IST sweep_rule.json sha256 2a7bee49509ef172308d09ba2d3118f333478449184a4af250ba67844fc84ef0 (written before any run of this experiment)
+2026-11-14 14:48:48 IST e2e_rule.json sha256 81f81aedf6129daf5e466d4218d29927d868d26665fcb8eed7a5bb7db3e1b1e9 (written before any run of this experiment)

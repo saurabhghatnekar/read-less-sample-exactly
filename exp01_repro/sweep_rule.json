@@ -1,0 +1,42 @@
+{
+  "experiment": "K3: is Sarvam-30B special? The one-direction share of the final hidden states across models",
+  "written": "2026-11-14, after K2, its addendum and the L4 timing with the correction were read, before any K3 code ran on any model",
+  "question": "K2's correction works on Sarvam-30B because 74% of its states' second moment lies in one direction; Qwen3-8B (14%) and Gemma 4 E4B (22%) gain nothing. Is a dominant state direction common, or particular to Sarvam-30B? The answer sets whether K2 is a general technique or a fix for one model.",
+  "models": {
+    "existing": "Qwen3-8B, Gemma 4 E4B, Sarvam-30B: their saved greedy states, steps 0 to 63 of each prompt",
+    "new": {
+      "qwen3_4b": "Qwen/Qwen3-4B (same family, smaller)",
+      "qwen3_14b": "Qwen/Qwen3-14B (same family, larger)",
+      "qwen3_30b_a3b": "Qwen/Qwen3-30B-A3B (mixture of experts, as Sarvam-30B is)",
+      "gemma4_e2b": "google/gemma-4-E2B-it (same family as Gemma 4 E4B)",
+      "phi4_mini": "microsoft/Phi-4-mini-instruct (200,064-token tied head)",
+      "sarvam_m": "sarvamai/sarvam-m (same lab as Sarvam-30B, Mistral architecture)",
+      "sarvam_1": "sarvamai/sarvam-1 (same lab, small)",
+      "mistral_nemo": "mistralai/Mistral-Nemo-Instruct-2407",
+      "granite33_8b": "ibm-granite/granite-3.3-8b-instruct",
+      "smollm3_3b": "HuggingFaceTB/SmolLM3-3B",
+      "gpt_oss_20b": "openai/gpt-oss-20b (mixture of experts)"
+    },
+    "selection": "open-weight models that download without a token, chosen before any was run, to vary family, size, lab and dense against mixture-of-experts. Each revision is resolved when the job starts and recorded. A model that fails to load or generate is reported as failed, not replaced."
+  },
+  "states_for_new_models": "this reproduction's 240 prompts, the model's own chat template where it has one (thinking disabled where the template takes that flag), batch 16, greedy, 64 new tokens, final hidden state captured at the input of the output head, in BF16",
+  "measured": {
+    "spectrum": "on the states of the even prompt ids: share of the uncentred second moment in the top 1, 4 and 16 eigenvectors; cosine of the mean head row with the top eigenvector",
+    "per_state": "on the states of the odd prompt ids: share of ||h||^2 along the mean head row and along the top eigenvector (rho); the offset h . mu as a share of the raw top logit; the raw top logit; the top logit minus the median logit; the share of the vocabulary within 32 logits of the top",
+    "certificate": "where the hidden size is a multiple of 128: the K2 greedy certificate on the odd-prompt states (dithered INT4 g128, sub-Gaussian bound, INT8 stage, t = 0) with no correction, with mu and with pca1 fitted on the even prompts: bound ratio, shortlist S, bytes (median, p99, mean), bound violations, token mismatches"
+  },
+  "controls": {
+    "A1_alignment": "share of states where the argmax of the BF16 product of the captured state and the head equals the token the model emitted. Below 0.95 means the captured state or the head is not what the model used, and that model's numbers are reported as invalid.",
+    "A2_existing": "for the three existing models the top-1 share must be close to K2's (0.138, 0.222, 0.736), which used all 128 steps: within 0.05",
+    "A3_certificate": "no bound violation and no token mismatch on any model where the certificate is run"
+  },
+  "status": "exploratory survey; one pass per model, no selection",
+  "prediction_written_before_running": {
+    "rarity": "Sarvam-30B is unusual: at most one of the eleven new models has a top-1 share above 0.5",
+    "families": "Qwen3-4B, Qwen3-14B and Gemma 4 E2B have a top-1 share below 0.35, like their siblings",
+    "moe_is_not_the_cause": "Qwen3-30B-A3B and gpt-oss-20b do not both exceed 0.5: being a mixture of experts is not what makes Sarvam-30B's states one-directional",
+    "offset_tracks_share": "across all models that pass A1, the median offset share of the top logit and the top-1 share are positively rank-correlated (Spearman above 0.5)",
+    "benefit_tracks_share": "pca1 lowers p99 bytes by more than 0.05 only on models whose top-1 share is above 0.5, and on every such model",
+    "falsifier": "if four or more new models have a top-1 share above 0.5, a dominant state direction is common and K2 is a general technique, not a Sarvam fix"
+  }
+}

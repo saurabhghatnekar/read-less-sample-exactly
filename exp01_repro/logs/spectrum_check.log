@@ -1,0 +1,415 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-AEU25dfjMgdM8BDK4UXUzV
+Building image im-lGgkMTIYW8vbpsNleLoW8P
+
+=> Step 0: FROM base
+
+=> Step 1: RUN python -m pip install numpy torch
+Looking in indexes: http://pypi-mirror.modal.local:5555/simple
+Collecting numpy
+  Downloading http://pypi-mirror.modal.local:5555/simple/numpy/numpy-2.5.4-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+Collecting torch
+  Downloading http://pypi-mirror.modal.local:5555/simple/torch/torch-2.15.0-cp312-cp312-manylinux_2_28_x86_64.whl.metadata (36 kB)
+Collecting filelock (from torch)
+  Downloading http://pypi-mirror.modal.local:5555/simple/filelock/filelock-4.2.10-py3-none-any.whl.metadata (2.3 kB)
+Collecting typing-extensions>=4.13.0 (from torch)
+  Downloading http://pypi-mirror.modal.local:5555/simple/typing-extensions/typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting setuptools>=77.0.3 (from torch)
+  Downloading http://pypi-mirror.modal.local:5555/simple/setuptools/setuptools-84.2.1-py3-none-any.whl.metadata (6.6 kB)
+Collecting sympy>=1.13.3 (from torch)
+  Downloading http://pypi-mirror.modal.local:5555/simple/sympy/sympy-1.14.0-py3-none-any.whl.metadata (12 kB)
+Collecting networkx>=2.5.1 (from torch)
+  Downloading http://pypi-mirror.modal.local:5555/simple/networkx/networkx-3.7-py3-none-any.whl.metadata (6.7 kB)
+Collecting jinja2 (from torch)
+  Downloading http://pypi-mirror.modal.local:5555/simple/jinja2/jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+Collecting fsspec>=0.8.5 (from torch)
+  Downloading http://pypi-mirror.modal.local:5555/simple/fsspec/fsspec-2026.9.0-py3-none-any.whl.metadata (10 kB)
+Collecting cuda-toolkit==13.2.2 (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.2.2; platform_system == "Linux"->torch)
+  Downloading http://pypi-mirror.modal.local:5555/simple/cuda-toolkit/cuda_toolkit-13.2.2-py2.py3-none-any.whl.metadata (20 kB)
+Collecting cuda-bindings<14,>=13.0.3 (from torch)
+  Downloading http://pypi-mirror.modal.local:5555/simple/cuda-bindings/cuda_bindings-13.5.0-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (2.5 kB)
+Collecting nvidia-cudnn-cu13==9.26.0.51 (from torch)
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cudnn-cu13/nvidia_cudnn_cu13-9.26.0.51-py3-none-manylinux_2_27_x86_64.whl.metadata (1.9 kB)
+Collecting nvidia-cusparselt-cu13==0.8.1 (from torch)
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cusparselt-cu13/nvidia_cusparselt_cu13-0.8.1-py3-none-manylinux2014_x86_64.whl.metadata (12 kB)
+Collecting nvidia-nccl-cu13==2.30.7 (from torch)
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-nccl-cu13/nvidia_nccl_cu13-2.30.7-py3-none-manylinux_2_18_x86_64.whl.metadata (2.1 kB)
+Collecting nvidia-nvshmem-cu13==3.7.2 (from torch)
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-nvshmem-cu13/nvidia_nvshmem_cu13-3.7.2-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.2 kB)
+Collecting triton~=3.9.0 (from torch)
+  Downloading http://pypi-mirror.modal.local:5555/simple/triton/triton-3.9.0-cp312-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (978 bytes)
+Collecting nvidia-cublas==13.4.1.3.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.2.2; platform_system == "Linux"->torch)
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cublas/nvidia_cublas-13.4.1.3-py3-none-manylinux_2_27_x86_64.whl.metadata (1.8 kB)
+Collecting nvidia-cuda-nvrtc==13.2.86.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.2.2; platform_system == "Linux"->torch)
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cuda-nvrtc/nvidia_cuda_nvrtc-13.2.86-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl.metadata (1.8 kB)
+Collecting nvidia-cuda-runtime==13.2.86.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.2.2; platform_system == "Linux"->torch)
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cuda-runtime/nvidia_cuda_runtime-13.2.86-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (1.8 kB)
+Collecting nvidia-cufft==12.2.0.57.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.2.2; platform_system == "Linux"->torch)
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cufft/nvidia_cufft-12.2.0.57-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (1.8 kB)
+Collecting nvidia-nvjitlink<14,>=13.2.86 (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.2.2; platform_system == "Linux"->torch)
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-nvjitlink/nvidia_nvjitlink-13.5.37-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl.metadata (1.8 kB)
+Collecting nvidia-cufile==1.17.1.22.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.2.2; platform_system == "Linux"->torch)
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cufile/nvidia_cufile-1.17.1.22-py3-none-manylinux_2_27_x86_64.whl.metadata (1.8 kB)
+Collecting nvidia-cuda-cupti==13.2.86.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.2.2; platform_system == "Linux"->torch)
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cuda-cupti/nvidia_cuda_cupti-13.2.86-py3-none-manylinux_2_25_x86_64.whl.metadata (1.8 kB)
+Collecting nvidia-cusolver==12.2.0.11.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.2.2; platform_system == "Linux"->torch)
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cusolver/nvidia_cusolver-12.2.0.11-py3-none-manylinux_2_27_x86_64.whl.metadata (1.9 kB)
+Collecting nvidia-cusparse==12.7.10.12.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.2.2; platform_system == "Linux"->torch)
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cusparse/nvidia_cusparse-12.7.10.12-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (1.8 kB)
+Collecting nvidia-nvtx==13.2.86.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.2.2; platform_system == "Linux"->torch)
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-nvtx/nvidia_nvtx-13.2.86-py3-none-manylinux1_x86_64.manylinux_2_5_x86_64.whl.metadata (1.9 kB)
+Collecting nvidia-cuda-cccl (from nvidia-nvshmem-cu13==3.7.2->torch)
+  Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cuda-cccl/nvidia_cuda_cccl-13.3.5.0.6-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (1.7 kB)
+Collecting cuda-pathfinder>=1.4.2 (from cuda-bindings<14,>=13.0.3->torch)
+  Downloading http://pypi-mirror.modal.local:5555/simple/cuda-pathfinder/cuda_pathfinder-1.9.0-py3-none-any.whl.metadata (1.9 kB)
+Collecting mpmath<1.4,>=1.1.0 (from sympy>=1.13.3->torch)
+  Downloading http://pypi-mirror.modal.local:5555/simple/mpmath/mpmath-1.3.0-py3-none-any.whl.metadata (8.6 kB)
+Collecting MarkupSafe>=2.0 (from jinja2->torch)
+  Downloading http://pypi-mirror.modal.local:5555/simple/markupsafe/markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/numpy/numpy-2.5.4-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.7/16.7 MB 494.5 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/torch/torch-2.15.0-cp312-cp312-manylinux_2_28_x86_64.whl (539.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 539.2/539.2 MB 486.8 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/cuda-toolkit/cuda_toolkit-13.2.2-py2.py3-none-any.whl (2.6 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cudnn-cu13/nvidia_cudnn_cu13-9.26.0.51-py3-none-manylinux_2_27_x86_64.whl (519.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 519.2/519.2 MB 502.4 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cusparselt-cu13/nvidia_cusparselt_cu13-0.8.1-py3-none-manylinux2014_x86_64.whl (170.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 170.1/170.1 MB 509.9 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-nccl-cu13/nvidia_nccl_cu13-2.30.7-py3-none-manylinux_2_18_x86_64.whl (216.0 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 216.0/216.0 MB 547.6 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-nvshmem-cu13/nvidia_nvshmem_cu13-3.7.2-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (135.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 135.4/135.4 MB 513.3 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/cuda-bindings/cuda_bindings-13.5.0-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (8.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.4/8.4 MB 409.7 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cublas/nvidia_cublas-13.4.1.3-py3-none-manylinux_2_27_x86_64.whl (404.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 404.9/404.9 MB 534.4 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cuda-cupti/nvidia_cuda_cupti-13.2.86-py3-none-manylinux_2_25_x86_64.whl (12.0 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.0/12.0 MB 542.2 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cuda-nvrtc/nvidia_cuda_nvrtc-13.2.86-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl (47.0 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 47.0/47.0 MB 557.7 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cuda-runtime/nvidia_cuda_runtime-13.2.86-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (2.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.3/2.3 MB 671.8 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cufft/nvidia_cufft-12.2.0.57-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (218.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 218.3/218.3 MB 486.4 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cufile/nvidia_cufile-1.17.1.22-py3-none-manylinux_2_27_x86_64.whl (1.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.4/1.4 MB 633.3 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cusolver/nvidia_cusolver-12.2.0.11-py3-none-manylinux_2_27_x86_64.whl (227.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 227.9/227.9 MB 483.4 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cusparse/nvidia_cusparse-12.7.10.12-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (151.0 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 151.0/151.0 MB 500.3 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-nvjitlink/nvidia_nvjitlink-13.5.37-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl (46.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 46.6/46.6 MB 505.3 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-nvtx/nvidia_nvtx-13.2.86-py3-none-manylinux1_x86_64.manylinux_2_5_x86_64.whl (153 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/triton/triton-3.9.0-cp312-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (285.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 285.7/285.7 MB 515.3 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/cuda-pathfinder/cuda_pathfinder-1.9.0-py3-none-any.whl (63 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/fsspec/fsspec-2026.9.0-py3-none-any.whl (221 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/networkx/networkx-3.7-py3-none-any.whl (2.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 738.1 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/setuptools/setuptools-84.2.1-py3-none-any.whl (876 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 876.3/876.3 kB 821.0 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/sympy/sympy-1.14.0-py3-none-any.whl (6.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.3/6.3 MB 444.1 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/mpmath/mpmath-1.3.0-py3-none-any.whl (536 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 536.2/536.2 kB 518.4 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/typing-extensions/typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/filelock/filelock-4.2.10-py3-none-any.whl (218 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/jinja2/jinja2-3.1.6-py3-none-any.whl (134 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/markupsafe/markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/nvidia-cuda-cccl/nvidia_cuda_cccl-13.3.5.0.6-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.1/4.1 MB 524.4 MB/s eta 0:00:00
+Installing collected packages: nvidia-cusparselt-cu13, mpmath, cuda-toolkit, typing-extensions, triton, sympy, setuptools, nvidia-nvtx, nvidia-nvjitlink, nvidia-nccl-cu13, nvidia-cufile, nvidia-cuda-runtime, nvidia-cuda-nvrtc, nvidia-cuda-cupti, nvidia-cuda-cccl, numpy, networkx, MarkupSafe, fsspec, filelock, cuda-pathfinder, nvidia-nvshmem-cu13, nvidia-cusparse, nvidia-cufft, nvidia-cublas, jinja2, cuda-bindings, nvidia-cusolver, nvidia-cudnn-cu13, torch
+
+Successfully installed MarkupSafe-3.0.4 cuda-bindings-13.5.0 cuda-pathfinder-1.9.0 cuda-toolkit-13.2.2 filelock-4.2.10 fsspec-2026.9.0 jinja2-3.1.6 mpmath-1.3.0 networkx-3.7 numpy-2.5.4 nvidia-cublas-13.4.1.3 nvidia-cuda-cccl-13.3.5.0.6 nvidia-cuda-cupti-13.2.86 nvidia-cuda-nvrtc-13.2.86 nvidia-cuda-runtime-13.2.86 nvidia-cudnn-cu13-9.26.0.51 nvidia-cufft-12.2.0.57 nvidia-cufile-1.17.1.22 nvidia-cusolver-12.2.0.11 nvidia-cusparse-12.7.10.12 nvidia-cusparselt-cu13-0.8.1 nvidia-nccl-cu13-2.30.7 nvidia-nvjitlink-13.5.37 nvidia-nvshmem-cu13-3.7.2 nvidia-nvtx-13.2.86 setuptools-84.2.1 sympy-1.14.0 torch-2.15.0 triton-3.9.0 typing-extensions-4.16.0
+
+[notice] A new release of pip is available: 25.1.1 -> 26.3
+[notice] To update, run: pip install --upgrade pip
+Saving image...
+Image saved, took 6.57s
+
+Built image im-lGgkMTIYW8vbpsNleLoW8P in 146.92s
+
+
+✓ Created objects.
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/spectrum_check_modal.py
+└── ✓ Created Function check.
+{
+ "model": "sarvam_30b",
+ "n": 29826,
+ "d": 4096,
+ "top1_share_even": 0.7363647326526418,
+ "top1_share_svd_subsample": 0.7268104638173892,
+ "null_share_shuffled_coordinates": 0.0006736571568637575,
+ "one_over_d": 0.000244140625,
+ "mean_state_energy_share": 0.5001110023190792,
+ "cos_mean_state_top_direction": 0.9952695587972453,
+ "norm_mean_over_mean_norm": 0.707185267323266,
+ "largest_coordinates_of_direction": [
+  [
+   3246,
+   -0.1463937921103779
+  ],
+  [
+   990,
+   0.1347873868727819
+  ],
+  [
+   262,
+   -0.11568670136632968
+  ],
+  [
+   526,
+   -0.10749198592992613
+  ],
+  [
+   4094,
+   0.1064040892956259
+  ]
+ ],
+ "energy_of_direction_in_top5_coordinates": 0.07585855215946284,
+ "rho_median_odd": 0.6351861377270287,
+ "by_group": {
+  "bengali": {
+   "states": 5081,
+   "own_top1_share": 0.7407172419049595,
+   "cos_own_with_global": 0.9789318005230404,
+   "rho_median": 0.5953086494349161
+  },
+  "code": {
+   "states": 4633,
+   "own_top1_share": 0.899601391823401,
+   "cos_own_with_global": 0.9938116067607377,
+   "rho_median": 0.8499918664294684
+  },
+  "english": {
+   "states": 4842,
+   "own_top1_share": 0.9065658290479056,
+   "cos_own_with_global": 0.9945634547343918,
+   "rho_median": 0.9066331421084384
+  },
+  "hindi": {
+   "states": 5120,
+   "own_top1_share": 0.832299746805941,
+   "cos_own_with_global": 0.988053353085436,
+   "rho_median": 0.7901224845980988
+  },
+  "tamil": {
+   "states": 5070,
+   "own_top1_share": 0.6482132914990413,
+   "cos_own_with_global": 0.8380992247056721,
+   "rho_median": 0.2992020082933532
+  },
+  "telugu": {
+   "states": 5080,
+   "own_top1_share": 0.5497063807235872,
+   "cos_own_with_global": 0.8133080407876954,
+   "rho_median": 0.19048413713182621
+  }
+ },
+ "by_step": {
+  "0-0": {
+   "states": 240,
+   "rho_median": 0.38420728055269077
+  },
+  "1-7": {
+   "states": 1680,
+   "rho_median": 0.70538555073359
+  },
+  "8-31": {
+   "states": 5718,
+   "rho_median": 0.6846678618008804
+  },
+  "32-127": {
+   "states": 22188,
+   "rho_median": 0.6450914070907408
+  }
+ }
+}
+{
+ "model": "qwen3_8b",
+ "n": 28940,
+ "d": 4096,
+ "top1_share_even": 0.13783652041630165,
+ "top1_share_svd_subsample": 0.14056004768028071,
+ "null_share_shuffled_coordinates": 0.0006343003591033914,
+ "one_over_d": 0.000244140625,
+ "mean_state_energy_share": 0.10652889670319556,
+ "cos_mean_state_top_direction": 0.9628555295046899,
+ "norm_mean_over_mean_norm": 0.32638764790229974,
+ "largest_coordinates_of_direction": [
+  [
+   4081,
+   0.6253153650042677
+  ],
+  [
+   1443,
+   0.352176220970682
+  ],
+  [
+   3169,
+   -0.25815542122429663
+  ],
+  [
+   1134,
+   -0.20945065237864013
+  ],
+  [
+   2202,
+   0.20382916141057159
+  ]
+ ],
+ "energy_of_direction_in_top5_coordinates": 0.6671075206582799,
+ "rho_median_odd": 0.09240891499826885,
+ "by_group": {
+  "bengali": {
+   "states": 5083,
+   "own_top1_share": 0.3010408669891294,
+   "cos_own_with_global": 0.7795293520875635,
+   "rho_median": 0.15639810236129628
+  },
+  "code": {
+   "states": 3787,
+   "own_top1_share": 0.3636927779018735,
+   "cos_own_with_global": 0.7468314076364664,
+   "rho_median": 0.2081548755942973
+  },
+  "english": {
+   "states": 4712,
+   "own_top1_share": 0.2717894621815149,
+   "cos_own_with_global": 0.45115903211018504,
+   "rho_median": 0.06927980888071454
+  },
+  "hindi": {
+   "states": 5120,
+   "own_top1_share": 0.211603592513168,
+   "cos_own_with_global": 0.575428314465626,
+   "rho_median": 0.06431041518925251
+  },
+  "tamil": {
+   "states": 5118,
+   "own_top1_share": 0.17714235354594232,
+   "cos_own_with_global": 0.6021181321328054,
+   "rho_median": 0.049979311089973874
+  },
+  "telugu": {
+   "states": 5120,
+   "own_top1_share": 0.20828961880173522,
+   "cos_own_with_global": 0.7175771205251307,
+   "rho_median": 0.08634504266019641
+  }
+ },
+ "by_step": {
+  "0-0": {
+   "states": 240,
+   "rho_median": 0.006134665508105757
+  },
+  "1-7": {
+   "states": 1680,
+   "rho_median": 0.08740797667656514
+  },
+  "8-31": {
+   "states": 5672,
+   "rho_median": 0.09963834912289227
+  },
+  "32-127": {
+   "states": 21348,
+   "rho_median": 0.09155201951578401
+  }
+ }
+}
+{
+ "model": "gemma4_e4b",
+ "n": 29641,
+ "d": 2560,
+ "top1_share_even": 0.22169622933233177,
+ "top1_share_svd_subsample": 0.2213528879834179,
+ "null_share_shuffled_coordinates": 0.000868184346019568,
+ "one_over_d": 0.000390625,
+ "mean_state_energy_share": 0.14920925090350823,
+ "cos_mean_state_top_direction": 0.9355578025284474,
+ "norm_mean_over_mean_norm": 0.3862761329716194,
+ "largest_coordinates_of_direction": [
+  [
+   2325,
+   0.42411947901514224
+  ],
+  [
+   427,
+   0.28665007076167637
+  ],
+  [
+   29,
+   0.28436022626219914
+  ],
+  [
+   1916,
+   -0.28380233447690834
+  ],
+  [
+   673,
+   0.2451928717602067
+  ]
+ ],
+ "energy_of_direction_in_top5_coordinates": 0.48356964324419893,
+ "rho_median_odd": 0.07772977331089209,
+ "by_group": {
+  "bengali": {
+   "states": 5064,
+   "own_top1_share": 0.6131766779219407,
+   "cos_own_with_global": 0.7221921980713422,
+   "rho_median": 0.3341069971856572
+  },
+  "code": {
+   "states": 4691,
+   "own_top1_share": 0.18058937091394525,
+   "cos_own_with_global": 0.41495842920154163,
+   "rho_median": 0.0284907877816119
+  },
+  "english": {
+   "states": 4574,
+   "own_top1_share": 0.09314994957361633,
+   "cos_own_with_global": 0.44511148984891213,
+   "rho_median": 0.015752474812327638
+  },
+  "hindi": {
+   "states": 5080,
+   "own_top1_share": 0.5256628406980413,
+   "cos_own_with_global": 0.15780615377972496,
+   "rho_median": 0.012240737406953944
+  },
+  "tamil": {
+   "states": 5116,
+   "own_top1_share": 0.5422003034926222,
+   "cos_own_with_global": 0.5027137543797489,
+   "rho_median": 0.1360070972654626
+  },
+  "telugu": {
+   "states": 5116,
+   "own_top1_share": 0.5684308572831112,
+   "cos_own_with_global": 0.8275205139448303,
+   "rho_median": 0.3773378231564991
+  }
+ },
+ "by_step": {
+  "0-0": {
+   "states": 240,
+   "rho_median": 0.03481644533042188
+  },
+  "1-7": {
+   "states": 1680,
+   "rho_median": 0.0720919787092199
+  },
+  "8-31": {
+   "states": 5714,
+   "rho_median": 0.08128801484824219
+  },
+  "32-127": {
+   "states": 22007,
+   "rho_median": 0.08062686320915388
+  }
+ }
+}
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-AEU25dfjMgdM8BDK4UXUzV

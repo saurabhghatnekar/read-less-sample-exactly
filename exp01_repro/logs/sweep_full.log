@@ -1,0 +1,438 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-robSn0IBvNiuFteUYcJKoM
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/sweep_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/hdir_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/subg_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+└── ✓ Created Function survey.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+qwen3_8b V 151936 d 4096 states 15026 align 1.000 top1 0.142 top4 0.325 cos 0.19 rho_mu 0.004 rho_pca1 0.088 offset share -0.08 | bytes p99 none 0.258 mu 0.258 pca1 0.258 | viol 0 mism 0
+gemma4_e4b V 262144 d 2560 states 15218 align 0.998 top1 0.219 top4 0.521 cos 0.33 rho_mu 0.035 rho_pca1 0.081 offset share -0.67 | bytes p99 none 0.259 mu 0.259 pca1 0.259 | viol 0 mism 0
+
+[1ALoading weights:   0%|          | 0/398 [00:00<?, ?it/s]
+[1ALoading weights:   0%|          | 1/398 [00:00<01:37,  4.07it/s]
+[1ALoading weights:   4%|▍         | 16/398 [00:00<00:06, 56.83it/s]
+[1ALoading weights:   8%|▊         | 33/398 [00:00<00:03, 94.16it/s]
+[1ALoading weights:  12%|█▏        | 48/398 [00:00<00:03, 106.55it/s]
+[1ALoading weights:  17%|█▋        | 66/398 [00:00<00:02, 126.88it/s]
+[1ALoading weights:  20%|██        | 81/398 [00:00<00:02, 122.28it/s]
+[1ALoading weights:  25%|██▍       | 99/398 [00:00<00:02, 133.49it/s]
+[1ALoading weights:  29%|██▊       | 114/398 [00:01<00:02, 137.22it/s]
+[1ALoading weights:  32%|███▏      | 129/398 [00:01<00:01, 138.79it/s]
+[1ALoading weights:  36%|███▌      | 144/398 [00:01<00:01, 133.89it/s]
+[1ALoading weights:  40%|███▉      | 159/398 [00:01<00:01, 136.34it/s]
+[1ALoading weights:  45%|████▍     | 178/398 [00:01<00:01, 147.77it/s]
+[1ALoading weights:  48%|████▊     | 193/398 [00:01<00:01, 145.86it/s]
+[1ALoading weights:  53%|█████▎    | 210/398 [00:01<00:01, 149.06it/s]
+[1ALoading weights:  57%|█████▋    | 225/398 [00:01<00:01, 139.62it/s]
+[1ALoading weights:  61%|██████▏   | 244/398 [00:01<00:01, 152.35it/s]
+[1ALoading weights:  65%|██████▌   | 260/398 [00:02<00:00, 153.31it/s]
+[1ALoading weights:  69%|██████▉   | 276/398 [00:02<00:00, 151.25it/s]
+[1ALoading weights:  74%|███████▍  | 294/398 [00:02<00:00, 156.28it/s]
+[1ALoading weights:  78%|███████▊  | 310/398 [00:02<00:00, 156.15it/s]
+[1ALoading weights:  82%|████████▏ | 326/398 [00:02<00:00, 153.82it/s]
+[1ALoading weights:  86%|████████▌ | 342/398 [00:02<00:00, 149.12it/s]
+[1ALoading weights:  90%|████████▉ | 357/398 [00:02<00:00, 145.76it/s]
+[1ALoading weights:  93%|█████████▎| 372/398 [00:02<00:00, 138.66it/s]
+[1ALoading weights:  98%|█████████▊| 392/398 [00:02<00:00, 153.24it/s]
+[1ALoading weights: 100%|██████████| 398/398 [00:02<00:00, 137.69it/s]
+sarvam_30b V 262144 d 4096 states 15213 align 0.987 top1 0.744 top4 0.840 cos 0.78 rho_mu 0.390 rho_pca1 0.659 offset share 0.77 | bytes p99 none 0.530 mu 0.337 pca1 0.260 | viol 0 mism 0
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+[1AFetching 8 files:   0%|          | 0/8 [00:00<?, ?it/s]
+qwen3_4b V 151936 d 2560 states 15180 align 1.000 top1 0.135 top4 0.292 cos -0.21 rho_mu 0.005 rho_pca1 0.095 offset share -0.11 | bytes p99 none 0.258 mu 0.259 pca1 0.259 | viol 0 mism 0
+[1AFetching 8 files:  12%|█▎        | 1/8 [00:25<02:56, 25.18s/it]
+[1AFetching 16 files:   0%|          | 0/16 [00:00<?, ?it/s]Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+[1AFetching 8 files:  25%|██▌       | 2/8 [00:34<01:33, 15.67s/it]Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] This model config has set a `rope_parameters['original_max_position_embeddings']` field, to be used together with `max_position_embeddings` to determine a scaling factor. Please set the `factor` field of `rope_parameters`with this ratio instead -- we recommend the use of this field over `original_max_position_embeddings`, as it is compatible with most model architectures.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `tokenizer_class` is `LlamaTokenizerFast` but `tokenizer.json` is ByteLevel; loading `TokenizersBackend`. Set `tokenizer_class` to `TokenizersBackend` in `tokenizer_config.json`.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] The tokenizer you are loading from 'sarvamai/sarvam-m' with an incorrect regex pattern: https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/discussions/84#69121093e8b480e709447d5e. This will lead to incorrect tokenization. You should set the `fix_mistral_regex=True` flag when loading this tokenizer to fix this issue.
+
+[1AFetching 8 files:  38%|███▊      | 3/8 [00:39<00:54, 10.83s/it]
+[1AFetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]
+[1AFetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]
+[1AFetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]
+[1AFetching 2 files:  50%|█████     | 1/2 [00:02<00:02,  2.13s/it]
+[1AFetching 8 files:  50%|█████     | 4/8 [00:46<00:38,  9.53s/it]
+[1AFetching 2 files:  50%|█████     | 1/2 [00:19<00:19, 19.95s/it]
+[1AFetching 8 files:  62%|██████▎   | 5/8 [00:59<00:32, 10.82s/it]
+[1AFetching 2 files: 100%|██████████| 2/2 [00:23<00:00, 13.49s/it]
+[1AFetching 2 files: 100%|██████████| 2/2 [00:23<00:00, 11.79s/it]
+
+[1AFetching 8 files:  75%|███████▌  | 6/8 [01:06<00:18,  9.27s/it]
+[1ALoading weights:   0%|          | 0/255 [00:00<?, ?it/s]
+[1ALoading weights:   2%|▏         | 4/255 [00:00<00:06, 39.97it/s]
+[1ALoading weights:  17%|█▋        | 44/255 [00:00<00:00, 230.70it/s]
+[1ALoading weights:  33%|███▎      | 84/255 [00:00<00:00, 301.04it/s]
+[1ALoading weights:  48%|████▊     | 122/255 [00:00<00:00, 330.14it/s]
+[1ALoading weights:  62%|██████▏   | 157/255 [00:00<00:00, 330.95it/s]
+[1ALoading weights:  75%|███████▍  | 191/255 [00:00<00:00, 153.46it/s]
+[1ALoading weights:  90%|█████████ | 230/255 [00:01<00:00, 191.75it/s]Loading weights: 100%|██████████| 255/255 [00:01<00:00, 221.93it/s]
+
+[1ALoading weights:   0%|          | 0/1951 [00:00<?, ?it/s]
+[1ALoading weights:  25%|██▌       | 495/1951 [00:00<00:00, 4948.31it/s][transformers] Both `max_new_tokens` (=64) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+
+[1ALoading weights:  51%|█████     | 990/1951 [00:01<00:01, 682.76it/s] 
+[1ALoading weights:  62%|██████▏   | 1219/1951 [00:01<00:01, 667.32it/s]
+[1ALoading weights:  70%|███████   | 1373/1951 [00:01<00:00, 744.28it/s]
+[1ALoading weights: 100%|██████████| 1951/1951 [00:01<00:00, 1061.83it/s]
+[transformers] Both `max_new_tokens` (=64) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[transformers] Both `max_new_tokens` (=64) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+
+[1AFetching 16 files:   6%|▋         | 1/16 [00:43<10:50, 43.34s/it]
+[1AFetching 8 files:  88%|████████▊ | 7/8 [01:12<00:08,  8.42s/it][transformers] Both `max_new_tokens` (=64) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+
+[1AFetching 2 files: 100%|██████████| 2/2 [00:34<00:00, 16.83s/it]
+[1AFetching 2 files: 100%|██████████| 2/2 [00:34<00:00, 17.29s/it]
+
+[1ALoading weights:   0%|          | 0/194 [00:00<?, ?it/s]
+[1ALoading weights:   1%|          | 1/194 [00:00<00:32,  5.93it/s]
+[1ALoading weights:  10%|▉         | 19/194 [00:00<00:02, 84.99it/s]
+[1ALoading weights:  21%|██        | 40/194 [00:00<00:01, 127.02it/s]
+[1ALoading weights:  30%|██▉       | 58/194 [00:00<00:00, 145.28it/s]
+[1ALoading weights:  39%|███▉      | 76/194 [00:00<00:00, 153.78it/s]
+[1ALoading weights:  48%|████▊     | 94/194 [00:00<00:00, 159.08it/s]
+[1ALoading weights:  58%|█████▊    | 112/194 [00:00<00:00, 164.04it/s]
+[1ALoading weights:  67%|██████▋   | 130/194 [00:00<00:00, 164.65it/s]
+[1ALoading weights:  76%|███████▋  | 148/194 [00:01<00:00, 163.68it/s]
+[1ALoading weights:  86%|████████▌ | 166/194 [00:01<00:00, 164.39it/s]
+[1ALoading weights:  94%|█████████▍| 183/194 [00:01<00:00, 161.92it/s]
+[1ALoading weights: 100%|██████████| 194/194 [00:01<00:00, 148.07it/s]
+[transformers] Both `max_new_tokens` (=64) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[transformers] Both `max_new_tokens` (=64) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[transformers] Both `max_new_tokens` (=64) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+
+[1AFetching 16 files:  12%|█▎        | 2/16 [00:50<05:09, 22.09s/it]
+[1AFetching 8 files: 100%|██████████| 8/8 [01:21<00:00,  8.44s/it]
+[1AFetching 8 files: 100%|██████████| 8/8 [01:21<00:00, 10.16s/it]
+[transformers] Both `max_new_tokens` (=64) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+
+[1ALoading weights:   0%|          | 0/443 [00:00<?, ?it/s]
+[1ALoading weights:   0%|          | 1/443 [00:00<01:30,  4.87it/s]
+[1ALoading weights:   0%|          | 2/443 [00:00<01:49,  4.04it/s]
+[1ALoading weights:   3%|▎         | 15/443 [00:00<00:12, 34.15it/s]
+[1ALoading weights:   6%|▌         | 27/443 [00:00<00:07, 52.22it/s]
+[1ALoading weights:   9%|▊         | 38/443 [00:00<00:06, 65.45it/s]
+[1ALoading weights:  11%|█         | 49/443 [00:00<00:05, 73.05it/s]
+[1ALoading weights:  14%|█▎        | 60/443 [00:01<00:05, 76.03it/s]
+[1ALoading weights:  16%|█▌        | 71/443 [00:01<00:04, 81.59it/s]
+[1ALoading weights:  19%|█▊        | 82/443 [00:01<00:04, 83.38it/s]
+[1ALoading weights:  21%|██        | 93/443 [00:01<00:04, 86.29it/s]
+[1ALoading weights:  23%|██▎       | 104/443 [00:01<00:03, 91.38it/s]
+[1ALoading weights:  26%|██▌       | 115/443 [00:01<00:03, 91.82it/s][transformers] Both `max_new_tokens` (=64) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+
+[1ALoading weights:  28%|██▊       | 125/443 [00:01<00:03, 88.14it/s]
+[1ALoading weights:  31%|███       | 137/443 [00:01<00:03, 92.81it/s]
+[1ALoading weights:  33%|███▎      | 147/443 [00:02<00:03, 90.71it/s]
+[1ALoading weights:  36%|███▌      | 159/443 [00:02<00:02, 96.99it/s]
+[1ALoading weights:  38%|███▊      | 170/443 [00:02<00:02, 97.22it/s]
+[1ALoading weights:  41%|████      | 180/443 [00:02<00:02, 93.70it/s]
+[1ALoading weights:  43%|████▎     | 192/443 [00:02<00:02, 95.75it/s]
+[1ALoading weights:  46%|████▌     | 203/443 [00:02<00:02, 96.45it/s]
+[1ALoading weights:  48%|████▊     | 214/443 [00:02<00:02, 96.01it/s]
+[1ALoading weights:  51%|█████     | 225/443 [00:02<00:02, 94.74it/s]
+[1ALoading weights:  53%|█████▎    | 236/443 [00:02<00:02, 94.77it/s]
+[1ALoading weights:  56%|█████▌    | 247/443 [00:03<00:02, 92.90it/s]
+[1ALoading weights:  58%|█████▊    | 257/443 [00:03<00:01, 93.90it/s]
+[1ALoading weights:  60%|██████    | 268/443 [00:03<00:02, 79.98it/s]
+[1ALoading weights:  63%|██████▎   | 279/443 [00:03<00:01, 84.76it/s][transformers] Both `max_new_tokens` (=64) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+
+[1ALoading weights:  65%|██████▌   | 289/443 [00:03<00:02, 71.64it/s]
+[1ALoading weights:  68%|██████▊   | 303/443 [00:03<00:01, 80.89it/s]
+[1ALoading weights:  71%|███████   | 314/443 [00:03<00:01, 80.75it/s]
+[1ALoading weights:  73%|███████▎  | 325/443 [00:04<00:01, 82.55it/s]
+[1ALoading weights:  77%|███████▋  | 339/443 [00:04<00:01, 96.21it/s]
+[1ALoading weights:  79%|███████▉  | 350/443 [00:04<00:00, 98.77it/s]
+[1ALoading weights:  82%|████████▏ | 362/443 [00:04<00:00, 100.51it/s]
+[1ALoading weights:  85%|████████▍ | 375/443 [00:04<00:00, 107.35it/s]
+[1ALoading weights:  87%|████████▋ | 387/443 [00:04<00:00, 103.83it/s]
+[1ALoading weights:  90%|████████▉ | 398/443 [00:04<00:00, 103.77it/s]
+[1ALoading weights:  92%|█████████▏| 409/443 [00:04<00:00, 105.22it/s]
+[1ALoading weights:  95%|█████████▍| 420/443 [00:04<00:00, 106.33it/s]
+[1ALoading weights:  97%|█████████▋| 431/443 [00:05<00:00, 104.26it/s]
+[1ALoading weights: 100%|█████████▉| 442/443 [00:05<00:00, 105.01it/s]
+[1ALoading weights: 100%|██████████| 443/443 [00:05<00:00, 86.27it/s] 
+[transformers] Both `max_new_tokens` (=64) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[transformers] Both `max_new_tokens` (=64) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+
+[1AFetching 16 files:  19%|█▉        | 3/16 [01:01<03:38, 16.82s/it][transformers] Both `max_new_tokens` (=64) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[transformers] Both `max_new_tokens` (=64) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+
+[1AFetching 16 files:  25%|██▌       | 4/16 [01:04<02:16, 11.39s/it][transformers] Both `max_new_tokens` (=64) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+
+[1AFetching 10 files:  10%|█         | 1/10 [00:54<08:08, 54.26s/it]
+sarvam_1 V 68096 d 2048 states 14956 align 1.000 top1 0.431 top4 0.858 cos -0.16 rho_mu 0.012 rho_pca1 0.528 offset share 0.17 | bytes p99 none 0.759 mu 0.760 pca1 0.760 | viol 0 mism 0
+[1AFetching 10 files:  20%|██        | 2/10 [00:54<03:01, 22.72s/it]
+[1AFetching 16 files:  31%|███▏      | 5/16 [01:10<01:46,  9.68s/it][transformers] The tokenizer you are loading from 'mistralai/Mistral-Nemo-Instruct-2407' with an incorrect regex pattern: https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/discussions/84#69121093e8b480e709447d5e. This will lead to incorrect tokenization. You should set the `fix_mistral_regex=True` flag when loading this tokenizer to fix this issue.
+
+[1AFetching 5 files:   0%|          | 0/5 [00:00<?, ?it/s]
+phi4_mini V 200064 d 3072 states 14646 align 1.000 top1 0.160 top4 0.369 cos -0.21 rho_mu 0.009 rho_pca1 0.026 offset share -0.32 | bytes p99 none 0.396 mu 0.396 pca1 0.360 | viol 0 mism 0
+[1AFetching 10 files:  30%|███       | 3/10 [01:07<02:05, 17.88s/it]
+[1AFetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]
+[1AFetching 16 files:  38%|███▊      | 6/16 [01:21<01:39,  9.90s/it]Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+gemma4_e2b V 262144 d 1536 states 15209 align 0.999 top1 0.329 top4 0.601 cos -0.46 rho_mu 0.072 rho_pca1 0.240 offset share -2.61 | bytes p99 none 0.288 mu 0.287 pca1 0.265 | viol 0 mism 0
+[transformers] MXFP4 quantization requires the `kernels` package: Please install a compatible version (0.17.2 <= version < 0.18.0), e.g. `pip install kernels==0.17.2`We will default to dequantizing the model to bf16.
+
+[1AFetching 3 files:   0%|          | 0/3 [00:00<?, ?it/s]
+[1AFetching 16 files:  44%|████▍     | 7/16 [01:28<01:21,  9.04s/it]
+[1AFetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]
+[1AFetching 10 files:  40%|████      | 4/10 [01:18<01:31, 15.30s/it]
+[1AFetching 2 files:  50%|█████     | 1/2 [00:08<00:08,  8.01s/it]
+[1AFetching 10 files:  50%|█████     | 5/10 [01:27<01:04, 12.90s/it]
+[1AFetching 4 files:  25%|██▌       | 1/4 [00:19<00:57, 19.24s/it]
+[1AFetching 16 files:  50%|█████     | 8/16 [01:43<01:27, 10.93s/it]
+[1AFetching 2 files: 100%|██████████| 2/2 [00:17<00:00,  8.97s/it]
+[1AFetching 2 files: 100%|██████████| 2/2 [00:17<00:00,  8.83s/it]
+
+[1ALoading weights:   0%|          | 0/326 [00:00<?, ?it/s]
+[1ALoading weights:   5%|▍         | 16/326 [00:00<00:01, 159.69it/s]
+[1ALoading weights:  15%|█▌        | 50/326 [00:00<00:01, 263.32it/s]
+[1ALoading weights:  28%|██▊       | 90/326 [00:00<00:00, 323.42it/s]
+[1ALoading weights:  40%|███▉      | 129/326 [00:00<00:00, 341.43it/s]
+[1ALoading weights:  51%|█████     | 165/326 [00:00<00:00, 331.75it/s]
+[1ALoading weights:  63%|██████▎   | 206/326 [00:00<00:00, 356.50it/s]
+[1ALoading weights:  75%|███████▍  | 243/326 [00:00<00:00, 360.01it/s]
+[1ALoading weights:  86%|████████▌ | 280/326 [00:00<00:00, 355.42it/s]
+[1ALoading weights:  97%|█████████▋| 316/326 [00:00<00:00, 355.23it/s]Loading weights: 100%|██████████| 326/326 [00:00<00:00, 339.60it/s]
+
+qwen3_14b V 151936 d 5120 states 15111 align 0.999 top1 0.132 top4 0.279 cos -0.24 rho_mu 0.006 rho_pca1 0.104 offset share -0.07 | bytes p99 none 0.258 mu 0.258 pca1 0.258 | viol 0 mism 0
+[1AFetching 3 files:  33%|███▎      | 1/3 [00:21<00:42, 21.36s/it]
+[1AFetching 10 files:  60%|██████    | 6/10 [01:42<00:55, 13.79s/it]
+[1AFetching 16 files:  56%|█████▋    | 9/16 [01:55<01:18, 11.26s/it]
+[1AFetching 3 files:  67%|██████▋   | 2/3 [00:31<00:14, 14.67s/it]
+[1AFetching 4 files:  50%|█████     | 2/4 [00:39<00:39, 19.91s/it]
+[1AFetching 16 files:  62%|██████▎   | 10/16 [02:00<00:56,  9.40s/it]
+[1AFetching 3 files: 100%|██████████| 3/3 [00:32<00:00,  8.66s/it]
+[1AFetching 3 files: 100%|██████████| 3/3 [00:32<00:00, 10.96s/it]
+
+[1ALoading weights:   0%|          | 0/411 [00:00<?, ?it/s]
+[1ALoading weights:   0%|          | 1/411 [00:00<02:05,  3.26it/s]
+[1ALoading weights:   1%|          | 5/411 [00:00<00:38, 10.62it/s]
+[1ALoading weights:   2%|▏         | 7/411 [00:00<00:36, 10.93it/s]
+[1ALoading weights:   5%|▌         | 22/411 [00:00<00:09, 39.10it/s]
+[1ALoading weights:   7%|▋         | 27/411 [00:01<00:10, 37.11it/s]
+[1ALoading weights:   9%|▉         | 39/411 [00:01<00:07, 48.81it/s]
+[1ALoading weights:  11%|█         | 45/411 [00:01<00:07, 45.76it/s]
+[1ALoading weights:  14%|█▎        | 56/411 [00:01<00:06, 53.82it/s]
+[1ALoading weights:  15%|█▌        | 62/411 [00:01<00:07, 48.85it/s]
+[1ALoading weights:  18%|█▊        | 73/411 [00:01<00:05, 57.03it/s]
+[1ALoading weights:  19%|█▉        | 79/411 [00:01<00:06, 49.56it/s]
+[1ALoading weights:  22%|██▏       | 90/411 [00:02<00:06, 49.07it/s]
+[1ALoading weights:  34%|███▍      | 141/411 [00:02<00:02, 134.72it/s]
+[1ALoading weights:  47%|████▋     | 192/411 [00:02<00:01, 208.32it/s]
+[1ALoading weights:  59%|█████▉    | 243/411 [00:02<00:00, 275.84it/s]
+[1ALoading weights:  72%|███████▏  | 294/411 [00:02<00:00, 331.16it/s]
+[1ALoading weights:  84%|████████▍ | 345/411 [00:02<00:00, 375.41it/s]
+[1ALoading weights:  96%|█████████▋| 396/411 [00:02<00:00, 409.12it/s]
+[1ALoading weights: 100%|██████████| 411/411 [00:02<00:00, 145.68it/s]
+
+[1AFetching 5 files:  20%|██        | 1/5 [00:52<03:31, 52.85s/it]
+[1AFetching 10 files:  70%|███████   | 7/10 [01:53<00:38, 12.74s/it]
+[1AFetching 4 files:  75%|███████▌  | 3/4 [00:44<00:13, 13.17s/it]
+[1AFetching 4 files: 100%|██████████| 4/4 [00:50<00:00, 10.40s/it]
+[1AFetching 4 files: 100%|██████████| 4/4 [00:50<00:00, 12.73s/it]
+
+[1ALoading weights:   0%|          | 0/362 [00:00<?, ?it/s]
+[1AFetching 10 files:  80%|████████  | 8/10 [02:00<00:21, 10.88s/it]
+[1ALoading weights:   2%|▏         | 8/362 [00:00<00:04, 76.80it/s]
+[1ALoading weights:   6%|▌         | 22/362 [00:00<00:03, 103.40it/s]
+[1ALoading weights:  11%|█         | 39/362 [00:00<00:02, 122.83it/s]
+[1ALoading weights:  14%|█▍        | 52/362 [00:00<00:02, 121.62it/s]
+[1ALoading weights:  19%|█▊        | 67/362 [00:00<00:02, 124.78it/s]
+[1ALoading weights:  22%|██▏       | 81/362 [00:00<00:02, 127.65it/s]
+[1ALoading weights:  26%|██▌       | 94/362 [00:00<00:02, 126.81it/s]
+[1ALoading weights:  30%|██▉       | 108/362 [00:00<00:01, 128.42it/s]
+[1ALoading weights:  33%|███▎      | 121/362 [00:00<00:01, 123.52it/s]
+[1ALoading weights:  38%|███▊      | 138/362 [00:01<00:01, 128.08it/s]
+[1ALoading weights:  42%|████▏     | 152/362 [00:01<00:01, 128.58it/s]
+[1ALoading weights:  46%|████▌     | 165/362 [00:01<00:01, 126.30it/s]
+[1ALoading weights:  49%|████▉     | 178/362 [00:01<00:01, 122.71it/s]
+[1ALoading weights:  53%|█████▎    | 192/362 [00:01<00:01, 122.40it/s]
+[1ALoading weights:  57%|█████▋    | 207/362 [00:01<00:01, 129.44it/s]
+[1ALoading weights:  61%|██████    | 221/362 [00:01<00:01, 127.01it/s]
+[1ALoading weights:  66%|██████▌   | 238/362 [00:01<00:00, 138.19it/s]
+[1ALoading weights:  70%|███████   | 255/362 [00:01<00:00, 146.14it/s]
+[1ALoading weights:  75%|███████▍  | 270/362 [00:02<00:00, 143.61it/s]
+[1ALoading weights:  79%|███████▊  | 285/362 [00:02<00:00, 138.31it/s]
+[1ALoading weights:  83%|████████▎ | 301/362 [00:02<00:00, 137.85it/s]
+[1ALoading weights:  87%|████████▋ | 315/362 [00:02<00:00, 137.28it/s]
+[1ALoading weights:  91%|█████████ | 329/362 [00:02<00:00, 125.76it/s]
+[1ALoading weights:  96%|█████████▌| 346/362 [00:02<00:00, 134.50it/s]
+[1ALoading weights: 100%|██████████| 362/362 [00:02<00:00, 130.80it/s]
+
+smollm3_3b V 128256 d 2048 states 15178 align 1.000 top1 0.276 top4 0.480 cos 0.05 rho_mu 0.000 rho_pca1 0.221 offset share 0.12 | bytes p99 none 1.069 mu 1.068 pca1 0.837 | viol 0 mism 0
+[1AFetching 16 files:  69%|██████▉   | 11/16 [02:13<00:52, 10.57s/it]
+[1AFetching 5 files:  40%|████      | 2/5 [01:05<01:27, 29.31s/it]
+[1AFetching 10 files:  90%|█████████ | 9/10 [02:07<00:09,  9.85s/it]
+[1AFetching 16 files:  75%|███████▌  | 12/16 [02:21<00:38,  9.64s/it]
+[1AFetching 10 files: 100%|██████████| 10/10 [02:14<00:00,  8.88s/it]
+[1AFetching 10 files: 100%|██████████| 10/10 [02:14<00:00, 13.43s/it]
+
+[1ALoading weights:   0%|          | 0/363 [00:00<?, ?it/s]
+[1ALoading weights:   0%|          | 1/363 [00:00<01:07,  5.39it/s]
+[1ALoading weights:   1%|          | 2/363 [00:00<01:12,  4.99it/s]
+[1ALoading weights:   1%|▏         | 5/363 [00:00<00:28, 12.35it/s]
+[1ALoading weights:   4%|▎         | 13/363 [00:00<00:11, 29.69it/s]
+[1ALoading weights:   5%|▌         | 19/363 [00:00<00:09, 37.84it/s]
+[1ALoading weights:   7%|▋         | 24/363 [00:00<00:09, 35.53it/s]
+[1ALoading weights:   9%|▉         | 32/363 [00:01<00:07, 44.32it/s]
+[1ALoading weights:  11%|█         | 40/363 [00:01<00:06, 49.63it/s]
+[1ALoading weights:  13%|█▎        | 46/363 [00:01<00:06, 50.68it/s]
+[1ALoading weights:  14%|█▍        | 52/363 [00:01<00:06, 44.81it/s]
+[1ALoading weights:  16%|█▋        | 59/363 [00:01<00:06, 47.40it/s]
+[1ALoading weights:  18%|█▊        | 67/363 [00:01<00:05, 52.73it/s]
+[1ALoading weights:  20%|██        | 73/363 [00:01<00:05, 51.29it/s]
+[1ALoading weights:  22%|██▏       | 79/363 [00:01<00:06, 45.06it/s]
+[1ALoading weights:  24%|██▎       | 86/363 [00:02<00:05, 47.76it/s]
+[1ALoading weights:  26%|██▌       | 94/363 [00:02<00:05, 52.83it/s]
+[1ALoading weights:  28%|██▊       | 100/363 [00:02<00:05, 51.18it/s]
+[1ALoading weights:  29%|██▉       | 106/363 [00:02<00:05, 46.04it/s]
+[1ALoading weights:  31%|███       | 113/363 [00:02<00:05, 49.10it/s]
+[1ALoading weights:  33%|███▎      | 121/363 [00:02<00:04, 53.28it/s]
+[1ALoading weights:  35%|███▍      | 127/363 [00:02<00:04, 50.92it/s]
+[1ALoading weights:  37%|███▋      | 133/363 [00:03<00:05, 45.40it/s]
+[1ALoading weights:  39%|███▊      | 140/363 [00:03<00:04, 45.99it/s]
+[1ALoading weights:  41%|████      | 148/363 [00:03<00:04, 50.14it/s]
+[1ALoading weights:  42%|████▏     | 154/363 [00:03<00:04, 49.01it/s]
+[1ALoading weights:  44%|████▍     | 159/363 [00:03<00:04, 41.28it/s]
+[1ALoading weights:  46%|████▌     | 167/363 [00:03<00:04, 46.70it/s]
+[1AFetching 16 files:  81%|████████▏ | 13/16 [02:29<00:27,  9.22s/it]
+[1ALoading weights:  48%|████▊     | 175/363 [00:03<00:03, 50.30it/s]
+[1ALoading weights:  50%|████▉     | 181/363 [00:04<00:03, 48.58it/s]
+[1ALoading weights:  51%|█████     | 186/363 [00:04<00:04, 43.02it/s]
+[1ALoading weights:  53%|█████▎    | 194/363 [00:04<00:03, 47.61it/s]
+[1ALoading weights:  56%|█████▌    | 202/363 [00:04<00:03, 49.65it/s]
+[1ALoading weights:  57%|█████▋    | 208/363 [00:04<00:03, 49.29it/s]
+[1ALoading weights:  59%|█████▊    | 213/363 [00:04<00:03, 41.44it/s]
+[1ALoading weights:  61%|██████    | 221/363 [00:04<00:03, 45.53it/s]
+[1ALoading weights:  63%|██████▎   | 229/363 [00:05<00:02, 51.80it/s]
+[1ALoading weights:  65%|██████▍   | 235/363 [00:05<00:02, 49.55it/s]
+[1ALoading weights:  66%|██████▋   | 241/363 [00:05<00:02, 45.77it/s]
+[1ALoading weights:  68%|██████▊   | 248/363 [00:05<00:02, 48.59it/s]
+[1ALoading weights:  71%|███████   | 256/363 [00:05<00:02, 53.10it/s]
+[1ALoading weights:  72%|███████▏  | 262/363 [00:05<00:01, 52.66it/s]
+[1ALoading weights:  74%|███████▍  | 268/363 [00:05<00:02, 46.08it/s]
+[1ALoading weights:  76%|███████▌  | 275/363 [00:06<00:01, 47.83it/s]
+[1AFetching 5 files:  60%|██████    | 3/5 [01:20<00:45, 22.77s/it]
+[1ALoading weights:  78%|███████▊  | 283/363 [00:06<00:01, 50.83it/s]
+[1ALoading weights:  80%|███████▉  | 289/363 [00:06<00:01, 49.28it/s]
+[1ALoading weights:  81%|████████  | 294/363 [00:06<00:01, 43.18it/s]
+[1ALoading weights:  83%|████████▎ | 302/363 [00:06<00:01, 48.14it/s]
+[1ALoading weights:  85%|████████▌ | 310/363 [00:06<00:01, 51.56it/s]
+[1ALoading weights:  87%|████████▋ | 316/363 [00:06<00:00, 49.70it/s]
+[1ALoading weights:  89%|████████▊ | 322/363 [00:07<00:00, 44.18it/s]
+[1ALoading weights:  91%|█████████ | 329/363 [00:07<00:00, 46.45it/s]
+[1ALoading weights:  93%|█████████▎| 337/363 [00:07<00:00, 51.19it/s]
+[1ALoading weights:  94%|█████████▍| 343/363 [00:07<00:00, 50.87it/s]
+[1ALoading weights:  96%|█████████▌| 349/363 [00:07<00:00, 46.59it/s]
+[1ALoading weights:  98%|█████████▊| 356/363 [00:07<00:00, 49.38it/s]
+[1ALoading weights: 100%|██████████| 363/363 [00:07<00:00, 46.83it/s]
+[transformers] The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+
+[1AFetching 16 files:  88%|████████▊ | 14/16 [02:45<00:22, 11.12s/it]
+[1AFetching 16 files:  94%|█████████▍| 15/16 [02:45<00:07,  7.97s/it]
+[1AFetching 16 files: 100%|██████████| 16/16 [02:45<00:00,  5.63s/it]
+[1AFetching 16 files: 100%|██████████| 16/16 [02:45<00:00, 10.37s/it]
+
+[1AFetching 5 files:  80%|████████  | 4/5 [01:35<00:19, 19.83s/it]
+[1ALoading weights:   0%|          | 0/531 [00:00<?, ?it/s]
+[1ALoading weights:   3%|▎         | 15/531 [00:00<00:09, 57.30it/s]
+[1ALoading weights:   5%|▍         | 26/531 [00:00<00:09, 53.60it/s]
+[1ALoading weights:   7%|▋         | 37/531 [00:00<00:09, 52.08it/s]
+[1ALoading weights:   9%|▉         | 48/531 [00:00<00:09, 52.96it/s]
+[1ALoading weights:  11%|█         | 59/531 [00:01<00:08, 52.48it/s]
+[1ALoading weights:  13%|█▎        | 70/531 [00:01<00:08, 51.41it/s]
+[1ALoading weights:  15%|█▌        | 81/531 [00:01<00:08, 51.00it/s]
+[1ALoading weights:  17%|█▋        | 92/531 [00:01<00:08, 51.19it/s]
+[1ALoading weights:  19%|█▉        | 103/531 [00:01<00:08, 51.65it/s]
+[1ALoading weights:  21%|██▏       | 114/531 [00:02<00:08, 51.49it/s]
+[1ALoading weights:  24%|██▎       | 125/531 [00:02<00:07, 51.45it/s]
+[1ALoading weights:  26%|██▌       | 136/531 [00:02<00:07, 51.49it/s]
+[1ALoading weights:  28%|██▊       | 147/531 [00:02<00:07, 52.03it/s]
+[1ALoading weights:  30%|██▉       | 158/531 [00:03<00:06, 53.41it/s]
+[1ALoading weights:  32%|███▏      | 169/531 [00:03<00:06, 53.83it/s]
+[1ALoading weights:  34%|███▍      | 180/531 [00:03<00:06, 53.06it/s]
+[1ALoading weights:  36%|███▌      | 191/531 [00:03<00:06, 53.39it/s]
+[1AFetching 5 files: 100%|██████████| 5/5 [01:40<00:00, 14.40s/it]
+[1AFetching 5 files: 100%|██████████| 5/5 [01:40<00:00, 20.15s/it]
+
+[1ALoading weights:  38%|███▊      | 202/531 [00:03<00:06, 52.87it/s]
+[1ALoading weights:   0%|          | 0/363 [00:00<?, ?it/s]
+[1ALoading weights:   0%|          | 1/363 [00:00<01:07,  5.33it/s]
+[1ALoading weights:  40%|████      | 213/531 [00:04<00:06, 52.44it/s]
+[1ALoading weights:  42%|████▏     | 224/531 [00:04<00:05, 52.74it/s]
+[1ALoading weights:   1%|          | 2/363 [00:00<01:17,  4.67it/s]
+[1ALoading weights:   4%|▎         | 13/363 [00:00<00:10, 32.79it/s]
+[1ALoading weights:  44%|████▍     | 235/531 [00:04<00:05, 51.92it/s]
+[1ALoading weights:   6%|▌         | 22/363 [00:00<00:07, 48.28it/s]
+[1ALoading weights:   9%|▉         | 32/363 [00:00<00:05, 59.11it/s]
+[1ALoading weights:  46%|████▋     | 246/531 [00:04<00:05, 52.88it/s]
+[1ALoading weights:  12%|█▏        | 42/363 [00:00<00:04, 68.04it/s]
+[1ALoading weights:  15%|█▌        | 55/363 [00:00<00:03, 85.06it/s]
+[1ALoading weights:  48%|████▊     | 257/531 [00:04<00:05, 52.22it/s]
+[1ALoading weights:  18%|█▊        | 67/363 [00:01<00:03, 90.95it/s]
+[1ALoading weights:  21%|██        | 77/363 [00:01<00:03, 91.85it/s]
+[1ALoading weights:  50%|█████     | 268/531 [00:05<00:04, 52.98it/s]
+[1ALoading weights:  24%|██▍       | 87/363 [00:01<00:02, 92.61it/s]
+[1ALoading weights:  27%|██▋       | 98/363 [00:01<00:02, 97.36it/s]
+[1ALoading weights:  53%|█████▎    | 279/531 [00:05<00:04, 55.01it/s]
+[1ALoading weights:  31%|███       | 112/363 [00:01<00:02, 103.85it/s]
+[1ALoading weights:  55%|█████▍    | 290/531 [00:05<00:04, 54.61it/s]
+[1ALoading weights:  34%|███▍      | 123/363 [00:01<00:02, 94.79it/s] 
+[1ALoading weights:  37%|███▋      | 136/363 [00:01<00:02, 103.37it/s]
+[1ALoading weights:  57%|█████▋    | 301/531 [00:05<00:04, 53.52it/s]
+[1ALoading weights:  41%|████      | 148/363 [00:01<00:02, 103.21it/s]
+[1ALoading weights:  44%|████▍     | 159/363 [00:02<00:02, 96.05it/s] 
+[1ALoading weights:  59%|█████▉    | 312/531 [00:05<00:04, 52.86it/s]
+[1ALoading weights:  48%|████▊     | 175/363 [00:02<00:01, 106.10it/s]
+[1ALoading weights:  51%|█████     | 186/363 [00:02<00:01, 100.81it/s]
+[1ALoading weights:  61%|██████    | 323/531 [00:06<00:04, 50.63it/s]
+[1ALoading weights:  56%|█████▌    | 202/363 [00:02<00:01, 111.27it/s]
+[1ALoading weights:  59%|█████▉    | 214/363 [00:02<00:01, 109.69it/s]
+[1ALoading weights:  63%|██████▎   | 334/531 [00:06<00:03, 52.77it/s]
+[1ALoading weights:  63%|██████▎   | 229/363 [00:02<00:01, 112.96it/s]
+granite33_8b V 49159 d 4096 states 14898 align 0.998 top1 0.069 top4 0.195 cos -0.04 rho_mu 0.004 rho_pca1 0.058 offset share -0.03 | bytes p99 none 0.258 mu 0.259 pca1 0.259 | viol 0 mism 0
+[1ALoading weights:  65%|██████▍   | 345/531 [00:06<00:03, 52.73it/s]
+[1ALoading weights:  66%|██████▋   | 241/363 [00:02<00:01, 107.30it/s]
+[1ALoading weights:  71%|███████   | 256/363 [00:02<00:00, 113.70it/s]
+[1ALoading weights:  67%|██████▋   | 356/531 [00:06<00:03, 52.79it/s]
+[1ALoading weights:  74%|███████▍  | 268/363 [00:02<00:00, 107.62it/s]
+[1ALoading weights:  78%|███████▊  | 283/363 [00:03<00:00, 113.97it/s]
+[1ALoading weights:  69%|██████▉   | 367/531 [00:06<00:03, 52.26it/s]
+[1ALoading weights:  81%|████████▏ | 295/363 [00:03<00:00, 109.34it/s]
+[1ALoading weights:  71%|███████   | 378/531 [00:07<00:02, 51.83it/s]
+[1ALoading weights:  85%|████████▌ | 310/363 [00:03<00:00, 114.08it/s]
+[1ALoading weights:  89%|████████▊ | 322/363 [00:03<00:00, 103.81it/s]
+[1ALoading weights:  73%|███████▎  | 389/531 [00:07<00:02, 51.27it/s]
+[1ALoading weights:  92%|█████████▏| 335/363 [00:03<00:00, 110.12it/s]
+[1ALoading weights:  96%|█████████▌| 347/363 [00:03<00:00, 99.89it/s] 
+[1ALoading weights:  75%|███████▌  | 400/531 [00:07<00:02, 50.86it/s]
+[1ALoading weights:  99%|█████████▉| 361/363 [00:03<00:00, 109.34it/s]
+[1ALoading weights: 100%|██████████| 363/363 [00:03<00:00, 94.44it/s] 
+
+[1ALoading weights:  77%|███████▋  | 411/531 [00:07<00:02, 51.20it/s]
+[1ALoading weights:  79%|███████▉  | 422/531 [00:08<00:02, 51.52it/s]
+[1ALoading weights:  82%|████████▏ | 433/531 [00:08<00:01, 51.61it/s]
+[1ALoading weights:  84%|████████▎ | 444/531 [00:08<00:01, 51.73it/s]
+[1ALoading weights:  86%|████████▌ | 455/531 [00:08<00:01, 51.84it/s]
+[1ALoading weights:  88%|████████▊ | 466/531 [00:08<00:01, 51.24it/s]
+[1ALoading weights:  90%|████████▉ | 477/531 [00:09<00:01, 50.25it/s]
+[1ALoading weights:  92%|█████████▏| 488/531 [00:09<00:00, 50.78it/s]
+[1ALoading weights:  94%|█████████▍| 499/531 [00:09<00:00, 52.17it/s]
+[1ALoading weights:  96%|█████████▌| 510/531 [00:09<00:00, 53.52it/s]
+[1ALoading weights:  98%|█████████▊| 521/531 [00:09<00:00, 52.36it/s]
+[1ALoading weights: 100%|██████████| 531/531 [00:09<00:00, 53.23it/s]
+sarvam_m V 131072 d 5120 states 15045 align 1.000 top1 0.089 top4 0.257 cos -0.08 rho_mu 0.001 rho_pca1 0.034 offset share 0.04 | bytes p99 none 0.258 mu 0.258 pca1 0.258 | viol 0 mism 0
+mistral_nemo V 131072 d 5120 states 14207 align 1.000 top1 0.226 top4 0.468 cos -0.01 rho_mu 0.001 rho_pca1 0.003 offset share 0.10 | bytes p99 none 0.287 mu 0.287 pca1 0.280 | viol 0 mism 0
+gpt_oss_20b V 201088 d 2880 states 15360 align 1.000 top1 0.297 top4 0.486 cos 0.53 rho_mu 0.112 rho_pca1 0.372 offset share -0.19 | no certificate (d not a multiple of 128)
+qwen3_30b_a3b V 151936 d 2048 states 15205 align 1.000 top1 0.117 top4 0.317 cos 0.13 rho_mu 0.003 rho_pca1 0.022 offset share -0.06 | bytes p99 none 0.258 mu 0.259 pca1 0.259 | viol 0 mism 0
+Stopping app - local entrypoint completed.
+Runner terminated.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-robSn0IBvNiuFteUYcJKoM
