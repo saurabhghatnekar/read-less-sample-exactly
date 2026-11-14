@@ -6,6 +6,7 @@
 *
 !.gitignore
 !README.md
+!LICENSE
 
 !exp01_repro/
 exp01_repro/*
