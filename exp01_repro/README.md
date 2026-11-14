@@ -508,7 +508,7 @@ Against the predictions: share along `µ` on Sarvam 0.3–0.7, above Qwen's, Eng
 Limits:
 - The eigenvectors were fitted on half of the same 240 prompts' states and tested on the other half. Directions fitted on unrelated text are untested. `mu` needs no fitting and already passes.
 - Greedy and Gumbel T = 1 only. Gumbel T = 0.6, top-50 and min-p 0.05 were not rerun.
-- Byte counts, not timings. The correction adds K multiply-adds per row to the first pass and changes two of its inputs; the L4 kernels do not implement it yet. Batched steps should gain most, since Sarvam's union of 16 shortlists was half the vocabulary, but that is not measured.
+- Byte counts here; the corrected step is timed on an L4 in the last section of this file.
 - `r` is kept in FP32. One dither draw and one noise seed.
 - Five direction sets were run; `mu` and `pca16` were the pre-named primaries, and `pca1` is the best by bytes. Treat `pca1`'s margin over `pca4` as selected after the fact.
 
@@ -536,3 +536,39 @@ Sarvam-30B at t = 0.5, test prompts, one direction fitted without the state's la
 Against the addendum's predictions: transfer on Sarvam (cosine above 0.99, `lolo1` p99 within 0.01 of `pca1`): held. Gumbel T = 0.6 passes with p99 below 0.30: held (0.260). Min-p passes with p99 below 0.35: held (0.270 with `pca1`, 0.271 with `lolo1`). Top-50 with `pca4` median below 0.30 and mean below 0.33: held (0.263, 0.268). Gemma top-50 stays UNDER_HALF with every set: missed for in-sample `pca1` and `pca4`, which pass; the stated reason (R is set by the INT8 stage alone) was wrong, since R p99 falls from 4,833 to 824 with `pca4`. Controls: held.
 
 Limits: leaving out a language keeps the same model, chat template and kind of prompt; it tests transfer across language and domain, not across tasks or lengths. The uncorrected top-50 row is at t = 0.5, not B1's selected t = 1 (0.385, 0.694, 0.418). Byte counts only.
+
+## L4 timing with the K2 correction (14 Nov 2026)
+
+Protocol and predictions: `l4_corr_protocol.json` (sha256 `bf4757b6…`, logged before any corrected kernel ran). Code `l4_corr.py`: `CorrHead` adds `r` and an eager corrected step to `l4_cert.CertHead`; `GraphStepCorr` is `l4_graph.GraphStep` with a first-pass kernel that subtracts `α r_v` and bounds only the remainder. The selection, INT8 and BF16 kernels are `l4_graph`'s, unchanged, and the code timed earlier is not modified. Bench `l4_corr_bench_modal.py`, results `logs/l4_corr_timing_<model>.json`. Same L4, states, baseline and timing method as the sections above; each step times the uncorrected graph step, the two corrected ones and the BF16 head on the same state.
+
+Checks, on every step of every variant (3 heads × 2 batch sizes × 3 variants; 1,536 batch-1 steps and 1,536 states at batch 16 per variant): no token mismatch against the FP32 reference; no row of any state outside the interval the step left in its buffers; the graph step's INT8 and BF16 row counts equal the eager loop's; no fallback.
+
+Sarvam-30B, graph-captured step (K = 1):
+
+| Batch | Correction | Step ms (median, p99, mean) | Step / BF16 (median, p99, mean) | INT8 rows (median, p99) | Bytes / BF16 (median, p99) |
+|---|---|---|---|---|---|
+| 1 | none | 3.39, 5.80, 3.62 | 0.40, 0.68, 0.43 | 258, 144,351 | 0.258, 0.534 |
+| 1 | `mu` | 3.41, 4.02, 3.44 | 0.40, 0.47, 0.40 | 58, 34,848 | 0.258, 0.325 |
+| 1 | `pca1` | 3.41, 3.46, 3.41 | 0.40, 0.41, 0.40 | 5, 889 | 0.258, 0.260 |
+| 16 | none | 5.87, 6.28, 5.60 | 0.66, 0.71, 0.63 | 124,972, 150,752 | 0.497, 0.547 |
+| 16 | `mu` | 3.99, 5.41, 4.09 | 0.45, 0.61, 0.46 | 18,292, 92,437 | 0.294, 0.436 |
+| 16 | `pca1` | 3.62, 3.89, 3.63 | 0.41, 0.44, 0.41 | 534, 11,646 | 0.260, 0.281 |
+
+The cuBLAS BF16 head takes 8.51 ms at batch 1 and 8.88 ms at batch 16.
+
+- **Sarvam's tail in time is gone.** At batch 1 the p99 step falls from 0.68 to 0.41 of the BF16 head and the slowest of the 512 steps from 5.88 ms to 3.71 ms.
+- **Batched Sarvam is fixed.** The union of 16 shortlists falls from 124,972 rows (half the vocabulary) to 534, and the step from 0.66 to 0.41 of BF16. With the mean head row alone it is 0.45.
+- **All three heads now sit at about 0.40 to 0.41 of the BF16 head at both batch sizes**, taking the corrected step for Sarvam and the uncorrected one for Qwen3-8B and Gemma 4, which do not need it.
+
+The cost of the correction, on the heads that gain nothing from it (median step, uncorrected → `pca1`):
+
+| | Qwen3-8B | Gemma 4 E4B |
+|---|---|---|
+| Batch 1 | 2.02 → 2.06 ms (+2%) | 2.13 → 2.23 ms (+5%) |
+| Batch 16 | 2.06 → 2.21 ms (+8%) | 2.29 → 2.49 ms (+9%) |
+
+The overhead is 0.04 to 0.20 ms. It has not been profiled; the corrected step computes `α` and `h − αp` in FP64 on the device with several small launches before the first pass, which is the first place to look.
+
+Against the predictions: controls held. Sarvam batch 1: median unchanged (+0.6%), `pca1` p99 below 3.7 ms and mean below 3.45 ms (3.46, 3.41), `mu` p99 in between (4.02): held. Sarvam batch 16 with `pca1` below 3.9 ms and 0.45: held (3.62, 0.41); with `mu` between 0.45 and 0.62: just outside (0.449). Overhead within 3% on Qwen and Gemma at both batch sizes: missed except Qwen at batch 1 (+2%, +5%, +8%, +9%).
+
+Limits: greedy only. The 512 timed states are a random sample of all greedy states, so about half come from prompts `pca1` was fitted on; the K2 addendum found the fit without the state's language to be the same direction on Sarvam (cosine above 0.998), and `mu` uses no states. Head alone, not end-to-end decoding. One run per head; the earlier sections show the graph step's medians move by about 2% between runs.

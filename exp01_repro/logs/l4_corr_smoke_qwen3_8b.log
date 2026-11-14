@@ -1,0 +1,25 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-qSpcSK1BjomPVQsBFr7a00
+✓ Created objects.
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/l4_corr_bench_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/l4_corr.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/l4_cert.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/l4_kernels.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/l4_graph.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/subg_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+└── ✓ Created Function bench.
+/usr/local/lib/python3.12/site-packages/triton/knobs.py:504: UserWarning: TRITON_DEFAULT_FP_FUSION is unset: defaulting to FP fusion ENABLED for backward compatibility in Triton 3.9. The default will change to DISABLED in Triton 3.10; set TRITON_DEFAULT_FP_FUSION=1 to keep fusion enabled or =0 to adopt the new default early and silence this warning.
+  warn_once(FP_FUSION_DEFAULT_WARNING)
+qwen3_8b B1 none bf16 4.97 graph ms 2.00/2.03/2.00 ratio 0.402/0.408/0.402 rows8 1/19 fb 0 mism 0 0 outside 0 0 rowdiff 0
+qwen3_8b B1 mu bf16 4.97 graph ms 2.05/2.07/2.05 ratio 0.411/0.416/0.412 rows8 1/19 fb 0 mism 0 0 outside 0 0 rowdiff 0
+qwen3_8b B1 pca1 bf16 4.97 graph ms 2.05/2.08/2.05 ratio 0.412/0.418/0.412 rows8 1/18 fb 0 mism 0 0 outside 0 0 rowdiff 0
+qwen3_8b B16 none bf16 5.22 graph ms 2.12/2.16/2.13 ratio 0.405/0.415/0.407 rows8 51/72 fb 0 mism 0 0 outside 0 0 rowdiff 0
+qwen3_8b B16 mu bf16 5.22 graph ms 2.24/2.30/2.25 ratio 0.428/0.442/0.430 rows8 52/72 fb 0 mism 0 0 outside 0 0 rowdiff 0
+qwen3_8b B16 pca1 bf16 5.22 graph ms 2.23/2.27/2.23 ratio 0.428/0.436/0.427 rows8 49/59 fb 0 mism 0 0 outside 0 0 rowdiff 0
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-qSpcSK1BjomPVQsBFr7a00

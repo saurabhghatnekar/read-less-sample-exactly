@@ -1,0 +1,40 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-YDa3m5aWp6xzecv1n9SuQj
+✓ Created objects.
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/l4_corr_bench_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/l4_corr.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/l4_graph.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/l4_cert.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/l4_kernels.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/subg_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_lib.py
+└── ✓ Created Function bench.
+/usr/local/lib/python3.12/site-packages/triton/knobs.py:504: UserWarning: TRITON_DEFAULT_FP_FUSION is unset: defaulting to FP fusion ENABLED for backward compatibility in Triton 3.9. The default will change to DISABLED in Triton 3.10; set TRITON_DEFAULT_FP_FUSION=1 to keep fusion enabled or =0 to adopt the new default early and silence this warning.
+  warn_once(FP_FUSION_DEFAULT_WARNING)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+qwen3_8b B1 none bf16 4.98 graph ms 2.02/2.13/2.02 ratio 0.405/0.422/0.406 rows8 1/23 fb 0 mism 0 0 outside 0 0 rowdiff 0
+qwen3_8b B1 mu bf16 4.98 graph ms 2.06/2.11/2.06 ratio 0.413/0.423/0.414 rows8 1/23 fb 0 mism 0 0 outside 0 0 rowdiff 0
+qwen3_8b B1 pca1 bf16 4.98 graph ms 2.06/2.12/2.07 ratio 0.415/0.422/0.415 rows8 1/22 fb 0 mism 0 0 outside 0 0 rowdiff 0
+qwen3_8b B16 none bf16 5.21 graph ms 2.06/2.12/2.07 ratio 0.396/0.409/0.396 rows8 42/75 fb 0 mism 0 0 outside 0 0 rowdiff 0
+qwen3_8b B16 mu bf16 5.21 graph ms 2.22/2.26/2.23 ratio 0.427/0.434/0.427 rows8 42/75 fb 0 mism 0 0 outside 0 0 rowdiff 0
+qwen3_8b B16 pca1 bf16 5.21 graph ms 2.21/2.24/2.22 ratio 0.425/0.432/0.425 rows8 39/69 fb 0 mism 0 0 outside 0 0 rowdiff 0
+gemma4_e4b B1 none bf16 5.36 graph ms 2.13/2.25/2.14 ratio 0.398/0.417/0.399 rows8 2/369 fb 0 mism 0 0 outside 0 0 rowdiff 0
+gemma4_e4b B1 mu bf16 5.36 graph ms 2.22/2.31/2.22 ratio 0.414/0.426/0.414 rows8 2/342 fb 0 mism 0 0 outside 0 0 rowdiff 0
+gemma4_e4b B1 pca1 bf16 5.36 graph ms 2.23/2.33/2.24 ratio 0.417/0.431/0.417 rows8 2/175 fb 0 mism 0 0 outside 0 0 rowdiff 0
+gemma4_e4b B16 none bf16 5.73 graph ms 2.29/2.49/2.29 ratio 0.399/0.434/0.401 rows8 232/1588 fb 0 mism 0 0 outside 0 0 rowdiff 0
+gemma4_e4b B16 mu bf16 5.73 graph ms 2.47/2.55/2.46 ratio 0.430/0.445/0.429 rows8 218/1509 fb 0 mism 0 0 outside 0 0 rowdiff 0
+gemma4_e4b B16 pca1 bf16 5.73 graph ms 2.49/2.59/2.47 ratio 0.434/0.451/0.432 rows8 122/756 fb 0 mism 0 0 outside 0 0 rowdiff 0
+/usr/local/lib/python3.12/site-packages/triton/knobs.py:504: UserWarning: TRITON_DEFAULT_FP_FUSION is unset: defaulting to FP fusion ENABLED for backward compatibility in Triton 3.9. The default will change to DISABLED in Triton 3.10; set TRITON_DEFAULT_FP_FUSION=1 to keep fusion enabled or =0 to adopt the new default early and silence this warning.
+  warn_once(FP_FUSION_DEFAULT_WARNING)
+sarvam_30b B1 none bf16 8.51 graph ms 3.39/5.80/3.62 ratio 0.398/0.681/0.425 rows8 258/144351 fb 0 mism 0 0 outside 0 0 rowdiff 0
+sarvam_30b B1 mu bf16 8.51 graph ms 3.41/4.02/3.44 ratio 0.400/0.471/0.403 rows8 58/34848 fb 0 mism 0 0 outside 0 0 rowdiff 0
+sarvam_30b B1 pca1 bf16 8.51 graph ms 3.41/3.46/3.41 ratio 0.400/0.406/0.401 rows8 5/889 fb 0 mism 0 0 outside 0 0 rowdiff 0
+sarvam_30b B16 none bf16 8.88 graph ms 5.87/6.28/5.60 ratio 0.660/0.707/0.630 rows8 124972/150752 fb 0 mism 0 0 outside 0 0 rowdiff 0
+sarvam_30b B16 mu bf16 8.88 graph ms 3.99/5.41/4.09 ratio 0.449/0.609/0.460 rows8 18292/92437 fb 0 mism 0 0 outside 0 0 rowdiff 0
+sarvam_30b B16 pca1 bf16 8.88 graph ms 3.62/3.89/3.63 ratio 0.408/0.438/0.408 rows8 534/11646 fb 0 mism 0 0 outside 0 0 rowdiff 0
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-YDa3m5aWp6xzecv1n9SuQj
