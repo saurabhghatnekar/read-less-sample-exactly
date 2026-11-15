@@ -1,0 +1,32 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-eWjvOYlCbYfcjVArnRrK2a
+✓ Created objects.
+├── 🔨 Created mount /Volumes/attic/GpuKernelEngg/research/kernel/fused_modal.py
+├── 🔨 Created mount /Volumes/attic/GpuKernelEngg/research/kernel/common.py
+├── 🔨 Created mount /Volumes/attic/GpuKernelEngg/research/kernel/cert_head.py
+├── 🔨 Created mount /Volumes/attic/GpuKernelEngg/research/kernel/fused.py
+├── 🔨 Created mount 
+│   /Volumes/attic/GpuKernelEngg/research/kernel/../exp01_repro/cert_core.py
+├── 🔨 Created mount /Volumes/attic/GpuKernelEngg/research/kernel/int4_pass1.py
+└── 🔨 Created function run.
+/usr/local/lib/python3.12/site-packages/triton/knobs.py:504: UserWarning: TRITON_DEFAULT_FP_FUSION is unset: defaulting to FP fusion ENABLED for backward compatibility in Triton 3.9. The default will change to DISABLED in Triton 3.10; set TRITON_DEFAULT_FP_FUSION=1 to keep fusion enabled or =0 to adopt the new default early and silence this warning.
+  warn_once(FP_FUSION_DEFAULT_WARNING)
+synthetic {'greedy_TNone_capNone_B1': [0, 0], 'greedy_TNone_capNone_B3': [0, 0], 'greedy_TNone_capNone_B17': [0, 0], 'greedy_TNone_capNone_B64': [0, 0], 'gumbel_T1.0_capNone_B1': [0, 0], 'gumbel_T1.0_capNone_B3': [0, 0], 'gumbel_T1.0_capNone_B17': [0, 0], 'gumbel_T1.0_capNone_B64': [0, 0], 'gumbel_T0.6_capNone_B1': [0, 0], 'gumbel_T0.6_capNone_B3': [0, 0], 'gumbel_T0.6_capNone_B17': [0, 0], 'gumbel_T0.6_capNone_B64': [0, 0], 'greedy_TNone_cap30.0_B1': [0, 0], 'greedy_TNone_cap30.0_B3': [0, 0], 'greedy_TNone_cap30.0_B17': [0, 0], 'greedy_TNone_cap30.0_B64': [0, 0], 'gumbel_T1.0_cap30.0_B1': [0, 0], 'gumbel_T1.0_cap30.0_B3': [0, 0], 'gumbel_T1.0_cap30.0_B17': [0, 0], 'gumbel_T1.0_cap30.0_B64': [0, 0], 'gumbel_T0.6_cap30.0_B1': [0, 0], 'gumbel_T0.6_cap30.0_B3': [0, 0], 'gumbel_T0.6_cap30.0_B17': [0, 0], 'gumbel_T0.6_cap30.0_B64': [0, 0]}
+qwen3_8b greedy 1 {"states": 128, "ms": {"base": 5.0083842277526855, "base_graph": 5.044223785400391, "fused": 2.4698879718780518, "fused_graph": 1.7745920419692993}, "int8_rows_per_state": {"median": 3, "p99": 93, "max": 1364}, "exact_rows_per_state": {"median": 1, "max": 10}, "mismatches": 0, "mismatches_graph": 0, "mismatches_bf16_baseline": 1}
+qwen3_8b greedy 8 {"states": 256, "ms": {"base": 5.082111835479736, "base_graph": 5.130239963531494, "fused": 2.605056047439575, "fused_graph": 1.9343359470367432}, "int8_rows_per_state": {"median": 3, "p99": 63, "max": 1364}, "exact_rows_per_state": {"median": 1, "max": 23}, "mismatches": 0, "mismatches_graph": 0, "mismatches_bf16_baseline": 1}
+qwen3_8b greedy 32 {"states": 512, "ms": {"base": 5.576704025268555, "base_graph": 5.799935817718506, "fused": 3.01363205909729, "fused_graph": 2.3664638996124268}, "int8_rows_per_state": {"median": 3, "p99": 119, "max": 1364}, "exact_rows_per_state": {"median": 1, "max": 23}, "mismatches": 0, "mismatches_graph": 0, "mismatches_bf16_baseline": 2}
+qwen3_8b gumbel_1.0 1 {"states": 128, "ms": {"base": 5.041152000427246, "base_graph": 5.049344062805176, "fused": 2.4985599517822266, "fused_graph": 1.7786879539489746}, "int8_rows_per_state": {"median": 3, "p99": 548, "max": 840}, "exact_rows_per_state": {"median": 1, "max": 10}, "mismatches": 0, "mismatches_graph": 0, "mismatches_bf16_baseline": 1}
+qwen3_8b gumbel_1.0 8 {"states": 256, "ms": {"base": 5.111839771270752, "base_graph": 5.198847770690918, "fused": 2.6798079013824463, "fused_graph": 1.9752960205078125}, "int8_rows_per_state": {"median": 3, "p99": 541, "max": 840}, "exact_rows_per_state": {"median": 1, "max": 17}, "mismatches": 0, "mismatches_graph": 0, "mismatches_bf16_baseline": 1}
+qwen3_8b gumbel_1.0 32 {"states": 512, "ms": {"base": 5.781504154205322, "base_graph": 6.01804780960083, "fused": 3.1539199352264404, "fused_graph": 2.5231359004974365}, "int8_rows_per_state": {"median": 4, "p99": 419, "max": 1047}, "exact_rows_per_state": {"median": 1, "max": 17}, "mismatches": 0, "mismatches_graph": 0, "mismatches_bf16_baseline": 3}
+wrote /Volumes/attic/GpuKernelEngg/research/kernel/results/fused_qwen3_8b_L4.json
+qwen3_8b on NVIDIA L4; synthetic mismatches: none
+rule        B | BF16 eager graph | fused eager graph | INT8 rows/state med p99 | exact med max | mism eager/graph/bf16
+greedy      1 |   5.01   5.04 |   2.47   1.77 |      3     93 |    1   10 | 0/0/1 of 128
+greedy      8 |   5.08   5.13 |   2.61   1.93 |      3     63 |    1   23 | 0/0/1 of 256
+greedy     32 |   5.58   5.80 |   3.01   2.37 |      3    119 |    1   23 | 0/0/2 of 512
+gumbel_1.0  1 |   5.04   5.05 |   2.50   1.78 |      3    548 |    1   10 | 0/0/1 of 128
+gumbel_1.0  8 |   5.11   5.20 |   2.68   1.98 |      3    541 |    1   17 | 0/0/1 of 256
+gumbel_1.0 32 |   5.78   6.02 |   3.15   2.52 |      4    419 |    1   17 | 0/0/3 of 512
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-eWjvOYlCbYfcjVArnRrK2a

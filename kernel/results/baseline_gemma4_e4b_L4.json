@@ -1,0 +1,264 @@
+{
+ "model": "gemma4_e4b",
+ "gpu": "NVIDIA L4",
+ "torch": "2.15.0+cu132",
+ "V": 262144,
+ "d": 2560,
+ "bytes": {
+  "bf16_head": 1342177280,
+  "pass1": 348127232,
+  "int8_row": 2574,
+  "bf16_row": 5120
+ },
+ "mem_gb": 3.751258112,
+ "rules": {
+  "greedy": {
+   "1": {
+    "batches": 128,
+    "states": 128,
+    "ms": {
+     "noise": 0.7736699999991714,
+     "base": 5.390389999998746,
+     "matmul": 5.38932299999928,
+     "cert": 113.69699100000119,
+     "pass1_read": 109.76305000000153,
+     "pass1_bound": 0.6567169999982525,
+     "int8": 1.8436139999984391,
+     "bf16": 1.2180499999985273
+    },
+    "bf16_matmul_GBps": 249.04376301071198,
+    "projected_pass1_ms": 1.3978556531248132,
+    "projected_cert_ms": 5.116236653120032,
+    "pass1_budget_ms": 1.672009000003527,
+    "union_rows_int8": {
+     "median": 28,
+     "max": 42634
+    },
+    "union_rows_bf16": {
+     "median": 1,
+     "max": 62
+    },
+    "mismatches_certified": 0,
+    "mismatches_bf16_baseline": 1,
+    "by_group_b1": {
+     "bengali": {
+      "n": 23,
+      "S_median": 284,
+      "R_median": 1,
+      "cert_ms_median": 113.83191900000078
+     },
+     "code": {
+      "n": 17,
+      "S_median": 1,
+      "R_median": 1,
+      "cert_ms_median": 113.58768199999858
+     },
+     "english": {
+      "n": 21,
+      "S_median": 2,
+      "R_median": 1,
+      "cert_ms_median": 113.66761500000067
+     },
+     "hindi": {
+      "n": 21,
+      "S_median": 10,
+      "R_median": 1,
+      "cert_ms_median": 113.61366299999887
+     },
+     "tamil": {
+      "n": 25,
+      "S_median": 410,
+      "R_median": 1,
+      "cert_ms_median": 113.80765299999851
+     },
+     "telugu": {
+      "n": 21,
+      "S_median": 2853,
+      "R_median": 1,
+      "cert_ms_median": 113.81079100000058
+     }
+    }
+   },
+   "8": {
+    "batches": 32,
+    "states": 256,
+    "ms": {
+     "noise": 2.4379970000012463,
+     "base": 5.6952520000024265,
+     "matmul": 5.558874000001879,
+     "cert": 118.46911299999618,
+     "pass1_read": 111.91530400000005,
+     "pass1_bound": 0.6255569999993327,
+     "int8": 4.381683000001857,
+     "bf16": 1.2536329999974782
+    },
+    "bf16_matmul_GBps": 241.44768886640466,
+    "projected_pass1_ms": 1.4418329437504873,
+    "projected_cert_ms": 7.702705943749155,
+    "pass1_budget_ms": -0.5656209999962414,
+    "union_rows_int8": {
+     "median": 14669,
+     "max": 44662
+    },
+    "union_rows_bf16": {
+     "median": 15,
+     "max": 70
+    },
+    "mismatches_certified": 0,
+    "mismatches_bf16_baseline": 1
+   },
+   "32": {
+    "batches": 16,
+    "states": 512,
+    "ms": {
+     "noise": 22.854855000005614,
+     "base": 6.827903000001356,
+     "matmul": 6.116521999999236,
+     "cert": 133.46061700000433,
+     "pass1_read": 112.08612900000503,
+     "pass1_bound": 2.3148510000012834,
+     "int8": 13.737033999994708,
+     "bf16": 5.1169290000032674
+    },
+    "bf16_matmul_GBps": 219.43471796556403,
+    "projected_pass1_ms": 1.5864728937498018,
+    "projected_cert_ms": 22.75528689374906,
+    "pass1_budget_ms": -14.340910999997902,
+    "union_rows_int8": {
+     "median": 37538,
+     "max": 58166
+    },
+    "union_rows_bf16": {
+     "median": 58,
+     "max": 116
+    },
+    "mismatches_certified": 0,
+    "mismatches_bf16_baseline": 1
+   }
+  },
+  "gumbel_1.0": {
+   "1": {
+    "batches": 128,
+    "states": 128,
+    "ms": {
+     "noise": 0.7280780000016307,
+     "base": 5.355656999995517,
+     "matmul": 5.368556000000524,
+     "cert": 113.6878030000048,
+     "pass1_read": 109.80865099999448,
+     "pass1_bound": 0.5030260000040698,
+     "int8": 1.7991810000026476,
+     "bf16": 1.3546469999994315
+    },
+    "bf16_matmul_GBps": 250.007130408972,
+    "projected_pass1_ms": 1.3924692125001359,
+    "projected_cert_ms": 5.049323212506285,
+    "pass1_budget_ms": 1.6988029999893683,
+    "union_rows_int8": {
+     "median": 16,
+     "max": 25386
+    },
+    "union_rows_bf16": {
+     "median": 1,
+     "max": 19
+    },
+    "mismatches_certified": 0,
+    "mismatches_bf16_baseline": 1,
+    "by_group_b1": {
+     "bengali": {
+      "n": 31,
+      "S_median": 224,
+      "R_median": 1,
+      "cert_ms_median": 113.77828999999906
+     },
+     "code": {
+      "n": 20,
+      "S_median": 1,
+      "R_median": 1,
+      "cert_ms_median": 113.65918199999925
+     },
+     "english": {
+      "n": 22,
+      "S_median": 6,
+      "R_median": 1,
+      "cert_ms_median": 113.67685499999425
+     },
+     "hindi": {
+      "n": 21,
+      "S_median": 8,
+      "R_median": 1,
+      "cert_ms_median": 113.60418000000294
+     },
+     "tamil": {
+      "n": 8,
+      "S_median": 5215,
+      "R_median": 1,
+      "cert_ms_median": 114.21727900000178
+     },
+     "telugu": {
+      "n": 26,
+      "S_median": 412,
+      "R_median": 1,
+      "cert_ms_median": 113.71069500000175
+     }
+    }
+   },
+   "8": {
+    "batches": 32,
+    "states": 256,
+    "ms": {
+     "noise": 2.4624210000041558,
+     "base": 5.741050999994002,
+     "matmul": 5.555745000002332,
+     "cert": 117.79349100000047,
+     "pass1_read": 111.98888399999873,
+     "pass1_bound": 0.5387029999965876,
+     "int8": 3.863019000007739,
+     "bf16": 1.3362649999990595
+    },
+    "bf16_matmul_GBps": 241.58367239666987,
+    "projected_pass1_ms": 1.4410213593756047,
+    "projected_cert_ms": 7.179008359378991,
+    "pass1_budget_ms": 0.0030639999906156845,
+    "union_rows_int8": {
+     "median": 12706,
+     "max": 60904
+    },
+    "union_rows_bf16": {
+     "median": 12,
+     "max": 44
+    },
+    "mismatches_certified": 0,
+    "mismatches_bf16_baseline": 2
+   },
+   "32": {
+    "batches": 16,
+    "states": 512,
+    "ms": {
+     "noise": 23.121635999999057,
+     "base": 7.3813720000117655,
+     "matmul": 6.110007000003748,
+     "cert": 135.40517499998828,
+     "pass1_read": 112.14609900000028,
+     "pass1_bound": 2.2868590000086897,
+     "int8": 13.295921999997518,
+     "bf16": 7.38390200000083
+    },
+    "bf16_matmul_GBps": 219.66869759710204,
+    "projected_pass1_ms": 1.584783065625972,
+    "projected_cert_ms": 24.55146606563301,
+    "pass1_budget_ms": -15.585310999995272,
+    "union_rows_int8": {
+     "median": 26634,
+     "max": 69360
+    },
+    "union_rows_bf16": {
+     "median": 51,
+     "max": 86
+    },
+    "mismatches_certified": 0,
+    "mismatches_bf16_baseline": 2
+   }
+  }
+ }
+}

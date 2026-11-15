@@ -1,0 +1,27 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-fkwPmL7xMAeDwmXjece7Lx
+✓ Created objects.
+├── 🔨 Created mount 
+│   /Volumes/attic/GpuKernelEngg/research/kernel/baseline_modal.py
+├── 🔨 Created mount /Volumes/attic/GpuKernelEngg/research/kernel/cert_head.py
+├── 🔨 Created mount 
+│   /Volumes/attic/GpuKernelEngg/research/kernel/../exp01_repro/cert_core.py
+└── 🔨 Created function run.
+qwen3_8b greedy 1 {"noise": 0.42016000000089093, "base": 4.901838000000325, "matmul": 4.982059999999677, "cert": 102.80953499999868, "pass1_read": 101.06488499999955, "pass1_bound": 0.2121340000016403, "int8": 0.8091780000007986, "bf16": 0.60455400000059}
+qwen3_8b greedy 8 {"noise": 0.8857190000028936, "base": 5.124872999999752, "matmul": 5.026881000002703, "cert": 104.91146900000103, "pass1_read": 103.1192720000007, "pass1_bound": 0.2664159999987703, "int8": 0.807437999998939, "bf16": 0.6020629999987648}
+qwen3_8b greedy 32 {"noise": 11.806509999999548, "base": 5.600993000001608, "matmul": 5.527081000000322, "cert": 107.22222000000414, "pass1_read": 103.61031000000054, "pass1_bound": 0.8040479999991135, "int8": 1.4792919999990772, "bf16": 1.2395769999997697}
+qwen3_8b gumbel_1.0 1 {"noise": 0.428149000001099, "base": 4.906568000002665, "matmul": 4.98172000000352, "cert": 102.9934379999986, "pass1_read": 101.04541399999789, "pass1_bound": 0.21388500000085742, "int8": 0.8874290000022711, "bf16": 0.7341059999959043}
+qwen3_8b gumbel_1.0 8 {"noise": 0.9083099999998012, "base": 5.161613000005616, "matmul": 5.069460999997943, "cert": 105.24747599999529, "pass1_read": 103.16730999999635, "pass1_bound": 0.280996000000755, "int8": 0.9160300000061739, "bf16": 0.7293860000032737}
+wrote /Volumes/attic/GpuKernelEngg/research/kernel/results/baseline_qwen3_8b_L4.json
+qwen3_8b on NVIDIA L4, torch 2.15.0+cu132, V=151936, d=4096
+rule        B  base   matmul  cert   p1read p1bound int8  bf16  | S med  R med | proj p1  proj cert  p1 budget | mism cert/base
+greedy      1   4.90   4.98 102.81 101.06   0.21  0.81  0.60 |     3     1 |    1.29      2.92       3.28 | 0/1
+greedy      8   5.12   5.03 104.91 103.12   0.27  0.81  0.60 |    38    11 |    1.30      2.98       3.45 | 0/1
+greedy     32   5.60   5.53 107.22 103.61   0.80  1.48  1.24 |   181    47 |    1.43      4.95       2.08 | 0/2
+gumbel_1.0  1   4.91   4.98 102.99 101.05   0.21  0.89  0.73 |     3     1 |    1.29      3.12       3.07 | 0/1
+gumbel_1.0  8   5.16   5.07 105.25 103.17   0.28  0.92  0.73 |    44    13 |    1.31      3.24       3.24 | 0/1
+gumbel_1.0 32   5.81   5.55 109.84 103.71   0.82  2.69  2.50 |   306    46 |    1.44      7.45      -0.20 | 0/3
+qwen3_8b gumbel_1.0 32 {"noise": 11.92404299999339, "base": 5.811248000000546, "matmul": 5.552032999993628, "cert": 109.84068799999847, "pass1_read": 103.71112400000015, "pass1_bound": 0.8247780000019134, "int8": 2.6867190000032792, "bf16": 2.498745000004021}
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-fkwPmL7xMAeDwmXjece7Lx

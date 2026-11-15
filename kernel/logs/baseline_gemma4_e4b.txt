@@ -1,0 +1,28 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-p2JHuMIQGSrFG9isMw0GWm
+✓ Created objects.
+├── 🔨 Created mount 
+│   /Volumes/attic/GpuKernelEngg/research/kernel/baseline_modal.py
+├── 🔨 Created mount /Volumes/attic/GpuKernelEngg/research/kernel/cert_head.py
+├── 🔨 Created mount 
+│   /Volumes/attic/GpuKernelEngg/research/kernel/../exp01_repro/cert_core.py
+└── 🔨 Created function run.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+gemma4_e4b greedy 1 {"noise": 0.7736699999991714, "base": 5.390389999998746, "matmul": 5.38932299999928, "cert": 113.69699100000119, "pass1_read": 109.76305000000153, "pass1_bound": 0.6567169999982525, "int8": 1.8436139999984391, "bf16": 1.2180499999985273}
+gemma4_e4b greedy 8 {"noise": 2.4379970000012463, "base": 5.6952520000024265, "matmul": 5.558874000001879, "cert": 118.46911299999618, "pass1_read": 111.91530400000005, "pass1_bound": 0.6255569999993327, "int8": 4.381683000001857, "bf16": 1.2536329999974782}
+gemma4_e4b greedy 32 {"noise": 22.854855000005614, "base": 6.827903000001356, "matmul": 6.116521999999236, "cert": 133.46061700000433, "pass1_read": 112.08612900000503, "pass1_bound": 2.3148510000012834, "int8": 13.737033999994708, "bf16": 5.1169290000032674}
+gemma4_e4b gumbel_1.0 1 {"noise": 0.7280780000016307, "base": 5.355656999995517, "matmul": 5.368556000000524, "cert": 113.6878030000048, "pass1_read": 109.80865099999448, "pass1_bound": 0.5030260000040698, "int8": 1.7991810000026476, "bf16": 1.3546469999994315}
+gemma4_e4b gumbel_1.0 8 {"noise": 2.4624210000041558, "base": 5.741050999994002, "matmul": 5.555745000002332, "cert": 117.79349100000047, "pass1_read": 111.98888399999873, "pass1_bound": 0.5387029999965876, "int8": 3.863019000007739, "bf16": 1.3362649999990595}
+wrote /Volumes/attic/GpuKernelEngg/research/kernel/results/baseline_gemma4_e4b_L4.json
+gemma4_e4b on NVIDIA L4, torch 2.15.0+cu132, V=262144, d=2560
+rule        B  base   matmul  cert   p1read p1bound int8  bf16  | S med  R med | proj p1  proj cert  p1 budget | mism cert/base
+greedy      1   5.39   5.39 113.70 109.76   0.66  1.84  1.22 |    28     1 |    1.40      5.12       1.67 | 0/1
+greedy      8   5.70   5.56 118.47 111.92   0.63  4.38  1.25 | 14669    15 |    1.44      7.70      -0.57 | 0/1
+greedy     32   6.83   6.12 133.46 112.09   2.31 13.74  5.12 | 37538    58 |    1.59     22.76     -14.34 | 0/1
+gumbel_1.0  1   5.36   5.37 113.69 109.81   0.50  1.80  1.35 |    16     1 |    1.39      5.05       1.70 | 0/1
+gumbel_1.0  8   5.74   5.56 117.79 111.99   0.54  3.86  1.34 | 12706    12 |    1.44      7.18       0.00 | 0/2
+gumbel_1.0 32   7.38   6.11 135.41 112.15   2.29 13.30  7.38 | 26634    51 |    1.58     24.55     -15.59 | 0/2
+gemma4_e4b gumbel_1.0 32 {"noise": 23.121635999999057, "base": 7.3813720000117655, "matmul": 6.110007000003748, "cert": 135.40517499998828, "pass1_read": 112.14609900000028, "pass1_bound": 2.2868590000086897, "int8": 13.295921999997518, "bf16": 7.38390200000083}
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-p2JHuMIQGSrFG9isMw0GWm

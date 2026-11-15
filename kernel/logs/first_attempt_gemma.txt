@@ -1,0 +1,87 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-sqQ1TmxB1aHOy22zuaek8d
+✓ Created objects.
+├── 🔨 Created mount 
+│   /Volumes/attic/GpuKernelEngg/research/kernel/baseline_modal.py
+├── 🔨 Created mount /Volumes/attic/GpuKernelEngg/research/kernel/cert_head.py
+├── 🔨 Created mount 
+│   /Volumes/attic/GpuKernelEngg/research/kernel/../exp01_repro/cert_core.py
+└── 🔨 Created function run.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+gemma4_e4b greedy 1 {"noise": 0.6914850000008244, "base": 5.343955999999039, "matmul": 5.36622399999942, "cert": 112.57638700000072, "pass1_read": 109.00551699999994, "pass1_bound": 0.4852470000002995, "int8": 1.6872290000016221, "bf16": 1.1716729999999842}
+gemma4_e4b greedy 8 {"noise": 2.2445369999992693, "base": 5.67253999999906, "matmul": 5.549580000000276, "cert": 117.05315500000069, "pass1_read": 111.02748000000062, "pass1_bound": 0.4633429999998384, "int8": 4.097309000002269, "bf16": 1.1806839999977115}
+gemma4_e4b greedy 32 {"noise": 22.150477000003832, "base": 6.768860999997628, "matmul": 6.104008999997745, "cert": 132.7893859999989, "pass1_read": 111.71466900000127, "pass1_bound": 2.1772619999964604, "int8": 13.618563000001416, "bf16": 5.035770999995748}
+gemma4_e4b gumbel_1.0 1 {"noise": 0.6958489999959738, "base": 5.345013000003007, "matmul": 5.364192999998352, "cert": 112.67299899999728, "pass1_read": 109.02916699999565, "pass1_bound": 0.4377789999949755, "int8": 1.6823910000027809, "bf16": 1.3042970000043397}
+gemma4_e4b gumbel_1.0 8 {"noise": 2.317840999999987, "base": 5.720035999999595, "matmul": 5.558151999998984, "cert": 116.81868500000547, "pass1_read": 111.0406519999998, "pass1_bound": 0.4457060000007118, "int8": 3.781846000002531, "bf16": 1.3259290000036117}
+gemma4_e4b gumbel_1.0 32 {"noise": 22.227698999998324, "base": 7.332465000004618, "matmul": 6.091800999996622, "cert": 134.47221699999545, "pass1_read": 111.69171199999539, "pass1_bound": 2.1221169999989797, "int8": 13.076498000003767, "bf16": 7.289808999999536}
+Stopping app - uncaught exception raised locally: DeserializationError("Deserialization failed because the 'torch' module is not available in the local environment.").
+╭───────────────────── Traceback (most recent call last) ──────────────────────╮
+│ /Volumes/attic/GpuKernelEngg/Kernel-Engg/assignment1/.venv/lib/python3.12/si │
+│ te-packages/modal/_serialization.py:117 in deserialize                       │
+│                                                                              │
+│   116 │   try:                                                               │
+│ ❱ 117 │   │   return Unpickler(client, io.BytesIO(s)).load()                 │
+│   118 │   except AttributeError as exc:                                      │
+╰──────────────────────────────────────────────────────────────────────────────╯
+ModuleNotFoundError: No module named 'torch'
+
+The above exception was the direct cause of the following exception:
+
+╭───────────────────── Traceback (most recent call last) ──────────────────────╮
+│ /Volumes/attic/GpuKernelEngg/research/kernel/baseline_modal.py:149 in main   │
+│                                                                              │
+│   148 def main(model: str = "gemma4_e4b", gpu: str = "L4"):                  │
+│ ❱ 149 │   res = run.with_options(gpu=gpu).remote(model)                      │
+│   150 │   os.makedirs(os.path.join(HERE, "results"), exist_ok=True)          │
+│                                                                              │
+│ /Volumes/attic/GpuKernelEngg/Kernel-Engg/assignment1/.venv/lib/python3.12/si │
+│ te-packages/modal/_object.py:46 in wrapped                                   │
+│                                                                              │
+│    45 │   │   await self.hydrate()                                           │
+│ ❱  46 │   │   return await method(self, *args, **kwargs)                     │
+│    47                                                                        │
+│                                                                              │
+│ /Volumes/attic/GpuKernelEngg/Kernel-Engg/assignment1/.venv/lib/python3.12/si │
+│ te-packages/modal/_functions.py:1893 in remote                               │
+│                                                                              │
+│   1892 │   │                                                                 │
+│ ❱ 1893 │   │   return await self._call_function(args, kwargs)                │
+│   1894                                                                       │
+│                                                                              │
+│ /Volumes/attic/GpuKernelEngg/Kernel-Engg/assignment1/.venv/lib/python3.12/si │
+│ te-packages/modal/_functions.py:1830 in _call_function                       │
+│                                                                              │
+│   1829 │   │                                                                 │
+│ ❱ 1830 │   │   return await invocation.run_function()                        │
+│   1831                                                                       │
+│                                                                              │
+│ /Volumes/attic/GpuKernelEngg/Kernel-Engg/assignment1/.venv/lib/python3.12/si │
+│ te-packages/modal/_functions.py:484 in run_function                          │
+│                                                                              │
+│    483 │   │   │   if await_response.output.result.status in TERMINAL_STATUS │
+│ ❱  484 │   │   │   │   return await _process_result(                         │
+│    485 │   │   │   │   │   await_response.output.result, await_response.outp │
+│                                                                              │
+│ /Volumes/attic/GpuKernelEngg/Kernel-Engg/assignment1/.venv/lib/python3.12/si │
+│ te-packages/modal/_utils/function_utils.py:577 in _process_result            │
+│                                                                              │
+│   576 │   try:                                                               │
+│ ❱ 577 │   │   return deserialize_data_format(data, data_format, client)      │
+│   578 │   except ModuleNotFoundError as deser_exc:                           │
+│                                                                              │
+│ /Volumes/attic/GpuKernelEngg/Kernel-Engg/assignment1/.venv/lib/python3.12/si │
+│ te-packages/modal/_serialization.py:397 in deserialize_data_format           │
+│                                                                              │
+│   396 │   if data_format == api_pb2.DATA_FORMAT_PICKLE:                      │
+│ ❱ 397 │   │   return deserialize(s, client)                                  │
+│   398 │   elif data_format == api_pb2.DATA_FORMAT_ASGI:                      │
+│                                                                              │
+│ /Volumes/attic/GpuKernelEngg/Kernel-Engg/assignment1/.venv/lib/python3.12/si │
+│ te-packages/modal/_serialization.py:134 in deserialize                       │
+│                                                                              │
+│   133 │   except ModuleNotFoundError as exc:                                 │
+│ ❱ 134 │   │   raise DeserializationError(                                    │
+│   135 │   │   │   f"Deserialization failed because the '{exc.name}' module i │
+╰──────────────────────────────────────────────────────────────────────────────╯
+DeserializationError: Deserialization failed because the 'torch' module is not 
+available in the local environment.

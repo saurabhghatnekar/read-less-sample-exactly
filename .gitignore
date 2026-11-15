@@ -19,6 +19,15 @@ exp01_repro/*
 exp01_repro/results/*
 !exp01_repro/results/*.json
 
+!kernel/
+kernel/*
+!kernel/*.py
+!kernel/README.md
+!kernel/logs/
+!kernel/logs/*
+!kernel/results/
+!kernel/results/*.json
+
 !notebooks/
 notebooks/*
 !notebooks/head_mean_row.py

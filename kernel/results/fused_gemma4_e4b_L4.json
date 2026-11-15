@@ -1,0 +1,238 @@
+{
+ "model": "gemma4_e4b",
+ "gpu": "NVIDIA L4",
+ "torch": "2.15.0+cu132",
+ "triton": "3.9.0",
+ "synthetic_mismatches_eager_graph": {
+  "greedy_TNone_capNone_B1": [
+   0,
+   0
+  ],
+  "greedy_TNone_capNone_B3": [
+   0,
+   0
+  ],
+  "greedy_TNone_capNone_B17": [
+   0,
+   0
+  ],
+  "greedy_TNone_capNone_B64": [
+   0,
+   0
+  ],
+  "gumbel_T1.0_capNone_B1": [
+   0,
+   0
+  ],
+  "gumbel_T1.0_capNone_B3": [
+   0,
+   0
+  ],
+  "gumbel_T1.0_capNone_B17": [
+   0,
+   0
+  ],
+  "gumbel_T1.0_capNone_B64": [
+   0,
+   0
+  ],
+  "gumbel_T0.6_capNone_B1": [
+   0,
+   0
+  ],
+  "gumbel_T0.6_capNone_B3": [
+   0,
+   0
+  ],
+  "gumbel_T0.6_capNone_B17": [
+   0,
+   0
+  ],
+  "gumbel_T0.6_capNone_B64": [
+   0,
+   0
+  ],
+  "greedy_TNone_cap30.0_B1": [
+   0,
+   0
+  ],
+  "greedy_TNone_cap30.0_B3": [
+   0,
+   0
+  ],
+  "greedy_TNone_cap30.0_B17": [
+   0,
+   0
+  ],
+  "greedy_TNone_cap30.0_B64": [
+   0,
+   0
+  ],
+  "gumbel_T1.0_cap30.0_B1": [
+   0,
+   0
+  ],
+  "gumbel_T1.0_cap30.0_B3": [
+   0,
+   0
+  ],
+  "gumbel_T1.0_cap30.0_B17": [
+   0,
+   0
+  ],
+  "gumbel_T1.0_cap30.0_B64": [
+   0,
+   0
+  ],
+  "gumbel_T0.6_cap30.0_B1": [
+   0,
+   0
+  ],
+  "gumbel_T0.6_cap30.0_B3": [
+   0,
+   0
+  ],
+  "gumbel_T0.6_cap30.0_B17": [
+   0,
+   0
+  ],
+  "gumbel_T0.6_cap30.0_B64": [
+   0,
+   0
+  ]
+ },
+ "V": 262144,
+ "d": 2560,
+ "rules": {
+  "greedy": {
+   "1": {
+    "states": 128,
+    "ms": {
+     "base": 5.346303939819336,
+     "base_graph": 5.368832111358643,
+     "fused": 2.4094719886779785,
+     "fused_graph": 1.8247679471969604
+    },
+    "int8_rows_per_state": {
+     "median": 29,
+     "p99": 26209,
+     "max": 46689
+    },
+    "exact_rows_per_state": {
+     "median": 1,
+     "max": 62
+    },
+    "mismatches": 0,
+    "mismatches_graph": 0,
+    "mismatches_bf16_baseline": 1
+   },
+   "8": {
+    "states": 256,
+    "ms": {
+     "base": 5.574656009674072,
+     "base_graph": 5.649407863616943,
+     "fused": 2.9224960803985596,
+     "fused_graph": 2.407423973083496
+    },
+    "int8_rows_per_state": {
+     "median": 48,
+     "p99": 26209,
+     "max": 46689
+    },
+    "exact_rows_per_state": {
+     "median": 1,
+     "max": 62
+    },
+    "mismatches": 0,
+    "mismatches_graph": 0,
+    "mismatches_bf16_baseline": 1
+   },
+   "32": {
+    "states": 512,
+    "ms": {
+     "base": 6.660096168518066,
+     "base_graph": 7.0307841300964355,
+     "fused": 5.811200141906738,
+     "fused_graph": 5.291007995605469
+    },
+    "int8_rows_per_state": {
+     "median": 47,
+     "p99": 26209,
+     "max": 46689
+    },
+    "exact_rows_per_state": {
+     "median": 1,
+     "max": 62
+    },
+    "mismatches": 0,
+    "mismatches_graph": 0,
+    "mismatches_bf16_baseline": 1
+   }
+  },
+  "gumbel_1.0": {
+   "1": {
+    "states": 128,
+    "ms": {
+     "base": 5.416959762573242,
+     "base_graph": 5.400576114654541,
+     "fused": 2.5804800987243652,
+     "fused_graph": 1.8431999683380127
+    },
+    "int8_rows_per_state": {
+     "median": 17,
+     "p99": 17201,
+     "max": 28023
+    },
+    "exact_rows_per_state": {
+     "median": 1,
+     "max": 19
+    },
+    "mismatches": 0,
+    "mismatches_graph": 0,
+    "mismatches_bf16_baseline": 1
+   },
+   "8": {
+    "states": 256,
+    "ms": {
+     "base": 5.633024215698242,
+     "base_graph": 5.727231979370117,
+     "fused": 3.191807985305786,
+     "fused_graph": 2.4381439685821533
+    },
+    "int8_rows_per_state": {
+     "median": 25,
+     "p99": 21780,
+     "max": 64536
+    },
+    "exact_rows_per_state": {
+     "median": 1,
+     "max": 31
+    },
+    "mismatches": 0,
+    "mismatches_graph": 0,
+    "mismatches_bf16_baseline": 2
+   },
+   "32": {
+    "states": 512,
+    "ms": {
+     "base": 7.268352031707764,
+     "base_graph": 7.55404806137085,
+     "fused": 5.742591857910156,
+     "fused_graph": 5.244927883148193
+    },
+    "int8_rows_per_state": {
+     "median": 34,
+     "p99": 23188,
+     "max": 64536
+    },
+    "exact_rows_per_state": {
+     "median": 1,
+     "max": 31
+    },
+    "mismatches": 0,
+    "mismatches_graph": 0,
+    "mismatches_bf16_baseline": 2
+   }
+  }
+ }
+}
