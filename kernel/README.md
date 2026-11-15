@@ -4,9 +4,10 @@
 - **Rules:** here greedy and Gumbel; there greedy only.
 - **Batching:** here each state has its own row list; there the batch reads the union of all rows.
 - **First pass:** here it runs on tensor cores and needs a wider slack (it assumes tensor-core adds may truncate); there, see `exp01_repro/README.md`.
+- **Bound:** here the Hoeffding bound with no mean-row shift; there the sub-Gaussian bound (0.577 of Hoeffding) at the B1 shifts. The certificate here is the wider one, so its shortlists are longer than they need to be.
 - **Sarvam-30B:** not covered here, so there is no K2 correction and no overflow fallback.
 
-Measured on different days and containers, batch-1 graphed steps on the L4 are:
+Measured on different days and containers, and with the differences above (so not like for like), batch-1 graphed steps on the L4 are:
 
 | Model | This folder | exp01_repro |
 |---|---|---|
@@ -14,6 +15,19 @@ Measured on different days and containers, batch-1 graphed steps on the L4 are:
 | Gemma 4 E4B | 1.84 ms | 2.19 ms |
 
 That is 0.35 and 0.34 of the BF16 head here, against 0.41 there. Neither changes E1's finding: on an A100 the certified head was not faster than the stock head, and the end-to-end step was unchanged. Whether the tensor-core first pass helps on the A100 is untested.
+
+## Review corrections (15 Nov 2026, after the first commit of this folder)
+
+A review of this folder found the following. The sections below are corrected where they said otherwise; the results files are unchanged.
+
+1. **Every time here is a median, and the tail is unmeasured.** The runs kept only the median time per batch. Shortlist lengths have a long tail: on Gemma 4, greedy, batch 1, the median state needs 29 INT8 rows, the p99 state 26,209 and the worst 46,689 (Qwen3-8B: 3, 93 and 1,364). So "faster than the BF16 head" is shown for the median batch only. A rerun that saves p99 and mean times is owed.
+2. **Exactness was checked on 512 distinct states per rule and model, not 896.** Batch 1 uses the first 128 of them, batch 8 the first 256 and batch 32 all 512, so 896 counts some states two or three times.
+3. **The Gumbel timings assume the noise is already there.** Both sides get the noise as an input. Generating it in PyTorch took 0.73 ms at batch 1 and 23.1 ms at batch 32 on Gemma 4 (0.43 and 11.9 ms on Qwen3-8B; `results/baseline_*.json`). With those times added to both sides, the batch-1 speed-up would be 2.4 times on Gemma 4 and 2.5 on Qwen3-8B, and at batch 32 it would be 1.08 and 1.24. Two further points:
+   - The first pass and the select step test every row with that row's own noise. So noise is needed for all V rows of every state, and "only for the rows that need it" is not possible in this design.
+   - The comparison is against a Gumbel-max BF16 head, which token equality requires. A stock sampler (softmax and one uniform draw) needs no per-row noise at all.
+4. **The first-pass rate of about 155 GB/s is an underestimate.** It was timed eagerly, with device syncs, and includes preparing the state and allocating the outputs. The whole graphed step takes 1.78 ms (Qwen3-8B) and 1.84 ms (Gemma 4), so the first pass inside it reads its 322 and 348 MB at 180 GB/s or more. At cuBLAS's 250 GB/s it would take 1.29 and 1.39 ms, so at most about 0.5 ms is left to gain at batch 1.
+5. **The exact pass sums in its own order.** K4 computes BF16 row × h in FP32 in a different order from the reference's matrix product. If two rows both reach the exact pass and their reference scores differ by less than FP32 rounding, the kernel could pick the other one. No such case occurred. The same holds for the row-gather step in `exp01_repro`.
+6. **No protocol was hashed for this folder,** and it arrived as one commit, so the targets below cannot be shown to predate the results. Treat them as notes, not predictions.
 
 | File | What |
 |---|---|
@@ -46,7 +60,7 @@ Greedy is within a few percent of Gumbel T=1 everywhere (`results/*.json`). "Pas
 2. **Pass 1 needs a kernel.** In PyTorch it takes 100 to 112 ms, 20 times the BF16 head, because it unpacks and dequantises to FP32 in memory. Expected.
 3. **Pass 1 alone is not enough.** At batch 1, even with pass 1 at cuBLAS bandwidth, Gemma 4 only goes from 5.36 to 5.05 ms. The INT8 and BF16 passes read 16 and 1 rows (about 40 KB), yet take 3.2 ms: kernel launches, syncs on data-dependent row lists, and the rule's elementwise passes over all 262K logits. Qwen3-8B fares better (4.91 to 3.12 ms, 1.6 times faster) because its later passes take 1.6 ms.
 4. **The union of rows breaks batching on Gemma 4.** One Tamil state needs about 5,000 INT8 rows (median at batch 1), so a batch of 8 reads 12,706 rows and a batch of 32 reads 26,634, and the certified path loses to BF16 from batch 8 on. Each state needs its own shortlist. Qwen3-8B's shortlists stay small (306 rows at batch 32).
-5. **Noise generation is slow.** Counter-based Gumbel noise in PyTorch takes 0.7 ms at batch 1 and 23 ms at batch 32 on Gemma 4. It is left out of both sides here, but a real sampler must generate it inside the kernel, only for the rows it needs.
+5. **Noise generation is slow.** Counter-based Gumbel noise in PyTorch takes 0.7 ms at batch 1 and 23 ms at batch 32 on Gemma 4. It is left out of both sides here, but a real sampler must generate it inside the kernel. (Corrected: this said "only for the rows it needs", which the rule does not allow; see review correction 3.)
 
 ## Targets for the kernel
 
@@ -69,7 +83,7 @@ Not covered: top-k and min-p, other GPUs (T4, RTX 4090), CUDA graphs or `torch.c
 ## Correctness
 
 - **Logits.** Both kernels' logits differ from the PyTorch FP32 pass 1 by at most 0.04% of cert_core's FP32 slack, on real states at batch 1, 8 and 32.
-- **Tokens.** With the `tc` kernel as pass 1, the certified head gave the FP32 reference token on every state: 896 states per model, greedy and Gumbel T = 1, batch 1, 8 and 32.
+- **Tokens.** With the `tc` kernel as pass 1, the certified head gave the FP32 reference token on every state: 512 distinct states per rule and model (greedy and Gumbel T = 1), checked at batch 1, 8 and 32.
 - **Slack for `tc`.** The kernel does its arithmetic in a different order, so its slack must also cover tensor-core addition, which may truncate (Fasi et al., 2021). It uses unit roundoff 2u over 2d operations and adds a term for the dither: `gamma2 (||h|| ||w~|| + 2 sum_g s_g ||u_g|| ||h_g||)`.
   - This makes the bound about twice cert_core's slack larger. For most rows that is negligible. On rows whose bound is mostly slack, it is up to 1.9% (Gemma 4) and 4.3% (Qwen3-8B) larger.
   - The soundness of this rests on that model of tensor-core rounding. The paper must state it, or we test it with planted cases (C6-f style) on each GPU.
@@ -89,7 +103,7 @@ Not covered: top-k and min-p, other GPUs (T4, RTX 4090), CUDA graphs or `torch.c
 Batch-1 `fp32` kernel: 1.89 ms (Qwen3-8B), 1.98 ms (Gemma 4).
 
 What it says:
-1. **Pass 1 is now 2.3–2.6 times faster than the BF16 head at every batch size**, but at 130–160 GB/s against cuBLAS's 220–250. Reaching cuBLAS bandwidth would take it to about 1.3–1.4 ms.
+1. **Pass 1 is now 2.3–2.6 times faster than the BF16 head at every batch size**, but at 130–160 GB/s against cuBLAS's 220–250. Reaching cuBLAS bandwidth would take it to about 1.3–1.4 ms. (These rates include eager overhead; the kernel itself is faster. See review correction 4.)
 2. **The certified head as a whole is still no faster.** It roughly breaks even at batch 1, because PyTorch's INT8 and BF16 passes cost 2.4–2.9 ms, which is more than pass 1 saves.
 3. **Gemma 4 batches are dominated by the union of rows** (13.6 ms for the INT8 pass at batch 32), as the baseline predicted.
 
@@ -115,8 +129,8 @@ Nothing waits on the CPU, so the whole sequence is captured as a CUDA graph.
 ## Correctness
 
 - **Synthetic head:** zero mismatches against cert_core's reference. This covers soft-cap on and off; greedy, Gumbel T = 1 and T = 0.6; batch 1, 3, 17 and 64; eager and graphed.
-- **Real heads:** zero mismatches on 896 states per rule and model, eager and graphed. The plain BF16 head disagrees with the FP32 reference on 1–3 states per cell, as before.
-- **Soft-cap:** the kernels use libdevice `tanh`, not torch's. The tokens still matched everywhere, but a near-exact tie between two rows could in principle resolve differently. In the same spirit, Triton contracts multiply-adds into FMAs by default (`TRITON_DEFAULT_FP_FUSION`). FMAs only reduce rounding error, so the slack still covers them.
+- **Real heads:** zero mismatches on 512 distinct states per rule and model, at batch 1, 8 and 32, eager and graphed. The plain BF16 head disagrees with the FP32 reference on 1–3 states per cell, as before.
+- **Soft-cap:** the kernels use libdevice `tanh`, not torch's. The tokens still matched everywhere, but a near-exact tie between two rows could in principle resolve differently. In the same spirit, Triton contracts multiply-adds into FMAs by default (`TRITON_DEFAULT_FP_FUSION`). FMAs only reduce rounding error, so the slack still covers them. The exact pass also sums in its own order (review correction 5).
 
 ## Timing, L4, milliseconds (median per batch, CUDA events)
 
@@ -132,13 +146,16 @@ Nothing waits on the CPU, so the whole sequence is captured as a CUDA graph.
 Greedy is within about 0.1 ms of Gumbel at every size (`results/fused_*.json`).
 
 What it says:
-1. **The certified head is now faster than the BF16 head at every batch size tested,** on both models, with exact tokens. At batch 1 it is about 2.8 times faster. These are times for the head alone, not for whole tokens.
+1. **For the median batch, the certified head is now faster than the BF16 head at every batch size tested,** on both models, with exact tokens. At batch 1 it is about 2.8 times faster. These are times for the head alone, not for whole tokens, with the Gumbel noise supplied, and the tail was not measured (review corrections 1 and 3).
 2. **Per-state lists fixed most of the Gemma 4 batching problem:** 24.7 ms at batch 32 before, 5.2 ms now. What remains is imbalance. At batch 32 each state gets 8 INT8 programs, so a state with 23,000 rows (an Indian-language state, p99) holds up the batch.
 3. **CUDA graphs save about 0.6–0.7 ms per call.** That is the launch and Python overhead that remained after the syncs were removed.
 
 ## Next
 
 - **Balance the INT8 work across states** with one shared queue of (state, row) work instead of a fixed number of programs per state. This is the Gemma 4 batch-32 gap.
-- **Pass-1 bandwidth** (about 155 GB/s against cuBLAS's 220–250). It now dominates batch-1 time.
-- **Gumbel noise inside the kernels**, generated only for the rows that need it. It is excluded from both sides here, so the timings above do not include it.
+- **Tail times:** save p99 and mean per batch, not only the median.
+- **The sub-Gaussian bound and the B1 shifts,** as in `exp01_repro`. They shorten the shortlists, which is what holds up Gemma 4 at batch 32.
+- **Pass-1 bandwidth** (at least 180 GB/s inside the graphed step, against cuBLAS's 220–250). It dominates batch-1 time, with at most about 0.5 ms left to gain.
+- **Gumbel noise inside the kernels.** Every row's test needs its own noise, so this means V draws per state inside the first pass. It is excluded from both sides here, so the timings above do not include it.
+- **The first pass on an A100,** where E1 found the earlier kernel limited by its own arithmetic.
 - **Top-k and min-p; T4 and RTX 4090; whole-model tokens per second.**
