@@ -1,0 +1,29 @@
+{
+  "experiment": "Tail times of the fused certified head in kernel/ (fused.py) on an L4",
+  "written": "2026-11-15, after the first fused run (results/fused_<model>_L4.json) and its review were read, before any run of this harness",
+  "why": "The first run kept only the median time per batch. Shortlist lengths have a long tail (Gemma 4, greedy, batch 1: median 29 INT8 rows, p99 26,209, largest 46,689), so 'faster than the BF16 head' was shown for the median batch only.",
+  "unchanged": "fused.py, int4_pass1.py, cert_head.py, common.py and exp01_repro/cert_core.py as committed in c60f0ba; the same hardware (Modal L4), models (Qwen3-8B, Gemma 4 E4B), rules (greedy, Gumbel T = 1), state selection (512 saved states per rule, torch.randperm with generator seed 0 carried across the two rules in the same order), noise, Hoeffding bound at t = 0, baseline (BF16 matmul, soft-cap, noise added, argmax) and CUDA-event timing as fused_modal.py",
+  "changed": {
+    "coverage": "batch 1 runs over all 512 states (first run: the first 128), batch 8 over 64 batches (first run: 32), batch 32 over 16 batches (as before)",
+    "repeats": "each batch is timed 3 times in a row for each of the four variants (BF16 eager, BF16 graphed, fused eager, fused graphed); every time is saved",
+    "saved": "raw per-batch times, per-state INT8 and exact row counts, and mismatch counts per repeat; no summary is computed on the GPU side"
+  },
+  "statistics": {
+    "per_batch_time": "the median of the 3 repeats",
+    "across_batches": "median, mean, p99 as sorted[int(0.99 (n - 1))] (the first run's definition; with 16 batches this is the second largest), and the largest",
+    "reproduction": "the median of the first repeat over the first 128, 32 and 16 batches, which is what the first run measured",
+    "loses": "the number of batches whose fused graphed time exceeds the BF16 graphed median, and the number exceeding the same batch's BF16 graphed time",
+    "by_rows": "fused graphed time against the largest INT8 shortlist in the batch"
+  },
+  "checks": "every token of the fused head, eager and graphed, on every repeat, equals cert_core's FP32 reference; the per-state row counts are the same on every repeat",
+  "prediction": {
+    "controls": "no token mismatch; row counts identical across repeats",
+    "reproduction": "the BF16 graphed and fused graphed medians are within 5% of the first run in every cell",
+    "qwen3_8b": "the p99 fused graphed time is within 10% of the median at every batch size and for both rules, and no batch exceeds the BF16 graphed median",
+    "gemma_batch1": "greedy: p99 between 2.2 and 3.6 ms (median about 1.82), the largest below the BF16 graphed median (about 5.4 ms), the mean below 2.0 ms. Gumbel: p99 below 3.0 ms",
+    "gemma_batch8": "p99 below the BF16 graphed median for both rules; for Gumbel the slowest batch (one state with 64,536 INT8 rows) exceeds it",
+    "gemma_batch32": "for both rules the slowest batch takes more than twice the BF16 graphed median (about 7.0 and 7.6 ms): a state gets only 8 INT8 programs, so one long shortlist holds up the batch. At least 2 of the 16 batches exceed the BF16 graphed median",
+    "reasoning": "from the first run, the INT8 pass moves roughly 10 GB/s through a state's 8 programs at batch 32 and is limited by memory at batch 1 (256 programs); a 26,209-row shortlist is 67 MB and a 64,536-row one 165 MB",
+    "takeaway_if_wrong": "If Gemma 4 at batch 32 has no batch above the BF16 median, the INT8 pass is faster per program than estimated and balancing work across states matters less than the README says. If Gemma 4 at batch 1 has a p99 above the BF16 median, the batch-1 claim holds for typical states only and must be reported that way."
+  }
+}

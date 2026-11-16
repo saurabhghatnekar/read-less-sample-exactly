@@ -22,6 +22,7 @@ exp01_repro/results/*
 !kernel/
 kernel/*
 !kernel/*.py
+!kernel/*.json
 !kernel/README.md
 !kernel/logs/
 !kernel/logs/*

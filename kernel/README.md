@@ -153,7 +153,7 @@ What it says:
 ## Next
 
 - **Balance the INT8 work across states** with one shared queue of (state, row) work instead of a fixed number of programs per state. This is the Gemma 4 batch-32 gap.
-- **Tail times:** save p99 and mean per batch, not only the median.
+- **Tail times:** save p99 and mean per batch, not only the median. The harness is written and its protocol hashed (`tail_protocol.json`, `fused_tail_modal.py`, `tail_summarize.py`), but it has not run: two launches (15 and 16 Nov) were stopped before any container produced a result (`logs/fused_tail_killed_*.txt`).
 - **The sub-Gaussian bound and the B1 shifts,** as in `exp01_repro`. They shorten the shortlists, which is what holds up Gemma 4 at batch 32.
 - **Pass-1 bandwidth** (at least 180 GB/s inside the graphed step, against cuBLAS's 220–250). It dominates batch-1 time, with at most about 0.5 ms left to gain.
 - **Gumbel noise inside the kernels.** Every row's test needs its own noise, so this means V draws per state inside the first pass. It is excluded from both sides here, so the timings above do not include it.
