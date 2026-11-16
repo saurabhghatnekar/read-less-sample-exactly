@@ -674,3 +674,76 @@ Against the predictions: all the numerical ones missed, in the same direction. H
 
 Limits: one GPU type, one run, greedy only, short prompts (context 28 to 438 tokens). Sarvam's figure joins two containers on different A100 variants (SXM4 and PCIe). The kernels' block sizes were tuned on the L4 and not retuned for the A100. Hugging Face transformers is not how a production server decodes.
 
+
+## N1: where Sarvam-30B's dominant direction comes from (16 Nov 2026, exploratory)
+
+K2 and K3 found that 74% of the second moment of Sarvam-30B's final states lies along one direction, the mean state. A note from the lab asked where it appears: only after the final norm (then the norm's gain vector makes it), or across the layers (then it is in the model).
+
+Rule `norm_rule.json` (hashed before any run on a real model as sha256 `197c582e…`; the published copy, sha256 `4ab0cbce…`, differs only in leaving out a remark from a non-public note; both hashes are in the log). Code `norm_lib.py`, `norm_probe_modal.py`, `norm_summarize.py`, `test_norm_probe.py`; results `logs/normprobe_<model>.json`, table `logs/normprobe_summary.txt`. Sarvam-30B and Sarvam-1, this reproduction's 240 prompts, greedy, up to 64 new tokens, last position only: 15,214 and 15,025 states. Hooks capture the output of every decoder block, the input of the final norm and its output. Two derived sites: the pre-norm state over its root mean square, and the post-norm state with the gain undone (`y / g`). Both norms are RMS norms with a gain and no bias. Directions are fitted on the even prompts and ρ is measured on the odd ones.
+
+Controls, all pass:
+- **Hooks:** the norm's output equals the head's input bit for bit on all 960 steps of each model, and the last block's output equals the norm's input.
+- **Reproduction:** the post-norm top-1 share is 0.743 on Sarvam-30B (K3: 0.744) and 0.438 on Sarvam-1 (K3: 0.431). On Sarvam-30B the post-norm direction has cosine 0.9999 with K2's saved one.
+- **Gain:** undoing the gain reproduces the normalised pre-norm state (median cosine 0.999997).
+- **Offline:** `test_norm_probe.py` passes on a small random Llama model and on synthetic states with the direction planted in the model, and made by a gain.
+
+### Sarvam-30B: the last block writes it, and the norm's gain doubles it
+
+| Site | Top-1 share | Mean-state share | ρ, median (odd prompts) | Cosine of top direction with the final one | Median state norm |
+|---|---|---|---|---|---|
+| Block 17 of 19 | 0.224 | 0.181 | 0.157 | 0.012 | 93 |
+| Block 18 | 0.177 | 0.161 | 0.170 | 0.068 | 118 |
+| Block 19 = input of the norm | 0.402 | 0.330 | 0.365 | 0.768 | 199 |
+| Gain undone (`y / g`) | 0.367 | 0.327 | 0.363 | 0.775 | 64 |
+| Output of the norm = input of the head | 0.743 | 0.518 | 0.677 | 1 | 219 |
+
+- **Through block 18 the direction is not there.** At every block from 1 to 18 the top direction and the mean state have a cosine of at most 0.07 with the final ones.
+- **The last block creates it.** After block 19 the cosine is 0.77, the top-1 share is 0.40 and the mean-state share 0.33. The median state norm grows from 118 to 199 in that one block.
+- **The norm's gain then doubles its share:** 0.367 with the gain undone, 0.743 after it. The mean-state share goes from 0.327 to 0.518 and the median ρ from 0.36 to 0.68. The gain also turns the direction (cosine 0.775 between the two).
+- **The gain is broad, not a few large entries.** Mean 1.68, standard deviation 1.23, range 0.045 to 9.19; its five largest entries hold 2.1% of its squared norm. It is larger on the coordinates where the gain-free states share an offset (correlation 0.64 between the gain and the size of the mean). The gain vector itself is not the direction (cosine 0.06).
+- **Blocks 4 to 14 show a different effect.** Their top-1 share is high (between 0.42 and 0.83), but that direction sits in five coordinates (0.91 to 0.995 of its energy), has cosine 0 with the final one, and the median ρ is 0.01 to 0.06. So a minority of states have very large entries in a few coordinates there. It fades by block 17.
+
+Verdict by the rule: "the norm makes it", at a ratio of 0.495 against a threshold of 0.5. That is on the line. The fair reading is both: the last block writes a shared vector into the state, and the gain doubles its weight.
+
+### Sarvam-1: a different mechanism
+
+Verdict "both" (0.299 with the gain undone, 0.438 after it, ratio 0.68). But its top direction is not the mean state: it sits in five coordinates (94% of its energy), the mean-state share is 0.13, and the gain raises the top-1 share while the mean-state share falls (0.22 to 0.13). Blocks 1 to 27 are dominated by another five-coordinate direction (top-1 0.50 to 0.97) unrelated to the final one (cosine below 0.02); the last block removes it. So the two Sarvam models do not share a cause, and Sarvam-30B's spread-out mean state remains particular to it among the models surveyed.
+
+### Groups of 128 coordinates (exploratory, prompted by the lab)
+
+A remark in the lab's note about how the bound splits over groups of 128 coordinates prompted this. The note is not public, so only our own measurement is given here (the published `norm_rule.json` leaves the remark out; the copy hashed before the run is kept unpublished). We measured the share of the first-pass variance term by group (the group's energy times the mean over rows of the squared INT4 group scale, t = 0) on the odd-prompt post-norm states. A uniform share would be 0.031.
+
+| Language | Largest group's share, median | After removing our direction | Group 26 is the largest on |
+|---|---|---|---|
+| Bengali | 0.068 | 0.114 | |
+| Code | 0.060 | 0.117 | |
+| English | 0.056 | 0.106 | |
+| Hindi | 0.058 | 0.099 | |
+| Tamil | 0.333 | 0.583 | 74% of states (79% after) |
+| Telugu | 0.428 | 0.593 | 53% of states (59% after) |
+
+- **Tamil and Telugu have one heavy group.** In those two languages one group, number 26 (coordinates 3,328 to 3,455), carries a third and 0.43 of the variance term for the median state. In the other four languages no group carries more than 0.07.
+- **Our direction is spread over all groups.** Its largest group holds 5.3% of its energy and its five largest coordinates 7.6%. That is why no small set of groups carries the bound in general.
+- **The group-26 part is separate from our direction.** Removing our direction leaves it and raises its share to 0.58 and 0.59. This fits K2, where directions two to four were language-specific, and the spectrum check, where Tamil and Telugu had the smallest ρ (0.30 and 0.19).
+- On Sarvam-1 every language has a heavy group (0.28 to 0.83), which follows from its five-coordinate direction.
+
+### What it means for the method
+
+- **K2's correction stands.** It acts on the head's input, whatever made the direction.
+- **The direction cannot be read off the checkpoint's gain alone** (cosine 0.06). It needs states, or an analysis of the last block.
+- **Untested alternative:** fold the gain into the head rows (`W diag(g)`) and bound against the gain-free state, whose median ρ is 0.36, not 0.68. This changes the group scales, so whether the bound narrows cannot be said without running it.
+- **Not known:** what in block 19 writes the vector (attention, the experts, or a bias), and whether other models' last blocks and gains do the same on a smaller scale. K3's other models were not probed.
+
+Against the predictions:
+- **Sarvam-30B verdict: missed.** Predicted "in the model" with a gain-free share of at least 0.60; measured 0.367.
+- **Sarvam-30B layers: missed.** Predicted a build-up across layers with the last block changing the share by less than 0.15; it is a last-block effect (+0.225, and the direction itself only appears there).
+- **Gain not concentrated: held** (2.1%, predicted below 5%).
+- **Sarvam-1: missed.** Predicted a ratio of at least 0.8; measured 0.68.
+- **Direction is spread: held** (largest group 5.3%, predicted below 10%).
+- **Groups: held.** Tamil 0.333 and Telugu 0.428 (predicted at least 0.30), the others at most 0.068 (predicted at most 0.15), and the concentration stays after removing our direction.
+
+Deviations and our own mistakes:
+- **The rule's "first block at half the pre-norm share" is uninformative.** Earlier blocks have a high top-1 share along a different direction, so it returns block 1 on both models. The cosine with the final direction is what locates the appearance, and the table uses it.
+- **Sarvam-1 had no smoke run.** Its L4 container did not start in 20 minutes, so the smoke was stopped after Sarvam-30B's half passed. The function was then allowed to take the first free of L4, A10G and A100-40GB, and the full run used an A10. Sarvam-30B's smoke (12 prompts) gave the same picture as the full run (0.349 and 0.713).
+
+Limits: states are regenerated, not the saved exp01 states. Last position only, greedy, 64 tokens, one run. The group split uses mean-row scales at t = 0, not each row's own bound. Nothing here says which part of block 19 writes the vector.

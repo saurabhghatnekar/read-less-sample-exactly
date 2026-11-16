@@ -16,6 +16,7 @@ Models: Qwen3-8B (151,936 × 4,096 head), Gemma 4 E4B (262,144 × 2,560, tied, s
   - **K2**, cancelling exactly the quantization error along the state's dominant directions
   - **K3**, a survey of fourteen models: Sarvam-30B is the only one whose states are dominated by one direction
   - **E1**, the head's share of a whole decode step on an A100-80GB
+  - **N1**, where Sarvam-30B's dominant state direction appears: the last decoder block writes it and the final norm's gain doubles it
 
   Results and caveats are in [`exp01_repro/README.md`](exp01_repro/README.md).
 - [`kernel/`](kernel/): a second, independently built set of L4 kernels for the certified step (15 Nov 2026): a PyTorch baseline, a tensor-core first pass, and a fused, graph-captured step with per-state row lists for greedy and Gumbel sampling. See [`kernel/README.md`](kernel/README.md), including how it relates to the graph-captured step in `exp01_repro`.
@@ -35,6 +36,8 @@ That is an L4 result and does not carry over to a faster GPU or to a whole decod
 Without the certificate, the same 4-bit first pass emits a different token from the reference on 2.0% (Qwen3-8B), 2.7% (Gemma 4) and 8.8% (Sarvam-30B) of greedy steps, and about four prompts in five depart from the reference within 128 tokens. On Qwen3-8B and Gemma 4 most of these are near-ties (median 0.3 logits); on Sarvam-30B nearly half are more than 1 logit off. The stock BF16 head itself differs from the reference on 0.41%, 0.23% and 2.54% of greedy steps, always through ties in its BF16 logits: the certificate reproduces the FP32-accumulated reference, not the stock BF16 run.
 
 Sarvam-30B's tail is not a loose bound: its bound is no wider than Gemma 4's, but its whole vocabulary sits close under the leader (the median token is 1.3 interval-widths below the top logit, against 2.1 and 2.9), so a large part of it stays within reach. A shared offset supplies 77% of its top logit. That offset is in the state: 74% of the states' second moment lies along one direction, which widens every interval without separating any two tokens. Centring the head rows cannot remove it; cancelling its error exactly (K2) does, and takes Sarvam's greedy p99 from 0.512 to 0.260. Across fourteen models (K3) Sarvam-30B is the only one whose states are dominated by one direction, so in this set the correction is specific to it. The same survey found the uncorrected certificate at the 0.258 floor on seven of thirteen models and well off it on four (Phi-4-mini, Sarvam-30B, Sarvam-1, SmolLM3-3B).
+
+Where that direction comes from (N1, 16 Nov 2026): it is absent through block 18 of Sarvam-30B's 19, the last block creates it (top-1 share 0.40 before the final norm), and the norm's gain doubles its share to 0.74. Sarvam-1's dominant direction has a different cause.
 
 ## Not included
 

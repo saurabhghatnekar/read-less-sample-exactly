@@ -1,0 +1,40 @@
+{
+  "experiment": "N1: where does the dominant state direction of Sarvam-30B appear? Before or after the final norm, and at which layer",
+  "written": "2026-11-16, after K2, K3 and the spectrum check were read and a note from the lab asked for this measurement, before any N1 code ran on a real model",
+  "question": "K2 and K3 found that 74% of the second moment of Sarvam-30B's final states lies along one direction, the mean state. The lab asked where it appears: if only after the final norm, the norm's gain vector makes it; if it builds up across layers, it is in the model itself.",
+  "models": "Sarvam-30B (sarvamai/sarvam-30b at 071ae95e, its pinned environment) and Sarvam-1 (sarvamai/sarvam-1 at e9607337, the K3 environment)",
+  "states": "this reproduction's 240 prompts, the model's chat template as in exp01 and K3, greedy, at most 64 new tokens, batch 16, last position only. States are regenerated, so they are not the saved exp01 states. Fits use the even prompt ids; rho is measured on the odd ones.",
+  "sites": "the output of every decoder block, the input of the final norm (pre-norm), the output of the final norm (post-norm, which is the head's input), and two derived sites: the pre-norm state divided by its root mean square, and the post-norm state with the norm's gain (and bias, if any) undone, (y - b) / g",
+  "measured_per_site": {
+    "top1": "share of the largest eigenvalue of the uncentred second moment (K3's measure), and its direction p",
+    "mean_share": "squared norm of the mean state over the mean squared norm of a state (the spectrum check's measure)",
+    "unit_mean_share": "the same after scaling every state to unit length, so that long states do not weigh more",
+    "rho": "median over odd-prompt states of the share of the state's squared norm along p",
+    "direction": "cosine of p and of the mean state with the post-norm ones and with the previous site's; median state norm; share of p's energy in its five largest coordinates and in its largest group of 128 coordinates"
+  },
+  "norm": "class, epsilon, whether it has a bias; the gain vector's mean, spread, smallest and largest entries and the share of its squared norm in its five largest entries; the correlation across coordinates between the gain and the size of the mean of the gain-free state",
+  "groups_of_128": "exploratory, prompted by a remark in a note from the lab (16 Nov, not public) about how the bound splits over groups of 128 coordinates. Its content is left out of this published copy until the lab publishes it; the copy hashed before the run (sha256 197c582e03204518aa0660f691be0f3b0f8982c03d7ec77f1c5e1c7a3a8e38af) is kept unpublished and differs from this one only in this field and in the last sentence of takeaway_if_wrong. On post-norm odd-prompt states: the share of the first-pass variance term carried by each group, sum over the group of h_i^2 times the mean over rows of the squared INT4 group scale (t = 0), for h and for h - (h.p)p; per language, the median largest-group share, the group that is most often the largest and how often; the same with raw energy",
+  "controls": {
+    "N0_hooks": "on every step the final norm's output equals the head's input bit for bit; any difference invalidates the run. Whether the last block's output equals the norm's input is reported.",
+    "N0_reproduce": "the post-norm top-1 share is within 0.03 of K3's on both models (0.744 and 0.431), and on Sarvam-30B the post-norm p has cosine at least 0.99 with K2's saved pca1",
+    "N0_gain": "undoing the gain reproduces the normalised pre-norm state: median cosine between (y - b) / g and x / rms(x) at least 0.999 (after removing the per-state mean if the norm is a LayerNorm). If the module's stored weight does not reproduce it (for example a 1 + weight convention), the gain actually applied is fitted per coordinate by least squares of y on x / rms(x), that fitted gain is used, and this is reported",
+    "N0_cpu": "test_norm_probe.py: on a small random Llama model the captured sites equal output_hidden_states where both exist; on synthetic states with a direction planted in the model, and with one made by a gain vector, the verdict below comes out right"
+  },
+  "verdict": {
+    "measure": "the top-1 share at the gain-free site, (y - b) / g, against the post-norm top-1 share; the mean shares are reported beside it",
+    "norm_makes_it": "gain-free share at most half the post-norm share",
+    "in_the_model": "gain-free share at least 0.8 of the post-norm share; then the first block whose output has a top-1 share of at least half the pre-norm value is reported as where it appears",
+    "both": "anything between"
+  },
+  "status": "exploratory: one pass, no selection; the predictions below are what would count against our expectation",
+  "prediction_written_before_running": {
+    "controls": "all pass",
+    "sarvam_30b_verdict": "in the model: the gain-free top-1 share is at least 0.60 (post-norm 0.74). Confidence about two in three; a gain that doubles the share is the main alternative",
+    "sarvam_30b_layers": "it builds up and is not a last-block effect: the block two thirds of the way up already has a top-1 share of at least half the pre-norm value, and the last block changes the share by less than 0.15. Low confidence",
+    "sarvam_30b_gain": "the gain vector is not concentrated: its five largest entries hold less than 5% of its squared norm",
+    "sarvam_1": "also in the model: gain-free top-1 share at least 0.8 of the post-norm share (0.43)",
+    "direction_is_spread": "on Sarvam-30B the largest group of 128 coordinates holds less than 10% of p's energy (uniform would be 3.1%)",
+    "groups": "on Sarvam-30B the median largest-group share of the variance term is at least 0.30 for Tamil and for Telugu and at most 0.15 for the other four groups; removing p does not remove the Tamil and Telugu concentration (it stays at least 0.30), because p is spread over all groups and those two languages have the smallest rho (0.30 and 0.19 in the spectrum check)",
+    "takeaway_if_wrong": "If the norm makes it, the fix belongs in the head: fold the gain into the head rows or re-fit the norm, and the correction could be derived from the checkpoint with no states. If Tamil and Telugu show no concentrated group here, our mean-row scales measure something other than the per-row bound, and the split needs to be redone on the same rows."
+  }
+}

@@ -1,0 +1,40 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-TpKRoYyOVg0tlcuBN6rUEk
+✓ Created objects.
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/norm_probe_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/norm_lib.py
+├── ✓ Created Function sarvam_30b.
+└── ✓ Created Function sarvam_1.
+`torch_dtype` is deprecated! Use `dtype` instead!
+
+[1ALoading checkpoint shards:   0%|          | 0/26 [00:00<?, ?it/s]
+[1ALoading checkpoint shards:   4%|▍         | 1/26 [00:04<01:50,  4.43s/it]
+[1ALoading checkpoint shards:   8%|▊         | 2/26 [00:10<02:04,  5.20s/it]
+[1ALoading checkpoint shards:  12%|█▏        | 3/26 [00:15<02:05,  5.45s/it]
+[1ALoading checkpoint shards:  15%|█▌        | 4/26 [00:22<02:05,  5.72s/it]
+[1ALoading checkpoint shards:  19%|█▉        | 5/26 [00:27<01:56,  5.56s/it]
+[1ALoading checkpoint shards:  23%|██▎       | 6/26 [00:32<01:51,  5.57s/it]
+[1ALoading checkpoint shards:  27%|██▋       | 7/26 [00:40<01:55,  6.08s/it]
+[1ALoading checkpoint shards:  31%|███       | 8/26 [00:45<01:47,  5.95s/it]
+[1ALoading checkpoint shards:  35%|███▍      | 9/26 [00:51<01:40,  5.92s/it]
+[1ALoading checkpoint shards:  38%|███▊      | 10/26 [00:57<01:33,  5.84s/it]
+[1ALoading checkpoint shards:  42%|████▏     | 11/26 [01:02<01:25,  5.71s/it]
+[1ALoading checkpoint shards:  46%|████▌     | 12/26 [01:08<01:19,  5.65s/it]
+[1ALoading checkpoint shards:  50%|█████     | 13/26 [01:13<01:13,  5.62s/it]
+[1ALoading checkpoint shards:  54%|█████▍    | 14/26 [01:19<01:08,  5.70s/it]
+[1ALoading checkpoint shards:  58%|█████▊    | 15/26 [01:25<01:04,  5.87s/it]
+[1ALoading checkpoint shards:  62%|██████▏   | 16/26 [01:31<00:58,  5.83s/it]
+[1ALoading checkpoint shards:  65%|██████▌   | 17/26 [01:37<00:51,  5.77s/it]
+[1ALoading checkpoint shards:  69%|██████▉   | 18/26 [01:42<00:45,  5.73s/it]
+[1ALoading checkpoint shards:  73%|███████▎  | 19/26 [01:49<00:42,  6.01s/it]
+[1ALoading checkpoint shards:  77%|███████▋  | 20/26 [01:56<00:38,  6.44s/it]
+[1ALoading checkpoint shards:  81%|████████  | 21/26 [02:02<00:31,  6.22s/it]
+[1ALoading checkpoint shards:  85%|████████▍ | 22/26 [02:08<00:24,  6.10s/it]
+[1ALoading checkpoint shards:  88%|████████▊ | 23/26 [02:13<00:17,  5.87s/it]
+[1ALoading checkpoint shards:  92%|█████████▏| 24/26 [02:19<00:11,  5.88s/it]
+[1ALoading checkpoint shards:  96%|█████████▌| 25/26 [02:24<00:05,  5.66s/it]
+[1ALoading checkpoint shards: 100%|██████████| 26/26 [02:28<00:00,  4.94s/it]Loading checkpoint shards: 100%|██████████| 26/26 [02:28<00:00,  5.70s/it]
+/root/norm_probe_modal.py:106: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  ref = torch.load(f"{VOL}/hdir/sarvam_30b/P.pt", map_location="cpu")[:, 1]
+sarvam_30b states 192 | layers 19 model.layers | norm model.norm SarvamMoERMSNorm gain: module weight | hook diffs 0 0 of 16 | top1 pre 0.381 gain-free 0.349 post 0.713 -> norm_makes_it | first block at half: block_1
