@@ -17,6 +17,7 @@ Models: Qwen3-8B (151,936 × 4,096 head), Gemma 4 E4B (262,144 × 2,560, tied, s
   - **K3**, a survey of fourteen models: Sarvam-30B is the only one whose states are dominated by one direction
   - **E1**, the head's share of a whole decode step on an A100-80GB
   - **N1**, where Sarvam-30B's dominant state direction appears: the last decoder block writes it and the final norm's gain doubles it
+  - **M1**, one 128-coordinate group kept in INT8 for every row, with and without K2: it does not pay on greedy or Gumbel, because K2 alone is already at the byte floor
 
   Results and caveats are in [`exp01_repro/README.md`](exp01_repro/README.md).
 - [`kernel/`](kernel/): a second, independently built set of L4 kernels for the certified step (15 Nov 2026): a PyTorch baseline, a tensor-core first pass, and a fused, graph-captured step with per-state row lists for greedy and Gumbel sampling. See [`kernel/README.md`](kernel/README.md), including how it relates to the graph-captured step in `exp01_repro`.
@@ -38,6 +39,8 @@ Without the certificate, the same 4-bit first pass emits a different token from 
 Sarvam-30B's tail is not a loose bound: its bound is no wider than Gemma 4's, but its whole vocabulary sits close under the leader (the median token is 1.3 interval-widths below the top logit, against 2.1 and 2.9), so a large part of it stays within reach. A shared offset supplies 77% of its top logit. That offset is in the state: 74% of the states' second moment lies along one direction, which widens every interval without separating any two tokens. Centring the head rows cannot remove it; cancelling its error exactly (K2) does, and takes Sarvam's greedy p99 from 0.512 to 0.260. Across fourteen models (K3) Sarvam-30B is the only one whose states are dominated by one direction, so in this set the correction is specific to it. The same survey found the uncorrected certificate at the 0.258 floor on seven of thirteen models and well off it on four (Phi-4-mini, Sarvam-30B, Sarvam-1, SmolLM3-3B).
 
 Where that direction comes from (N1, 16 Nov 2026): it is absent through block 18 of Sarvam-30B's 19, the last block creates it (top-1 share 0.40 before the final norm), and the norm's gain doubles its share to 0.74. Sarvam-1's dominant direction has a different cause.
+
+Keeping Sarvam-30B's one heavy coordinate group in INT8 for every row (M1, 17 Nov 2026) does not improve on K2 for greedy or Gumbel sampling: K2 alone is within 0.004 of the byte floor at the p99 in every language, and the group costs 0.008 on every state. On top-50 it helps Tamil and Telugu and costs the other languages the same amount.
 
 ## Not included
 

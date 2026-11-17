@@ -747,3 +747,73 @@ Deviations and our own mistakes:
 - **Sarvam-1 had no smoke run.** Its L4 container did not start in 20 minutes, so the smoke was stopped after Sarvam-30B's half passed. The function was then allowed to take the first free of L4, A10G and A100-40GB, and the full run used an A10. Sarvam-30B's smoke (12 prompts) gave the same picture as the full run (0.349 and 0.713).
 
 Limits: states are regenerated, not the saved exp01 states. Last position only, greedy, 64 tokens, one run. The group split uses mean-row scales at t = 0, not each row's own bound. Nothing here says which part of block 19 writes the vector.
+
+## M1: one group in INT8 for every row, with and without the K2 correction (17 Nov 2026)
+
+N1 found that in Tamil and Telugu one group of 128 coordinates (group 26, coordinates 3,328 to 3,455) carries a third to a half of the first-pass variance term, separately from the direction K2 removes. A note from the lab (not public) prompted the question: does storing that group in INT8 for every row help, alone or together with K2?
+
+Rule `mix_rule.json` (sha256 `35576903…`, logged before any run on real states). Code `mix_lib.py`, `mix_modal.py`, `mix_summarize.py`, `test_mix.py`; results `logs/mix_summary.json`, tables `logs/mix_summary.txt`. Sarvam-30B, all 29,826 greedy and 29,507 sampled states, the K2 addendum's certificate (sub-Gaussian bound, INT8 stage, shift 0.5).
+
+The mixed head is the dithered INT4 copy with group 26 stored as dithered INT8 (step = largest |w| / 126.5, same dither pattern, same bound). It costs 64 more bytes per row: 0.0078 of the BF16 head on every state. Arms: `none`; `k2` (K2's correction, direction fitted without the state's language); `int8g` (mixed head alone); `both`; and, exploratory, `k2_g26dir` (K2 plus a second cancelled direction inside group 26, also fitted without the language, 4 bytes per row).
+
+Controls, all pass: `none` and `k2` equal the K2 addendum's stored values on all 59,333 states (0 differences); no bound violation and no token mismatch in any arm; on the saved even-prompt states group 26 is the largest group for 77% of Tamil and 46% of Telugu states and for under 0.1% elsewhere; `test_mix.py` passes (with no INT8 group the quantizer is `cert_core`'s bit for bit, and a planted fault is caught).
+
+### Greedy and Gumbel: the combination fails the criterion
+
+The criterion: `both` must beat `k2` and `int8g` in Tamil and Telugu (p99 and mean) without hurting the other four languages. It fails on greedy and on both Gumbel temperatures.
+
+Greedy, bytes as a fraction of the BF16 head (median, p99):
+
+| Language | `none` | `k2` | `int8g` | `both` |
+|---|---|---|---|---|
+| Bengali | 0.258, 0.467 | 0.2583, 0.2589 | 0.266, 0.468 | 0.2661, 0.2666 |
+| Code | 0.258, 0.526 | 0.2583, 0.2584 | 0.266, 0.530 | 0.2661, 0.2662 |
+| English | 0.265, 0.521 | 0.2583, 0.2591 | 0.273, 0.525 | 0.2661, 0.2669 |
+| Hindi | 0.258, 0.463 | 0.2583, 0.2589 | 0.266, 0.465 | 0.2661, 0.2667 |
+| Tamil | 0.258, 0.503 | 0.2583, 0.2603 | 0.266, 0.507 | 0.2661, 0.2665 |
+| Telugu | 0.258, 0.483 | 0.2583, 0.2604 | 0.266, 0.486 | 0.2661, 0.2669 |
+
+- **`both` is worse than `k2` on every state.** The mean difference is +0.0076 to +0.0078 in every language and rule, and no state reads fewer bytes with `both`. With Gumbel the p99 in Tamil and Telugu goes from 0.261–0.262 to 0.267–0.268.
+- **The reason is that K2 alone is already at the floor.** Its p99 in Tamil and Telugu is 0.260, against a floor of 0.2583. There is at most 0.002 to 0.004 left to gain, and the INT8 group adds 0.0078 to every state.
+- **The group does what it should to the bound.** With K2, the median bound in Tamil falls from 0.86 of the uncorrected one to 0.50, and in Telugu from 0.91 to 0.55. The INT8-stage shortlist at the p99 falls from 1,033 rows to 163 (Tamil) and from 1,065 to 368 (Telugu). But 870 fewer INT8 rows save 3.6 MB at the p99, and the group costs 16.8 MB on every state.
+- **The INT8 group alone is worse than no fix** on greedy and Gumbel in every language (mean +0.006 to +0.007). The long shortlists come from the mean direction, which it does not touch.
+
+### Top-50: it helps Tamil and Telugu and costs the others
+
+Top-50, mean bytes, and the difference `both − k2` with a 95% interval from resampling prompts:
+
+| Language | `k2` | `both` | `both − k2` |
+|---|---|---|---|
+| Bengali | 0.2732 | 0.2798 | +0.0066 [+0.0065, +0.0067] |
+| Code | 0.2724 | 0.2779 | +0.0054 [+0.0052, +0.0056] |
+| English | 0.2735 | 0.2791 | +0.0056 [+0.0054, +0.0058] |
+| Hindi | 0.2679 | 0.2749 | +0.0070 [+0.0069, +0.0071] |
+| Tamil | 0.2909 | 0.2727 | −0.0181 [−0.0210, −0.0149] |
+| Telugu | 0.2876 | 0.2773 | −0.0103 [−0.0128, −0.0077] |
+| All | 0.2777 | 0.2769 | −0.0007 [−0.0022, +0.0008] |
+
+Over all states the mean is unchanged and the p99 goes from 0.374 to 0.357. Top-50 still misses its gate with every arm (BF16 rows at the p99: 10,144 with `k2`, 7,830 with `both`, against a limit of 2,621). On min-p, `both` is worse than `k2` in every language (+0.0065 to +0.0078).
+
+### A second direction inside the group does nothing
+
+`k2_g26dir` changes Tamil's top-50 mean by −0.0004 and Telugu's by −0.0008, and costs 0.0005 elsewhere. The direction does not transfer: fitted with Tamil left out and with Telugu left out, the two directions have a cosine of 0.08, although each holds 0.92 of the group's remaining energy in its fit. So Tamil and Telugu use the same 128 coordinates along different directions. This is K2's "directions two to four are language-specific" again, now inside one group.
+
+### Estimate, not a run: reading the group only for shortlisted rows
+
+The mixed head differs from the plain one only in group 26, with the same dither. So reading a row's INT8 codes for that group (130 bytes) after the first pass gives exactly the mixed head's interval for that row. A staged variant would pay 130 bytes per shortlisted row, not 64 bytes for every row. From the per-state results (`mix_staged_estimate.py`, `logs/mix_staged_estimate.txt`; it assumes the later stages read what `both` reads):
+
+| Rule | `k2`, mean | Staged estimate, mean | Tamil: `k2` → staged | Telugu: `k2` → staged |
+|---|---|---|---|---|
+| Greedy | 0.2584 | 0.2584 | 0.2585 → 0.2583 | 0.2585 → 0.2584 |
+| Min-p 0.05 | 0.2593 | 0.2589 | 0.2599 → 0.2587 | 0.2599 → 0.2589 |
+| Top-50 | 0.2777 | 0.2696 | 0.2909 → 0.2658 | 0.2876 → 0.2703 |
+
+It is estimated to cost nothing where K2 is at the floor and to keep most of the top-50 gain in Tamil and Telugu without charging the other languages. This has not been run as a certificate.
+
+Against the predictions:
+- **Criterion fails on greedy and both Gumbel rules: held.** Predicted a median near 0.266 and a p99 0.004 to 0.008 above `k2` in every language; measured 0.2661 and +0.0053 to +0.0078.
+- **`int8g` alone, partly missed.** Held: bound factor 0.83 in Tamil, under 0.01 change elsewhere, English and code p99 above 0.40, nowhere near `k2`. Missed: Telugu's bound factor is 0.96 (predicted 0.75 to 0.85), and the Tamil and Telugu p99 did not fall to 0.30–0.48 but stayed at 0.51 and 0.49, no better than no fix.
+- **Top-50: held.** Tamil and Telugu better by 0.018 and 0.010 (predicted at least 0.005), code and Hindi worse by 0.005 and 0.007, overall mean within 0.003, gate still missed.
+- **`k2_g26dir`: the "does nothing" branch** of an even-odds prediction.
+
+Limits: one model, one group, one shift. Group 26 was first found on regenerated odd-prompt states (N1) and is confirmed here on the saved even-prompt states, but all states are then measured. The staged figures are an estimate from stored shortlist sizes. Bytes only; no timing.

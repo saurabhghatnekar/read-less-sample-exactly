@@ -1,0 +1,23 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-nafWXSJyeigasSRDxFWWrF
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/mix_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/mix_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/hdir_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/subg_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+├── ✓ Created Function prep.
+├── ✓ Created Function chunk.
+└── ✓ Created Function collect.
+prep {"group": 26, "by_language": {"bengali": {"states": 2543, "most_common_largest_group": 31, "how_often": 0.18403461575508118, "group26_is_largest": 0.0, "largest_share_median": 0.06951302284069082}, "code": {"states": 2355, "most_common_largest_group": 25, "how_often": 0.35626325011253357, "group26_is_largest": 0.0, "largest_share_median": 0.06143946718256637}, "english": {"states": 2440, "most_common_largest_group": 25, "how_often": 0.4336065649986267, "group26_is_largest": 0.0008196721319109201, "largest_share_median": 0.05766622270665055}, "hindi": {"states": 2560, "most_common_largest_group": 31, "how_often": 0.32500001788139343, "group26_is_largest": 0.0, "largest_share_median": 0.05773217338866314}, "tamil": {"states": 2558, "most_common_largest_group": 26, "how_often": 0.7670055031776428, "group26_is_largest": 0.7670055031776428, "largest_share_median": 0.3923871588266905}, "telugu": {"states": 2544, "most_common_largest_group": 26, "how_often": 0.4571540653705597, "group26_is_largest": 0.4571540653705597, "largest_share_median": 0.3976086237597995}}, "direction": {"bengali": {"share_of_group_energy": 0.5391999232694002, "energy_inside_group": 0.9997050046548525}, "code": {"share_of_group_energy": 0.5356416622491945, "energy_inside_group": 0.9996768084094584}, "english": {"share_of_group_energy": 0.5383772429124052, "energy_inside_group": 0.999573951869861}, "hindi": {"share_of_group_energy": 0.5363208420858608, "energy_inside_group": 0.9997307071284142}, "tamil": {"share_of_group_energy": 0.9226054138557969, "energy_inside_group": 0.9994402064198272}, "telugu": {"share_of_group_energy": 0.917788811657883, "energy_inside_group": 0.9999999839142386}}, "tamil_telugu_even_most_common_largest_group": 26, "direction_cosines": {"bengali/code": 0.9999791396375802, "bengali/english": 0.9998611914963644, "bengali/hindi": 0.9999862155043975, "bengali/tamil": 0.6635923193537777, "bengali/telugu": 0.7999828118146258, "code/english": 0.9999437537294149, "code/hindi": 0.9999447127702303, "code/tamil": 0.6679365413533075, "code/telugu": 0.796478354706295, "english/hindi": 0.999779227285286, "english/tamil": 0.675527815479317, "english/telugu": 0.790224101949447, "hindi/tamil": 0.6602136543866867, "hindi/telugu": 0.8026868939222598, "tamil/telugu": 0.08201675166932387}}
+2 jobs, rule 3557690378c1
+{'mode': 'greedy', 'start': 0, 'n': 512, 'm0': 0, 'viol': 0, 'mism': 0, 'seconds': 12, 'mean_bytes': {'greedy': {'none': 0.291, 'k2': 0.2583, 'int8g': 0.2974, 'both': 0.2662, 'k2_g26dir': 0.2588}}}
+{'mode': 't1', 'start': 0, 'n': 512, 'm0': 0, 'viol': 0, 'mism': 0, 'seconds': 13, 'mean_bytes': {'gumbel_0.6': {'none': 0.299, 'k2': 0.2584, 'int8g': 0.3053, 'both': 0.2662, 'k2_g26dir': 0.2588}, 'gumbel_1.0': {'none': 0.2968, 'k2': 0.2584, 'int8g': 0.3031, 'both': 0.2662, 'k2_g26dir': 0.2588}, 'top50': {'none': 0.503, 'k2': 0.2686, 'int8g': 0.5081, 'both': 0.2744, 'k2_g26dir': 0.269}, 'minp_0.05': {'none': 0.3284, 'k2': 0.2585, 'int8g': 0.3341, 'both': 0.2662, 'k2_g26dir': 0.2589}}}
+TOTAL {'n': 1024, 'm0': 0, 'viol': 0, 'mism': 0, 'seconds': 25}
+wrote the summary
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-nafWXSJyeigasSRDxFWWrF
+exit 0

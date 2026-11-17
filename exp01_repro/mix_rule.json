@@ -1,0 +1,33 @@
+{
+  "experiment": "M1: one group of 128 coordinates kept in INT8 for every row, with and without the K2 correction, on Sarvam-30B",
+  "written": "2026-11-17, after K2, its addendum and N1 were read, before any M1 code ran on real states. Prompted by a note from the lab (not public).",
+  "question": "N1 found that in Tamil and Telugu one group of 128 coordinates (group 26, coordinates 3,328 to 3,455) carries a third to a half of the first-pass variance term, and that this part is separate from the direction K2 removes. Does storing that group in INT8 for every row help, alone or together with K2's correction?",
+  "states": "all saved exp01 states of Sarvam-30B, as in the K2 addendum: 29,826 greedy and 29,507 sampled (t1)",
+  "certificate": "the K2 addendum's: dithered first pass, sub-Gaussian bound, INT8 stage, BF16 stage, mean-row shift t = 0.5, delta = 1e-15 per row; bytes as a fraction of the BF16 head, counting everything read",
+  "mixed_head": "the dithered INT4 g128 copy with group 26 stored as dithered INT8: the same shared dither pattern, the group step taken as (largest |w| in the group) / 126.5 in place of / 6.5, codes in [-127, 127]. The error is uniform on [-s/2, s/2] as before, so the same bound applies with that group's smaller step. It costs 64 more bytes per row, which is 0.0078 of the BF16 head on every state.",
+  "arms": {
+    "none": "plain head, no correction (K2 addendum's none)",
+    "k2": "plain head, K2's correction with the direction fitted without the state's language (K2 addendum's lolo1)",
+    "int8g": "mixed head, no correction",
+    "both": "mixed head with the same K2 correction",
+    "k2_g26dir": "exploratory, ours: plain head, K2's correction with a second direction that lies inside group 26. For each language it is the top eigenvector of the second moment of the other five languages' greedy states, after removing K2's direction, restricted to group 26, then made orthogonal to K2's direction. It costs 4 more bytes per row (0.0005)."
+  },
+  "rules": "greedy, Gumbel T = 0.6 and T = 1 (the three the note asks for), and min-p 0.05 and top-50, where K2 alone still leaves a tail",
+  "reported": "per language and overall, for each arm and rule: bytes (median, p99, mean), INT8-stage rows (median, p99), the median bound relative to the plain head with no correction; for both minus k2, int8g minus none and k2_g26dir minus k2: the mean difference in bytes with a 95% interval from resampling prompts",
+  "criterion_from_the_note": "'both' is the method if it beats k2 alone and int8g alone in Tamil and Telugu without hurting the other four languages. Made precise for greedy and the two Gumbel rules: in Tamil and in Telugu the p99 and the mean of 'both' are below those of k2 and of int8g; and in each of the other four languages the median and the p99 of 'both' are not more than 0.001 above k2's.",
+  "controls": {
+    "M0_reproduce": "the arms none and k2 equal the K2 addendum's stored S and bytes (t0.5/none and t0.5/lolo1) on every state and rule; any difference invalidates the run",
+    "M0_bound": "no reference logit outside its interval in any arm; no token differing from the FP32 reference in any arm and rule",
+    "M0_group": "on the even-prompt greedy states of Tamil and Telugu, group 26 is the group that most often carries the largest share of the variance term (it was found in N1 on regenerated states); reported, and if another group wins the run still uses 26 and says so",
+    "M0_cpu": "test_mix.py: with no INT8 group the mixed quantizer equals cert_core.make_int4_dither bit for bit; with one, the other groups are unchanged, the group's codes fit INT8 and its error is within half its step; on synthetic states with energy planted in that group there are no violations or mismatches and the bound narrows by the predicted factor; a planted fault is caught"
+  },
+  "status": "one pass, no selection among arms. The criterion above decides whether 'both' is adopted; k2_g26dir and the two extra rules are exploratory.",
+  "prediction_written_before_running": {
+    "controls": "all pass",
+    "criterion": "FAILS on greedy and on both Gumbel rules, in every language. From the K2 addendum's stored results, k2 alone already has a p99 of 0.2603 to 0.2622 in Tamil and Telugu against a floor of 0.2583, so at most 0.004 is left to gain there, and the INT8 group adds 0.0078 to every state. So 'both' has a median of about 0.266 in all six languages (k2: 0.258) and a p99 between 0.004 and 0.008 above k2's in every language.",
+    "int8g_alone": "it narrows the median bound by a factor of about 0.75 to 0.85 in Tamil and Telugu and by less than 0.05 elsewhere. Its greedy p99 stays above 0.40 in English and in code (none: 0.52), and in Tamil and Telugu it lands between 0.30 and 0.48 (none: 0.50 and 0.48). It does not come near k2 alone in any language.",
+    "top50": "the one place 'both' can win: in Tamil and Telugu k2 alone sits 0.024 to 0.029 above the floor at the median. Predicted: 'both' is below k2 at the median and the mean in Tamil and Telugu by at least 0.005, above k2 in code and Hindi by 0.004 to 0.008, and within 0.003 of k2 in the mean over all states. Top-50 still misses its gate. Low confidence.",
+    "k2_g26dir": "about even odds. If the group's energy lies mostly along one direction that Tamil and Telugu share, it lowers their top-50 median by at least 0.005 at a cost of 0.0005; if the energy is spread inside the group, it does nothing. It changes greedy and Gumbel bytes by less than 0.001 either way.",
+    "takeaway_if_wrong": "If 'both' passes the criterion on greedy or Gumbel, the stored K2 results or the byte accounting of the mixed head are not what we think, and both need checking before anything else. If int8g alone comes close to k2 alone, the mean direction matters less than K2 concluded."
+  }
+}
