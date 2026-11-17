@@ -1,0 +1,637 @@
+{
+ "p2_seed1": {
+  "controls": {
+   "greedy": {
+    "states": 256,
+    "r0_diff": 0,
+    "r0_checked": 0,
+    "violations": 0,
+    "mismatches": 0
+   },
+   "t1": {
+    "states": 256,
+    "r0_diff": 0,
+    "r0_checked": 0,
+    "violations": 0,
+    "mismatches": 0
+   }
+  },
+  "table": {
+   "greedy": {
+    "none": {
+     "bytes": {
+      "median": 0.2651333510875702,
+      "p99": 0.49822553992271423,
+      "mean": 0.2930210530757904
+     },
+     "R": {
+      "median": 10.0,
+      "p99": 124.25
+     },
+     "status": "GATES_PASS",
+     "mean_by_language": {
+      "english": 0.2930210530757904
+     },
+     "p99_by_language": {
+      "english": 0.49822553992271423
+     }
+    },
+    "k2": {
+     "bytes": {
+      "median": 0.2583284378051758,
+      "p99": 0.2587733268737793,
+      "mean": 0.2583683729171753
+     },
+     "R": {
+      "median": 4.0,
+      "p99": 66.94999694824219
+     },
+     "status": "GATES_PASS",
+     "mean_by_language": {
+      "english": 0.2583683729171753
+     },
+     "p99_by_language": {
+      "english": 0.2587733268737793
+     }
+    },
+    "staged": {
+     "bytes": {
+      "median": 0.25832515954971313,
+      "p99": 0.2587618827819824,
+      "mean": 0.25836649537086487
+     },
+     "R": {
+      "median": 4.0,
+      "p99": 65.8499984741211
+     },
+     "status": "GATES_PASS",
+     "mean_by_language": {
+      "english": 0.25836649537086487
+     },
+     "p99_by_language": {
+      "english": 0.2587618827819824
+     }
+    },
+    "staged_d8": {
+     "bytes": {
+      "median": 0.2583147883415222,
+      "p99": 0.25850358605384827,
+      "mean": 0.2583339214324951
+     },
+     "R": {
+      "median": 1.0,
+      "p99": 5.0
+     },
+     "status": "GATES_PASS",
+     "mean_by_language": {
+      "english": 0.2583339214324951
+     },
+     "p99_by_language": {
+      "english": 0.25850358605384827
+     }
+    }
+   },
+   "gumbel_1.0": {
+    "none": {
+     "bytes": {
+      "median": 0.2785789370536804,
+      "p99": 0.49899178743362427,
+      "mean": 0.3100919723510742
+     },
+     "R": {
+      "median": 22.0,
+      "p99": 212.6999969482422
+     },
+     "status": "GATES_PASS",
+     "mean_by_language": {
+      "english": 0.3100919723510742
+     },
+     "p99_by_language": {
+      "english": 0.49899178743362427
+     }
+    },
+    "k2": {
+     "bytes": {
+      "median": 0.25835421681404114,
+      "p99": 0.2587234079837799,
+      "mean": 0.2583940625190735
+     },
+     "R": {
+      "median": 9.0,
+      "p99": 68.5
+     },
+     "status": "GATES_PASS",
+     "mean_by_language": {
+      "english": 0.2583940625190735
+     },
+     "p99_by_language": {
+      "english": 0.2587234079837799
+     }
+    },
+    "staged": {
+     "bytes": {
+      "median": 0.2583504021167755,
+      "p99": 0.25872868299484253,
+      "mean": 0.2583896815776825
+     },
+     "R": {
+      "median": 8.0,
+      "p99": 60.45000076293945
+     },
+     "status": "GATES_PASS",
+     "mean_by_language": {
+      "english": 0.2583896815776825
+     },
+     "p99_by_language": {
+      "english": 0.25872868299484253
+     }
+    },
+    "staged_d8": {
+     "bytes": {
+      "median": 0.2583249807357788,
+      "p99": 0.2585728168487549,
+      "mean": 0.2583426833152771
+     },
+     "R": {
+      "median": 1.0,
+      "p99": 5.0
+     },
+     "status": "GATES_PASS",
+     "mean_by_language": {
+      "english": 0.2583426833152771
+     },
+     "p99_by_language": {
+      "english": 0.2585728168487549
+     }
+    }
+   },
+   "minp_0.05": {
+    "none": {
+     "bytes": {
+      "median": 0.3080607056617737,
+      "p99": 0.5653790831565857,
+      "mean": 0.3467903733253479
+     },
+     "R": {
+      "median": 57.0,
+      "p99": 700.3499755859375
+     },
+     "status": "UNDER_HALF",
+     "mean_by_language": {
+      "english": 0.3467903733253479
+     },
+     "p99_by_language": {
+      "english": 0.5653790831565857
+     }
+    },
+    "k2": {
+     "bytes": {
+      "median": 0.25844675302505493,
+      "p99": 0.2602149546146393,
+      "mean": 0.2586069703102112
+     },
+     "R": {
+      "median": 24.0,
+      "p99": 285.8999938964844
+     },
+     "status": "GATES_PASS",
+     "mean_by_language": {
+      "english": 0.2586069703102112
+     },
+     "p99_by_language": {
+      "english": 0.2602149546146393
+     }
+    },
+    "staged": {
+     "bytes": {
+      "median": 0.25843551754951477,
+      "p99": 0.2601757347583771,
+      "mean": 0.25859278440475464
+     },
+     "R": {
+      "median": 23.0,
+      "p99": 269.8999938964844
+     },
+     "status": "GATES_PASS",
+     "mean_by_language": {
+      "english": 0.25859278440475464
+     },
+     "p99_by_language": {
+      "english": 0.2601757347583771
+     }
+    },
+    "staged_d8": {
+     "bytes": {
+      "median": 0.25835925340652466,
+      "p99": 0.25931379199028015,
+      "mean": 0.2584349513053894
+     },
+     "R": {
+      "median": 1.0,
+      "p99": 18.450000762939453
+     },
+     "status": "GATES_PASS",
+     "mean_by_language": {
+      "english": 0.2584349513053894
+     },
+     "p99_by_language": {
+      "english": 0.25931379199028015
+     }
+    }
+   },
+   "top50": {
+    "none": {
+     "bytes": {
+      "median": 0.5203600525856018,
+      "p99": 0.6574327349662781,
+      "mean": 0.5066993236541748
+     },
+     "R": {
+      "median": 3085.5,
+      "p99": 17848.75
+     },
+     "status": "DEAD",
+     "mean_by_language": {
+      "english": 0.5066993236541748
+     },
+     "p99_by_language": {
+      "english": 0.6574327349662781
+     }
+    },
+    "k2": {
+     "bytes": {
+      "median": 0.2671232223510742,
+      "p99": 0.29441070556640625,
+      "mean": 0.2672557234764099
+     },
+     "R": {
+      "median": 1413.5,
+      "p99": 5647.60009765625
+     },
+     "status": "UNDER_HALF",
+     "mean_by_language": {
+      "english": 0.2672557234764099
+     },
+     "p99_by_language": {
+      "english": 0.29441070556640625
+     }
+    },
+    "staged": {
+     "bytes": {
+      "median": 0.26632237434387207,
+      "p99": 0.2914862632751465,
+      "mean": 0.2665318250656128
+     },
+     "R": {
+      "median": 1296.0,
+      "p99": 5374.0498046875
+     },
+     "status": "UNDER_HALF",
+     "mean_by_language": {
+      "english": 0.2665318250656128
+     },
+     "p99_by_language": {
+      "english": 0.2914862632751465
+     }
+    },
+    "staged_d8": {
+     "bytes": {
+      "median": 0.26123911142349243,
+      "p99": 0.27049073576927185,
+      "mean": 0.26151442527770996
+     },
+     "R": {
+      "median": 1.0,
+      "p99": 6.0
+     },
+     "status": "GATES_PASS",
+     "mean_by_language": {
+      "english": 0.26151442527770996
+     },
+     "p99_by_language": {
+      "english": 0.27049073576927185
+     }
+    }
+   }
+  },
+  "bound_k2_vs_none": 0.2615489363670349
+ },
+ "p2_seed1234": {
+  "controls": {
+   "greedy": {
+    "states": 256,
+    "r0_diff": 0,
+    "r0_checked": 0,
+    "violations": 0,
+    "mismatches": 0
+   },
+   "t1": {
+    "states": 256,
+    "r0_diff": 0,
+    "r0_checked": 0,
+    "violations": 0,
+    "mismatches": 0
+   }
+  },
+  "table": {
+   "greedy": {
+    "none": {
+     "bytes": {
+      "median": 0.26576340198516846,
+      "p99": 0.49516427516937256,
+      "mean": 0.2895263433456421
+     },
+     "R": {
+      "median": 10.0,
+      "p99": 124.25
+     },
+     "status": "GATES_PASS",
+     "mean_by_language": {
+      "english": 0.2895263433456421
+     },
+     "p99_by_language": {
+      "english": 0.49516427516937256
+     }
+    },
+    "k2": {
+     "bytes": {
+      "median": 0.2583293914794922,
+      "p99": 0.258779913187027,
+      "mean": 0.258370041847229
+     },
+     "R": {
+      "median": 5.0,
+      "p99": 75.0
+     },
+     "status": "GATES_PASS",
+     "mean_by_language": {
+      "english": 0.258370041847229
+     },
+     "p99_by_language": {
+      "english": 0.258779913187027
+     }
+    },
+    "staged": {
+     "bytes": {
+      "median": 0.25832611322402954,
+      "p99": 0.25876888632774353,
+      "mean": 0.258367657661438
+     },
+     "R": {
+      "median": 4.0,
+      "p99": 68.5999984741211
+     },
+     "status": "GATES_PASS",
+     "mean_by_language": {
+      "english": 0.258367657661438
+     },
+     "p99_by_language": {
+      "english": 0.25876888632774353
+     }
+    },
+    "staged_d8": {
+     "bytes": {
+      "median": 0.2583147883415222,
+      "p99": 0.2585279047489166,
+      "mean": 0.2583339512348175
+     },
+     "R": {
+      "median": 1.0,
+      "p99": 5.0
+     },
+     "status": "GATES_PASS",
+     "mean_by_language": {
+      "english": 0.2583339512348175
+     },
+     "p99_by_language": {
+      "english": 0.2585279047489166
+     }
+    }
+   },
+   "gumbel_1.0": {
+    "none": {
+     "bytes": {
+      "median": 0.2782762348651886,
+      "p99": 0.4986569285392761,
+      "mean": 0.31017670035362244
+     },
+     "R": {
+      "median": 22.0,
+      "p99": 212.6999969482422
+     },
+     "status": "GATES_PASS",
+     "mean_by_language": {
+      "english": 0.31017670035362244
+     },
+     "p99_by_language": {
+      "english": 0.4986569285392761
+     }
+    },
+    "k2": {
+     "bytes": {
+      "median": 0.25835803151130676,
+      "p99": 0.25869858264923096,
+      "mean": 0.25839394330978394
+     },
+     "R": {
+      "median": 10.0,
+      "p99": 64.25
+     },
+     "status": "GATES_PASS",
+     "mean_by_language": {
+      "english": 0.25839394330978394
+     },
+     "p99_by_language": {
+      "english": 0.25869858264923096
+     }
+    },
+    "staged": {
+     "bytes": {
+      "median": 0.25835323333740234,
+      "p99": 0.25869348645210266,
+      "mean": 0.2583889961242676
+     },
+     "R": {
+      "median": 8.5,
+      "p99": 60.900001525878906
+     },
+     "status": "GATES_PASS",
+     "mean_by_language": {
+      "english": 0.2583889961242676
+     },
+     "p99_by_language": {
+      "english": 0.25869348645210266
+     }
+    },
+    "staged_d8": {
+     "bytes": {
+      "median": 0.2583247125148773,
+      "p99": 0.2585575580596924,
+      "mean": 0.2583419382572174
+     },
+     "R": {
+      "median": 1.0,
+      "p99": 5.0
+     },
+     "status": "GATES_PASS",
+     "mean_by_language": {
+      "english": 0.2583419382572174
+     },
+     "p99_by_language": {
+      "english": 0.2585575580596924
+     }
+    }
+   },
+   "minp_0.05": {
+    "none": {
+     "bytes": {
+      "median": 0.30501246452331543,
+      "p99": 0.5539313554763794,
+      "mean": 0.345563679933548
+     },
+     "R": {
+      "median": 57.0,
+      "p99": 700.3499755859375
+     },
+     "status": "UNDER_HALF",
+     "mean_by_language": {
+      "english": 0.345563679933548
+     },
+     "p99_by_language": {
+      "english": 0.5539313554763794
+     }
+    },
+    "k2": {
+     "bytes": {
+      "median": 0.25844961404800415,
+      "p99": 0.26077353954315186,
+      "mean": 0.2586131691932678
+     },
+     "R": {
+      "median": 25.5,
+      "p99": 318.95001220703125
+     },
+     "status": "GATES_PASS",
+     "mean_by_language": {
+      "english": 0.2586131691932678
+     },
+     "p99_by_language": {
+      "english": 0.26077353954315186
+     }
+    },
+    "staged": {
+     "bytes": {
+      "median": 0.2584408223628998,
+      "p99": 0.26073190569877625,
+      "mean": 0.2585967779159546
+     },
+     "R": {
+      "median": 23.5,
+      "p99": 317.95001220703125
+     },
+     "status": "GATES_PASS",
+     "mean_by_language": {
+      "english": 0.2585967779159546
+     },
+     "p99_by_language": {
+      "english": 0.26073190569877625
+     }
+    },
+    "staged_d8": {
+     "bytes": {
+      "median": 0.25835731625556946,
+      "p99": 0.2593517303466797,
+      "mean": 0.2584354281425476
+     },
+     "R": {
+      "median": 1.0,
+      "p99": 18.0
+     },
+     "status": "GATES_PASS",
+     "mean_by_language": {
+      "english": 0.2584354281425476
+     },
+     "p99_by_language": {
+      "english": 0.2593517303466797
+     }
+    }
+   },
+   "top50": {
+    "none": {
+     "bytes": {
+      "median": 0.5223135352134705,
+      "p99": 0.6562849879264832,
+      "mean": 0.5071136355400085
+     },
+     "R": {
+      "median": 3085.5,
+      "p99": 17848.75
+     },
+     "status": "DEAD",
+     "mean_by_language": {
+      "english": 0.5071136355400085
+     },
+     "p99_by_language": {
+      "english": 0.6562849879264832
+     }
+    },
+    "k2": {
+     "bytes": {
+      "median": 0.26683348417282104,
+      "p99": 0.29053637385368347,
+      "mean": 0.2671341598033905
+     },
+     "R": {
+      "median": 1416.5,
+      "p99": 5490.2001953125
+     },
+     "status": "UNDER_HALF",
+     "mean_by_language": {
+      "english": 0.2671341598033905
+     },
+     "p99_by_language": {
+      "english": 0.29053637385368347
+     }
+    },
+    "staged": {
+     "bytes": {
+      "median": 0.2661435306072235,
+      "p99": 0.28703176975250244,
+      "mean": 0.26643869280815125
+     },
+     "R": {
+      "median": 1280.0,
+      "p99": 4852.0
+     },
+     "status": "UNDER_HALF",
+     "mean_by_language": {
+      "english": 0.26643869280815125
+     },
+     "p99_by_language": {
+      "english": 0.28703176975250244
+     }
+    },
+    "staged_d8": {
+     "bytes": {
+      "median": 0.2612488567829132,
+      "p99": 0.27105844020843506,
+      "mean": 0.2614794969558716
+     },
+     "R": {
+      "median": 1.0,
+      "p99": 6.0
+     },
+     "status": "GATES_PASS",
+     "mean_by_language": {
+      "english": 0.2614794969558716
+     },
+     "p99_by_language": {
+      "english": 0.27105844020843506
+     }
+    }
+   }
+  },
+  "bound_k2_vs_none": 0.2615527808666229
+ },
+ "rule_sha": "4e9e73ff91e356340578e27d36d7e0df87b86df7cb12dfb1c630fc638a9b7547"
+}

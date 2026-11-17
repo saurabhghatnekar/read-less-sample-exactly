@@ -1,0 +1,19 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-Q0C1tIaJeL5H1VrIgSQMye
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/g1_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/pipe_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/rules2_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/mix_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/subg_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/hdir_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+└── ✓ Created Function run.
+sarvam_1 selected t 0.5 K 4 groups [2] | viol/mism {'greedy': (0, 0), 't1': (0, 0)} | greedy odd (median, p99, mean): {'plain': (0.284, 0.759, 0.386), 'shift': (0.283, 0.758, 0.38), 'k': (0.262, 0.271, 0.262), 'staged': (0.262, 0.268, 0.262), 'full': (0.262, 0.268, 0.262)} | 91s
+smollm3_3b selected t 1.0 K 4 groups [14, 4] | viol/mism {'greedy': (0, 0), 't1': (0, 0)} | greedy odd (median, p99, mean): {'plain': (0.409, 1.086, 0.482), 'shift': (0.285, 0.582, 0.306), 'k': (0.268, 0.439, 0.282), 'staged': (0.265, 0.38, 0.273), 'full': (0.264, 0.342, 0.27)} | 166s
+phi4_mini selected t 1.0 K 4 groups [1, 12] | viol/mism {'greedy': (0, 0), 't1': (0, 0)} | greedy odd (median, p99, mean): {'plain': (0.258, 0.385, 0.275), 'shift': (0.259, 0.339, 0.268), 'k': (0.261, 0.299, 0.263), 'staged': (0.261, 0.295, 0.262), 'full': (0.261, 0.283, 0.262)} | 256s
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-Q0C1tIaJeL5H1VrIgSQMye
+exit 0

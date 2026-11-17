@@ -1,0 +1,88 @@
+# G1: the method's parts on Sarvam-1, SmolLM3-3B and Phi-4-mini
+
+## sarvam_1: V 68096, d 2048
+- greedy: 28800 states (14262 from odd prompts); violations 0; mismatches 0
+- t1: 28870 states (14498 from odd prompts); violations 0; mismatches 0
+- selected on the even prompts (mean greedy bytes): shift 0.5 from {'0': 0.3835, '0.5': 0.3767, '1': 0.3778, '1.5': 0.3888}; K = 4 from {'0': 0.3767, '1': 0.3216, '4': 0.2624, '16': 0.2736}; groups [2] from {'none': 0.2624, '2': 0.2622, '2,5': 0.2622}
+- state energy in the top 1, 4, 16 directions: 0.43, 0.85, 0.94; largest group's share of the variance term 0.116 (uniform 0.062); median bound vs plain: shift 0.939, with directions 0.358; d8 / i8 bound 0.157
+
+| Rule (odd prompts) | Arm | Bytes (median, p99, mean) | BF16 rows (median, p99) | Status |
+|---|---|---|---|---|
+| greedy | plain | 0.2844, 0.7586, 0.3859 | 1, 32 | UNDER_HALF |
+| greedy | shift | 0.2828, 0.7582, 0.3804 | 1, 32 | UNDER_HALF |
+| greedy | k | 0.2618, 0.2709, 0.2624 | 1, 32 | GATES_PASS |
+| greedy | staged | 0.2618, 0.2677, 0.2622 | 1, 32 | GATES_PASS |
+| greedy | full | 0.2618, 0.2676, 0.2621 | 1, 4 | GATES_PASS |
+| gumbel_1.0 | plain | 0.4156, 0.7588, 0.4730 | 4, 44 | UNDER_HALF |
+| gumbel_1.0 | shift | 0.4078, 0.7586, 0.4636 | 4, 44 | UNDER_HALF |
+| gumbel_1.0 | k | 0.2621, 0.4011, 0.2680 | 4, 44 | GATES_PASS |
+| gumbel_1.0 | staged | 0.2620, 0.3984, 0.2667 | 4, 44 | GATES_PASS |
+| gumbel_1.0 | full | 0.2620, 0.4012, 0.2667 | 1, 5 | GATES_PASS |
+| minp_0.05 | plain | 0.6218, 0.7748, 0.5419 | 20, 1107 | DEAD |
+| minp_0.05 | shift | 0.5961, 0.7733, 0.5381 | 20, 998 | DEAD |
+| minp_0.05 | k | 0.2642, 0.6452, 0.2923 | 20, 998 | UNDER_HALF |
+| minp_0.05 | staged | 0.2639, 0.6184, 0.2836 | 20, 998 | UNDER_HALF |
+| minp_0.05 | full | 0.2636, 0.6188, 0.2824 | 1, 163 | UNDER_HALF |
+| top50 | plain | 0.7541, 0.7694, 0.6713 | 272, 734 | DEAD |
+| top50 | shift | 0.7514, 0.7683, 0.6659 | 278, 687 | DEAD |
+| top50 | k | 0.2829, 0.7596, 0.3155 | 278, 687 | UNDER_HALF |
+| top50 | staged | 0.2820, 0.8109, 0.3027 | 278, 686 | UNDER_HALF |
+| top50 | full | 0.2780, 0.8186, 0.3002 | 1, 105 | UNDER_HALF |
+
+## smollm3_3b: V 128256, d 2048
+- greedy: 29299 states (14624 from odd prompts); violations 0; mismatches 0
+- t1: 29483 states (14521 from odd prompts); violations 0; mismatches 0
+- selected on the even prompts (mean greedy bytes): shift 1 from {'0': 0.4774, '0.5': 0.3137, '1': 0.3046, '1.5': 0.445}; K = 4 from {'0': 0.3046, '1': 0.287, '4': 0.281, '16': 0.2859}; groups [14, 4] from {'none': 0.281, '14': 0.2746, '14,4': 0.2729}
+- state energy in the top 1, 4, 16 directions: 0.30, 0.50, 0.61; largest group's share of the variance term 0.176 (uniform 0.062); median bound vs plain: shift 0.566, with directions 0.443; d8 / i8 bound 0.079
+
+| Rule (odd prompts) | Arm | Bytes (median, p99, mean) | BF16 rows (median, p99) | Status |
+|---|---|---|---|---|
+| greedy | plain | 0.4094, 1.0857, 0.4821 | 2304, 50092 | UNDER_HALF |
+| greedy | shift | 0.2854, 0.5816, 0.3062 | 274, 8814 | UNDER_HALF |
+| greedy | k | 0.2677, 0.4391, 0.2820 | 176, 7749 | UNDER_HALF |
+| greedy | staged | 0.2648, 0.3798, 0.2735 | 97, 5336 | UNDER_HALF |
+| greedy | full | 0.2639, 0.3423, 0.2699 | 1, 5 | GATES_PASS |
+| gumbel_1.0 | plain | 0.4106, 1.0303, 0.4868 | 2552, 46252 | UNDER_HALF |
+| gumbel_1.0 | shift | 0.2893, 0.5172, 0.3069 | 366, 7059 | UNDER_HALF |
+| gumbel_1.0 | k | 0.2694, 0.4079, 0.2823 | 253, 6654 | UNDER_HALF |
+| gumbel_1.0 | staged | 0.2659, 0.3610, 0.2742 | 148, 4992 | UNDER_HALF |
+| gumbel_1.0 | full | 0.2646, 0.3287, 0.2702 | 1, 5 | GATES_PASS |
+| minp_0.05 | plain | 0.5413, 1.4343, 0.6492 | 7755, 87587 | DEAD |
+| minp_0.05 | shift | 0.3255, 0.8327, 0.3673 | 999, 24977 | UNDER_HALF |
+| minp_0.05 | k | 0.2795, 0.6664, 0.3150 | 702, 23204 | UNDER_HALF |
+| minp_0.05 | staged | 0.2719, 0.5750, 0.2962 | 435, 17664 | UNDER_HALF |
+| minp_0.05 | full | 0.2685, 0.4540, 0.2833 | 1, 23 | GATES_PASS |
+| top50 | plain | 1.3071, 1.6425, 1.2766 | 74358, 113488 | DEAD |
+| top50 | shift | 0.7701, 1.2366, 0.8046 | 22659, 63293 | DEAD |
+| top50 | k | 0.6327, 1.0284, 0.6302 | 21210, 54789 | DEAD |
+| top50 | staged | 0.5672, 0.9797, 0.5703 | 17662, 47340 | DEAD |
+| top50 | full | 0.4227, 0.6558, 0.4241 | 1, 43 | UNDER_HALF |
+
+## phi4_mini: V 200064, d 3072
+- greedy: 27465 states (13827 from odd prompts); violations 0; mismatches 0
+- t1: 27594 states (13823 from odd prompts); violations 0; mismatches 0
+- selected on the even prompts (mean greedy bytes): shift 1 from {'0': 0.2781, '0.5': 0.2732, '1': 0.27, '1.5': 0.2712}; K = 4 from {'0': 0.27, '1': 0.2643, '4': 0.2636, '16': 0.27}; groups [1, 12] from {'none': 0.2636, '1': 0.2634, '1,12': 0.2631}
+- state energy in the top 1, 4, 16 directions: 0.14, 0.36, 0.53; largest group's share of the variance term 0.063 (uniform 0.042); median bound vs plain: shift 1.305, with directions 1.069; d8 / i8 bound 0.113
+
+| Rule (odd prompts) | Arm | Bytes (median, p99, mean) | BF16 rows (median, p99) | Status |
+|---|---|---|---|---|
+| greedy | plain | 0.2581, 0.3847, 0.2750 | 5, 7508 | UNDER_HALF |
+| greedy | shift | 0.2586, 0.3386, 0.2678 | 9, 3278 | UNDER_HALF |
+| greedy | k | 0.2606, 0.2987, 0.2629 | 8, 3082 | UNDER_HALF |
+| greedy | staged | 0.2606, 0.2953, 0.2625 | 8, 2810 | UNDER_HALF |
+| greedy | full | 0.2605, 0.2827, 0.2619 | 1, 4 | GATES_PASS |
+| gumbel_1.0 | plain | 0.3003, 0.5224, 0.3228 | 325, 25893 | UNDER_HALF |
+| gumbel_1.0 | shift | 0.2816, 0.4581, 0.3020 | 116, 16633 | UNDER_HALF |
+| gumbel_1.0 | k | 0.2635, 0.3987, 0.2804 | 104, 15839 | UNDER_HALF |
+| gumbel_1.0 | staged | 0.2627, 0.3971, 0.2790 | 92, 15197 | UNDER_HALF |
+| gumbel_1.0 | full | 0.2621, 0.3246, 0.2711 | 1, 10 | GATES_PASS |
+| minp_0.05 | plain | 0.3382, 0.8748, 0.4059 | 1861, 65595 | UNDER_HALF |
+| minp_0.05 | shift | 0.3176, 0.9561, 0.3922 | 913, 56309 | UNDER_HALF |
+| minp_0.05 | k | 0.2768, 0.7919, 0.3438 | 806, 56214 | UNDER_HALF |
+| minp_0.05 | staged | 0.2741, 0.7983, 0.3422 | 732, 55284 | UNDER_HALF |
+| minp_0.05 | full | 0.2697, 0.5525, 0.3035 | 1, 325 | UNDER_HALF |
+| top50 | plain | 0.4825, 0.8314, 0.4772 | 20119, 60718 | UNDER_HALF |
+| top50 | shift | 0.4441, 0.8876, 0.4717 | 13269, 49775 | UNDER_HALF |
+| top50 | k | 0.3963, 0.7282, 0.4079 | 13045, 49184 | UNDER_HALF |
+| top50 | staged | 0.3931, 0.7299, 0.4061 | 12704, 48576 | UNDER_HALF |
+| top50 | full | 0.3274, 0.5264, 0.3371 | 1, 266 | UNDER_HALF |

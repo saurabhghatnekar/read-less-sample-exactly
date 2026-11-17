@@ -1,0 +1,35 @@
+{
+  "experiment": "T1: can top-50 pass its gate, and does top-p pass? A dithered INT8 stage, a leaner top-k rule, and nucleus sampling",
+  "written": "2026-11-17, after M2 and the cascade code were read and test_rules2.py ran on a synthetic head, before any T1 code ran on real states",
+  "why": "Top-50 misses its gate on Gemma 4 and Sarvam-30B because too many rows need the BF16 read at the p99 (4,833 and 7,813, limit 1% of the vocabulary = 2,621). The INT8 stage has always used a worst-case bound on an undithered INT8 copy. A dithered INT8 copy with the same sub-Gaussian bound as the first pass should be several times tighter, so far fewer rows should go on to BF16. Top-p has never been tested.",
+  "models_and_states": "Qwen3-8B (shift 0.5), Gemma 4 E4B (shift 1.5), Sarvam-30B (shift 0.5, K2's correction with the direction fitted without the state's language); all saved exp01 states, greedy states for the greedy rule and sampled states for the others",
+  "stages": {
+    "i8": "the INT8-row copy with its worst-case bound, as in every run so far; d + 4 bytes a row",
+    "d8": "a dithered INT8 copy with a step per group of 128 (largest |w| / 126.5), the same dither pattern as the first pass and the sub-Gaussian bound; on Sarvam-30B with K2's correction applied to it too. Charged d + 2 per group + 4, plus 4 on Sarvam for the row's K2 number. A row read here carries one more dither bound, so its failure probability is at most 2 delta (3 delta after M2's group stage)",
+    "G": "Sarvam-30B only: M2's group stage, 204 bytes a row"
+  },
+  "arms": "base: first pass then i8 (the control). d8: first pass then d8. On Sarvam-30B the first pass has K2's correction, and there are two more arms: staged (G then i8, M2's certificate, a second control) and staged_d8 (G then d8).",
+  "rules": {
+    "greedy, gumbel_1.0, minp_0.05, top50": "as before",
+    "top50_lean": "top-50 with a rule that reads only the race candidates and, if a candidate's membership is uncertain, the rows whose interval overlaps the candidates' intervals (rules2_lib.need_topk_lean)",
+    "topp_0.9": "nucleus sampling at p = 0.9, T = 1: a token is a member if the probability mass strictly above it is below p; the winner is the member with the best Gumbel score. Membership is bracketed from the intervals; when a candidate's membership is uncertain the rule reads the rows carrying at least half of the remaining mass uncertainty (rules2_lib.need_topp). The reference decision sums in float64."
+  },
+  "reported": "per model, arm and rule over all states: bytes (median, p99, mean), rows read in each stage and in BF16 (median, p99), the gate status (median BF16 rows at most 0.1% of the vocabulary, p99 at most 1%, p99 bytes below 0.5); the median ratio of the d8 bound to the i8 bound; mean bytes per language",
+  "controls": {
+    "T0_reproduce": "base equals the stored rows read in the INT8 stage (B1's stored values on Qwen3-8B and Gemma 4; M2's stored k2 on Sarvam-30B), and on Sarvam-30B staged equals M2's stored stage-G, INT8 and BF16 rows, on every state and every rule they share; any difference invalidates the run",
+    "T0_bound": "no reference logit outside any interval; no token differing from the reference decision, for every arm and rule including the two new rules",
+    "T0_cpu": "test_rules2.py: the top-p membership brackets are sound on random draws inside the intervals; the top-p reference decision equals a plain loop; on a synthetic head every arm and rule returns the reference token, the K2 arm equals hdir_lib's path to the row, and a planted fault is caught"
+  },
+  "status": "one pass. The gate decides for top-50 and top-p. top50_lean is reported whatever it shows.",
+  "prediction_written_before_running": {
+    "controls": "all pass",
+    "bound": "the d8 bound is between 0.08 and 0.20 of the i8 bound at the median on all three models (0.11 on the synthetic head)",
+    "top50_bf16_rows": "with d8 the p99 of BF16 rows for top-50 falls by at least a factor of four on Gemma 4 and Sarvam-30B",
+    "top50_gate": "top-50 PASSES its gate on Gemma 4 with d8, and on Sarvam-30B with staged_d8. About two in three.",
+    "top50_bytes": "the top-50 mean falls below 0.262 on Gemma 4 (base 0.272) and below 0.266 on Sarvam-30B (staged 0.2697)",
+    "other_rules": "on greedy, Gumbel and min-p, d8 changes the mean by less than 0.001: they are at the floor already",
+    "top50_lean": "it does NOT help: it reads more BF16 rows than the current rule (about four times as many on the synthetic head) and is not lower in bytes. Written after the synthetic test; before it we expected the opposite.",
+    "topp": "no token mismatch. With d8, top-p 0.9 passes its gate on Qwen3-8B and Gemma 4. On Sarvam-30B with staged_d8 the p99 is below 0.35; whether it passes the gate is about even.",
+    "takeaway_if_wrong": "If d8 does not bring top-50 through the gate, the rows near the fiftieth logit are closer together than the INT8 bound can separate, and top-50 stays a stated limit with a measured reason. If top-p mismatches, the bracket or the stable-state argument is wrong and top-p is withdrawn until fixed."
+  }
+}

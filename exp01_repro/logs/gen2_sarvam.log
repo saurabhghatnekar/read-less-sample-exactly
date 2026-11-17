@@ -1,0 +1,73 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-ZowU0TaINCSGW9ViORPD30
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/gen2_modal.py
+├── ✓ Created Function sarvam.
+├── ✓ Created Function small.
+└── ✓ Created Function prompts.
+`torch_dtype` is deprecated! Use `dtype` instead!
+
+[1ALoading checkpoint shards:   0%|          | 0/26 [00:00<?, ?it/s]
+[1ALoading checkpoint shards:   4%|▍         | 1/26 [00:05<02:15,  5.41s/it]
+[1ALoading checkpoint shards:   8%|▊         | 2/26 [00:10<02:04,  5.18s/it]
+[1ALoading checkpoint shards:  12%|█▏        | 3/26 [00:15<02:00,  5.25s/it]
+[1ALoading checkpoint shards:  15%|█▌        | 4/26 [00:21<01:56,  5.29s/it]
+[1ALoading checkpoint shards:  19%|█▉        | 5/26 [00:26<01:52,  5.36s/it]
+[1ALoading checkpoint shards:  23%|██▎       | 6/26 [00:36<02:18,  6.94s/it]
+[1ALoading checkpoint shards:  27%|██▋       | 7/26 [00:52<03:08,  9.93s/it]
+[1ALoading checkpoint shards:  31%|███       | 8/26 [01:07<03:28, 11.60s/it]
+[1ALoading checkpoint shards:  35%|███▍      | 9/26 [01:29<04:08, 14.61s/it]
+[1ALoading checkpoint shards:  38%|███▊      | 10/26 [01:43<03:51, 14.45s/it]
+[1ALoading checkpoint shards:  42%|████▏     | 11/26 [01:49<02:57, 11.83s/it]
+[1ALoading checkpoint shards:  46%|████▌     | 12/26 [01:54<02:16,  9.78s/it]
+[1ALoading checkpoint shards:  50%|█████     | 13/26 [01:59<01:51,  8.58s/it]
+[1ALoading checkpoint shards:  54%|█████▍    | 14/26 [02:05<01:32,  7.75s/it]
+[1ALoading checkpoint shards:  58%|█████▊    | 15/26 [02:11<01:19,  7.23s/it]
+[1ALoading checkpoint shards:  62%|██████▏   | 16/26 [02:21<01:19,  7.90s/it]
+[1ALoading checkpoint shards:  65%|██████▌   | 17/26 [02:29<01:11,  7.90s/it]
+[1ALoading checkpoint shards:  69%|██████▉   | 18/26 [02:34<00:57,  7.13s/it]
+[1ALoading checkpoint shards:  73%|███████▎  | 19/26 [02:39<00:46,  6.57s/it]
+[1ALoading checkpoint shards:  77%|███████▋  | 20/26 [02:45<00:37,  6.31s/it]
+[1ALoading checkpoint shards:  81%|████████  | 21/26 [02:50<00:30,  6.05s/it]
+[1ALoading checkpoint shards:  85%|████████▍ | 22/26 [02:56<00:23,  5.83s/it]
+[1ALoading checkpoint shards:  88%|████████▊ | 23/26 [03:01<00:17,  5.67s/it]
+[1ALoading checkpoint shards:  92%|█████████▏| 24/26 [03:07<00:11,  5.66s/it]
+[1ALoading checkpoint shards:  96%|█████████▌| 25/26 [03:12<00:05,  5.42s/it]
+[1ALoading checkpoint shards: 100%|██████████| 26/26 [03:17<00:00,  5.34s/it]
+[1ALoading checkpoint shards: 100%|██████████| 26/26 [03:17<00:00,  7.59s/it]
+greedy batch 0: 1847 states, 13s
+greedy batch 1: 3895 states, 26s
+greedy batch 2: 5847 states, 38s
+greedy batch 3: 7747 states, 47s
+greedy batch 4: 9600 states, 57s
+greedy batch 5: 10349 states, 67s
+greedy batch 6: 11189 states, 75s
+greedy batch 7: 12234 states, 85s
+greedy batch 8: 13322 states, 94s
+greedy batch 9: 14676 states, 105s
+greedy batch 10: 15450 states, 114s
+greedy batch 11: 16278 states, 122s
+greedy batch 12: 17338 states, 132s
+greedy batch 13: 17973 states, 140s
+greedy batch 14: 19044 states, 149s
+t1 batch 0: 1919 states, 163s
+t1 batch 1: 3967 states, 175s
+t1 batch 2: 5817 states, 188s
+t1 batch 3: 7745 states, 198s
+t1 batch 4: 9555 states, 208s
+t1 batch 5: 10928 states, 219s
+t1 batch 6: 12378 states, 229s
+t1 batch 7: 13884 states, 240s
+t1 batch 8: 15366 states, 251s
+t1 batch 9: 16924 states, 262s
+t1 batch 10: 18266 states, 273s
+t1 batch 11: 19845 states, 284s
+t1 batch 12: 21254 states, 294s
+t1 batch 13: 22568 states, 305s
+t1 batch 14: 24168 states, 316s
+{"model": "sarvam_30b", "prompt_set": "prompts2", "torch": "2.5.1+cu124", "transformers": "4.57.2", "eos": [26], "prefill": "<think></think>\n", "n_greedy": 19044, "n_t1": 24168, "n_states": 43212, "seconds": 316.0, "prompts": 240}
+Stopping app - local entrypoint completed.
+Runner terminated.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-ZowU0TaINCSGW9ViORPD30
+exit 0

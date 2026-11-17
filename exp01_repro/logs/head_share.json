@@ -1,0 +1,202 @@
+[
+ {
+  "model": "gemma4_e2b",
+  "repo": "google/gemma-4-E2B-it",
+  "params": 5123178051,
+  "V": 262144,
+  "d": 1536,
+  "tied": true,
+  "head_params": 402653184,
+  "head_share_of_params": 0.07859441541786852
+ },
+ {
+  "model": "gemma4_e4b",
+  "repo": "google/gemma-4-E4B-it",
+  "params": 7996156490,
+  "V": 262144,
+  "d": 2560,
+  "tied": true,
+  "head_params": 671088640,
+  "head_share_of_params": 0.08392640149542646
+ },
+ {
+  "model": "gpt_oss_20b",
+  "repo": "openai/gpt-oss-20b",
+  "params": 20914757184,
+  "V": 201088,
+  "d": 2880,
+  "tied": false,
+  "head_params": 579133440,
+  "head_share_of_params": 0.027690182338958393
+ },
+ {
+  "model": "granite33_8b",
+  "repo": "ibm-granite/granite-3.3-8b-instruct",
+  "params": 8170864640,
+  "V": 49159,
+  "d": 4096,
+  "tied": true,
+  "head_params": 201355264,
+  "head_share_of_params": 0.024643079144192014
+ },
+ {
+  "model": "mistral_nemo",
+  "repo": "mistralai/Mistral-Nemo-Instruct-2407",
+  "params": 12247782400,
+  "V": 131072,
+  "d": 5120,
+  "tied": false,
+  "head_params": 671088640,
+  "head_share_of_params": 0.05479266516034772
+ },
+ {
+  "model": "phi4_mini",
+  "repo": "microsoft/Phi-4-mini-instruct",
+  "params": 3836021760,
+  "V": 200064,
+  "d": 3072,
+  "tied": true,
+  "head_params": 614596608,
+  "head_share_of_params": 0.1602171850036638
+ },
+ {
+  "model": "qwen3_14b",
+  "repo": "Qwen/Qwen3-14B",
+  "params": 14768307200,
+  "V": 151936,
+  "d": 5120,
+  "tied": false,
+  "head_params": 777912320,
+  "head_share_of_params": 0.052674440575017294
+ },
+ {
+  "model": "qwen3_30b_a3b",
+  "repo": "Qwen/Qwen3-30B-A3B",
+  "params": 30532122624,
+  "V": 151936,
+  "d": 2048,
+  "tied": false,
+  "head_params": 311164928,
+  "head_share_of_params": 0.010191395201439631
+ },
+ {
+  "model": "qwen3_4b",
+  "repo": "Qwen/Qwen3-4B",
+  "params": 4022468096,
+  "V": 151936,
+  "d": 2560,
+  "tied": true,
+  "head_params": 388956160,
+  "head_share_of_params": 0.09669589682682221
+ },
+ {
+  "model": "qwen3_8b",
+  "repo": "Qwen/Qwen3-8B",
+  "params": 8190735360,
+  "V": 151936,
+  "d": 4096,
+  "tied": false,
+  "head_params": 622329856,
+  "head_share_of_params": 0.0759797293707216
+ },
+ {
+  "model": "sarvam_1",
+  "repo": "sarvamai/sarvam-1",
+  "params": 2525087744,
+  "V": 68096,
+  "d": 2048,
+  "tied": false,
+  "head_params": 139460608,
+  "head_share_of_params": 0.05523000471226397
+ },
+ {
+  "model": "sarvam_30b",
+  "repo": "sarvamai/sarvam-30b",
+  "params": 32152650368,
+  "V": 262144,
+  "d": 4096,
+  "tied": false,
+  "head_params": 1073741824,
+  "head_share_of_params": 0.03339512642692262
+ },
+ {
+  "model": "sarvam_m",
+  "repo": "sarvamai/sarvam-m",
+  "params": 23572403200,
+  "V": 131072,
+  "d": 5120,
+  "tied": false,
+  "head_params": 671088640,
+  "head_share_of_params": 0.028469250008416623
+ },
+ {
+  "model": "smollm3_3b",
+  "repo": "HuggingFaceTB/SmolLM3-3B",
+  "params": 3075098624,
+  "V": 128256,
+  "d": 2048,
+  "tied": true,
+  "head_params": 262668288,
+  "head_share_of_params": 0.08541784187016696
+ },
+ {
+  "model": "gemma3_270m",
+  "repo": "google/gemma-3-270m-it",
+  "params": 268098176,
+  "V": null,
+  "d": null,
+  "tied": null,
+  "head_params": null,
+  "head_share_of_params": null
+ },
+ {
+  "model": "gemma3_1b",
+  "repo": "google/gemma-3-1b-it",
+  "params": 999885952,
+  "V": null,
+  "d": null,
+  "tied": null,
+  "head_params": null,
+  "head_share_of_params": null
+ },
+ {
+  "model": "smollm2_135m",
+  "repo": "HuggingFaceTB/SmolLM2-135M-Instruct",
+  "params": 134515008,
+  "V": 49152,
+  "d": 576,
+  "tied": true,
+  "head_params": 28311552,
+  "head_share_of_params": 0.2104713252516775
+ },
+ {
+  "model": "smollm2_360m",
+  "repo": "HuggingFaceTB/SmolLM2-360M-Instruct",
+  "params": 361821120,
+  "V": 49152,
+  "d": 960,
+  "tied": true,
+  "head_params": 47185920,
+  "head_share_of_params": 0.13041228770725158
+ },
+ {
+  "model": "qwen3_0.6b",
+  "repo": "Qwen/Qwen3-0.6B",
+  "params": 751632384,
+  "V": 151936,
+  "d": 1024,
+  "tied": true,
+  "head_params": 155582464,
+  "head_share_of_params": 0.20699276310053186
+ },
+ {
+  "model": "qwen3_1.7b",
+  "repo": "Qwen/Qwen3-1.7B",
+  "params": 2031739904,
+  "V": 151936,
+  "d": 2048,
+  "tied": true,
+  "head_params": 311164928,
+  "head_share_of_params": 0.15315194990628092
+ }
+]

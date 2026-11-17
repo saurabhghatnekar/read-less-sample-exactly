@@ -1,0 +1,214 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-YFaSgNq6CLXJn9me2A9WXb
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/gen2_modal.py
+├── ✓ Created Function sarvam.
+├── ✓ Created Function prompts.
+└── ✓ Created Function small.
+[transformers] This model config has set a `rope_parameters['original_max_position_embeddings']` field, to be used together with `max_position_embeddings` to determine a scaling factor. Please set the `factor` field of `rope_parameters`with this ratio instead -- we recommend the use of this field over `original_max_position_embeddings`, as it is compatible with most model architectures.
+
+[1ALoading weights:   0%|          | 0/194 [00:00<?, ?it/s]
+[1ALoading weights:   1%|          | 1/194 [00:00<01:43,  1.87it/s]
+[1ALoading weights:   5%|▍         | 9/194 [00:00<00:10, 17.98it/s]
+[1ALoading weights:   8%|▊         | 16/194 [00:00<00:06, 28.02it/s]
+[1ALoading weights:  13%|█▎        | 25/194 [00:00<00:04, 40.36it/s]
+[1ALoading weights:  16%|█▌        | 31/194 [00:01<00:04, 35.45it/s]
+[1ALoading weights:  19%|█▊        | 36/194 [00:01<00:04, 34.80it/s]
+[1ALoading weights:  21%|██        | 41/194 [00:01<00:04, 37.50it/s]
+[1ALoading weights:  27%|██▋       | 52/194 [00:01<00:02, 53.17it/s]
+[1ALoading weights:  33%|███▎      | 64/194 [00:01<00:02, 62.06it/s]
+[1ALoading weights:  39%|███▉      | 76/194 [00:01<00:01, 75.58it/s]
+[1ALoading weights:  45%|████▍     | 87/194 [00:01<00:01, 83.44it/s]
+[1ALoading weights:  50%|█████     | 97/194 [00:01<00:01, 82.83it/s]
+[1ALoading weights:  55%|█████▍    | 106/194 [00:02<00:01, 78.98it/s]
+[1ALoading weights:  62%|██████▏   | 120/194 [00:02<00:00, 91.93it/s]
+[1ALoading weights:  67%|██████▋   | 130/194 [00:02<00:00, 91.72it/s]
+[1ALoading weights:  73%|███████▎  | 141/194 [00:02<00:00, 96.19it/s]
+[1ALoading weights:  78%|███████▊  | 151/194 [00:02<00:00, 95.11it/s]
+[1ALoading weights:  84%|████████▎ | 162/194 [00:02<00:00, 92.31it/s]
+[1ALoading weights:  89%|████████▊ | 172/194 [00:02<00:00, 88.92it/s]
+[1ALoading weights:  96%|█████████▌| 186/194 [00:02<00:00, 100.28it/s]
+[1ALoading weights: 100%|██████████| 194/194 [00:02<00:00, 66.09it/s] 
+
+[1ALoading weights:   0%|          | 0/255 [00:00<?, ?it/s]
+[1ALoading weights:   0%|          | 0/326 [00:00<?, ?it/s]
+[1ALoading weights:   0%|          | 1/255 [00:00<04:12,  1.01it/s]
+[1ALoading weights:   6%|▌         | 15/255 [00:01<00:13, 18.16it/s]
+[1ALoading weights:  10%|▉         | 25/255 [00:01<00:07, 29.46it/s]
+[1ALoading weights:  14%|█▎        | 35/255 [00:01<00:05, 39.59it/s]
+[1ALoading weights:  20%|██        | 51/255 [00:01<00:03, 61.52it/s]
+[1ALoading weights:  25%|██▌       | 65/255 [00:01<00:02, 75.01it/s]
+[1ALoading weights:  31%|███       | 78/255 [00:01<00:02, 86.74it/s]
+[1ALoading weights:  36%|███▌      | 91/255 [00:01<00:01, 96.35it/s]
+[1ALoading weights:  42%|████▏     | 106/255 [00:01<00:01, 109.83it/s]
+[1ALoading weights:  47%|████▋     | 119/255 [00:02<00:01, 109.99it/s]
+[1ALoading weights:  52%|█████▏    | 132/255 [00:02<00:01, 107.36it/s]
+[1ALoading weights:  57%|█████▋    | 146/255 [00:02<00:00, 113.97it/s]
+[1ALoading weights:  62%|██████▏   | 159/255 [00:02<00:00, 111.92it/s]
+[1ALoading weights:   0%|          | 1/326 [00:01<09:21,  1.73s/it]
+[1ALoading weights:  67%|██████▋   | 171/255 [00:02<00:00, 112.21it/s]
+[1ALoading weights:  72%|███████▏  | 184/255 [00:02<00:00, 117.04it/s]
+[1ALoading weights:  77%|███████▋  | 196/255 [00:02<00:00, 112.94it/s]
+[1ALoading weights:   1%|          | 4/326 [00:02<02:19,  2.31it/s]
+[1ALoading weights:  82%|████████▏ | 208/255 [00:02<00:00, 106.41it/s]
+[1ALoading weights:  87%|████████▋ | 223/255 [00:02<00:00, 117.93it/s]
+[1ALoading weights:  93%|█████████▎| 236/255 [00:03<00:00, 119.36it/s]
+[1ALoading weights:   3%|▎         | 9/326 [00:02<00:52,  6.02it/s]
+[1ALoading weights: 100%|██████████| 255/255 [00:03<00:00, 81.90it/s] 
+
+[1ALoading weights:   4%|▍         | 13/326 [00:02<00:40,  7.80it/s]
+[1ALoading weights:   5%|▍         | 16/326 [00:02<00:31,  9.79it/s]
+[1ALoading weights:   6%|▋         | 21/326 [00:02<00:20, 14.58it/s]
+[1ALoading weights:  10%|▉         | 32/326 [00:02<00:10, 28.35it/s]
+[1ALoading weights:  14%|█▍        | 45/326 [00:03<00:06, 45.58it/s]
+[1ALoading weights:  17%|█▋        | 55/326 [00:03<00:04, 56.12it/s]
+[1ALoading weights:  21%|██        | 68/326 [00:03<00:03, 70.92it/s]
+[1ALoading weights:  25%|██▌       | 82/326 [00:03<00:02, 81.93it/s]
+[1ALoading weights:  29%|██▉       | 94/326 [00:03<00:02, 89.57it/s][transformers] Both `max_new_tokens` (=128) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+
+[1ALoading weights:  32%|███▏      | 105/326 [00:03<00:02, 91.33it/s]
+[1ALoading weights:  36%|███▌      | 116/326 [00:03<00:02, 95.58it/s]
+[1ALoading weights:  39%|███▉      | 127/326 [00:03<00:02, 94.91it/s]
+[1ALoading weights:  43%|████▎     | 140/326 [00:03<00:01, 98.11it/s]
+[1ALoading weights:  47%|████▋     | 153/326 [00:04<00:01, 100.86it/s]
+[1ALoading weights:  51%|█████     | 167/326 [00:04<00:01, 109.31it/s]
+[1ALoading weights:  56%|█████▌    | 181/326 [00:04<00:01, 109.70it/s]
+[1ALoading weights:  59%|█████▉    | 193/326 [00:04<00:01, 111.15it/s]
+[1ALoading weights:  63%|██████▎   | 205/326 [00:04<00:01, 110.72it/s]
+[1ALoading weights:  67%|██████▋   | 217/326 [00:04<00:01, 103.28it/s]
+[1ALoading weights:  71%|███████   | 230/326 [00:04<00:00, 107.03it/s]
+[1ALoading weights:  75%|███████▍  | 244/326 [00:04<00:00, 110.80it/s]
+[1ALoading weights:  79%|███████▉  | 257/326 [00:05<00:00, 110.08it/s]
+[1ALoading weights:  83%|████████▎ | 270/326 [00:05<00:00, 111.83it/s]
+[1ALoading weights:  87%|████████▋ | 282/326 [00:05<00:00, 104.85it/s]
+[1ALoading weights:  90%|████████▉ | 293/326 [00:05<00:00, 102.00it/s]
+[1ALoading weights:  93%|█████████▎| 304/326 [00:05<00:00, 103.37it/s]
+[1ALoading weights:  97%|█████████▋| 316/326 [00:05<00:00, 105.42it/s]
+[1ALoading weights: 100%|██████████| 326/326 [00:05<00:00, 58.07it/s] 
+greedy batch 0: 1638 states, 7s
+greedy batch 0: 2048 states, 5s
+[transformers] Both `max_new_tokens` (=128) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+greedy batch 1: 3278 states, 12s
+greedy batch 1: 3510 states, 10s
+[transformers] Both `max_new_tokens` (=128) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+greedy batch 0: 1658 states, 6s
+greedy batch 2: 4825 states, 16s
+greedy batch 2: 5548 states, 14s
+[transformers] Both `max_new_tokens` (=128) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+greedy batch 1: 3484 states, 12s
+greedy batch 3: 5954 states, 21s
+greedy batch 3: 7486 states, 18s
+[transformers] Both `max_new_tokens` (=128) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+greedy batch 2: 5361 states, 16s
+greedy batch 4: 9436 states, 23s
+[transformers] Both `max_new_tokens` (=128) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+greedy batch 4: 7140 states, 26s
+greedy batch 3: 7078 states, 21s
+greedy batch 5: 11367 states, 28s
+[transformers] Both `max_new_tokens` (=128) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+greedy batch 5: 9181 states, 31s
+greedy batch 4: 8819 states, 26s
+greedy batch 6: 13231 states, 32s
+[transformers] Both `max_new_tokens` (=128) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+greedy batch 6: 11229 states, 36s
+greedy batch 5: 10867 states, 32s
+greedy batch 7: 15103 states, 37s
+[transformers] Both `max_new_tokens` (=128) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+greedy batch 7: 13245 states, 41s
+greedy batch 6: 12915 states, 37s
+greedy batch 8: 17128 states, 41s
+[transformers] Both `max_new_tokens` (=128) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+greedy batch 8: 15179 states, 46s
+greedy batch 7: 14963 states, 42s
+greedy batch 9: 18963 states, 46s
+[transformers] Both `max_new_tokens` (=128) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+greedy batch 9: 17227 states, 51s
+greedy batch 10: 20877 states, 50s
+[transformers] Both `max_new_tokens` (=128) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+greedy batch 8: 17011 states, 47s
+greedy batch 10: 19275 states, 56s
+greedy batch 11: 22903 states, 54s
+[transformers] Both `max_new_tokens` (=128) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+greedy batch 9: 19059 states, 52s
+greedy batch 11: 21323 states, 61s
+greedy batch 12: 24865 states, 59s
+[transformers] Both `max_new_tokens` (=128) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+greedy batch 10: 21107 states, 57s
+greedy batch 12: 23369 states, 66s
+greedy batch 13: 26800 states, 63s
+[transformers] Both `max_new_tokens` (=128) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+greedy batch 11: 23155 states, 62s
+greedy batch 13: 25417 states, 70s
+greedy batch 14: 28800 states, 68s
+[transformers] Both `max_new_tokens` (=128) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+greedy batch 12: 25203 states, 67s
+greedy batch 14: 27465 states, 75s
+t1 batch 0: 1669 states, 73s
+[transformers] Both `max_new_tokens` (=128) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+greedy batch 13: 27251 states, 73s
+t1 batch 1: 3383 states, 77s
+[transformers] Both `max_new_tokens` (=128) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+t1 batch 0: 1710 states, 82s
+greedy batch 14: 29299 states, 78s
+t1 batch 2: 5310 states, 82s
+[transformers] Both `max_new_tokens` (=128) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+t1 batch 1: 3344 states, 87s
+t1 batch 3: 7287 states, 86s
+[transformers] Both `max_new_tokens` (=128) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+t1 batch 0: 1845 states, 84s
+t1 batch 2: 4887 states, 91s
+t1 batch 4: 9153 states, 91s
+[transformers] Both `max_new_tokens` (=128) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+t1 batch 1: 3872 states, 89s
+t1 batch 3: 6260 states, 96s
+t1 batch 5: 11110 states, 95s
+[transformers] Both `max_new_tokens` (=128) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+t1 batch 2: 5754 states, 94s
+t1 batch 4: 7640 states, 102s
+t1 batch 6: 12934 states, 99s
+[transformers] Both `max_new_tokens` (=128) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+t1 batch 3: 7518 states, 99s
+t1 batch 5: 9688 states, 107s
+t1 batch 7: 14969 states, 104s
+[transformers] Both `max_new_tokens` (=128) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+t1 batch 4: 9118 states, 105s
+t1 batch 6: 11729 states, 112s
+t1 batch 8: 16912 states, 109s
+[transformers] Both `max_new_tokens` (=128) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+t1 batch 9: 18855 states, 113s
+[transformers] Both `max_new_tokens` (=128) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+t1 batch 7: 13720 states, 117s
+t1 batch 5: 11166 states, 110s
+t1 batch 10: 20789 states, 118s
+[transformers] Both `max_new_tokens` (=128) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+t1 batch 8: 15638 states, 122s
+t1 batch 6: 13214 states, 115s
+t1 batch 11: 22831 states, 122s
+[transformers] Both `max_new_tokens` (=128) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+t1 batch 9: 17677 states, 127s
+t1 batch 7: 15262 states, 120s
+t1 batch 12: 24861 states, 127s
+[transformers] Both `max_new_tokens` (=128) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+t1 batch 10: 19714 states, 132s
+t1 batch 8: 17310 states, 126s
+t1 batch 13: 26909 states, 131s
+[transformers] Both `max_new_tokens` (=128) and `max_length`(=8192) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+t1 batch 11: 21707 states, 137s
+t1 batch 9: 19358 states, 131s
+t1 batch 14: 28870 states, 136s
+t1 batch 12: 23736 states, 142s
+t1 batch 10: 21406 states, 136s
+t1 batch 13: 25629 states, 147s
+{"model": "sarvam_1", "repo": "sarvamai/sarvam-1", "rev": "e9607337286ddf496d4a2562b194e489dcf3feea", "prompt_set": "prompts", "torch": "2.15.0+cu132", "transformers": "5.22.2", "eos": [2], "chat_template": true, "cap": null, "V": 68096, "d": 2048, "head_bias": false, "tied": false, "gpu": "NVIDIA A100 80GB PCIe", "n_greedy": 28800, "n_t1": 28870, "n_states": 57670, "seconds": 136.1, "prompts": 240}
+t1 batch 11: 23454 states, 141s
+t1 batch 14: 27594 states, 152s
+t1 batch 12: 25502 states, 146s
+t1 batch 13: 27435 states, 151s
+{"model": "phi4_mini", "repo": "microsoft/Phi-4-mini-instruct", "rev": "cfbefacb99257ffa30c83adab238a50856ac3083", "prompt_set": "prompts", "torch": "2.15.0+cu132", "transformers": "5.22.2", "eos": [199999, 200020], "chat_template": true, "cap": null, "V": 200064, "d": 3072, "head_bias": false, "tied": true, "gpu": "NVIDIA A10", "n_greedy": 27465, "n_t1": 27594, "n_states": 55059, "seconds": 151.9, "prompts": 240}
+t1 batch 14: 29483 states, 157s
+Container terminated due to preemption. Your Function will be restarted with the same input. For more details, see https://modal.com/docs/guide/preemption
+{"model": "smollm3_3b", "repo": "HuggingFaceTB/SmolLM3-3B", "rev": "a07cc9a04f16550a088caea529712d1d335b0ac1", "prompt_set": "prompts", "torch": "2.15.0+cu132", "transformers": "5.22.2", "eos": [128012], "chat_template": true, "cap": null, "V": 128256, "d": 2048, "head_bias": false, "tied": true, "gpu": "NVIDIA A100-SXM4-80GB", "n_greedy": 29299, "n_t1": 29483, "n_states": 58782, "seconds": 156.9, "prompts": 240}
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-YFaSgNq6CLXJn9me2A9WXb
+exit 0

@@ -1,0 +1,19 @@
+{
+ "counts": {
+  "bengali": 40,
+  "code": 40,
+  "english": 40,
+  "hindi": 40,
+  "tamil": 40,
+  "telugu": 40
+ },
+ "sha256": "f157db0d96022f36f84eb4650d50643878b9fbf72db979329f019360eec577e6",
+ "median_chars": {
+  "bengali": 833,
+  "code": 439,
+  "english": 183,
+  "hindi": 833,
+  "tamil": 981,
+  "telugu": 853
+ }
+}

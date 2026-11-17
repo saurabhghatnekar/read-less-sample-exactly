@@ -19,6 +19,9 @@ Models: Qwen3-8B (151,936 × 4,096 head), Gemma 4 E4B (262,144 × 2,560, tied, s
   - **N1**, where Sarvam-30B's dominant state direction appears: the last decoder block writes it and the final norm's gain doubles it
   - **M1**, one 128-coordinate group kept in INT8 for every row, with and without K2: it does not pay on greedy or Gumbel, because K2 alone is already at the byte floor
   - **M2**, the same group read only for the rows the rule still needs: free on greedy and Gumbel, and top-50's mean falls from 0.278 to 0.270
+  - **T1**, a dithered INT8 stage: top-50 passes its gate on all three models and the BF16 head is almost never read; a leaner top-k rule that does not work; top-p, exact but cheap on Qwen3-8B only
+  - **R1**, Sarvam-30B on a second prompt set and with four dither draws: the result holds with nothing refitted
+  - **G1**, the parts on three more off-floor models: greedy passes its gate on Sarvam-1, SmolLM3-3B and Phi-4-mini
 
   Results and caveats are in [`exp01_repro/README.md`](exp01_repro/README.md).
 - [`kernel/`](kernel/): a second, independently built set of L4 kernels for the certified step (15 Nov 2026): a PyTorch baseline, a tensor-core first pass, and a fused, graph-captured step with per-state row lists for greedy and Gumbel sampling. See [`kernel/README.md`](kernel/README.md), including how it relates to the graph-captured step in `exp01_repro`.
@@ -44,6 +47,11 @@ Where that direction comes from (N1, 16 Nov 2026): it is absent through block 18
 Keeping Sarvam-30B's one heavy coordinate group in INT8 for every row (M1, 17 Nov 2026) does not improve on K2 for greedy or Gumbel sampling: K2 alone is within 0.004 of the byte floor at the p99 in every language, and the group costs 0.008 on every state. On top-50 it helps Tamil and Telugu and costs the other languages the same amount. Reading the group only for the rows the rule still needs (M2) removes that cost: greedy and Gumbel stay at K2's level, the top-50 mean falls from 0.278 to 0.270 and its p99 from 0.374 to 0.352, with exact tokens. Top-50 still misses its gate.
 
 On time (17 Nov 2026): with the tensor-core first pass of `kernel/`, the batch-1 head step on an A100-80GB takes 0.66 to 0.69 of the stock BF16 head on Qwen3-8B and Gemma 4, with exact tokens. So the sentence above about the A100 holds for `exp01_repro`'s kernels only. The win shrinks with batch size and is gone at batch 32, Gemma 4 loses from batch 8, and the end-to-end step in a Hugging Face loop is still unchanged. See [`kernel/README.md`](kernel/README.md).
+
+Later the same day (17 Nov 2026), three checks on the byte results:
+- **Top-50 passes its gate on all three models** once the INT8 stage is a dithered copy with the probabilistic bound (T1). At the p99, two to 48 rows need the BF16 read, where 4,833 (Gemma 4) and 7,813 (Sarvam-30B) did. Bytes change little: top-50 is still the most expensive rule (p99 0.32 to 0.34). Top-p 0.9 is exact but passes its gate on Qwen3-8B only.
+- **The Sarvam-30B result holds on a second prompt set and across four dither draws** (R1): with the direction fitted on the first set, the greedy p99 on the second is 0.260 against 0.52 uncorrected. No bound violation and no token mismatch in 359,039 state evaluations.
+- **The method's parts are not specific to Sarvam-30B** (G1). With a tuned shift, four cancelled directions, staged groups and the dithered INT8 stage, greedy passes its gate on Sarvam-1 (p99 0.759 to 0.268), Phi-4-mini (0.385 to 0.283) and SmolLM3-3B (1.086 to 0.342). Top-50 passes on none of those three.
 
 ## Not included
 

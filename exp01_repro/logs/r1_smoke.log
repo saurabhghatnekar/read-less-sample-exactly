@@ -1,0 +1,25 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-lzawyzqvFHjhobAS7kTmI6
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/r1_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/pipe_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/rules2_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/mix_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/hdir_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/subg_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_lib.py
+├── ✓ Created Function collect.
+└── ✓ Created Function chunk.
+4 jobs, rule 4e9e73ff91e3
+{'pset': 'p2', 'seed': 1234, 'mode': 't1', 'start': 0, 'n': 256, 'r0': 0, 'viol': 0, 'mism': 0, 'seconds': 10, 'mean_bytes': {'gumbel_1.0': {'none': 0.3102, 'k2': 0.2584, 'staged': 0.2584, 'staged_d8': 0.2583}, 'minp_0.05': {'none': 0.3456, 'k2': 0.2586, 'staged': 0.2586, 'staged_d8': 0.2584}, 'top50': {'none': 0.5071, 'k2': 0.2671, 'staged': 0.2664, 'staged_d8': 0.2615}}}
+{'pset': 'p2', 'seed': 1234, 'mode': 'greedy', 'start': 0, 'n': 256, 'r0': 0, 'viol': 0, 'mism': 0, 'seconds': 11, 'mean_bytes': {'greedy': {'none': 0.2895, 'k2': 0.2584, 'staged': 0.2584, 'staged_d8': 0.2583}}}
+{'pset': 'p2', 'seed': 1, 'mode': 'greedy', 'start': 0, 'n': 256, 'r0': 0, 'viol': 0, 'mism': 0, 'seconds': 10, 'mean_bytes': {'greedy': {'none': 0.293, 'k2': 0.2584, 'staged': 0.2584, 'staged_d8': 0.2583}}}
+{'pset': 'p2', 'seed': 1, 'mode': 't1', 'start': 0, 'n': 256, 'r0': 0, 'viol': 0, 'mism': 0, 'seconds': 90, 'mean_bytes': {'gumbel_1.0': {'none': 0.3101, 'k2': 0.2584, 'staged': 0.2584, 'staged_d8': 0.2583}, 'minp_0.05': {'none': 0.3468, 'k2': 0.2586, 'staged': 0.2586, 'staged_d8': 0.2584}, 'top50': {'none': 0.5067, 'k2': 0.2673, 'staged': 0.2665, 'staged_d8': 0.2615}}}
+TOTAL {'n': 1024, 'r0': 0, 'viol': 0, 'mism': 0, 'seconds': 121}
+wrote the summary
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-lzawyzqvFHjhobAS7kTmI6
+exit 0

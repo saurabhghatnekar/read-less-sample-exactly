@@ -1,0 +1,26 @@
+{
+  "experiment": "G1: do the method's parts bring the other off-floor models to the floor?",
+  "written": "2026-11-17, after K3 and M2 were read and the three models' states were dumped, before any certificate ran on those states",
+  "why": "K3 found three models off the byte floor besides Sarvam-30B: Sarvam-1 (greedy bytes median 0.293, p99 0.759), SmolLM3-3B (0.406, 1.069) and Phi-4-mini (0.258, 0.396). K3 ran them with no shift, at most one direction and no staged group. If the parts fix them, the method is not specific to one model.",
+  "models_and_states": "Sarvam-1, SmolLM3-3B and Phi-4-mini; this reproduction's 240 prompts, greedy and T = 1, 128 new tokens (gen2_modal.py), so not K3's 64-token states",
+  "selection": "everything is chosen on the even prompt ids, on greedy states, by the mean of greedy bytes, in this order: (1) the shift t from 0, 0.5, 1, 1.5 with no correction; (2) at that shift, the number of cancelled directions K from 0, 1, 4, 16 (top eigenvectors of the even-prompt greedy states); (3) at that shift and K, the staged group read with the one or the two groups of 128 coordinates that carry the largest mean share of the variance term after the directions are removed, or none",
+  "arms_reported_on_the_odd_prompts": {
+    "plain": "no shift, no correction, INT8 rows with the worst-case bound: K3's setting on these states",
+    "shift": "the selected shift",
+    "k": "the selected shift and directions",
+    "staged": "plus the selected staged groups (if step 3 selects none, this arm equals k)",
+    "full": "plus T1's dithered INT8 stage in place of the worst-case one"
+  },
+  "rules": "greedy, Gumbel T = 1, min-p 0.05, top-50",
+  "reported": "per model: what was selected and the even-prompt means it was selected on; per arm and rule on the odd prompts: bytes (median, p99, mean), BF16 rows (median, p99), gate status; violations and mismatches",
+  "controls": "no reference logit outside any interval and no token mismatch, in every arm and rule, on all states",
+  "status": "one pass. A model counts as fixed if greedy passes its gate with the full arm and its p99 is at most 0.30.",
+  "prediction_written_before_running": {
+    "controls": "pass",
+    "sarvam_1": "K is 4 or 16 (86% of the state energy lies in four directions). The greedy mean on the odd prompts falls by at least a third of its excess over the floor, but the p99 stays above 0.30: not fixed. Its vocabulary sits very close under the leader (98.6% of tokens within 32 logits in K3).",
+    "smollm3_3b": "improves but is not fixed: the greedy median stays above 0.28",
+    "phi4_mini": "the greedy p99 falls from about 0.40 to below 0.32, but a p99 at or under 0.30 is about even",
+    "overall": "at most one of the three counts as fixed. Low confidence throughout: none of these levers has been tried on these models.",
+    "takeaway_if_wrong": "If two or three are fixed, the parts are general and the paper can say the method handles four of four off-floor models. If none improves, the parts are specific to Sarvam-30B's structure and the other models need their own diagnosis, as K1 did for Sarvam."
+  }
+}

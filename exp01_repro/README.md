@@ -860,3 +860,123 @@ Controls, all pass: the arm `k2` equals M1's stored values on all 59,333 states;
 Against the predictions: all held. Criterion passes; greedy and Gumbel within 0.0002 of `k2` in the mean; top-50 overall mean 0.2697 (predicted 0.2695 to 0.2715), Tamil 0.2664 (0.265 to 0.269), Telugu 0.2707 (0.270 to 0.273); min-p p99 0.264 and 0.269 (0.263 to 0.272); gate still missed; M1's estimate was within 0.0006 of the measured mean on every rule and language.
 
 Limits: one model, one group, chosen from this model's states. Bytes only: stage G is one more data-dependent gather, and nothing here measures what it costs in time. The group helps two languages; a model or language with no such group gains nothing from it.
+
+## T1: top-50 through its gate with a dithered INT8 stage; a leaner top-k rule; top-p (17 Nov 2026)
+
+Top-50 missed its gate on Gemma 4 and Sarvam-30B because too many rows needed the BF16 read at the p99. Reading the cascade showed why: the INT8 stage has always used a worst-case bound on an undithered copy. T1 replaces it with a dithered INT8 copy and the same sub-Gaussian bound as the first pass, tries a leaner top-k rule, and tests top-p for the first time.
+
+Rule `t1_rule.json` (sha256 `79244c93…`, logged before any run on real states). Code `rules2_lib.py`, `pipe_lib.py`, `t1_modal.py`, `run3_summarize.py`, `test_rules2.py`; results `logs/t1_summary.json`, tables `logs/t1_summary.txt`. Qwen3-8B, Gemma 4 E4B and Sarvam-30B, all 176,359 saved states.
+
+- **`i8`**: the INT8-row copy with its worst-case bound, as in every earlier run.
+- **`d8`**: a dithered INT8 copy with a step per group of 128, the first pass's dither pattern and the sub-Gaussian bound; on Sarvam-30B with K2's correction applied to it. It costs 40 to 68 bytes a row more than `i8` (the steps per group, and on Sarvam-30B the row's K2 number). A row read there carries one more dither bound: at most 2δ, or 3δ after M2's group stage.
+
+Controls: no reference logit outside any interval and no token mismatch, for every arm and rule including the two new rules. The `base` arm reproduces the stored B1 and M2 rows on every state. `test_rules2.py` passes.
+
+**One control failed on the first run and passed on the rerun.** The first run used batches of 64 states, where B1 and M2 used 128. Two stored values of about a million differed on Sarvam-30B, because the reference product rounds differently with another batch shape. The rule says any difference invalidates the run, so it was rerun at 128: zero differences, and every mean in the tables is the same to five decimals. The first run is kept as `logs/t1_summary_batch64.json`.
+
+### The dithered INT8 stage
+
+Its bound is 0.14 to 0.16 of the worst-case one. Top-50:
+
+| Model | Arm | Bytes (median, p99, mean) | BF16 rows at the p99 | Gate |
+|---|---|---|---|---|
+| Qwen3-8B | `i8` | 0.2578, 0.2736, 0.2584 | 10 | passes |
+| Qwen3-8B | `d8` | 0.2578, 0.2734, 0.2584 | 2 | passes |
+| Gemma 4 E4B | `i8` | 0.2578, 0.3208, 0.2717 | 4,833 | misses |
+| Gemma 4 E4B | `d8` | 0.2578, 0.3151, 0.2714 | 2 | **passes** |
+| Sarvam-30B, K2 | `i8` | 0.2698, 0.3738, 0.2777 | 10,145 | misses |
+| Sarvam-30B, K2 | `d8` | 0.2646, 0.3655, 0.2733 | 48 | **passes** |
+| Sarvam-30B, K2 + group stage (M2) | `i8` | 0.2649, 0.3522, 0.2697 | 7,813 | misses |
+| Sarvam-30B, K2 + group stage | `d8` | 0.2621, 0.3436, 0.2662 | 48 | **passes** |
+
+- **Top-50 now passes its gate on all three models.**
+- **The BF16 head is almost never read, on any rule.** At the p99, greedy needs 2 to 3 BF16 rows (9 to 48 before), Gumbel 2 to 4, min-p 3 to 17 (20 to 537 before).
+- **Bytes change little.** The rows move from the BF16 stage to the INT8 stage, they do not disappear: Gemma 4's top-50 mean goes from 0.2717 to 0.2714. Top-50 remains the most expensive rule, with a p99 of 0.32 to 0.34 on Gemma 4 and Sarvam-30B.
+- On greedy, Gumbel and min-p the mean changes by less than 0.001.
+
+### The leaner top-k rule does not work
+
+It reads only the race candidates and the rows overlapping their intervals. It reads fewer rows in INT8, and then far more in BF16, because rows it skipped keep their wide first-pass intervals. On Gemma 4 the top-50 mean rises from 0.272 to 0.317 and the p99 to 0.78; on Sarvam-30B it reads the whole vocabulary at the p99. Not adopted.
+
+### Top-p 0.9: exact, but cheap only on Qwen3-8B
+
+No token differs from the float64 reference decision on any state. Bytes with `d8`:
+
+| Model | Bytes (median, p99, mean) | Gate |
+|---|---|---|
+| Qwen3-8B | 0.2578, 0.3031, 0.2598 | passes |
+| Gemma 4 E4B | 0.2579, 0.7653, 0.3266 | misses |
+| Sarvam-30B, K2 + group stage | 0.2834, 0.8007, 0.4250 | misses |
+
+On Gemma 4 and Sarvam-30B the certificate reads the whole vocabulary in INT8 on more than 1% of states. Pinning the nucleus boundary needs the probability mass above each candidate, and with a flat distribution that takes most of the rows. Top-p is a stated limit in this form.
+
+Against the predictions:
+- **Bound ratio 0.08 to 0.20: held** (0.14 to 0.16).
+- **BF16 rows fall at least fourfold: held** (4,833 to 2; 10,145 to 48).
+- **Top-50 passes on Gemma 4 and Sarvam-30B: held.**
+- **Top-50 mean below 0.262 on Gemma 4 and below 0.266 on Sarvam-30B: missed** (0.2714 and 0.2662). The bytes sit in the INT8 stage, which `d8` does not shrink.
+- **Other rules change by less than 0.001: held.**
+- **The leaner rule does not help: held.** This prediction was written after the synthetic test showed it; before that test we expected the opposite.
+- **Top-p: partly missed.** No mismatch and Qwen3-8B passes, as predicted. Gemma 4 was predicted to pass and does not; Sarvam-30B's p99 was predicted below 0.35 and is 0.80.
+
+Limits: the gate counts BF16 rows, so moving reads into a dithered INT8 stage passes it without saving many bytes; the byte columns are the honest measure. The exactness of every stage is now probabilistic (2δ to 3δ per row read). One dither draw here; R1 covers other draws for Sarvam-30B.
+
+## R1: a second prompt set and four dither draws (17 Nov 2026)
+
+Rule `r1_rule.json` (sha256 `4e9e73ff…`, logged before any certificate ran on the new states or seeds). Code `gen2_modal.py`, `r1_modal.py`; results `logs/r1_summary.json`, tables `logs/r1_summary.txt`. Sarvam-30B.
+
+**Second prompt set** (`prompts2.jsonl`, private like the first): 240 prompts that share none with the first. English: MT-Bench questions 6 to 10 of each category. Code: HumanEval tasks 40 to 79. Hindi, Bengali, Tamil, Telugu: a passage and a question in the language from XQuAD-IN, where the first set was translation from English. 19,044 greedy and 24,168 sampled states. **Nothing is refitted on it:** the direction is K2's, fitted on the first set's even prompts, the group is 26, the shift is 0.5.
+
+**Dither seeds:** 1234 (used so far), 1, 2, 3, on both prompt sets.
+
+Controls: 359,039 state evaluations over the eight combinations. No reference logit outside an interval, no token mismatch. Seed 1234 on the first set reproduces M2's stored rows.
+
+Second prompt set, seed 1234, bytes (median, p99, mean):
+
+| Rule | No correction | K2 | K2 + group stage + `d8` |
+|---|---|---|---|
+| Greedy | 0.2589, 0.5220, 0.2881 | 0.2583, 0.2601, 0.2584 | 0.2583, 0.2593, 0.2584 |
+| Gumbel T = 1 | 0.2596, 0.4962, 0.2862 | 0.2583, 0.2613, 0.2586 | 0.2583, 0.2603, 0.2584 |
+| Min-p 0.05 | 0.2660, 0.5667, 0.3143 | 0.2584, 0.2830, 0.2599 | 0.2583, 0.2738, 0.2591 |
+| Top-50 | 0.4237, 0.6848, 0.4359 | 0.2702, 0.3987, 0.2782 | 0.2622, 0.3767, 0.2675 (passes) |
+
+- **The problem and the fix both carry over.** With no correction the greedy p99 is 0.52; with the direction from the first prompt set it is 0.260. The median bound is 0.55 of the uncorrected one (0.58 on the first set, all states).
+- **By language on the new set,** the greedy p99 with K2 is 0.258 to 0.260 in five languages and 0.264 in Telugu.
+- **The dither draw does not matter.** Across the four seeds the greedy mean with K2 is 0.2584 on both sets, and the p99 is 0.2596 to 0.2597 on the first set and 0.2601 to 0.2602 on the second. Every gate status is the same for every seed.
+
+Against the predictions: all held. Uncorrected greedy p99 above 0.40 (0.52); with K2 at most 0.265 (0.260) and the mean at most 0.2595 (0.2584); greedy, Gumbel and min-p pass; top-50 passes only with `d8`; bound ratio between 0.55 and 0.80 (0.551, at the edge); seeds within the stated spread.
+
+Limits: still one model for this check, and the second set comes from the same benchmarks' families (MT-Bench, HumanEval, IndicGenBench). It changes the questions and the Indian-language task, not the genre of every prompt.
+
+## G1: the parts on the other off-floor models (17 Nov 2026)
+
+K3 found three more models off the byte floor and ran them untuned. G1 applies the method's parts to them.
+
+Rule `g1_rule.json` (sha256 `67d8c11f…`, logged before any certificate ran on these states). Code `gen2_modal.py`, `g1_modal.py`; results `logs/g1_<model>.json`, tables `logs/g1_summary.txt`. Sarvam-1, SmolLM3-3B, Phi-4-mini; the 240 prompts, greedy and T = 1, 128 new tokens.
+
+Everything is chosen on the even prompts (by mean greedy bytes) and reported on the odd ones: the shift from 0, 0.5, 1, 1.5; the number of cancelled directions from 0, 1, 4, 16; one or two staged groups, or none.
+
+| Model | Chosen: shift, directions, groups | Greedy, plain (median, p99, mean) | Greedy, full method | Gate |
+|---|---|---|---|---|
+| Sarvam-1 | 0.5, 4, one group | 0.284, 0.759, 0.386 | 0.2618, 0.2676, 0.2621 | passes |
+| SmolLM3-3B | 1.0, 4, two groups | 0.409, 1.086, 0.482 | 0.2639, 0.3423, 0.2699 | passes |
+| Phi-4-mini | 1.0, 4, two groups | 0.258, 0.385, 0.275 | 0.2605, 0.2827, 0.2619 | passes |
+
+The floor with four directions is 0.2617 on the two models with d = 2,048 and 0.2604 on Phi-4-mini.
+
+- **Greedy passes its gate on all three with the full method.** Two meet the stricter bar set in the rule (p99 at most 0.30): Sarvam-1 and Phi-4-mini. SmolLM3-3B's p99 is 0.342, down from 1.086.
+- **Each part matters on a different model.**
+  - Sarvam-1: the directions. Four of them carry 85% of the state energy; the bound falls to 0.36 of the plain one and the mean from 0.380 to 0.262.
+  - SmolLM3-3B: the shift. It alone takes the mean from 0.482 to 0.306; directions, groups and `d8` take it to 0.270.
+  - Phi-4-mini: all of them a little; `d8` cuts the p99 from 0.295 to 0.283.
+- **Gumbel passes on all three** with the full method. **Min-p** passes on SmolLM3-3B only. **Top-50** passes on none: Sarvam-1 0.278, 0.819, 0.300; Phi-4-mini 0.327, 0.526, 0.337; SmolLM3-3B 0.423, 0.656, 0.424.
+
+Controls: no reference logit outside an interval and no token mismatch on any of the 171,511 states, in any arm or rule.
+
+Against the predictions: we expected at most one of the three to be fixed, and two are, with the third passing its gate. Sarvam-1: K = 4 as predicted, but its p99 was predicted to stay above 0.30 and is 0.268. SmolLM3-3B: predicted a median above 0.28; it is 0.264. Phi-4-mini: predicted a p99 below 0.32; it is 0.283.
+
+Limits: the choices are made per model on half of the same prompt set, so they are tuned to this kind of text; R1's check on new prompts was done for Sarvam-30B only. The plain arm is K3's setting but on 128-token states, so its numbers differ a little from K3's.
+
+## The head's share of the weights (17 Nov 2026, from public model metadata)
+
+`logs/head_share.json`. The output layer as a share of all parameters: 2.5% to 8.4% for the 8B-and-larger models surveyed, 16% for Phi-4-mini, about 21% for Qwen3-0.6B and SmolLM2-135M. Where input and output tables are untied, the input table is not read per token, so the head's share of the weights read per token is a little higher (Qwen3-8B: 8.2%). For a decode step limited by memory, that share is an upper limit on what a cheaper head can save: with the head at 0.26 of its bytes, about 6% of a step on Qwen3-8B and about 15% on Qwen3-0.6B. Nothing here measures such a step.

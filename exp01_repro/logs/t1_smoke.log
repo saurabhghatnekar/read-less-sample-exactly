@@ -1,0 +1,29 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-ttiVqts60feiO1kKQMzmZO
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/t1_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/pipe_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/mix_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/rules2_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/hdir_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/subg_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+├── ✓ Created Function chunk.
+└── ✓ Created Function collect.
+6 jobs, rule 79244c935f8c
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+{'model': 'qwen3_8b', 'mode': 't1', 'start': 0, 'n': 256, 't0': 0, 'viol': 0, 'mism': 0, 'seconds': 6, 'mean_bytes': {'gumbel_1.0': {'base': 0.2578, 'd8': 0.2578}, 'minp_0.05': {'base': 0.2578, 'd8': 0.2578}, 'top50': {'base': 0.2583, 'd8': 0.2583}, 'top50_lean': {'base': 0.2581, 'd8': 0.2581}, 'topp_0.9': {'base': 0.2585, 'd8': 0.2585}}}
+{'model': 'gemma4_e4b', 'mode': 'greedy', 'start': 0, 'n': 256, 't0': 0, 'viol': 0, 'mism': 0, 'seconds': 7, 'mean_bytes': {'greedy': {'base': 0.2578, 'd8': 0.2578}}}
+{'model': 'sarvam_30b', 'mode': 'greedy', 'start': 0, 'n': 256, 't0': 0, 'viol': 0, 'mism': 0, 'seconds': 10, 'mean_bytes': {'greedy': {'base': 0.2583, 'd8': 0.2583, 'staged': 0.2583, 'staged_d8': 0.2583}}}
+{'model': 'gemma4_e4b', 'mode': 't1', 'start': 0, 'n': 256, 't0': 0, 'viol': 0, 'mism': 0, 'seconds': 11, 'mean_bytes': {'gumbel_1.0': {'base': 0.2578, 'd8': 0.2578}, 'minp_0.05': {'base': 0.2578, 'd8': 0.2578}, 'top50': {'base': 0.258, 'd8': 0.258}, 'top50_lean': {'base': 0.2579, 'd8': 0.2579}, 'topp_0.9': {'base': 0.2579, 'd8': 0.2579}}}
+{'model': 'sarvam_30b', 'mode': 't1', 'start': 0, 'n': 256, 't0': 0, 'viol': 0, 'mism': 0, 'seconds': 10, 'mean_bytes': {'gumbel_1.0': {'base': 0.2584, 'd8': 0.2583, 'staged': 0.2584, 'staged_d8': 0.2583}, 'minp_0.05': {'base': 0.2585, 'd8': 0.2584, 'staged': 0.2584, 'staged_d8': 0.2584}, 'top50': {'base': 0.2693, 'd8': 0.2632, 'staged': 0.2669, 'staged_d8': 0.2623}, 'top50_lean': {'base': 0.3705, 'd8': 0.3083, 'staged': 0.357, 'staged_d8': 0.3049}, 'topp_0.9': {'base': 0.4331, 'd8': 0.3329, 'staged': 0.406, 'staged_d8': 0.3241}}}
+{'model': 'qwen3_8b', 'mode': 'greedy', 'start': 0, 'n': 256, 't0': 0, 'viol': 0, 'mism': 0, 'seconds': 44, 'mean_bytes': {'greedy': {'base': 0.2578, 'd8': 0.2578}}}
+TOTAL {'n': 1536, 't0': 0, 'viol': 0, 'mism': 0, 'seconds': 88}
+wrote the summary
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-ttiVqts60feiO1kKQMzmZO
+exit 0

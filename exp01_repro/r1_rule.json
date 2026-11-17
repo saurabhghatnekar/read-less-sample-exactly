@@ -1,0 +1,23 @@
+{
+  "experiment": "R1: does the Sarvam-30B result hold on a second prompt set and with other dither draws?",
+  "written": "2026-11-17, after M2 was read and the second prompt set was built, before any certificate ran on the new states or with a new dither seed",
+  "why": "Every result so far uses one prompt set and one dither draw (seed 1234). Both are listed as limits.",
+  "second_prompt_set": "240 prompts that share none with the first (gen2_modal.py): MT-Bench questions 6 to 10 of each category, HumanEval tasks 40 to 79, and for Hindi, Bengali, Tamil and Telugu a passage and a question in the language from XQuAD-IN (the first set was translation from English). States dumped as before: greedy and T = 1, 128 new tokens.",
+  "what_is_fixed_from_the_first_set": "On the second set nothing is refitted. The direction is K2's pca1, fitted on the even prompts of the first set (one direction for every state), the group is 26, the shift is 0.5.",
+  "seeds": "the dither seed of every copy: 1234 (used so far), 1, 2 and 3. On the first prompt set seeds 1, 2 and 3 run on all states with the direction fitted without the state's language, as in M2; seed 1234 runs on the first job of each mode only, as the control.",
+  "arms": "none (first pass, INT8 rows, BF16); k2 (K2's correction); staged (M2's certificate); staged_d8 (M2's certificate with T1's dithered INT8 stage)",
+  "rules": "greedy, Gumbel T = 1, min-p 0.05, top-50",
+  "reported": "per prompt set, seed, arm and rule: bytes (median, p99, mean), BF16 rows (median, p99), gate status, bound violations, token mismatches; the median bound with K2 relative to none; mean bytes per language",
+  "controls": {
+    "R0_reproduce": "seed 1234 on the first prompt set equals M2's stored rows for k2 and staged on the jobs rerun",
+    "R0_bound": "no reference logit outside any interval and no token mismatch, for every seed, prompt set, arm and rule"
+  },
+  "prediction_written_before_running": {
+    "controls": "all pass: no violation and no mismatch in any of the eight seed and prompt-set combinations",
+    "second_set_none": "the problem is there too: with no correction the greedy p99 is above 0.40",
+    "second_set_k2": "with K2 the greedy p99 is at most 0.265 and the mean at most 0.2595; greedy, Gumbel and min-p pass their gates; top-50 does not pass with k2 or staged",
+    "second_set_bound": "the median bound with K2 is between 0.55 and 0.80 of the uncorrected one (0.61 on the first set). The in-language prompts may behave like Tamil and Telugu did, where the direction removes less.",
+    "seeds": "on each prompt set, across the four seeds, the greedy mean with K2 varies by less than 0.0005 and the p99 by less than 0.003; the gate status of every arm and rule is the same for all seeds",
+    "takeaway_if_wrong": "If K2 fails on the second set, the direction depends on the kind of prompt and has to be fitted on broader text, and the paper must say on what. If a seed produces a violation, the dither bound or its implementation is wrong: one violation in about 60,000 states times 262,144 rows at delta = 1e-15 cannot be chance."
+  }
+}
