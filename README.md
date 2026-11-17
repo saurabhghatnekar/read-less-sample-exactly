@@ -27,6 +27,7 @@ Models: Qwen3-8B (151,936 × 4,096 head), Gemma 4 E4B (262,144 × 2,560, tied, s
   Results and caveats are in [`exp01_repro/README.md`](exp01_repro/README.md).
 - [`kernel/`](kernel/): a second, independently built set of L4 kernels for the certified step (15 Nov 2026): a PyTorch baseline, a tensor-core first pass, and a fused, graph-captured step with per-state row lists for greedy and Gumbel sampling. See [`kernel/README.md`](kernel/README.md), including how it relates to the graph-captured step in `exp01_repro`.
 - [`notebooks/`](notebooks/): the vocabulary-mean-row statistics of the three heads.
+- [`paper_outline.md`](paper_outline.md): a one-page outline of the paper: the problem, the method, the byte tables, the timing and memory figures, and the stated limits.
 
 ## Status (14 Nov 2026)
 
