@@ -243,3 +243,41 @@ What it says:
 Against the predictions: the checks pass; Gemma 4's shortlist is below 1,000 rows (376) and its ratios are within the predicted limits; batch 1 is 0.68 to 0.73 on Qwen3-8B and Gemma 4 (predicted 0.66 to 0.82) and 0.66 on Sarvam-30B (predicted 0.55 to 0.80). The breakdown prediction missed narrowly: the first pass is 57% of the eager step at batch 32 on Qwen3-8B, not above 60%.
 
 Limits: head alone, one run per model, two A100 variants, Gumbel noise supplied. Sarvam-30B's direction is K2's, fitted on half of the prompts the timed states come from. M2's group stage is not in this kernel. Not yet run on an L4. E1's end-to-end finding is unchanged by this.
+
+# Memory tiers: the higher-precision copies in host memory (17 Nov 2026)
+
+Keeping every copy on the GPU takes 1.77 times the BF16 head's memory (INT4 + INT8 + BF16). With T1's dithered INT8 stage the BF16 rows are needed for 1 to 3 rows per token, so they could live in host memory. This run prices that.
+
+Protocol `tier_protocol.json` (sha256 `cc33ea29…`, logged before any tiered code ran on a GPU). Code `tiered.py`, `tier_modal.py`, `tier_summarize.py`; results `results/tier_<model>_A100-80GB.json`, table `logs/tier_summary_a100.txt`. A100-80GB, 512 states per rule, greedy and Gumbel T = 1, wall-clock per step with the token on the host.
+
+- **Layout B:** INT4 and INT8 copies on the GPU, the BF16 head on the host. GPU bytes: 0.77 of the BF16 head.
+- **Layout A:** only the INT4 copy on the GPU; INT8 and BF16 on the host. GPU bytes: 0.26.
+
+The GPU part is graph-captured and ends in one small tensor that is read back once. The host finishes the step on the CPU from its own copies; no weight row is copied to the GPU.
+
+Checks, all pass: every token of both layouts equals the FP32 reference, and the rows fetched equal the rows the all-GPU kernel reads, on every step.
+
+Batch 1, greedy, milliseconds (median; ratio to the stock BF16 head in brackets):
+
+| Model | Stock BF16 head | All copies on the GPU (1.77) | Layout B (0.77) | Layout A (0.26) | Layout A: p99, largest |
+|---|---|---|---|---|---|
+| Qwen3-8B | 0.75 | 0.54 (0.72) | 0.72 (0.97) | 0.87 (1.17) | 0.95, 1.21 |
+| Gemma 4 E4B | 0.84 | 0.58 (0.69) | 0.81 (0.96) | 1.10 (1.31) | 1.75, 5.66 |
+| Sarvam-30B | 1.24 | 0.83 (0.67) | 1.07 (0.86) | 1.23 (0.99) | 2.86, 41.9 |
+| Qwen3-0.6B | 0.25 | 0.23 (0.92) | 0.42 (1.66) | 0.64 (2.53) | 0.83, 1.27 |
+
+Rows fetched from the host per step at batch 1 (median, p99): BF16 1 and 2 to 5; INT8 in layout A 1 to 9 and 21 to 1,278.
+
+What it says:
+1. **With the BF16 head off the GPU, the step is about as fast as the stock head on the three large heads** (0.86 to 0.99 at batch 1). The GPU then holds 0.77 of the stock head's bytes, and the output is the reference token. The read-back and the host's finish cost 0.18 to 0.23 ms.
+2. **With only the 4-bit copy on the GPU (0.26 of the bytes), the median step is 1.0 to 1.3 times the stock head, with a long tail.** A state with a 17,083-row shortlist took 42 ms on Sarvam-30B, because the host does the INT8 stage for those rows.
+3. **On the small head both layouts are slower than the stock head** (1.7 and 2.5 times). The fetch costs a fixed 0.2 to 0.4 ms, and the whole stock head takes 0.25 ms there. Against E2's 4.5 ms decode step that is 4% to 9% more time per token.
+4. **At batch 8 both layouts lose badly** (1.2 to 3.4 times for B, 3 to 12 times for A): the host finishes the states one after another.
+
+So the footprint claim that holds is narrow: at batch 1, on an A100, the BF16 copy can leave the GPU at no cost in head time for heads of 1.2 GB and more. Taking the INT8 copy off as well costs time and has a bad tail. Neither is shown for batches.
+
+Against the predictions: tokens exact, held. Layout B's extra time (0.10 to 0.30 ms predicted, 0.18 to 0.23 measured) and its ratios, held. Layout A's extra time held on Qwen3-8B and Sarvam-30B and was just over on Gemma 4 (0.52 ms against a predicted 0.50); its tail above the stock head on Sarvam-30B and Gemma 4, held. BF16 rows at most 4 at the p99: missed on Sarvam-30B (5).
+
+How the implementation got here, since the protocol was hashed before any of it ran: the first version ran the kernels without graph capture and read back three times a step (1.2 ms on Qwen3-0.6B, where the all-GPU step takes 0.24); the second graph-captured the GPU part but copied the fetched rows to the GPU (0.84 ms); the one reported finishes on the host (0.42 ms). All three returned the reference token on every smoke state. The smoke logs of the first two are kept (`logs/tier_smoke_first_version.txt`, `logs/tier_smoke_second_version.txt`).
+
+Limits: one GPU type, one run, batch 1 and 8 only, a host CPU shared with the Python driver. The GPU copies were not actually freed during timing; the byte figures are computed from the tensors each layout needs. The host part is plain PyTorch on the CPU and is not optimised. Top-50 is not covered by these kernels, and its INT8 shortlists are far too long for layout A.

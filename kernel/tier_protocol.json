@@ -1,0 +1,22 @@
+{
+  "experiment": "Memory tiers: keep only the low-bit copies of the output layer on the GPU and fetch the rare higher-precision rows from host memory",
+  "written": "2026-11-17, after T1 and the unified kernel's A100 run were read, before any tiered code ran on a GPU",
+  "why": "With T1's dithered INT8 stage the BF16 rows are read for 1 to 3 rows per token on greedy and Gumbel (at most 48 at the p99 on top-50), and the INT8 rows for a median of 1 to 6. If those reads can come from host memory at an acceptable cost in time, the output layer's GPU footprint falls to the low-bit copies alone. The byte counts say how few rows are needed; they say nothing about what fetching them costs.",
+  "layouts": {
+    "all": "every copy on the GPU: fused2.py as timed (INT4 + INT8 + BF16: 1.77 of the BF16 head)",
+    "B": "INT4 and INT8 copies on the GPU, the BF16 head in host memory: 0.77 of the BF16 head",
+    "A": "only the INT4 copy on the GPU, the INT8 copy and the BF16 head in host memory: 0.26 of the BF16 head"
+  },
+  "step": "fused2.py's first pass and select kernels on the GPU. Layout B then runs fused2.py's INT8 kernel on the GPU, reads back which rows still need the exact value, gathers those BF16 rows from pinned host memory, copies them to the GPU and finishes there. Layout A reads back the shortlist after the select kernel, gathers those rows' INT8 codes and steps from host memory, computes the INT8-stage intervals on the GPU in plain PyTorch with fused2.py's formula, then fetches the BF16 rows the same way. Each read-back is a device sync.",
+  "models_and_states": "Qwen3-8B, Gemma 4 E4B, Sarvam-30B (with K2) and Qwen3-0.6B; the 512 states per rule of the earlier kernel runs; greedy and Gumbel T = 1; batch 1 and batch 8",
+  "timing": "wall-clock per step with a device sync at the end and the token copied to the host, for: the stock BF16 head, fused2.py graph-captured (layout all), layout B and layout A. Median, p99 and largest over the steps, after warm-up; each step timed three times, the median of the three used.",
+  "reported": "GPU bytes of each layout (weights and per-row numbers; work buffers separately); rows and bytes fetched from the host per step; times; token mismatches against the FP32 reference",
+  "checks": "every token of every layout equals the FP32 reference; layouts B and A fetch the same number of BF16 rows as layout all reads, and layout A's INT8 shortlist equals layout all's",
+  "prediction": {
+    "tokens": "no mismatch in any layout",
+    "rows": "at batch 1 the BF16 rows fetched per step are at most 4 at the p99 on every model and rule",
+    "layout_B_time": "at batch 1 on the A100, layout B takes 0.10 to 0.30 ms longer than layout all at the median (one read-back and a small copy), which puts it between 0.85 and 1.15 of the stock BF16 head on Qwen3-8B and Gemma 4 and below 0.95 on Sarvam-30B",
+    "layout_A_time": "layout A takes 0.20 to 0.50 ms longer than layout all at the median and has a long tail on Sarvam-30B and Gemma 4, where the p99 shortlist is several hundred INT8 rows: its p99 is above the stock head's median on those two",
+    "takeaway_if_wrong": "If layout B costs more than 0.5 ms a step, the read-back dominates and the footprint saving needs an asynchronous or batched fetch to be usable. If a token differs, the PyTorch INT8 stage of layout A does not match the kernel's and layout A is withdrawn."
+  }
+}

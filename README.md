@@ -53,6 +53,8 @@ With the byte runs' own certificate in those kernels (sub-Gaussian bound, shift,
 
 End to end, the first case where the head matters (E2): on Qwen3-0.6B with Hugging Face's static cache on an A10G, the head is 12% of a decode step and the certified head takes 0.41 of its time, so the step would be an estimated 7% faster. This is an estimate by substitution, not an integration. On an A100 the same model shows no gain.
 
+On memory (17 Nov 2026): keeping every copy on the GPU takes 1.77 times the stock head's bytes. With the BF16 copy in host memory the GPU holds 0.77 of them, and at batch 1 on an A100 the step is still as fast as the stock head on the three large heads (0.86 to 0.99), with exact tokens. With only the 4-bit copy on the GPU (0.26) the median step is 1.0 to 1.3 times the stock head and the tail is long. Neither holds at batch 8. See [`kernel/README.md`](kernel/README.md).
+
 Later the same day (17 Nov 2026), three checks on the byte results:
 - **Top-50 passes its gate on all three models** once the INT8 stage is a dithered copy with the probabilistic bound (T1). At the p99, two to 48 rows need the BF16 read, where 4,833 (Gemma 4) and 7,813 (Sarvam-30B) did. Bytes change little: top-50 is still the most expensive rule (p99 0.32 to 0.34). Top-p 0.9 is exact but passes its gate on Qwen3-8B only.
 - **The Sarvam-30B result holds on a second prompt set and across four dither draws** (R1): with the direction fitted on the first set, the greedy p99 on the second is 0.260 against 0.52 uncorrected. No bound violation and no token mismatch in 359,039 state evaluations.

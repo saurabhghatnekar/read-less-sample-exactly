@@ -1,0 +1,140 @@
+== qwen3_8b on NVIDIA A100 80GB PCIe: V 151936, d 4096; BF16 head 1.24 GB
+GPU bytes as a fraction of the BF16 head: all copies 1.768, layout B 0.768, layout A 0.259; work buffers 0.0024 per state in a batch
+
+greedy, batch 1: 512 steps; mismatches {'stock': 6, 'stock_graph': 6, 'all': 0, 'B': 0, 'A': 0}; steps whose row counts differ from the all-GPU kernel 0; slow-path steps {'B': 0, 'A': 0}
+  rows fetched from the host per step (median, p99, largest): BF16 1, 3, 5; INT8 (layout A) 1, 22, 56
+  ms               median     p99  largest   median / stock head
+  stock BF16 head   0.746   0.752    0.753   1.00
+  all on the GPU    0.537   0.543    0.545   0.72
+  layout B          0.720   0.750    0.804   0.97
+  layout A          0.870   0.954    1.211   1.17
+
+greedy, batch 8: 64 steps; mismatches {'stock': 6, 'stock_graph': 6, 'all': 0, 'B': 0, 'A': 0}; steps whose row counts differ from the all-GPU kernel 0; slow-path steps {'B': 0, 'A': 0}
+  rows fetched from the host per step (median, p99, largest): BF16 9, 12, 12; INT8 (layout A) 23, 65, 66
+  ms               median     p99  largest   median / stock head
+  stock BF16 head   0.778   0.782    0.784   1.00
+  all on the GPU    0.603   0.606    0.607   0.78
+  layout B          1.230   1.282    1.289   1.58
+  layout A          2.901   3.031    3.039   3.73
+
+gumbel_1.0, batch 1: 512 steps; mismatches {'stock': 9, 'stock_graph': 9, 'all': 0, 'B': 0, 'A': 0}; steps whose row counts differ from the all-GPU kernel 0; slow-path steps {'B': 0, 'A': 0}
+  rows fetched from the host per step (median, p99, largest): BF16 1, 2, 3; INT8 (layout A) 1, 21, 84
+  ms               median     p99  largest   median / stock head
+  stock BF16 head   0.751   0.757    0.760   1.00
+  all on the GPU    0.545   0.551    0.557   0.73
+  layout B          0.742   0.761    0.820   0.99
+  layout A          0.915   0.995    1.050   1.22
+
+gumbel_1.0, batch 8: 64 steps; mismatches {'stock': 9, 'stock_graph': 9, 'all': 0, 'B': 0, 'A': 0}; steps whose row counts differ from the all-GPU kernel 0; slow-path steps {'B': 0, 'A': 0}
+  rows fetched from the host per step (median, p99, largest): BF16 9, 11, 11; INT8 (layout A) 23, 104, 121
+  ms               median     p99  largest   median / stock head
+  stock BF16 head   0.791   0.797    0.799   1.00
+  all on the GPU    0.607   0.612    0.612   0.77
+  layout B          1.313   1.355    1.388   1.66
+  layout A          3.103   3.260    3.271   3.92
+
+== gemma4_e4b on NVIDIA A100-SXM4-80GB: V 262144, d 2560; BF16 head 1.34 GB
+GPU bytes as a fraction of the BF16 head: all copies 1.769, layout B 0.769, layout A 0.260; work buffers 0.0039 per state in a batch
+
+greedy, batch 1: 512 steps; mismatches {'stock': 3, 'stock_graph': 3, 'all': 0, 'B': 0, 'A': 0}; steps whose row counts differ from the all-GPU kernel 0; slow-path steps {'B': 3, 'A': 3}
+  rows fetched from the host per step (median, p99, largest): BF16 1, 3, 4; INT8 (layout A) 2, 376, 1364
+  ms               median     p99  largest   median / stock head
+  stock BF16 head   0.839   0.891    0.905   1.00
+  all on the GPU    0.578   0.602    0.615   0.69
+  layout B          0.806   1.200    1.571   0.96
+  layout A          1.095   1.745    5.661   1.31
+
+greedy, batch 8: 64 steps; mismatches {'stock': 3, 'stock_graph': 3, 'all': 0, 'B': 0, 'A': 0}; steps whose row counts differ from the all-GPU kernel 0; slow-path steps {'B': 6, 'A': 6}
+  rows fetched from the host per step (median, p99, largest): BF16 8, 11, 12; INT8 (layout A) 116, 826, 1430
+  ms               median     p99  largest   median / stock head
+  stock BF16 head   0.889   0.901    0.903   1.00
+  all on the GPU    0.647   0.672    0.691   0.73
+  layout B          1.542   1.647    1.845   1.73
+  layout A          4.305   5.608    9.397   4.84
+
+gumbel_1.0, batch 1: 512 steps; mismatches {'stock': 6, 'stock_graph': 6, 'all': 0, 'B': 0, 'A': 0}; steps whose row counts differ from the all-GPU kernel 0; slow-path steps {'B': 9, 'A': 9}
+  rows fetched from the host per step (median, p99, largest): BF16 1, 2, 3; INT8 (layout A) 2, 250, 1428
+  ms               median     p99  largest   median / stock head
+  stock BF16 head   0.842   0.859    0.903   1.00
+  all on the GPU    0.586   0.596    0.605   0.70
+  layout B          0.822   0.898    1.110   0.98
+  layout A          1.104   1.731    3.725   1.31
+
+gumbel_1.0, batch 8: 64 steps; mismatches {'stock': 6, 'stock_graph': 6, 'all': 0, 'B': 0, 'A': 0}; steps whose row counts differ from the all-GPU kernel 0; slow-path steps {'B': 12, 'A': 12}
+  rows fetched from the host per step (median, p99, largest): BF16 8, 11, 11; INT8 (layout A) 81, 1082, 1553
+  ms               median     p99  largest   median / stock head
+  stock BF16 head   0.905   0.928    0.929   1.00
+  all on the GPU    0.653   0.679    0.696   0.72
+  layout B          1.637   1.747    2.077   1.81
+  layout A          4.626   6.945    8.170   5.11
+
+== sarvam_30b on NVIDIA A100 80GB PCIe: V 262144, d 4096; BF16 head 2.15 GB
+GPU bytes as a fraction of the BF16 head: all copies 1.769, layout B 0.769, layout A 0.260; work buffers 0.0024 per state in a batch
+
+greedy, batch 1: 512 steps; mismatches {'stock': 42, 'stock_graph': 42, 'all': 0, 'B': 0, 'A': 0}; steps whose row counts differ from the all-GPU kernel 0; slow-path steps {'B': 9, 'A': 9}
+  rows fetched from the host per step (median, p99, largest): BF16 1, 5, 7; INT8 (layout A) 6, 724, 17083
+  ms               median     p99  largest   median / stock head
+  stock BF16 head   1.243   1.258    1.270   1.00
+  all on the GPU    0.833   0.843    1.004   0.67
+  layout B          1.066   1.130    1.524   0.86
+  layout A          1.232   2.862   41.864   0.99
+
+greedy, batch 8: 64 steps; mismatches {'stock': 39, 'stock_graph': 39, 'all': 0, 'B': 0, 'A': 0}; steps whose row counts differ from the all-GPU kernel 0; slow-path steps {'B': 18, 'A': 18}
+  rows fetched from the host per step (median, p99, largest): BF16 11, 18, 20; INT8 (layout A) 264, 4285, 17456
+  ms               median     p99  largest   median / stock head
+  stock BF16 head   1.363   1.382    1.384   1.00
+  all on the GPU    0.927   1.108    2.059   0.68
+  layout B          1.645   2.033    2.900   1.21
+  layout A          4.048  15.035   44.550   2.97
+
+gumbel_1.0, batch 1: 512 steps; mismatches {'stock': 33, 'stock_graph': 33, 'all': 0, 'B': 0, 'A': 0}; steps whose row counts differ from the all-GPU kernel 0; slow-path steps {'B': 42, 'A': 42}
+  rows fetched from the host per step (median, p99, largest): BF16 1, 5, 10; INT8 (layout A) 9, 1278, 5263
+  ms               median     p99  largest   median / stock head
+  stock BF16 head   1.249   1.261    1.275   1.00
+  all on the GPU    0.846   0.856    0.890   0.68
+  layout B          1.100   1.266    1.371   0.88
+  layout A          1.299   3.574   14.567   1.04
+
+gumbel_1.0, batch 8: 64 steps; mismatches {'stock': 36, 'stock_graph': 36, 'all': 0, 'B': 0, 'A': 0}; steps whose row counts differ from the all-GPU kernel 0; slow-path steps {'B': 66, 'A': 66}
+  rows fetched from the host per step (median, p99, largest): BF16 11, 19, 22; INT8 (layout A) 365, 2308, 7466
+  ms               median     p99  largest   median / stock head
+  stock BF16 head   1.382   1.401    1.410   1.00
+  all on the GPU    0.939   1.081    1.280   0.68
+  layout B          1.746   2.076    2.464   1.26
+  layout A          4.401  10.498   26.311   3.19
+
+== qwen3_0.6b on NVIDIA A100-SXM4-80GB: V 151936, d 1024; BF16 head 0.31 GB
+GPU bytes as a fraction of the BF16 head: all copies 1.773, layout B 0.773, layout A 0.264; work buffers 0.0098 per state in a batch
+
+greedy, batch 1: 512 steps; mismatches {'stock': 9, 'stock_graph': 9, 'all': 0, 'B': 0, 'A': 0}; steps whose row counts differ from the all-GPU kernel 0; slow-path steps {'B': 0, 'A': 0}
+  rows fetched from the host per step (median, p99, largest): BF16 1, 3, 5; INT8 (layout A) 5, 97, 276
+  ms               median     p99  largest   median / stock head
+  stock BF16 head   0.252   0.273    0.276   1.00
+  all on the GPU    0.232   0.240    0.254   0.92
+  layout B          0.417   0.451    0.474   1.66
+  layout A          0.637   0.827    1.272   2.53
+
+greedy, batch 8: 64 steps; mismatches {'stock': 9, 'stock_graph': 9, 'all': 0, 'B': 0, 'A': 0}; steps whose row counts differ from the all-GPU kernel 0; slow-path steps {'B': 0, 'A': 0}
+  rows fetched from the host per step (median, p99, largest): BF16 9, 12, 13; INT8 (layout A) 78, 286, 351
+  ms               median     p99  largest   median / stock head
+  stock BF16 head   0.282   0.290    0.304   1.00
+  all on the GPU    0.310   0.317    0.325   1.10
+  layout B          0.955   1.008    1.016   3.38
+  layout A          3.103   3.456    3.505   11.00
+
+gumbel_1.0, batch 1: 512 steps; mismatches {'stock': 12, 'stock_graph': 12, 'all': 0, 'B': 0, 'A': 0}; steps whose row counts differ from the all-GPU kernel 0; slow-path steps {'B': 0, 'A': 0}
+  rows fetched from the host per step (median, p99, largest): BF16 1, 3, 5; INT8 (layout A) 10, 121, 565
+  ms               median     p99  largest   median / stock head
+  stock BF16 head   0.258   0.278    0.284   1.00
+  all on the GPU    0.236   0.243    0.261   0.92
+  layout B          0.446   0.491    0.520   1.73
+  layout A          0.723   0.914    1.053   2.81
+
+gumbel_1.0, batch 8: 64 steps; mismatches {'stock': 12, 'stock_graph': 12, 'all': 0, 'B': 0, 'A': 0}; steps whose row counts differ from the all-GPU kernel 0; slow-path steps {'B': 0, 'A': 0}
+  rows fetched from the host per step (median, p99, largest): BF16 9, 13, 13; INT8 (layout A) 105, 359, 628
+  ms               median     p99  largest   median / stock head
+  stock BF16 head   0.297   0.301    0.302   1.00
+  all on the GPU    0.316   0.327    0.334   1.06
+  layout B          1.080   1.131    1.163   3.64
+  layout A          3.493   3.872    3.996   11.76
+

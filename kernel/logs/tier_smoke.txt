@@ -1,0 +1,25 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-eerAhVf30HvwofUGyZ2yYZ
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/kernel/tier_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/kernel/common.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/kernel/tiered.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/kernel/fused2.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/kernel/int4_pass1.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/kernel/fused.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/kernel/cert_head2.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/kernel/cert_head.py
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/kernel/../exp01_repro/cert_core.py
+└── ✓ Created Function run.
+/usr/local/lib/python3.12/site-packages/triton/knobs.py:504: UserWarning: TRITON_DEFAULT_FP_FUSION is unset: defaulting to FP fusion ENABLED for backward compatibility in Triton 3.9. The default will change to DISABLED in Triton 3.10; set TRITON_DEFAULT_FP_FUSION=1 to keep fusion enabled or =0 to adopt the new default early and silence this warning.
+  warn_once(FP_FUSION_DEFAULT_WARNING)
+qwen3_0.6b greedy 1 ms median {'stock': 0.28, 'stock_graph': 0.253, 'all': 0.231, 'B': 0.433, 'A': 0.663} | mismatches {'stock': 0, 'stock_graph': 0, 'all': 0, 'B': 0, 'A': 0} | rows differ 0 | fetched per step, median: exact 1 int8 4
+qwen3_0.6b greedy 8 ms median {'stock': 0.306, 'stock_graph': 0.277, 'all': 0.265, 'B': 0.946, 'A': 3.075} | mismatches {'stock': 0, 'stock_graph': 0, 'all': 0, 'B': 0, 'A': 0} | rows differ 0 | fetched per step, median: exact 9 int8 81
+qwen3_0.6b gumbel_1.0 1 ms median {'stock': 0.288, 'stock_graph': 0.258, 'all': 0.237, 'B': 0.464, 'A': 0.755} | mismatches {'stock': 0, 'stock_graph': 0, 'all': 0, 'B': 0, 'A': 0} | rows differ 0 | fetched per step, median: exact 1 int8 10
+wrote /Volumes/attic/GpuKernelEngg/research/kernel/results/tier_qwen3_0.6b_A100-80GB_smoke.json | GPU bytes / BF16 head: all 1.773, B 0.773, A 0.264
+qwen3_0.6b gumbel_1.0 8 ms median {'stock': 0.337, 'stock_graph': 0.294, 'all': 0.269, 'B': 1.131, 'A': 3.823} | mismatches {'stock': 0, 'stock_graph': 0, 'all': 0, 'B': 0, 'A': 0} | rows differ 0 | fetched per step, median: exact 11 int8 136
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-eerAhVf30HvwofUGyZ2yYZ
+exit 0
