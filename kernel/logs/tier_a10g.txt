@@ -1,0 +1,47 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-NXmzs5OPtJEd4bDRME7hO7
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/kernel/tier_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/kernel/common.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/kernel/tiered.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/kernel/fused2.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/kernel/fused.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/kernel/int4_pass1.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/kernel/cert_head2.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/kernel/cert_head.py
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/kernel/../exp01_repro/cert_core.py
+└── ✓ Created Function run.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+/usr/local/lib/python3.12/site-packages/triton/knobs.py:504: UserWarning: TRITON_DEFAULT_FP_FUSION is unset: defaulting to FP fusion ENABLED for backward compatibility in Triton 3.9. The default will change to DISABLED in Triton 3.10; set TRITON_DEFAULT_FP_FUSION=1 to keep fusion enabled or =0 to adopt the new default early and silence this warning.
+  warn_once(FP_FUSION_DEFAULT_WARNING)
+/usr/local/lib/python3.12/site-packages/triton/knobs.py:504: UserWarning: TRITON_DEFAULT_FP_FUSION is unset: defaulting to FP fusion ENABLED for backward compatibility in Triton 3.9. The default will change to DISABLED in Triton 3.10; set TRITON_DEFAULT_FP_FUSION=1 to keep fusion enabled or =0 to adopt the new default early and silence this warning.
+  warn_once(FP_FUSION_DEFAULT_WARNING)
+/usr/local/lib/python3.12/site-packages/triton/knobs.py:504: UserWarning: TRITON_DEFAULT_FP_FUSION is unset: defaulting to FP fusion ENABLED for backward compatibility in Triton 3.9. The default will change to DISABLED in Triton 3.10; set TRITON_DEFAULT_FP_FUSION=1 to keep fusion enabled or =0 to adopt the new default early and silence this warning.
+  warn_once(FP_FUSION_DEFAULT_WARNING)
+/usr/local/lib/python3.12/site-packages/triton/knobs.py:504: UserWarning: TRITON_DEFAULT_FP_FUSION is unset: defaulting to FP fusion ENABLED for backward compatibility in Triton 3.9. The default will change to DISABLED in Triton 3.10; set TRITON_DEFAULT_FP_FUSION=1 to keep fusion enabled or =0 to adopt the new default early and silence this warning.
+  warn_once(FP_FUSION_DEFAULT_WARNING)
+qwen3_0.6b greedy 1 ms median {'stock': 0.732, 'stock_graph': 0.71, 'all': 0.296, 'B': 0.458, 'A': 0.62} | mismatches {'stock': 9, 'stock_graph': 9, 'all': 0, 'B': 0, 'A': 0} | rows differ 0 | fetched per step, median: exact 1 int8 5
+qwen3_0.6b greedy 8 ms median {'stock': 0.769, 'stock_graph': 0.756, 'all': 0.357, 'B': 0.874, 'A': 2.558} | mismatches {'stock': 9, 'stock_graph': 9, 'all': 0, 'B': 0, 'A': 0} | rows differ 0 | fetched per step, median: exact 9 int8 78
+qwen3_8b greedy 1 ms median {'stock': 2.66, 'stock_graph': 2.635, 'all': 0.975, 'B': 1.362, 'A': 1.33} | mismatches {'stock': 6, 'stock_graph': 6, 'all': 0, 'B': 0, 'A': 0} | rows differ 0 | fetched per step, median: exact 1 int8 1
+gemma4_e4b greedy 1 ms median {'stock': 2.858, 'stock_graph': 2.835, 'all': 1.014, 'B': 1.21, 'A': 1.559} | mismatches {'stock': 3, 'stock_graph': 3, 'all': 0, 'B': 0, 'A': 0} | rows differ 0 | fetched per step, median: exact 1 int8 2
+qwen3_8b greedy 8 ms median {'stock': 2.673, 'stock_graph': 2.656, 'all': 1.061, 'B': 1.998, 'A': 3.414} | mismatches {'stock': 6, 'stock_graph': 6, 'all': 0, 'B': 0, 'A': 0} | rows differ 0 | fetched per step, median: exact 9 int8 23
+gemma4_e4b greedy 8 ms median {'stock': 3.002, 'stock_graph': 2.997, 'all': 1.12, 'B': 1.814, 'A': 4.028} | mismatches {'stock': 3, 'stock_graph': 3, 'all': 0, 'B': 0, 'A': 0} | rows differ 0 | fetched per step, median: exact 8 int8 116
+qwen3_0.6b gumbel_1.0 1 ms median {'stock': 0.741, 'stock_graph': 0.718, 'all': 0.302, 'B': 0.48, 'A': 0.66} | mismatches {'stock': 12, 'stock_graph': 12, 'all': 0, 'B': 0, 'A': 0} | rows differ 0 | fetched per step, median: exact 1 int8 10
+qwen3_0.6b gumbel_1.0 8 ms median {'stock': 0.814, 'stock_graph': 0.796, 'all': 0.376, 'B': 0.987, 'A': 2.861} | mismatches {'stock': 12, 'stock_graph': 12, 'all': 0, 'B': 0, 'A': 0} | rows differ 0 | fetched per step, median: exact 9 int8 105
+wrote /Volumes/attic/GpuKernelEngg/research/kernel/results/tier_qwen3_0.6b_A10G.json | GPU bytes / BF16 head: all 1.773, B 0.773, A 0.264
+sarvam_30b greedy 1 ms median {'stock': 4.521, 'stock_graph': 4.499, 'all': 1.62, 'B': 2.108, 'A': 2.044} | mismatches {'stock': 42, 'stock_graph': 42, 'all': 0, 'B': 0, 'A': 0} | rows differ 0 | fetched per step, median: exact 1 int8 6
+sarvam_30b greedy 8 ms median {'stock': 4.577, 'stock_graph': 4.546, 'all': 1.743, 'B': 2.927, 'A': 5.134} | mismatches {'stock': 42, 'stock_graph': 42, 'all': 0, 'B': 0, 'A': 0} | rows differ 0 | fetched per step, median: exact 11 int8 264
+qwen3_8b gumbel_1.0 1 ms median {'stock': 2.669, 'stock_graph': 2.643, 'all': 0.986, 'B': 1.376, 'A': 1.372} | mismatches {'stock': 9, 'stock_graph': 9, 'all': 0, 'B': 0, 'A': 0} | rows differ 0 | fetched per step, median: exact 1 int8 1
+gemma4_e4b gumbel_1.0 1 ms median {'stock': 2.873, 'stock_graph': 2.845, 'all': 1.022, 'B': 1.238, 'A': 1.557} | mismatches {'stock': 6, 'stock_graph': 6, 'all': 0, 'B': 0, 'A': 0} | rows differ 0 | fetched per step, median: exact 1 int8 2
+qwen3_8b gumbel_1.0 8 ms median {'stock': 2.721, 'stock_graph': 2.696, 'all': 1.079, 'B': 2.035, 'A': 3.62} | mismatches {'stock': 9, 'stock_graph': 9, 'all': 0, 'B': 0, 'A': 0} | rows differ 0 | fetched per step, median: exact 9 int8 23
+wrote /Volumes/attic/GpuKernelEngg/research/kernel/results/tier_qwen3_8b_A10G.json | GPU bytes / BF16 head: all 1.768, B 0.768, A 0.259
+wrote /Volumes/attic/GpuKernelEngg/research/kernel/results/tier_gemma4_e4b_A10G.json | GPU bytes / BF16 head: all 1.769, B 0.769, A 0.260
+gemma4_e4b gumbel_1.0 8 ms median {'stock': 3.106, 'stock_graph': 3.086, 'all': 1.153, 'B': 1.948, 'A': 4.358} | mismatches {'stock': 6, 'stock_graph': 6, 'all': 0, 'B': 0, 'A': 0} | rows differ 0 | fetched per step, median: exact 8 int8 81
+sarvam_30b gumbel_1.0 1 ms median {'stock': 4.558, 'stock_graph': 4.516, 'all': 1.633, 'B': 2.323, 'A': 2.191} | mismatches {'stock': 33, 'stock_graph': 33, 'all': 0, 'B': 0, 'A': 0} | rows differ 0 | fetched per step, median: exact 1 int8 9
+wrote /Volumes/attic/GpuKernelEngg/research/kernel/results/tier_sarvam_30b_A10G.json | GPU bytes / BF16 head: all 1.769, B 0.769, A 0.260
+sarvam_30b gumbel_1.0 8 ms median {'stock': 4.71, 'stock_graph': 4.64, 'all': 1.788, 'B': 2.955, 'A': 5.563} | mismatches {'stock': 33, 'stock_graph': 33, 'all': 0, 'B': 0, 'A': 0} | rows differ 0 | fetched per step, median: exact 11 int8 365
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-NXmzs5OPtJEd4bDRME7hO7
+exit 0

@@ -281,3 +281,53 @@ Against the predictions: tokens exact, held. Layout B's extra time (0.10 to 0.30
 How the implementation got here, since the protocol was hashed before any of it ran: the first version ran the kernels without graph capture and read back three times a step (1.2 ms on Qwen3-0.6B, where the all-GPU step takes 0.24); the second graph-captured the GPU part but copied the fetched rows to the GPU (0.84 ms); the one reported finishes on the host (0.42 ms). All three returned the reference token on every smoke state. The smoke logs of the first two are kept (`logs/tier_smoke_first_version.txt`, `logs/tier_smoke_second_version.txt`).
 
 Limits: one GPU type, one run, batch 1 and 8 only, a host CPU shared with the Python driver. The GPU copies were not actually freed during timing; the byte figures are computed from the tensors each layout needs. The host part is plain PyTorch on the CPU and is not optimised. Top-50 is not covered by these kernels, and its INT8 shortlists are far too long for layout A.
+
+# The runs that were waiting for an L4, on an A10G (17 Nov 2026)
+
+No L4 could be started on Modal in four attempts over three days, so the waiting runs went to an A10G, the available GPU with slower memory than the A100. Protocol `a10g_protocol.json` (sha256 `a1caf90f…`, logged before any of these harnesses ran on an A10G): the tail, unified and tier protocols unchanged, with the GPU changed. Results `results/fused_tail_*_A10G.json`, `results/fused2_*_A10G.json`, `results/tier_*_A10G.json`; tables `logs/fused_tail_summary_a10g.txt`, `logs/fused2_summary_a10g.txt`, `logs/tier_summary_a10g.txt`.
+
+Every check of the three protocols passes: no certified token differs from the FP32 reference on any timed batch or repeat, no reference logit lies outside an interval, and row counts are stable across repeats.
+
+## The unified kernel (`fused2.py`), greedy, milliseconds
+
+| Model | Batch | BF16 head, median | Unified: median, p99, largest | Ratio, median | Batches slower than the BF16 median |
+|---|---|---|---|---|---|
+| Qwen3-8B | 1 | 2.62 | 0.97, 0.99, 0.99 | 0.37 | 0 of 512 |
+| Qwen3-8B | 8 | 2.65 | 1.05, 1.16, 1.16 | 0.40 | 0 of 64 |
+| Qwen3-8B | 32 | 2.95 | 1.49, 1.51, 1.51 | 0.50 | 0 of 16 |
+| Gemma 4 E4B | 1 | 2.83 | 1.00, 1.01, 1.03 | 0.35 | 0 of 512 |
+| Gemma 4 E4B | 8 | 2.99 | 1.12, 1.15, 1.28 | 0.37 | 0 of 64 |
+| Gemma 4 E4B | 32 | 3.74 | 1.67, 1.75, 1.80 | 0.45 | 0 of 16 |
+| Sarvam-30B | 1 | 4.51 | 1.54, 1.56, 1.75 | 0.34 | 0 of 512 |
+| Sarvam-30B | 8 | 4.60 | 1.67, 1.82, 2.54 | 0.36 | 0 of 64 |
+| Sarvam-30B | 32 | 5.11 | 2.15, 2.62, 5.34 | 0.42 | 1 of 16 |
+
+Gumbel T = 1 is within 0.02 of greedy's ratio in every row, with the noise supplied.
+
+- **On the A10G the certified head takes about a third of the stock head's time at batch 1 and 8 on all three models, and under half at batch 32.** Of the 3,552 timed batches over both rules, one is slower than the stock head (Sarvam-30B, greedy, batch 32: the batch holding a 17,083-row shortlist).
+- **The tails are short:** the p99 is within 11% of the median at batch 1 and 8.
+- **The same kernel on the A100 gave 0.66 to 0.77 at batch 1 and 8 and about even at batch 32.** The stock head's time follows memory speed (2.6 ms here, 0.74 ms there on Qwen3-8B), so the slower the memory, the more the certified head saves.
+
+## Tail timings of the first kernels (`fused.py`)
+
+Batch 1: 0.36 of the stock head on Qwen3-8B (p99 0.36) and 0.35 on Gemma 4 (p99 0.42); no state is slower than the stock head. Qwen3-8B wins at every batch size (0.39 at 8, 0.51 at 32). Gemma 4 is 0.50 at batch 8 and loses on 9 of 16 batches at 32 (median 1.08), from the long shortlists of the Hoeffding bound that `fused2.py` does not have. This answers the first review correction of this README for the A10G: the batch-1 claim holds in the tail as well as at the median.
+
+## Memory tiers (`tiered.py`), batch 1, greedy
+
+Milliseconds at the median, with the ratio to the stock head in brackets.
+
+| Model | Stock BF16 head | All copies on the GPU (1.77) | Layout B: BF16 on the host (0.77) | Layout A: BF16 and INT8 on the host (0.26) | Layout A: p99, largest |
+|---|---|---|---|---|---|
+| Qwen3-8B | 2.63 | 0.98 (0.37) | 1.36 (0.52) | 1.33 (0.50) | 1.44, 1.7 |
+| Gemma 4 E4B | 2.84 | 1.01 (0.36) | 1.21 (0.43) | 1.56 (0.55) | 2.09, 3.1 |
+| Sarvam-30B | 4.50 | 1.62 (0.36) | 2.11 (0.47) | 2.04 (0.45) | 3.38, 42.2 |
+| Qwen3-0.6B | 0.71 | 0.30 (0.42) | 0.46 (0.65) | 0.62 (0.87) | 0.72, 1.2 |
+
+- **On this GPU the head can hold a quarter of the stock head's bytes and take half its time.** With only the 4-bit copy on the GPU the median step is 0.45 to 0.55 of the stock head on the three large heads. On the A100 that layout was 1.0 to 1.3 times slower.
+- **Both layouts beat the stock head on the small model too** (0.65 and 0.87).
+- **The tail of layout A remains:** Sarvam-30B's p99 is 0.75 of the stock head, and the state with a 17,083-row shortlist took 42 ms.
+- **At batch 8,** layout B is 0.61 to 0.75 on the large heads and 1.2 on the small one; layout A is slower than the stock head everywhere (1.1 to 3.6 times).
+
+Against the predictions: all checks pass. Unified at batch 1, predicted 0.35 to 0.50: held on Qwen3-8B and Gemma 4, and Sarvam-30B is just below it (0.34). Unified at batch 32, predicted 0.50 to 0.85 on Qwen3-8B and Gemma 4: both are at or below the lower end (0.50 and 0.45). Tail run: held. Layout B, predicted 0.40 to 0.65: held (0.43 to 0.52). Layout A, predicted 0.50 to 0.90 with a long tail: held on Qwen3-8B and Gemma 4, Sarvam-30B a little better (0.45). Qwen3-0.6B layout B, predicted 0.65 to 1.0: held (0.65).
+
+Limits: one run per configuration; head alone; Gumbel noise supplied; the host part of the tiers is unoptimised PyTorch on a shared CPU. Sarvam-30B's direction is K2's, fitted on half of the prompts the timed states come from. Still no L4.

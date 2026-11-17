@@ -55,7 +55,9 @@ With the byte runs' own certificate in those kernels (sub-Gaussian bound, shift,
 
 End to end, the first case where the head matters (E2): on Qwen3-0.6B with Hugging Face's static cache on an A10G, the head is 12% of a decode step and the certified head takes 0.41 of its time, so the step would be an estimated 7% faster. This is an estimate by substitution, not an integration. On an A100 the same model shows no gain.
 
-Measured in the loop (E3): with the certified head producing every token, the decode step of Qwen3-0.6B on an A10G takes 5.18 ms against 5.50 ms for the stock model (0.94; 0.93 against the mean of two stock runs), and every token equals the FP32 reference. On an A100 it is 1.00. One small model, batch 1.
+Measured in the loop (E3): with the certified head producing every token, the decode step of Qwen3-0.6B on an A10G takes 5.18 ms against 5.50 ms for the stock model (0.94; 0.93 against the mean of two stock runs), and every token equals the FP32 reference. On an A100 it is 1.00. One small model, batch 1. A second A10G run gave 0.944.
+
+On an A10G (17 Nov 2026; no L4 could be had), the unified kernel takes 0.34 to 0.40 of the stock head at batch 1 and 8 on Qwen3-8B, Gemma 4 and Sarvam-30B, and 0.42 to 0.50 at batch 32, with exact tokens and short tails. With only the 4-bit copy on the GPU, a quarter of the stock head's bytes, the batch-1 step still takes about half the stock head's time (0.45 to 0.55). The slower the GPU's memory, the more the certified head saves. See [`kernel/README.md`](kernel/README.md).
 
 On memory (17 Nov 2026): keeping every copy on the GPU takes 1.77 times the stock head's bytes. With the BF16 copy in host memory the GPU holds 0.77 of them, and at batch 1 on an A100 the step is still as fast as the stock head on the three large heads (0.86 to 0.99), with exact tokens. With only the 4-bit copy on the GPU (0.26) the median step is 1.0 to 1.3 times the stock head and the tail is long. Neither holds at batch 8. See [`kernel/README.md`](kernel/README.md).
 

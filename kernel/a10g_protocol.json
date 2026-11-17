@@ -1,0 +1,21 @@
+{
+  "experiment": "The kernel runs that were waiting for an L4, on an A10G",
+  "written": "2026-11-17, after the A100 runs of fused.py, fused2.py and tiered.py and E3's A10G run were read, before any of these kernels' timing harnesses ran on an A10G",
+  "why": "No L4 could be started on Modal in four attempts over three days. The A10G is the available GPU with slower memory than the A100 (E3 measured Qwen3-0.6B's stock head at 0.70 ms on it, against 0.23 ms on the A100), and that is where reading the stock head is slow enough for a cheaper head to matter.",
+  "runs": {
+    "tail": "tail_protocol.json's harness (fused_tail_modal.py, fused.py: Hoeffding bound, no shift), Qwen3-8B and Gemma 4",
+    "unified": "unified_protocol.json's harness (fused2_modal.py, fused2.py: the byte runs' certificate), Qwen3-8B, Gemma 4 and Sarvam-30B",
+    "tiers": "tier_protocol.json's harness (tier_modal.py, tiered.py), the same three and Qwen3-0.6B",
+    "e3_repeat": "e3_rule.json's harness once more on an A10G, as a second run of the in-loop measurement"
+  },
+  "unchanged": "kernels, states, batches, repeats, baselines, checks and statistics of each protocol; Triton's autotuner picks the block sizes on the A10G",
+  "prediction": {
+    "checks": "every check of the three protocols passes: no token mismatch, no reference logit outside an interval, row counts stable",
+    "unified_batch_1": "the unified step takes 0.35 to 0.50 of the stock BF16 head at batch 1 on all three models: better than the A100's 0.66 to 0.73 and near the L4's 0.35 to 0.41",
+    "unified_batch_32": "between 0.50 and 0.85 at batch 32 on Qwen3-8B and Gemma 4, so a clear win where the A100 was about even",
+    "tail": "fused.py at batch 1 is below 0.55 of the stock head at the median and its p99 stays below the stock head's median on both models; Gemma 4 at batch 32 still has batches slower than the stock head, because of its long Hoeffding shortlists",
+    "tiers": "with the BF16 head on the host, the batch-1 step takes 0.40 to 0.65 of the stock head on the three large heads, so the GPU holds 0.77 of the bytes at about half the time; with only the 4-bit copy on the GPU the median is 0.50 to 0.90 with a long tail; on Qwen3-0.6B layout B is 0.65 to 1.0 of the stock head",
+    "e3_repeat": "the certified loop is 0.92 to 0.96 of the stock loop again",
+    "takeaway_if_wrong": "If the unified ratio at batch 1 is above 0.6, the A10G behaves like the A100 for these kernels and the L4 result remains the only clear win. If layout B is not well below the stock head, the fetch cost is larger on this host and the memory claim stays at the A100's 'no slower'."
+  }
+}

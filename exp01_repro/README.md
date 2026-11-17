@@ -1027,4 +1027,6 @@ Both generate exactly the requested number of tokens (end-of-sequence stopping o
 
 Against the predictions: tokens exact, held. A10G ratio 0.93 to 0.97, held (0.942); E2's estimate of 0.928 is what the mean of the two stock runs gives. A100 ratio 0.99 to 1.03, held (1.008). Stock drift within 2%: held on the A100 (1.6%), missed on the A10G (3.0%), which is why both ratios are shown.
 
-Limits: one small model whose output layer is 21% of its weights, batch 1, greedy, one run per GPU, 24 prompts. `generate`'s per-token overhead is in both variants. The stock measurement drifted by 3% on the A10G over the run, which is half the size of the effect. The all-GPU layout takes 1.77 times the stock head's memory (see the memory tiers in `kernel/README.md`). Not run on an L4.
+**A second A10G run** (`logs/e3_A10G_run2.json`; the first is `logs/e3_A10G_run1.json`) gives the same: stock 5.50 ms, certified 5.19 ms, stock again 5.58 ms, a ratio of 0.944 (0.938 against the mean of the two stock runs), drift 1.4%, and again no token differing from the reference in 1,728. The two runs' main ratios are 0.942 and 0.944.
+
+Limits: one small model whose output layer is 21% of its weights, batch 1, greedy, two runs on the A10G and one on the A100, 24 prompts. `generate`'s per-token overhead is in both variants. The stock measurement drifted by 3% on the A10G over the run, which is half the size of the effect. The all-GPU layout takes 1.77 times the stock head's memory (see the memory tiers in `kernel/README.md`). Not run on an L4.

@@ -1,0 +1,283 @@
+== qwen3_8b on NVIDIA A10, torch 2.15.0+cu132, triton 3.9.0, 3 repeats per batch ==
+
+greedy, batch 1: 512 batches, 512 states
+  controls: mismatches eager 0, graphed 0, BF16 head 6 (over 3 repeats); row counts differing across repeats: 0
+  ms              median    mean     p99     max
+  BF16 graphed      2.62    2.62    2.66    2.68
+  fused graphed     0.97    0.97    0.99    0.99
+  BF16 eager        2.63    2.64    2.71    2.74
+  fused eager       1.24    1.29    1.64    1.76
+  fused / BF16 (graphed): median 0.37, mean 0.37, p99 over BF16 median 0.38, max over BF16 median 0.38
+  batches slower than the BF16 graphed median: 0 of 512; slower than the same batch's BF16 graphed time: 0
+  INT8 rows per state: median 1, p99 22, max 56; exact rows max 5
+  slowest batch: 0.99 ms, its longest INT8 shortlist 3 rows
+  fused graphed ms by the longest INT8 shortlist in the batch:
+            0-99 rows:  512 batches, median   0.97, max   0.99
+
+greedy, batch 8: 64 batches, 512 states
+  controls: mismatches eager 0, graphed 0, BF16 head 6 (over 3 repeats); row counts differing across repeats: 0
+  ms              median    mean     p99     max
+  BF16 graphed      2.65    2.65    2.66    2.66
+  fused graphed     1.05    1.05    1.16    1.16
+  BF16 eager        2.65    2.65    2.65    2.65
+  fused eager       1.32    1.32    1.41    1.43
+  fused / BF16 (graphed): median 0.40, mean 0.40, p99 over BF16 median 0.44, max over BF16 median 0.44
+  batches slower than the BF16 graphed median: 0 of 64; slower than the same batch's BF16 graphed time: 0
+  INT8 rows per state: median 1, p99 22, max 56; exact rows max 5
+  slowest batch: 1.16 ms, its longest INT8 shortlist 4 rows
+  fused graphed ms by the longest INT8 shortlist in the batch:
+            0-99 rows:   64 batches, median   1.05, max   1.16
+
+greedy, batch 32: 16 batches, 512 states
+  controls: mismatches eager 0, graphed 0, BF16 head 6 (over 3 repeats); row counts differing across repeats: 0
+  ms              median    mean     p99     max
+  BF16 graphed      2.95    2.95    2.96    2.96
+  fused graphed     1.49    1.49    1.51    1.51
+  BF16 eager        2.89    2.89    2.89    2.90
+  fused eager       1.69    1.68    1.71    1.71
+  fused / BF16 (graphed): median 0.50, mean 0.50, p99 over BF16 median 0.51, max over BF16 median 0.51
+  batches slower than the BF16 graphed median: 0 of 16; slower than the same batch's BF16 graphed time: 0
+  INT8 rows per state: median 1, p99 22, max 56; exact rows max 5
+  slowest batch: 1.51 ms, its longest INT8 shortlist 56 rows
+  fused graphed ms by the longest INT8 shortlist in the batch:
+            0-99 rows:   16 batches, median   1.49, max   1.51
+
+gumbel_1.0, batch 1: 512 batches, 512 states
+  controls: mismatches eager 0, graphed 0, BF16 head 9 (over 3 repeats); row counts differing across repeats: 0
+  ms              median    mean     p99     max
+  BF16 graphed      2.63    2.63    2.64    2.67
+  fused graphed     0.97    0.97    0.98    0.99
+  BF16 eager        2.64    2.64    2.65    2.71
+  fused eager       1.25    1.25    1.44    2.04
+  fused / BF16 (graphed): median 0.37, mean 0.37, p99 over BF16 median 0.37, max over BF16 median 0.38
+  batches slower than the BF16 graphed median: 0 of 512; slower than the same batch's BF16 graphed time: 0
+  INT8 rows per state: median 1, p99 21, max 84; exact rows max 3
+  slowest batch: 0.99 ms, its longest INT8 shortlist 1 rows
+  fused graphed ms by the longest INT8 shortlist in the batch:
+            0-99 rows:  512 batches, median   0.97, max   0.99
+
+gumbel_1.0, batch 8: 64 batches, 512 states
+  controls: mismatches eager 0, graphed 0, BF16 head 9 (over 3 repeats); row counts differing across repeats: 0
+  ms              median    mean     p99     max
+  BF16 graphed      2.69    2.69    2.70    2.70
+  fused graphed     1.07    1.08    1.12    1.18
+  BF16 eager        2.69    2.69    2.70    2.71
+  fused eager       1.34    1.35    1.39    1.45
+  fused / BF16 (graphed): median 0.40, mean 0.40, p99 over BF16 median 0.42, max over BF16 median 0.44
+  batches slower than the BF16 graphed median: 0 of 64; slower than the same batch's BF16 graphed time: 0
+  INT8 rows per state: median 1, p99 21, max 84; exact rows max 3
+  slowest batch: 1.18 ms, its longest INT8 shortlist 26 rows
+  fused graphed ms by the longest INT8 shortlist in the batch:
+            0-99 rows:   64 batches, median   1.07, max   1.18
+
+gumbel_1.0, batch 32: 16 batches, 512 states
+  controls: mismatches eager 0, graphed 0, BF16 head 9 (over 3 repeats); row counts differing across repeats: 0
+  ms              median    mean     p99     max
+  BF16 graphed      3.16    3.16    3.16    3.16
+  fused graphed     1.56    1.57    1.59    1.61
+  BF16 eager        3.10    3.10    3.10    3.10
+  fused eager       1.76    1.76    1.79    1.80
+  fused / BF16 (graphed): median 0.49, mean 0.50, p99 over BF16 median 0.50, max over BF16 median 0.51
+  batches slower than the BF16 graphed median: 0 of 16; slower than the same batch's BF16 graphed time: 0
+  INT8 rows per state: median 1, p99 21, max 84; exact rows max 3
+  slowest batch: 1.61 ms, its longest INT8 shortlist 16 rows
+  fused graphed ms by the longest INT8 shortlist in the batch:
+            0-99 rows:   16 batches, median   1.56, max   1.61
+
+== gemma4_e4b on NVIDIA A10, torch 2.15.0+cu132, triton 3.9.0, 3 repeats per batch ==
+
+greedy, batch 1: 512 batches, 512 states
+  controls: mismatches eager 0, graphed 0, BF16 head 3 (over 3 repeats); row counts differing across repeats: 0
+  ms              median    mean     p99     max
+  BF16 graphed      2.83    2.83    2.83    2.83
+  fused graphed     1.00    1.00    1.01    1.03
+  BF16 eager        2.84    2.84    2.84    2.84
+  fused eager       1.30    1.30    1.32    1.36
+  fused / BF16 (graphed): median 0.35, mean 0.35, p99 over BF16 median 0.36, max over BF16 median 0.37
+  batches slower than the BF16 graphed median: 0 of 512; slower than the same batch's BF16 graphed time: 0
+  INT8 rows per state: median 2, p99 376, max 1364; exact rows max 4
+  slowest batch: 1.03 ms, its longest INT8 shortlist 220 rows
+  fused graphed ms by the longest INT8 shortlist in the batch:
+            0-99 rows:  486 batches, median   1.00, max   1.02
+         100-999 rows:   25 batches, median   1.00, max   1.03
+       1000-9999 rows:    1 batches, median   1.00, max   1.00
+
+greedy, batch 8: 64 batches, 512 states
+  controls: mismatches eager 0, graphed 0, BF16 head 3 (over 3 repeats); row counts differing across repeats: 0
+  ms              median    mean     p99     max
+  BF16 graphed      2.99    2.99    2.99    3.00
+  fused graphed     1.12    1.12    1.15    1.28
+  BF16 eager        2.98    2.98    2.99    2.99
+  fused eager       1.38    1.39    1.41    1.54
+  fused / BF16 (graphed): median 0.37, mean 0.38, p99 over BF16 median 0.39, max over BF16 median 0.43
+  batches slower than the BF16 graphed median: 0 of 64; slower than the same batch's BF16 graphed time: 0
+  INT8 rows per state: median 2, p99 376, max 1364; exact rows max 4
+  slowest batch: 1.28 ms, its longest INT8 shortlist 24 rows
+  fused graphed ms by the longest INT8 shortlist in the batch:
+            0-99 rows:   40 batches, median   1.12, max   1.28
+         100-999 rows:   23 batches, median   1.12, max   1.15
+       1000-9999 rows:    1 batches, median   1.15, max   1.15
+
+greedy, batch 32: 16 batches, 512 states
+  controls: mismatches eager 0, graphed 0, BF16 head 3 (over 3 repeats); row counts differing across repeats: 0
+  ms              median    mean     p99     max
+  BF16 graphed      3.74    3.74    3.75    3.75
+  fused graphed     1.67    1.68    1.75    1.80
+  BF16 eager        3.62    3.62    3.63    3.63
+  fused eager       1.82    1.84    1.92    1.97
+  fused / BF16 (graphed): median 0.45, mean 0.45, p99 over BF16 median 0.47, max over BF16 median 0.48
+  batches slower than the BF16 graphed median: 0 of 16; slower than the same batch's BF16 graphed time: 0
+  INT8 rows per state: median 2, p99 376, max 1364; exact rows max 4
+  slowest batch: 1.80 ms, its longest INT8 shortlist 1364 rows
+  fused graphed ms by the longest INT8 shortlist in the batch:
+            0-99 rows:    4 batches, median   1.66, max   1.67
+         100-999 rows:   11 batches, median   1.67, max   1.75
+       1000-9999 rows:    1 batches, median   1.80, max   1.80
+
+gumbel_1.0, batch 1: 512 batches, 512 states
+  controls: mismatches eager 0, graphed 0, BF16 head 6 (over 3 repeats); row counts differing across repeats: 0
+  ms              median    mean     p99     max
+  BF16 graphed      2.83    2.83    2.84    2.84
+  fused graphed     1.01    1.01    1.02    1.04
+  BF16 eager        2.85    2.85    2.85    2.87
+  fused eager       1.31    1.32    1.33    1.62
+  fused / BF16 (graphed): median 0.36, mean 0.36, p99 over BF16 median 0.36, max over BF16 median 0.37
+  batches slower than the BF16 graphed median: 0 of 512; slower than the same batch's BF16 graphed time: 0
+  INT8 rows per state: median 2, p99 250, max 1428; exact rows max 3
+  slowest batch: 1.04 ms, its longest INT8 shortlist 1 rows
+  fused graphed ms by the longest INT8 shortlist in the batch:
+            0-99 rows:  489 batches, median   1.01, max   1.04
+         100-999 rows:   22 batches, median   1.01, max   1.02
+       1000-9999 rows:    1 batches, median   1.02, max   1.02
+
+gumbel_1.0, batch 8: 64 batches, 512 states
+  controls: mismatches eager 0, graphed 0, BF16 head 6 (over 3 repeats); row counts differing across repeats: 0
+  ms              median    mean     p99     max
+  BF16 graphed      3.08    3.08    3.09    3.09
+  fused graphed     1.15    1.16    1.22    1.23
+  BF16 eager        3.07    3.07    3.08    3.08
+  fused eager       1.42    1.42    1.47    1.49
+  fused / BF16 (graphed): median 0.37, mean 0.38, p99 over BF16 median 0.39, max over BF16 median 0.40
+  batches slower than the BF16 graphed median: 0 of 64; slower than the same batch's BF16 graphed time: 0
+  INT8 rows per state: median 2, p99 250, max 1428; exact rows max 3
+  slowest batch: 1.23 ms, its longest INT8 shortlist 458 rows
+  fused graphed ms by the longest INT8 shortlist in the batch:
+            0-99 rows:   45 batches, median   1.15, max   1.22
+         100-999 rows:   18 batches, median   1.15, max   1.23
+       1000-9999 rows:    1 batches, median   1.20, max   1.20
+
+gumbel_1.0, batch 32: 16 batches, 512 states
+  controls: mismatches eager 0, graphed 0, BF16 head 6 (over 3 repeats); row counts differing across repeats: 0
+  ms              median    mean     p99     max
+  BF16 graphed      4.09    4.09    4.10    4.10
+  fused graphed     1.74    1.75    1.83    1.97
+  BF16 eager        3.98    3.98    3.98    3.98
+  fused eager       1.90    1.90    1.98    2.11
+  fused / BF16 (graphed): median 0.43, mean 0.43, p99 over BF16 median 0.45, max over BF16 median 0.48
+  batches slower than the BF16 graphed median: 0 of 16; slower than the same batch's BF16 graphed time: 0
+  INT8 rows per state: median 2, p99 250, max 1428; exact rows max 3
+  slowest batch: 1.97 ms, its longest INT8 shortlist 1428 rows
+  fused graphed ms by the longest INT8 shortlist in the batch:
+            0-99 rows:    5 batches, median   1.73, max   1.75
+         100-999 rows:   10 batches, median   1.75, max   1.83
+       1000-9999 rows:    1 batches, median   1.97, max   1.97
+
+== sarvam_30b on NVIDIA A10G, torch 2.15.0+cu132, triton 3.9.0, 3 repeats per batch ==
+
+greedy, batch 1: 512 batches, 512 states
+  controls: mismatches eager 0, graphed 0, BF16 head 42 (over 3 repeats); row counts differing across repeats: 0
+  ms              median    mean     p99     max
+  BF16 graphed      4.51    4.51    4.54    4.58
+  fused graphed     1.54    1.54    1.56    1.75
+  BF16 eager        4.52    4.52    4.54    4.57
+  fused eager       1.97    1.98    2.19    2.30
+  fused / BF16 (graphed): median 0.34, mean 0.34, p99 over BF16 median 0.35, max over BF16 median 0.39
+  batches slower than the BF16 graphed median: 0 of 512; slower than the same batch's BF16 graphed time: 0
+  INT8 rows per state: median 6, p99 724, max 17083; exact rows max 7
+  slowest batch: 1.75 ms, its longest INT8 shortlist 17083 rows
+  fused graphed ms by the longest INT8 shortlist in the batch:
+            0-99 rows:  463 batches, median   1.54, max   1.56
+         100-999 rows:   44 batches, median   1.54, max   1.56
+       1000-9999 rows:    4 batches, median   1.55, max   1.56
+     10000-29999 rows:    1 batches, median   1.75, max   1.75
+
+greedy, batch 8: 64 batches, 512 states
+  controls: mismatches eager 0, graphed 0, BF16 head 42 (over 3 repeats); row counts differing across repeats: 0
+  ms              median    mean     p99     max
+  BF16 graphed      4.60    4.60    4.60    4.60
+  fused graphed     1.67    1.69    1.82    2.54
+  BF16 eager        4.58    4.58    4.59    4.60
+  fused eager       2.08    2.10    2.19    2.95
+  fused / BF16 (graphed): median 0.36, mean 0.37, p99 over BF16 median 0.40, max over BF16 median 0.55
+  batches slower than the BF16 graphed median: 0 of 64; slower than the same batch's BF16 graphed time: 0
+  INT8 rows per state: median 6, p99 724, max 17083; exact rows max 7
+  slowest batch: 2.54 ms, its longest INT8 shortlist 17083 rows
+  fused graphed ms by the longest INT8 shortlist in the batch:
+            0-99 rows:   27 batches, median   1.67, max   1.67
+         100-999 rows:   33 batches, median   1.67, max   1.70
+       1000-9999 rows:    3 batches, median   1.72, max   1.82
+     10000-29999 rows:    1 batches, median   2.54, max   2.54
+
+greedy, batch 32: 16 batches, 512 states
+  controls: mismatches eager 0, graphed 0, BF16 head 42 (over 3 repeats); row counts differing across repeats: 0
+  ms              median    mean     p99     max
+  BF16 graphed      5.11    5.11    5.11    5.12
+  fused graphed     2.15    2.38    2.62    5.34
+  BF16 eager        4.99    4.99    4.99    5.00
+  fused eager       2.46    2.67    2.90    5.64
+  fused / BF16 (graphed): median 0.42, mean 0.47, p99 over BF16 median 0.51, max over BF16 median 1.05
+  batches slower than the BF16 graphed median: 1 of 16; slower than the same batch's BF16 graphed time: 1
+  INT8 rows per state: median 6, p99 724, max 17083; exact rows max 7
+  slowest batch: 5.34 ms, its longest INT8 shortlist 17083 rows
+  fused graphed ms by the longest INT8 shortlist in the batch:
+         100-999 rows:   12 batches, median   2.15, max   2.21
+       1000-9999 rows:    3 batches, median   2.30, max   2.62
+     10000-29999 rows:    1 batches, median   5.34, max   5.34
+
+gumbel_1.0, batch 1: 512 batches, 512 states
+  controls: mismatches eager 0, graphed 0, BF16 head 33 (over 3 repeats); row counts differing across repeats: 0
+  ms              median    mean     p99     max
+  BF16 graphed      4.52    4.52    4.53    4.54
+  fused graphed     1.54    1.54    1.55    1.60
+  BF16 eager        4.53    4.53    4.54    4.55
+  fused eager       1.98    1.98    2.11    2.44
+  fused / BF16 (graphed): median 0.34, mean 0.34, p99 over BF16 median 0.34, max over BF16 median 0.36
+  batches slower than the BF16 graphed median: 0 of 512; slower than the same batch's BF16 graphed time: 0
+  INT8 rows per state: median 9, p99 1278, max 5263; exact rows max 10
+  slowest batch: 1.60 ms, its longest INT8 shortlist 5263 rows
+  fused graphed ms by the longest INT8 shortlist in the batch:
+            0-99 rows:  433 batches, median   1.54, max   1.55
+         100-999 rows:   71 batches, median   1.55, max   1.55
+       1000-9999 rows:    8 batches, median   1.55, max   1.60
+
+gumbel_1.0, batch 8: 64 batches, 512 states
+  controls: mismatches eager 0, graphed 0, BF16 head 33 (over 3 repeats); row counts differing across repeats: 0
+  ms              median    mean     p99     max
+  BF16 graphed      4.69    4.69    4.70    4.71
+  fused graphed     1.69    1.71    1.81    1.97
+  BF16 eager        4.67    4.68    4.70    4.73
+  fused eager       2.11    2.14    2.40    2.51
+  fused / BF16 (graphed): median 0.36, mean 0.36, p99 over BF16 median 0.39, max over BF16 median 0.42
+  batches slower than the BF16 graphed median: 0 of 64; slower than the same batch's BF16 graphed time: 0
+  INT8 rows per state: median 9, p99 1278, max 5263; exact rows max 10
+  slowest batch: 1.97 ms, its longest INT8 shortlist 5263 rows
+  fused graphed ms by the longest INT8 shortlist in the batch:
+            0-99 rows:   20 batches, median   1.69, max   1.70
+         100-999 rows:   37 batches, median   1.69, max   1.72
+       1000-9999 rows:    7 batches, median   1.77, max   1.97
+
+gumbel_1.0, batch 32: 16 batches, 512 states
+  controls: mismatches eager 0, graphed 0, BF16 head 33 (over 3 repeats); row counts differing across repeats: 0
+  ms              median    mean     p99     max
+  BF16 graphed      5.47    5.46    5.47    5.47
+  fused graphed     2.36    2.43    2.59    3.24
+  BF16 eager        5.34    5.34    5.35    5.35
+  fused eager       2.64    2.71    2.89    3.55
+  fused / BF16 (graphed): median 0.43, mean 0.44, p99 over BF16 median 0.47, max over BF16 median 0.59
+  batches slower than the BF16 graphed median: 0 of 16; slower than the same batch's BF16 graphed time: 0
+  INT8 rows per state: median 9, p99 1278, max 5263; exact rows max 10
+  slowest batch: 3.24 ms, its longest INT8 shortlist 5263 rows
+  fused graphed ms by the longest INT8 shortlist in the batch:
+         100-999 rows:   10 batches, median   2.29, max   2.36
+       1000-9999 rows:    6 batches, median   2.55, max   3.24
+

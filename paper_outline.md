@@ -39,12 +39,14 @@ Evidence: no token mismatch and no bound violation on any state, in over 700,000
 | GPU | Batch | Certified / stock BF16 head |
 |---|---|---|
 | L4 | 1 | 0.35 to 0.41 (first kernels; medians) |
+| A10G | 1 and 8 | 0.34 to 0.40 on Qwen3-8B, Gemma 4, Sarvam-30B |
+| A10G | 32 | 0.42 to 0.50 |
 | A100-80GB | 1 and 8 | 0.66 to 0.77 on Qwen3-8B, Gemma 4, Sarvam-30B |
 | A100-80GB | 32 | 0.88 to 1.01 |
 
-End to end: in an eager Hugging Face loop the head is 1% to 4% of a step on 8B-and-larger models, so the step is unchanged. On Qwen3-0.6B with a static cache on an A10G the head is 12% of a step. With the certified head inside the loop the step is a measured 6% to 7% faster (5.18 ms against 5.50), every token equal to the reference. On an A100 that model shows no gain.
+End to end: in an eager Hugging Face loop the head is 1% to 4% of a step on 8B-and-larger models, so the step is unchanged. On Qwen3-0.6B with a static cache on an A10G the head is 12% of a step. With the certified head inside the loop the step is a measured 6% faster in each of two runs (5.18 and 5.19 ms against 5.50), every token equal to the reference. On an A100 that model shows no gain.
 
-Memory: all copies on the GPU take 1.77 times the stock head's bytes. With the BF16 copy in host memory (GPU: 0.77) the batch-1 step on an A100 is as fast as the stock head on the three large heads (0.86 to 0.99). With only the 4-bit copy on the GPU (0.26) the median is 1.0 to 1.3 times the stock head, with a long tail. Not shown for batches.
+Memory: all copies on the GPU take 1.77 times the stock head's bytes. On an A10G at batch 1, with only the 4-bit copy on the GPU (0.26 of the bytes) and the rest in host memory, the step takes 0.45 to 0.55 of the stock head on the three large heads, with a long tail on Sarvam-30B. On an A100: With the BF16 copy in host memory (GPU: 0.77) the batch-1 step on an A100 is as fast as the stock head on the three large heads (0.86 to 0.99). With only the 4-bit copy on the GPU (0.26) the median is 1.0 to 1.3 times the stock head, with a long tail. Not shown for batches.
 
 ## 5. Stated limits
 

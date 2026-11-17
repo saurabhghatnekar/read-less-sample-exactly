@@ -1,0 +1,54 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-4mw6aXr5YwJy7oAKnXR2kS
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/kernel/fused2_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/kernel/common.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/kernel/fused2.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/kernel/int4_pass1.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/kernel/fused.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/kernel/cert_head.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/kernel/cert_head2.py
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/kernel/../exp01_repro/cert_core.py
+└── ✓ Created Function run.
+/usr/local/lib/python3.12/site-packages/triton/knobs.py:504: UserWarning: TRITON_DEFAULT_FP_FUSION is unset: defaulting to FP fusion ENABLED for backward compatibility in Triton 3.9. The default will change to DISABLED in Triton 3.10; set TRITON_DEFAULT_FP_FUSION=1 to keep fusion enabled or =0 to adopt the new default early and silence this warning.
+  warn_once(FP_FUSION_DEFAULT_WARNING)
+/usr/local/lib/python3.12/site-packages/triton/knobs.py:504: UserWarning: TRITON_DEFAULT_FP_FUSION is unset: defaulting to FP fusion ENABLED for backward compatibility in Triton 3.9. The default will change to DISABLED in Triton 3.10; set TRITON_DEFAULT_FP_FUSION=1 to keep fusion enabled or =0 to adopt the new default early and silence this warning.
+  warn_once(FP_FUSION_DEFAULT_WARNING)
+/usr/local/lib/python3.12/site-packages/triton/knobs.py:504: UserWarning: TRITON_DEFAULT_FP_FUSION is unset: defaulting to FP fusion ENABLED for backward compatibility in Triton 3.9. The default will change to DISABLED in Triton 3.10; set TRITON_DEFAULT_FP_FUSION=1 to keep fusion enabled or =0 to adopt the new default early and silence this warning.
+  warn_once(FP_FUSION_DEFAULT_WARNING)
+synthetic mismatches: none
+synthetic mismatches: none
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+qwen3_8b greedy intervals {"states": 64, "first_outside": 0, "int8_outside": 0, "logit_dev_over_bound_max": 5.114181476528756e-06, "bound_ratio_min": 1.019661784172058, "bound_ratio_max": 1.07136070728302, "int8_rows": 242}
+gemma4_e4b greedy intervals {"states": 64, "first_outside": 0, "int8_outside": 0, "logit_dev_over_bound_max": 2.2260208424995653e-05, "bound_ratio_min": 1.0090082883834839, "bound_ratio_max": 1.032650113105774, "int8_rows": 3111}
+qwen3_8b greedy 1 ms median: BF16 2.621 fused2 0.966 max 0.994 | mismatches 0 0 | profile {'prep': 0.242, 'pass1': 0.938, 'select': 0.048, 'int8': 0.082, 'exact': 0.121}
+qwen3_8b greedy 8 ms median: BF16 2.647 fused2 1.05 max 1.158 | mismatches 0 0 | profile {'prep': 0.242, 'pass1': 0.983, 'select': 0.061, 'int8': 0.081, 'exact': 0.12}
+qwen3_8b greedy 32 ms median: BF16 2.951 fused2 1.488 max 1.51 | mismatches 0 0 | profile {'prep': 0.245, 'pass1': 1.247, 'select': 0.119, 'int8': 0.081, 'exact': 0.121}
+gemma4_e4b greedy 1 ms median: BF16 2.827 fused2 1.002 max 1.032 | mismatches 0 0 | profile {'prep': 0.252, 'pass1': 0.988, 'select': 0.048, 'int8': 0.083, 'exact': 0.127}
+gemma4_e4b greedy 8 ms median: BF16 2.989 fused2 1.118 max 1.28 | mismatches 0 0 | profile {'prep': 0.251, 'pass1': 1.036, 'select': 0.076, 'int8': 0.084, 'exact': 0.123}
+gemma4_e4b greedy 32 ms median: BF16 3.744 fused2 1.666 max 1.796 | mismatches 0 0 | profile {'prep': 0.262, 'pass1': 1.298, 'select': 0.178, 'int8': 0.105, 'exact': 0.127}
+qwen3_8b gumbel_1.0 intervals {"states": 64, "first_outside": 0, "int8_outside": 0, "logit_dev_over_bound_max": 4.752519089379348e-06, "bound_ratio_min": 1.0254292488098145, "bound_ratio_max": 1.0720916986465454, "int8_rows": 178}
+gemma4_e4b gumbel_1.0 intervals {"states": 64, "first_outside": 0, "int8_outside": 0, "logit_dev_over_bound_max": 2.6701194656197913e-05, "bound_ratio_min": 1.009408712387085, "bound_ratio_max": 1.0323759317398071, "int8_rows": 1216}
+synthetic mismatches: none
+qwen3_8b gumbel_1.0 1 ms median: BF16 2.629 fused2 0.968 max 0.99 | mismatches 0 0 | profile {'prep': 0.235, 'pass1': 0.937, 'select': 0.045, 'int8': 0.079, 'exact': 0.119}
+qwen3_8b gumbel_1.0 8 ms median: BF16 2.688 fused2 1.074 max 1.182 | mismatches 0 0 | profile {'prep': 0.241, 'pass1': 0.998, 'select': 0.071, 'int8': 0.081, 'exact': 0.12}
+qwen3_8b gumbel_1.0 32 ms median: BF16 3.157 fused2 1.562 max 1.609 | mismatches 0 0 | profile {'prep': 0.246, 'pass1': 1.273, 'select': 0.158, 'int8': 0.08, 'exact': 0.12}
+wrote /Volumes/attic/GpuKernelEngg/research/kernel/results/fused2_qwen3_8b_A10G.json
+sarvam_30b greedy intervals {"states": 64, "first_outside": 0, "int8_outside": 0, "logit_dev_over_bound_max": 6.917134305695072e-05, "bound_ratio_min": 1.0190086364746094, "bound_ratio_max": 1.4309108257293701, "int8_rows": 3715}
+gemma4_e4b gumbel_1.0 1 ms median: BF16 2.833 fused2 1.01 max 1.035 | mismatches 0 0 | profile {'prep': 0.262, 'pass1': 0.996, 'select': 0.05, 'int8': 0.085, 'exact': 0.134}
+gemma4_e4b gumbel_1.0 8 ms median: BF16 3.08 fused2 1.154 max 1.23 | mismatches 0 0 | profile {'prep': 0.247, 'pass1': 1.052, 'select': 0.093, 'int8': 0.082, 'exact': 0.123}
+wrote /Volumes/attic/GpuKernelEngg/research/kernel/results/fused2_gemma4_e4b_A10G.json
+gemma4_e4b gumbel_1.0 32 ms median: BF16 4.093 fused2 1.744 max 1.971 | mismatches 0 0 | profile {'prep': 0.251, 'pass1': 1.315, 'select': 0.244, 'int8': 0.101, 'exact': 0.125}
+sarvam_30b greedy 1 ms median: BF16 4.51 fused2 1.54 max 1.753 | mismatches 0 0 | profile {'prep': 0.394, 'pass1': 1.527, 'select': 0.064, 'int8': 0.114, 'exact': 0.162}
+sarvam_30b greedy 8 ms median: BF16 4.596 fused2 1.67 max 2.542 | mismatches 0 0 | profile {'prep': 0.401, 'pass1': 1.589, 'select': 0.085, 'int8': 0.113, 'exact': 0.163}
+sarvam_30b greedy 32 ms median: BF16 5.109 fused2 2.154 max 5.344 | mismatches 0 0 | profile {'prep': 0.416, 'pass1': 1.762, 'select': 0.188, 'int8': 0.343, 'exact': 0.208}
+sarvam_30b gumbel_1.0 intervals {"states": 64, "first_outside": 0, "int8_outside": 0, "logit_dev_over_bound_max": 7.000369805609807e-05, "bound_ratio_min": 1.0198760032653809, "bound_ratio_max": 1.4694044589996338, "int8_rows": 3200}
+sarvam_30b gumbel_1.0 1 ms median: BF16 4.517 fused2 1.544 max 1.604 | mismatches 0 0 | profile {'prep': 0.393, 'pass1': 1.524, 'select': 0.063, 'int8': 0.113, 'exact': 0.162}
+sarvam_30b gumbel_1.0 8 ms median: BF16 4.689 fused2 1.692 max 1.973 | mismatches 0 0 | profile {'prep': 0.396, 'pass1': 1.592, 'select': 0.101, 'int8': 0.113, 'exact': 0.159}
+sarvam_30b gumbel_1.0 32 ms median: BF16 5.465 fused2 2.359 max 3.243 | mismatches 0 0 | profile {'prep': 0.476, 'pass1': 1.835, 'select': 0.258, 'int8': 0.283, 'exact': 0.188}
+wrote /Volumes/attic/GpuKernelEngg/research/kernel/results/fused2_sarvam_30b_A10G.json
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-4mw6aXr5YwJy7oAKnXR2kS
+exit 0
