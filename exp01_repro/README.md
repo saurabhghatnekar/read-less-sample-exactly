@@ -817,3 +817,46 @@ Against the predictions:
 - **`k2_g26dir`: the "does nothing" branch** of an even-odds prediction.
 
 Limits: one model, one group, one shift. Group 26 was first found on regenerated odd-prompt states (N1) and is confirmed here on the saved even-prompt states, but all states are then measured. The staged figures are an estimate from stored shortlist sizes. Bytes only; no timing.
+
+## M2: the heavy group read only for the rows the rule still needs (17 Nov 2026)
+
+M1's estimate said that reading group 26 in INT8 only for shortlisted rows would keep the top-50 gain in Tamil and Telugu at no cost elsewhere. M2 runs that as a certificate.
+
+Rule `stage_rule.json` (sha256 `7e98e2b8…`, logged before any run on real states). Code `stage_lib.py`, `stage_modal.py`, `stage_summarize.py`, `test_stage.py`; results `logs/stage_summary.json`, tables `logs/stage_summary.txt`. Sarvam-30B, all 59,333 states, five rules.
+
+Stages: (1) the plain dithered INT4 head with K2's correction, every row, exactly M1's arm `k2`; (G) for the rows the rule still needs, the row's group 26 in INT8, which gives that row the mixed head's interval (the two heads differ only in that group and share the dither); (2) INT8 rows; (3) BF16 rows. Each row read in stage G is charged 204 bytes: 128 codes, 2 for their step, 4 for the row's K2 number for the mixed copy, 4 for that copy's row norm, and 66 for re-reading the row's INT4 codes and step. A row read in stage G carries two dither bounds, so its failure probability is at most 2δ.
+
+Controls, all pass: the arm `k2` equals M1's stored values on all 59,333 states; no reference logit outside the first-pass or the stage-G interval; no token mismatch on any rule; `test_stage.py` passes (a stage G fed the first-pass intervals changes nothing, and a planted fault is caught).
+
+**The criterion passes, both parts.**
+
+(a) Greedy and both Gumbel rules: in every language the median and p99 are within 0.0005 of `k2`, and in fact at or below it.
+
+| Rule | Tamil p99: `k2` → staged | Telugu p99: `k2` → staged | All states, mean: `k2` → staged |
+|---|---|---|---|
+| Greedy | 0.2603 → 0.2588 | 0.2604 → 0.2591 | 0.2584 → 0.2584 |
+| Gumbel T = 0.6 | 0.2613 → 0.2592 | 0.2622 → 0.2598 | 0.2585 → 0.2584 |
+| Gumbel T = 1 | 0.2614 → 0.2591 | 0.2620 → 0.2598 | 0.2585 → 0.2584 |
+
+(b) Top-50, mean bytes and the difference with a 95% interval from resampling prompts:
+
+| Language | `k2` | `both` (M1) | staged | staged − `k2` |
+|---|---|---|---|---|
+| Bengali | 0.2732 | 0.2798 | 0.2724 | −0.0008 [−0.0010, −0.0007] |
+| Code | 0.2724 | 0.2779 | 0.2703 | −0.0022 [−0.0024, −0.0019] |
+| English | 0.2735 | 0.2791 | 0.2716 | −0.0020 [−0.0022, −0.0018] |
+| Hindi | 0.2679 | 0.2749 | 0.2673 | −0.0006 [−0.0007, −0.0005] |
+| Tamil | 0.2909 | 0.2727 | 0.2664 | −0.0245 [−0.0276, −0.0214] |
+| Telugu | 0.2876 | 0.2773 | 0.2707 | −0.0169 [−0.0190, −0.0142] |
+| All | 0.2777 | 0.2769 | 0.2697 | −0.0079 [−0.0093, −0.0066] |
+
+- **Top-50 improves in every language,** most in Tamil and Telugu. Over all states: median 0.270 → 0.265, p99 0.374 → 0.352, mean 0.278 → 0.270.
+- **Top-50 still misses its gate.** BF16 rows at the p99 fall from 10,145 to 7,813 against a limit of 2,621.
+- **Min-p improves in the tail:** the p99 goes from 0.280 to 0.264 in Tamil and from 0.283 to 0.269 in Telugu; over all states from 0.276 to 0.269.
+- **It beats M1's every-row form everywhere,** because it pays for the group only where the rule asks for it. Stage G reads a median of 4 rows per greedy state and 3,265 per top-50 state, out of 262,144.
+- **Not every state gains.** On greedy, 59% of states read a few bytes more (at most 0.0001 of the head), because stage G is paid for rows it does not help. The means and the tails are lower.
+- With 138 bytes a row (a kernel that keeps each row's partial sum for the group) the figures change by at most 0.0005.
+
+Against the predictions: all held. Criterion passes; greedy and Gumbel within 0.0002 of `k2` in the mean; top-50 overall mean 0.2697 (predicted 0.2695 to 0.2715), Tamil 0.2664 (0.265 to 0.269), Telugu 0.2707 (0.270 to 0.273); min-p p99 0.264 and 0.269 (0.263 to 0.272); gate still missed; M1's estimate was within 0.0006 of the measured mean on every rule and language.
+
+Limits: one model, one group, chosen from this model's states. Bytes only: stage G is one more data-dependent gather, and nothing here measures what it costs in time. The group helps two languages; a model or language with no such group gains nothing from it.

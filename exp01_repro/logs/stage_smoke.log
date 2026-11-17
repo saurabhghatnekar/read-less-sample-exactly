@@ -1,0 +1,22 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-XH8nxENH2lHRc62ouk6hRe
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/stage_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/stage_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/mix_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/hdir_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/subg_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_lib.py
+├── ✓ Created Function chunk.
+└── ✓ Created Function collect.
+2 jobs, rule 7e98e2b85ced
+{'mode': 'greedy', 'start': 0, 'n': 512, 's0': 0, 'viol': 0, 'mism': 0, 'seconds': 8, 'mean_bytes': {'greedy': {'k2': 0.2583, 'both': 0.2662, 'staged': 0.2583}}}
+{'mode': 't1', 'start': 0, 'n': 512, 's0': 0, 'viol': 0, 'mism': 0, 'seconds': 7, 'mean_bytes': {'gumbel_0.6': {'k2': 0.2584, 'both': 0.2662, 'staged': 0.2583}, 'gumbel_1.0': {'k2': 0.2584, 'both': 0.2662, 'staged': 0.2583}, 'top50': {'k2': 0.2686, 'both': 0.2744, 'staged': 0.2667}, 'minp_0.05': {'k2': 0.2585, 'both': 0.2662, 'staged': 0.2584}}}
+TOTAL {'n': 1024, 's0': 0, 'viol': 0, 'mism': 0, 'seconds': 15}
+wrote the summary
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-XH8nxENH2lHRc62ouk6hRe
+exit 0

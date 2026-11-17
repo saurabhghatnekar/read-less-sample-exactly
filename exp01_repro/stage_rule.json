@@ -1,0 +1,32 @@
+{
+  "experiment": "M2: the heavy group read in INT8 only for the rows the rule still needs, as a certificate, on Sarvam-30B",
+  "written": "2026-11-17, after M1's results and its staged estimate were read, before any M2 code ran on real states",
+  "question": "M1 showed that storing group 26 in INT8 for every row costs more than it saves once K2's correction is applied. M1's estimate said that reading the group only for shortlisted rows would keep the top-50 gain in Tamil and Telugu at no cost elsewhere. Does that hold when it is run as a certificate?",
+  "states": "all saved exp01 states of Sarvam-30B: 29,826 greedy and 29,507 sampled, as in M1",
+  "certificate": {
+    "stage_1": "the plain dithered INT4 g128 head, every row, with K2's correction (direction fitted without the state's language), sub-Gaussian bound, shift 0.5: exactly M1's arm k2",
+    "stage_G": "for the rows the rule still needs: the row's group 26 in INT8. The mixed head of M1 differs from the plain one only in that group and uses the same dither, so this gives the row the mixed head's corrected logit and bound. The interval is intersected with the first one. Repeated until the rule needs no new row.",
+    "stage_2_and_3": "INT8 rows, then BF16 rows, as before",
+    "probability": "a row read in stage G carries two dither bounds, each at delta = 1e-15, so its failure probability is at most 2 delta",
+    "bytes": "stage 1, 2 and 3 as in K2. Each row read in stage G is charged 204 bytes: 128 INT8 codes, 2 for their step, 4 for the row's K2 number for the mixed copy, 4 for the mixed copy's row norm, and 66 for re-reading the row's INT4 codes and step for that group. A kernel that keeps each row's partial sum for the group would need 138; that figure is reported beside the main one."
+  },
+  "arms": "k2 (recomputed, as the control and the baseline), staged (this certificate), and M1's stored arm both for comparison",
+  "rules": "greedy, Gumbel T = 0.6 and T = 1, min-p 0.05, top-50",
+  "reported": "per language and overall, for each rule: bytes (median, p99, mean) for k2, both and staged; rows read in stage G, in INT8 and in BF16; staged minus k2, mean with a 95% interval from resampling prompts; the gate status",
+  "criterion": "staged is adopted as the second part of the method if both hold. (a) On greedy and both Gumbel rules, in every language, its median and its p99 are not above k2's by more than 0.0005. (b) On top-50, its mean is below k2's by at least 0.010 in Tamil and in Telugu, with the 95% interval excluding zero, and its mean is not above k2's by more than 0.001 in any of the other four languages.",
+  "controls": {
+    "S0_reproduce": "the arm k2 equals M1's stored plain/k2 S and bytes on every state and rule; any difference invalidates the run",
+    "S0_bound": "no reference logit outside the plain or the group-stage interval; no token of either arm differs from the FP32 reference, on any rule",
+    "S0_cpu": "test_stage.py: with the group stage given the first-pass intervals themselves, the staged certificate reads the same INT8 and BF16 rows and returns the same tokens as cert_core.certify; with the mixed head's intervals, tokens equal the reference on all five rules and the INT8 rows read do not exceed the plain certificate's in total; a planted fault (group-stage intervals taken from other rows) is caught"
+  },
+  "status": "one pass, one arm; the criterion decides",
+  "prediction_written_before_running": {
+    "controls": "all pass",
+    "criterion": "PASSES both parts",
+    "greedy_and_gumbel": "staged is within 0.0002 of k2 in the mean in every language, and its p99 in Tamil and Telugu is at or below k2's (0.260 to 0.262)",
+    "top50": "overall mean between 0.2695 and 0.2715 (k2: 0.2777; M1's estimate at 130 bytes a row: 0.2696). Tamil mean between 0.265 and 0.269 (k2: 0.2909), Telugu between 0.270 and 0.273 (k2: 0.2876). Top-50 still misses its gate, because the BF16 rows at the p99 stay near 7,800 against a limit of 2,621",
+    "minp": "the Tamil and Telugu p99 fall from 0.280 and 0.283 to between 0.263 and 0.272",
+    "estimate_error": "the measured staged mean is within 0.001 of M1's estimate plus the extra 74 bytes per stage-G row, on every rule",
+    "takeaway_if_wrong": "If (a) fails, rows are being read in stage G on states that gain nothing from it, and the stage needs a test for when to skip it. If (b) fails by a wide margin, the estimate's assumption (later stages read what M1's arm both reads) is wrong, and the order of the stages matters more than we thought."
+  }
+}

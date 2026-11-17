@@ -1,0 +1,36 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-mJDN3h4wvkflQ3cw6Wsbsa
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/stage_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/stage_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/mix_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/subg_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/hdir_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+├── ✓ Created Function chunk.
+└── ✓ Created Function collect.
+16 jobs, rule 7e98e2b85ced
+{'mode': 'greedy', 'start': 0, 'n': 4096, 's0': 0, 'viol': 0, 'mism': 0, 'seconds': 11, 'mean_bytes': {'greedy': {'k2': 0.2584, 'both': 0.2662, 'staged': 0.2584}}}
+{'mode': 'greedy', 'start': 8192, 'n': 4096, 's0': 0, 'viol': 0, 'mism': 0, 'seconds': 10, 'mean_bytes': {'greedy': {'k2': 0.2583, 'both': 0.2661, 'staged': 0.2583}}}
+{'mode': 'greedy', 'start': 4096, 'n': 4096, 's0': 0, 'viol': 0, 'mism': 0, 'seconds': 11, 'mean_bytes': {'greedy': {'k2': 0.2583, 'both': 0.2661, 'staged': 0.2583}}}
+{'mode': 'greedy', 'start': 16384, 'n': 4096, 's0': 0, 'viol': 0, 'mism': 0, 'seconds': 7, 'mean_bytes': {'greedy': {'k2': 0.2584, 'both': 0.2662, 'staged': 0.2583}}}
+{'mode': 'greedy', 'start': 12288, 'n': 4096, 's0': 0, 'viol': 0, 'mism': 0, 'seconds': 12, 'mean_bytes': {'greedy': {'k2': 0.2583, 'both': 0.2662, 'staged': 0.2583}}}
+{'mode': 'greedy', 'start': 20480, 'n': 4096, 's0': 0, 'viol': 0, 'mism': 0, 'seconds': 7, 'mean_bytes': {'greedy': {'k2': 0.2585, 'both': 0.2661, 'staged': 0.2583}}}
+{'mode': 'greedy', 'start': 28672, 'n': 1154, 's0': 0, 'viol': 0, 'mism': 0, 'seconds': 5, 'mean_bytes': {'greedy': {'k2': 0.2585, 'both': 0.2662, 'staged': 0.2584}}}
+{'mode': 'greedy', 'start': 24576, 'n': 4096, 's0': 0, 'viol': 0, 'mism': 0, 'seconds': 8, 'mean_bytes': {'greedy': {'k2': 0.2585, 'both': 0.2662, 'staged': 0.2584}}}
+{'mode': 't1', 'start': 4096, 'n': 4096, 's0': 0, 'viol': 0, 'mism': 0, 'seconds': 22, 'mean_bytes': {'gumbel_0.6': {'k2': 0.2583, 'both': 0.2662, 'staged': 0.2583}, 'gumbel_1.0': {'k2': 0.2583, 'both': 0.2662, 'staged': 0.2583}, 'top50': {'k2': 0.273, 'both': 0.2785, 'staged': 0.2709}, 'minp_0.05': {'k2': 0.2585, 'both': 0.2663, 'staged': 0.2585}}}
+{'mode': 't1', 'start': 0, 'n': 4096, 's0': 0, 'viol': 0, 'mism': 0, 'seconds': 21, 'mean_bytes': {'gumbel_0.6': {'k2': 0.2584, 'both': 0.2662, 'staged': 0.2584}, 'gumbel_1.0': {'k2': 0.2584, 'both': 0.2662, 'staged': 0.2584}, 'top50': {'k2': 0.2733, 'both': 0.2789, 'staged': 0.2713}, 'minp_0.05': {'k2': 0.2588, 'both': 0.2666, 'staged': 0.2588}}}
+{'mode': 't1', 'start': 16384, 'n': 4096, 's0': 0, 'viol': 0, 'mism': 0, 'seconds': 19, 'mean_bytes': {'gumbel_0.6': {'k2': 0.2586, 'both': 0.2663, 'staged': 0.2585}, 'gumbel_1.0': {'k2': 0.2585, 'both': 0.2663, 'staged': 0.2585}, 'top50': {'k2': 0.2788, 'both': 0.279, 'staged': 0.2718}, 'minp_0.05': {'k2': 0.2605, 'both': 0.2679, 'staged': 0.2602}}}
+{'mode': 't1', 'start': 12288, 'n': 4096, 's0': 0, 'viol': 0, 'mism': 0, 'seconds': 19, 'mean_bytes': {'gumbel_0.6': {'k2': 0.2584, 'both': 0.2662, 'staged': 0.2584}, 'gumbel_1.0': {'k2': 0.2584, 'both': 0.2662, 'staged': 0.2584}, 'top50': {'k2': 0.2696, 'both': 0.2764, 'staged': 0.2688}, 'minp_0.05': {'k2': 0.2589, 'both': 0.2667, 'staged': 0.2589}}}
+{'mode': 't1', 'start': 20480, 'n': 4096, 's0': 0, 'viol': 0, 'mism': 0, 'seconds': 20, 'mean_bytes': {'gumbel_0.6': {'k2': 0.2586, 'both': 0.2662, 'staged': 0.2584}, 'gumbel_1.0': {'k2': 0.2586, 'both': 0.2662, 'staged': 0.2584}, 'top50': {'k2': 0.2905, 'both': 0.2732, 'staged': 0.2668}, 'minp_0.05': {'k2': 0.2599, 'both': 0.2664, 'staged': 0.2587}}}
+{'mode': 't1', 'start': 8192, 'n': 4096, 's0': 0, 'viol': 0, 'mism': 0, 'seconds': 22, 'mean_bytes': {'gumbel_0.6': {'k2': 0.2584, 'both': 0.2662, 'staged': 0.2584}, 'gumbel_1.0': {'k2': 0.2584, 'both': 0.2662, 'staged': 0.2584}, 'top50': {'k2': 0.2688, 'both': 0.2753, 'staged': 0.2677}, 'minp_0.05': {'k2': 0.2586, 'both': 0.2664, 'staged': 0.2586}}}
+{'mode': 't1', 'start': 28672, 'n': 835, 's0': 0, 'viol': 0, 'mism': 0, 'seconds': 9, 'mean_bytes': {'gumbel_0.6': {'k2': 0.2585, 'both': 0.2662, 'staged': 0.2584}, 'gumbel_1.0': {'k2': 0.2585, 'both': 0.2662, 'staged': 0.2584}, 'top50': {'k2': 0.283, 'both': 0.2761, 'staged': 0.2693}, 'minp_0.05': {'k2': 0.2592, 'both': 0.2664, 'staged': 0.2586}}}
+{'mode': 't1', 'start': 24576, 'n': 4096, 's0': 0, 'viol': 0, 'mism': 0, 'seconds': 21, 'mean_bytes': {'gumbel_0.6': {'k2': 0.2586, 'both': 0.2662, 'staged': 0.2584}, 'gumbel_1.0': {'k2': 0.2586, 'both': 0.2662, 'staged': 0.2584}, 'top50': {'k2': 0.2886, 'both': 0.2774, 'staged': 0.2709}, 'minp_0.05': {'k2': 0.2601, 'both': 0.2667, 'staged': 0.259}}}
+TOTAL {'n': 59333, 's0': 0, 'viol': 0, 'mism': 0, 'seconds': 224}
+wrote the summary
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-mJDN3h4wvkflQ3cw6Wsbsa
+exit 0

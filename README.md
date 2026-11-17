@@ -18,6 +18,7 @@ Models: Qwen3-8B (151,936 × 4,096 head), Gemma 4 E4B (262,144 × 2,560, tied, s
   - **E1**, the head's share of a whole decode step on an A100-80GB
   - **N1**, where Sarvam-30B's dominant state direction appears: the last decoder block writes it and the final norm's gain doubles it
   - **M1**, one 128-coordinate group kept in INT8 for every row, with and without K2: it does not pay on greedy or Gumbel, because K2 alone is already at the byte floor
+  - **M2**, the same group read only for the rows the rule still needs: free on greedy and Gumbel, and top-50's mean falls from 0.278 to 0.270
 
   Results and caveats are in [`exp01_repro/README.md`](exp01_repro/README.md).
 - [`kernel/`](kernel/): a second, independently built set of L4 kernels for the certified step (15 Nov 2026): a PyTorch baseline, a tensor-core first pass, and a fused, graph-captured step with per-state row lists for greedy and Gumbel sampling. See [`kernel/README.md`](kernel/README.md), including how it relates to the graph-captured step in `exp01_repro`.
@@ -40,7 +41,7 @@ Sarvam-30B's tail is not a loose bound: its bound is no wider than Gemma 4's, bu
 
 Where that direction comes from (N1, 16 Nov 2026): it is absent through block 18 of Sarvam-30B's 19, the last block creates it (top-1 share 0.40 before the final norm), and the norm's gain doubles its share to 0.74. Sarvam-1's dominant direction has a different cause.
 
-Keeping Sarvam-30B's one heavy coordinate group in INT8 for every row (M1, 17 Nov 2026) does not improve on K2 for greedy or Gumbel sampling: K2 alone is within 0.004 of the byte floor at the p99 in every language, and the group costs 0.008 on every state. On top-50 it helps Tamil and Telugu and costs the other languages the same amount.
+Keeping Sarvam-30B's one heavy coordinate group in INT8 for every row (M1, 17 Nov 2026) does not improve on K2 for greedy or Gumbel sampling: K2 alone is within 0.004 of the byte floor at the p99 in every language, and the group costs 0.008 on every state. On top-50 it helps Tamil and Telugu and costs the other languages the same amount. Reading the group only for the rows the rule still needs (M2) removes that cost: greedy and Gumbel stay at K2's level, the top-50 mean falls from 0.278 to 0.270 and its p99 from 0.374 to 0.352, with exact tokens. Top-50 still misses its gate.
 
 ## Not included
 
