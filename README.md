@@ -43,6 +43,8 @@ Where that direction comes from (N1, 16 Nov 2026): it is absent through block 18
 
 Keeping Sarvam-30B's one heavy coordinate group in INT8 for every row (M1, 17 Nov 2026) does not improve on K2 for greedy or Gumbel sampling: K2 alone is within 0.004 of the byte floor at the p99 in every language, and the group costs 0.008 on every state. On top-50 it helps Tamil and Telugu and costs the other languages the same amount. Reading the group only for the rows the rule still needs (M2) removes that cost: greedy and Gumbel stay at K2's level, the top-50 mean falls from 0.278 to 0.270 and its p99 from 0.374 to 0.352, with exact tokens. Top-50 still misses its gate.
 
+On time (17 Nov 2026): with the tensor-core first pass of `kernel/`, the batch-1 head step on an A100-80GB takes 0.66 to 0.69 of the stock BF16 head on Qwen3-8B and Gemma 4, with exact tokens. So the sentence above about the A100 holds for `exp01_repro`'s kernels only. The win shrinks with batch size and is gone at batch 32, Gemma 4 loses from batch 8, and the end-to-end step in a Hugging Face loop is still unchanged. See [`kernel/README.md`](kernel/README.md).
+
 ## Not included
 
 - Prompts and model outputs: the Indian-language prompts come from Flores-IN, cleared for evaluation but not redistribution.

@@ -1,0 +1,13 @@
+{
+  "experiment": "The fused certified head of kernel/ (tensor-core first pass) on an A100-80GB",
+  "written": "2026-11-17, after E1 and the first L4 run of kernel/ were read, before any kernel of this folder ran on an A100",
+  "addendum_to": "tail_protocol.json (sha256 e166c60cd27b6f605bb144c4723696cc2d2db730721018d893ec32ed991d9619): the same harness (fused_tail_modal.py), kernels, models, rules, states, baseline, repeats and statistics, with the GPU changed to a Modal A100-80GB. Triton's autotuner picks the block sizes on the A100.",
+  "why": "E1 found that on an A100-80GB the graph-captured step of exp01_repro took 1.30 (Qwen3-8B) and 1.25 (Gemma 4) times as long as the stock BF16 head, because its first pass was limited by its own arithmetic. The first pass here runs on tensor cores and was 13% to 16% faster than that step on the L4. Does it change E1's finding?",
+  "note_on_baselines": "E1's stock head was the cuBLAS BF16 product with argmax (0.82 and 0.89 ms). The baseline here also applies the soft-cap and adds the supplied Gumbel noise, as on the L4, and is graph-captured. Hoeffding bound, no shift, greedy and Gumbel T = 1, batch 1, 8 and 32, 512 states per rule.",
+  "prediction": {
+    "controls": "no token mismatch against the FP32 reference; row counts identical across repeats",
+    "batch_1": "the fused graphed step takes between 0.75 and 1.05 ms on both models, and the ratio to the graphed BF16 head is between 0.85 and 1.20. So no clear win: E1's finding stands in substance. About even odds on which side of 1.0 it lands.",
+    "batch_32": "on Qwen3-8B the ratio is lower than at batch 1, because the tensor-core product no longer pads one state to sixteen. On Gemma 4 the slowest batch exceeds the BF16 head, as predicted for the L4.",
+    "takeaway_if_wrong": "If the batch-1 ratio is below 0.85 on both models, the tensor-core first pass does keep up with the A100's memory well enough to win, and E1's sentence about time has to be rewritten for this kernel. If it is above 1.20, this kernel is no better than exp01_repro's on fast memory and the first pass needs a different design."
+  }
+}

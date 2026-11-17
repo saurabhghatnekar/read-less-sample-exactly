@@ -159,3 +159,45 @@ What it says:
 - **Gumbel noise inside the kernels.** Every row's test needs its own noise, so this means V draws per state inside the first pass. It is excluded from both sides here, so the timings above do not include it.
 - **The first pass on an A100,** where E1 found the earlier kernel limited by its own arithmetic.
 - **Top-k and min-p; T4 and RTX 4090; whole-model tokens per second.**
+
+# The fused step on an A100-80GB (17 Nov 2026)
+
+Protocol `a100_protocol.json` (sha256 `bf58f92b…`, logged before any kernel of this folder ran on an A100), an addendum to `tail_protocol.json`. Harness `fused_tail_modal.py --gpu A100-80GB`, unchanged kernels; Triton's autotuner picks the block sizes on the A100. Results `results/fused_tail_<model>_A100-80GB.json`, table `logs/fused_tail_summary_a100.txt`. Every batch is timed three times and the median of the three is used; batch 1 covers all 512 states, batch 8 has 64 batches, batch 32 has 16.
+
+Controls pass: no certified token differs from the FP32 reference on any repeat, eager or graphed, and the row counts are identical across repeats.
+
+Graph-captured, milliseconds. "p99" with 16 batches is the second largest.
+
+| Model | Rule | Batch | BF16 head, median | Fused: median, p99, largest | Fused / BF16, median | Batches slower than the BF16 median |
+|---|---|---|---|---|---|---|
+| Qwen3-8B | greedy | 1 | 0.75 | 0.52, 0.52, 0.53 | **0.69** | 0 of 512 |
+| Qwen3-8B | greedy | 8 | 0.77 | 0.57, 0.58, 0.62 | 0.74 | 0 of 64 |
+| Qwen3-8B | greedy | 32 | 0.86 | 0.82, 0.89, 1.05 | 0.95 | 3 of 16 |
+| Qwen3-8B | Gumbel T=1 | 1 | 0.76 | 0.52, 0.54, 0.54 | **0.68** | 0 of 512 |
+| Qwen3-8B | Gumbel T=1 | 8 | 0.79 | 0.58, 0.61, 0.63 | 0.73 | 0 of 64 |
+| Qwen3-8B | Gumbel T=1 | 32 | 0.91 | 0.85, 0.96, 1.02 | 0.93 | 5 of 16 |
+| Gemma 4 E4B | greedy | 1 | 0.82 | 0.54, 0.66, 0.76 | **0.66** | 0 of 512 |
+| Gemma 4 E4B | greedy | 8 | 0.87 | 0.95, 1.87, 2.05 | 1.09 | 46 of 64 |
+| Gemma 4 E4B | greedy | 32 | 1.09 | 3.39, 5.95, 6.57 | 3.10 | 16 of 16 |
+| Gemma 4 E4B | Gumbel T=1 | 1 | 0.83 | 0.55, 0.67, 0.86 | **0.67** | 1 of 512 |
+| Gemma 4 E4B | Gumbel T=1 | 8 | 0.89 | 0.97, 1.84, 2.66 | 1.09 | 36 of 64 |
+| Gemma 4 E4B | Gumbel T=1 | 32 | 1.19 | 3.25, 5.39, 8.97 | 2.74 | 16 of 16 |
+
+What it says:
+1. **At batch 1 the certified head is faster than the stock head on an A100:** 0.66 to 0.69 of its time on both models, and slower on 1 state of 2,048. The step in `exp01_repro` took 1.06 and 1.11 ms on the same GPU type (E1); this one takes 0.52 and 0.54. The tensor-core first pass keeps up with fast memory where that one did not.
+2. **The tail at batch 1 is short.** On Gemma 4 a state with a 46,689-row shortlist takes 0.76 ms against a median of 0.54. So the long shortlists cost little when one state has all the INT8 programs.
+3. **The win shrinks with batch size and is gone by 32.** The BF16 head barely grows with the batch (0.75 to 0.86 ms on Qwen3-8B): it reads the weights once. The fused step grows from 0.52 to 0.82 ms, because its per-state work (writing and re-reading a logit and a bound for every row of every state, the select pass, the reductions) is no longer small next to the weight read on fast memory.
+4. **Gemma 4 loses from batch 8 on,** and by a factor of three at batch 32. A state gets only 8 INT8 programs at batch 32, so one long shortlist holds up the batch: 5.75 ms for batches with a shortlist above 30,000 rows. These shortlists come from the Hoeffding bound with no shift; the sub-Gaussian bound and the B1 shift of `exp01_repro` would shorten them, and a shared work queue would balance them.
+
+What it changes and what it does not:
+- **Changes:** E1's "on an A100 the certified head is not faster than the stock head" holds for `exp01_repro`'s kernels, not for this one at batch 1.
+- **Does not change:** E1's end-to-end finding. The head is 1% to 4% of a decode step in the Hugging Face loop, so saving 0.25 ms of a 62 ms step is invisible there.
+- **Still not shown:** a win at batch 32, on Sarvam-30B (not covered by this folder), with the noise generated inside the timed region, or with the sub-Gaussian bound.
+
+Against the predictions:
+- **Batch 1: missed, in our favour.** Predicted 0.75 to 1.05 ms and a ratio of 0.85 to 1.20; measured 0.52 to 0.55 ms and 0.66 to 0.69.
+- **Batch 32 on Qwen3-8B: missed.** Predicted a lower ratio than at batch 1; it is higher (0.93 to 0.95).
+- **Gemma 4's slowest batch exceeds the BF16 head: held,** and so does every batch at 32.
+- Controls: held.
+
+Limits: one run on each of two A100 variants (Qwen3-8B on PCIe, Gemma 4 on SXM4). Head alone. Gumbel noise supplied. Hoeffding bound, no shift, no Sarvam-30B. The baseline applies the soft-cap and adds the noise, like the L4 baseline here; E1's stock head was the cuBLAS product with argmax (0.82 and 0.89 ms).

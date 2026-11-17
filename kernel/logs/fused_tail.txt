@@ -1,0 +1,11 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-ljBNIarHNaVIbagFLYX9Pm
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/kernel/fused_tail_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/kernel/common.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/kernel/int4_pass1.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/kernel/fused.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/kernel/cert_head.py
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/kernel/../exp01_repro/cert_core.py
+└── ✓ Created Function run.
