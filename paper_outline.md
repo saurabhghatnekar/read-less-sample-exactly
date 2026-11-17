@@ -55,10 +55,10 @@ Memory: all copies on the GPU take 1.77 times the stock head's bytes. On an A10G
 - The guarantee is probabilistic (δ per row and per dithered read: up to 3δ), and it certifies the FP32-accumulated reference, which the stock BF16 head itself misses on 0.2% to 2.5% of steps through ties.
 - Shift, directions and groups are chosen per model on half of one prompt set. Only Sarvam-30B has been checked on new prompts.
 - Head timings are with Gumbel noise supplied. The one measured end-to-end gain is on one small model, at batch 1, on one mid-range GPU.
+- **L4.** Only the first kernels were timed on an L4 (medians). The unified kernel, the memory layouts, the in-loop run and the tail timings were not: no L4 container could be started on Modal in five attempts over the three days to 17 Nov 2026, and the A10G stands in as the slow-memory GPU.
 
 ## Open before writing
 
-1. End to end beyond one small model at batch 1: a larger share of the step, batches, and an L4.
-2. The unified kernel on an L4, and tail timings of the first kernels there.
-3. Batch 32: the first pass's per-state work.
-4. What in Sarvam-30B's last block writes the shared vector.
+1. End to end beyond one small model at batch 1: a larger share of the step, and batches.
+2. Batch 32: the first pass's per-state work.
+3. What in Sarvam-30B's last block writes the shared vector.
