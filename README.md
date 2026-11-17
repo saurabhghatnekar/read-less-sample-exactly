@@ -48,6 +48,8 @@ Keeping Sarvam-30B's one heavy coordinate group in INT8 for every row (M1, 17 No
 
 On time (17 Nov 2026): with the tensor-core first pass of `kernel/`, the batch-1 head step on an A100-80GB takes 0.66 to 0.69 of the stock BF16 head on Qwen3-8B and Gemma 4, with exact tokens. So the sentence above about the A100 holds for `exp01_repro`'s kernels only. The win shrinks with batch size and is gone at batch 32, Gemma 4 loses from batch 8, and the end-to-end step in a Hugging Face loop is still unchanged. See [`kernel/README.md`](kernel/README.md).
 
+With the byte runs' own certificate in those kernels (sub-Gaussian bound, shift, K2 on Sarvam-30B, the dithered INT8 stage), the head step on an A100-80GB takes 0.66 to 0.77 of the stock BF16 head at batch 1 and 8 on all three models, with exact tokens: 0.82 ms against 1.24 ms on Sarvam-30B. At batch 32 it is 0.88 to 1.01. Head alone; the end-to-end step is still unmeasured in a loop where the head matters.
+
 Later the same day (17 Nov 2026), three checks on the byte results:
 - **Top-50 passes its gate on all three models** once the INT8 stage is a dithered copy with the probabilistic bound (T1). At the p99, two to 48 rows need the BF16 read, where 4,833 (Gemma 4) and 7,813 (Sarvam-30B) did. Bytes change little: top-50 is still the most expensive rule (p99 0.32 to 0.34). Top-p 0.9 is exact but passes its gate on Qwen3-8B only.
 - **The Sarvam-30B result holds on a second prompt set and across four dither draws** (R1): with the direction fitted on the first set, the greedy p99 on the second is 0.260 against 0.52 uncorrected. No bound violation and no token mismatch in 359,039 state evaluations.

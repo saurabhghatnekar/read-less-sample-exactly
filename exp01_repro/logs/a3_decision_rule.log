@@ -21,3 +21,4 @@
 2026-11-17 08:49:01 IST r1_rule.json sha256 4e9e73ff91e356340578e27d36d7e0df87b86df7cb12dfb1c630fc638a9b7547 (written before any certificate ran on the second prompt set or with a new dither seed; the state dump for the second set was still running)
 2026-11-17 08:49:58 IST g1_rule.json sha256 67d8c11fbd96ac84b3c5ce0869f10e00a4312bd4283e812a2282e0c0d9ed983e (written before any certificate ran on the three models' new states)
 2026-11-17 09:00:10 IST kernel/unified_protocol.json sha256 fb6ed5fa63a2de5334e65261b1c6732dbe8514b9e409afe80e58d09b03f3c004 (written before fused2.py ran on any GPU; test_cert_head2.py passed on the CPU)
+2026-11-17 09:15:57 IST g1_addendum_small.json sha256 c6c0b6c6f2f0406187e47636737d2db2ba6638dee1225e2c73ebb0b05098050e (written before any certificate ran on Qwen3-0.6B's states)

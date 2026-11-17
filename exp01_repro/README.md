@@ -975,6 +975,8 @@ Controls: no reference logit outside an interval and no token mismatch on any of
 
 Against the predictions: we expected at most one of the three to be fixed, and two are, with the third passing its gate. Sarvam-1: K = 4 as predicted, but its p99 was predicted to stay above 0.30 and is 0.268. SmolLM3-3B: predicted a median above 0.28; it is 0.264. Phi-4-mini: predicted a p99 below 0.32; it is 0.283.
 
+**Addendum, Qwen3-0.6B** (`g1_addendum_small.json`, hashed before its run; `logs/g1_qwen3_0.6b.json`). A small model whose output layer is 21% of its weights, d = 1,024. It sits at the floor untuned: greedy 0.2578, 0.2585, 0.2579 with no shift and no correction, and every rule passes its gate, top-50 included (0.2590, 0.2797, 0.2609 with the full arm). No violation, no mismatch on 57,422 states. We predicted an untuned p99 above 0.30; that missed.
+
 Limits: the choices are made per model on half of the same prompt set, so they are tuned to this kind of text; R1's check on new prompts was done for Sarvam-30B only. The plain arm is K3's setting but on 128-token states, so its numbers differ a little from K3's.
 
 ## The head's share of the weights (17 Nov 2026, from public model metadata)

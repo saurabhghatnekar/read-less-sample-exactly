@@ -2,6 +2,7 @@
 
   python3 -I tail_summarize.py > logs/fused_tail_summary.txt
   python3 -I tail_summarize.py A100-80GB > logs/fused_tail_summary_a100.txt      # a100_protocol.json
+  python3 -I tail_summarize.py A100-80GB fused2 > logs/fused2_summary_a100.txt   # unified_protocol.json
 """
 import json
 import os
@@ -22,9 +23,9 @@ def stats(x):
     return dict(median=s[len(s) // 2], mean=sum(s) / len(s), p99=s[int(0.99 * (len(s) - 1))], max=s[-1])
 
 
-def main(gpu="L4"):
-    for model in ("qwen3_8b", "gemma4_e4b"):
-        path = os.path.join(HERE, "results", f"fused_tail_{model}_{gpu}.json")
+def main(gpu="L4", prefix="fused_tail"):
+    for model in ("qwen3_8b", "gemma4_e4b", "sarvam_30b"):
+        path = os.path.join(HERE, "results", f"{prefix}_{model}_{gpu}.json")
         if not os.path.exists(path):
             continue
         r = json.load(open(path))
@@ -72,4 +73,4 @@ def main(gpu="L4"):
 
 
 if __name__ == "__main__":
-    main(*sys.argv[1:2])
+    main(*sys.argv[1:3])

@@ -1,0 +1,22 @@
+{
+  "experiment": "The unified kernel: the fused step of kernel/ with the certificate of the byte runs, timed on an A100-80GB on all three models",
+  "written": "2026-11-17, after the A100 run of fused.py and T1's first results were read, before fused2.py ran on any GPU",
+  "why": "fused.py wins at batch 1 on the A100 but still uses the Hoeffding bound with no shift, has no K2 correction (so no Sarvam-30B), and loses on Gemma 4 from batch 8 because its shortlists are long. The byte tables describe a different certificate. This puts the byte runs' certificate into the fast kernels.",
+  "certificate": "first pass: dithered INT4 g128 of W_t on tensor cores, sub-Gaussian bound, shift 0.5 (Qwen3-8B, Sarvam-30B) or 1.5 (Gemma 4), K2's correction on Sarvam-30B with K2's pca1 direction; INT8 stage: T1's dithered INT8 g128 copy with the same bound; exact stage: BF16 rows. Greedy and Gumbel T = 1. This is T1's arm d8 without M2's group stage.",
+  "harness": "fused2_modal.py: fused_tail_modal.py's states (512 per rule, the same selection), batches (512 of 1, 64 of 8, 16 of 32), three repeats, CUDA-event timing and graph-captured BF16 baseline; plus a per-kernel breakdown in eager mode with a device sync between kernels",
+  "checks": {
+    "U0_copies": "test_cert_head2.py: the stored copies equal cert_core's and mix_lib's quantizers bit for bit, and the kernel's formula in plain PyTorch gives pipe_lib's intervals",
+    "U0_synthetic": "on a synthetic head with a shift and a direction, every token equals the FP32 reference: soft-cap on and off, greedy and Gumbel at T = 1 and 0.6, batch 1, 3, 17, 64, eager and graph-captured",
+    "U0_intervals": "on 64 real states per model, every reference logit lies inside the kernel's first-pass interval and, for the listed rows, inside its INT8-stage interval; the kernel's first-pass logit equals the plain-PyTorch formula to within 1% of the bound and its bound is not below that formula's",
+    "U0_tokens": "every token of every timed batch, eager and graph-captured, on every repeat, equals the FP32 reference"
+  },
+  "prediction": {
+    "checks": "all pass",
+    "gemma_shortlists": "Gemma 4's p99 INT8 shortlist falls from 26,209 rows (fused.py, greedy) to below 1,000",
+    "gemma_batches": "so Gemma 4 no longer loses: the median ratio to the BF16 head is at most 0.90 at batch 8 (fused.py: 1.09) and at most 1.15 at batch 32 (fused.py: 3.10)",
+    "batch_1": "the ratio at batch 1 is between 0.66 and 0.82 on Qwen3-8B and Gemma 4: a little worse than fused.py's 0.66 to 0.69, because the first pass does more per row and the INT8 kernel reads a step per group",
+    "sarvam": "Sarvam-30B at batch 1: the ratio is between 0.55 and 0.80, with exact tokens",
+    "breakdown": "at batch 32 on Qwen3-8B the first pass is more than 60% of the eager step",
+    "takeaway_if_wrong": "If Gemma 4 still loses at batch 8, long shortlists were not the cause and the per-state work is. If a token differs, the kernel's slack is wrong for this certificate and no timing from it counts."
+  }
+}

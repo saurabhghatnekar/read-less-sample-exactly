@@ -1,0 +1,29 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-HSPMsQhc7bWdtPW0c0C0hu
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/kernel/fused2_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/kernel/common.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/kernel/fused2.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/kernel/fused.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/kernel/int4_pass1.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/kernel/cert_head.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/kernel/cert_head2.py
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/kernel/../exp01_repro/cert_core.py
+└── ✓ Created Function run.
+/usr/local/lib/python3.12/site-packages/triton/knobs.py:504: UserWarning: TRITON_DEFAULT_FP_FUSION is unset: defaulting to FP fusion ENABLED for backward compatibility in Triton 3.9. The default will change to DISABLED in Triton 3.10; set TRITON_DEFAULT_FP_FUSION=1 to keep fusion enabled or =0 to adopt the new default early and silence this warning.
+  warn_once(FP_FUSION_DEFAULT_WARNING)
+synthetic mismatches: none
+qwen3_8b greedy intervals {"states": 64, "first_outside": 0, "int8_outside": 0, "logit_dev_over_bound_max": 5.923148819420021e-06, "bound_ratio_min": 1.019661784172058, "bound_ratio_max": 1.07136070728302, "int8_rows": 242}
+qwen3_8b greedy 1 ms median: BF16 0.781 fused2 0.532 max 0.552 | mismatches 0 0 | profile {'prep': 0.303, 'pass1': 0.506, 'select': 0.068, 'int8': 0.119, 'exact': 0.168}
+qwen3_8b greedy 8 ms median: BF16 0.807 fused2 0.596 max 0.598 | mismatches 0 0 | profile {'prep': 0.324, 'pass1': 0.56, 'select': 0.063, 'int8': 0.116, 'exact': 0.167}
+qwen3_8b greedy 32 ms median: BF16 0.901 fused2 0.828 max 0.828 | mismatches 0 0 | profile {'prep': 0.333, 'pass1': 0.746, 'select': 0.079, 'int8': 0.111, 'exact': 0.179}
+qwen3_8b gumbel_1.0 intervals {"states": 64, "first_outside": 0, "int8_outside": 0, "logit_dev_over_bound_max": 7.12606379238423e-06, "bound_ratio_min": 1.0254292488098145, "bound_ratio_max": 1.0720916986465454, "int8_rows": 178}
+qwen3_8b gumbel_1.0 1 ms median: BF16 0.786 fused2 0.54 max 0.56 | mismatches 0 0 | profile {'prep': 0.332, 'pass1': 0.521, 'select': 0.071, 'int8': 0.127, 'exact': 0.179}
+qwen3_8b gumbel_1.0 8 ms median: BF16 0.822 fused2 0.599 max 0.603 | mismatches 0 0 | profile {'prep': 0.315, 'pass1': 0.558, 'select': 0.074, 'int8': 0.124, 'exact': 0.165}
+qwen3_8b gumbel_1.0 32 ms median: BF16 0.95 fused2 0.844 max 0.844 | mismatches 0 0 | profile {'prep': 0.316, 'pass1': 0.755, 'select': 0.106, 'int8': 0.127, 'exact': 0.177}
+wrote /Volumes/attic/GpuKernelEngg/research/kernel/results/fused2_qwen3_8b_A100-80GB_smoke.json
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-HSPMsQhc7bWdtPW0c0C0hu
+exit 0

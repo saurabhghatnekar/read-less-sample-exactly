@@ -1,0 +1,12 @@
+{
+  "experiment": "G1 addendum: the same pipeline on Qwen3-0.6B, a small model whose output layer is 21% of its weights",
+  "written": "2026-11-17, after G1's results were read and Qwen3-0.6B's states were dumped, before any certificate ran on them",
+  "addendum_to": "g1_rule.json: the same selection on the even prompts, the same arms and rules, the same report on the odd prompts",
+  "why": "E1 found the head to be 1% to 4% of a decode step on 8B-and-larger models. On a small model with a large vocabulary the head is a much larger share of the weights read per token (logs/head_share.json), so it is where a cheaper head could show end to end. First it has to be shown that the certificate sits at the floor on such a model: d is 1,024 here, a quarter of Qwen3-8B's.",
+  "prediction_written_before_running": {
+    "controls": "no violation, no mismatch",
+    "greedy": "with the full arm greedy passes its gate and its p99 is at most 0.30. About two in three: the larger Qwen3 models sit at the floor untuned, but a state of 1,024 coordinates averages the dither over fewer terms.",
+    "plain": "untuned (plain arm) the greedy median is at the floor (below 0.262) but the p99 is above 0.30",
+    "takeaway_if_wrong": "If the full arm leaves the greedy p99 above 0.40, small models are a poor target for this certificate and the end-to-end test should use a larger one."
+  }
+}

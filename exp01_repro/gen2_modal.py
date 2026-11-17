@@ -37,6 +37,7 @@ SMALL = {
     "sarvam_1": dict(repo="sarvamai/sarvam-1", rev="e9607337286ddf496d4a2562b194e489dcf3feea"),
     "smollm3_3b": dict(repo="HuggingFaceTB/SmolLM3-3B", rev=None),
     "phi4_mini": dict(repo="microsoft/Phi-4-mini-instruct", rev=None),
+    "qwen3_0.6b": dict(repo="Qwen/Qwen3-0.6B", rev=None),          # added for E2: a small model with a large head
 }
 SARVAM_PATH = f"{VOL}/models/sarvam_30b"
 PREFILL = "<think></think>\n"
@@ -209,7 +210,7 @@ def small(name: str, smoke: bool = False):
 
 
 @app.local_entrypoint()
-def main(step: str = "prompts", smoke: bool = False):
+def main(step: str = "prompts", smoke: bool = False, models: str = "sarvam_1,smollm3_3b,phi4_mini"):
     if step == "prompts":
         r = prompts.remote()
         print(json.dumps(r))
@@ -217,5 +218,5 @@ def main(step: str = "prompts", smoke: bool = False):
     elif step == "sarvam":
         print(json.dumps(sarvam.remote(smoke)))
     elif step == "small":
-        for r in small.starmap([(n, smoke) for n in SMALL], order_outputs=False, return_exceptions=True):
+        for r in small.starmap([(n, smoke) for n in models.split(",")], order_outputs=False, return_exceptions=True):
             print(json.dumps(r) if isinstance(r, dict) else f"FAILED {r!r}"[:500], flush=True)

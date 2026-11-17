@@ -1,0 +1,17 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-xmLCLQQdpLrAbTUdnCmyeJ
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/g1_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/pipe_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/mix_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/subg_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/hdir_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/rules2_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/a3_lib.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+└── ✓ Created Function run.
+qwen3_0.6b selected t 0.5 K 0 groups [0] | viol/mism {'greedy': (0, 0), 't1': (0, 0)} | greedy odd (median, p99, mean): {'plain': (0.258, 0.258, 0.258), 'shift': (0.258, 0.258, 0.258), 'k': (0.258, 0.258, 0.258), 'staged': (0.258, 0.258, 0.258), 'full': (0.258, 0.258, 0.258)} | 176s
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-xmLCLQQdpLrAbTUdnCmyeJ
+exit 0

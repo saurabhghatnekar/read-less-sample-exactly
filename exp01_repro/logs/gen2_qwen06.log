@@ -1,0 +1,47 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-ZP47SeZDWOesbkEzILrrSi
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/gen2_modal.py
+├── ✓ Created Function prompts.
+├── ✓ Created Function small.
+└── ✓ Created Function sarvam.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+[1ALoading weights:   0%|          | 0/311 [00:00<?, ?it/s]
+[1ALoading weights:  26%|██▌       | 81/311 [00:00<00:00, 804.49it/s]
+[1ALoading weights:  89%|████████▊ | 276/311 [00:00<00:00, 1471.81it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 1414.81it/s]
+greedy batch 0: 1661 states, 4s
+greedy batch 1: 3139 states, 8s
+greedy batch 2: 5000 states, 12s
+greedy batch 3: 6804 states, 16s
+greedy batch 4: 8396 states, 20s
+greedy batch 5: 10444 states, 24s
+greedy batch 6: 12448 states, 28s
+greedy batch 7: 14496 states, 32s
+greedy batch 8: 16489 states, 36s
+greedy batch 9: 18537 states, 40s
+greedy batch 10: 20576 states, 44s
+greedy batch 11: 22605 states, 48s
+greedy batch 12: 24653 states, 52s
+greedy batch 13: 26636 states, 56s
+greedy batch 14: 28684 states, 60s
+t1 batch 0: 1740 states, 64s
+t1 batch 1: 3330 states, 68s
+t1 batch 2: 5180 states, 72s
+t1 batch 3: 6733 states, 76s
+t1 batch 4: 8258 states, 80s
+t1 batch 5: 10306 states, 84s
+t1 batch 6: 12354 states, 88s
+t1 batch 7: 14402 states, 92s
+t1 batch 8: 16450 states, 96s
+t1 batch 9: 18498 states, 100s
+t1 batch 10: 20546 states, 104s
+t1 batch 11: 22594 states, 107s
+t1 batch 12: 24642 states, 111s
+t1 batch 13: 26690 states, 115s
+t1 batch 14: 28738 states, 119s
+{"model": "qwen3_0.6b", "repo": "Qwen/Qwen3-0.6B", "rev": "c1899de289a04d12100db370d81485cdf75e47ca", "prompt_set": "prompts", "torch": "2.15.0+cu132", "transformers": "5.22.2", "eos": [151643, 151645], "chat_template": true, "cap": null, "V": 151936, "d": 1024, "head_bias": false, "tied": true, "gpu": "NVIDIA A10", "n_greedy": 28684, "n_t1": 28738, "n_states": 57422, "seconds": 119.6, "prompts": 240}
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-ZP47SeZDWOesbkEzILrrSi
+exit 0

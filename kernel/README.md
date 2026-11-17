@@ -201,3 +201,45 @@ Against the predictions:
 - Controls: held.
 
 Limits: one run on each of two A100 variants (Qwen3-8B on PCIe, Gemma 4 on SXM4). Head alone. Gumbel noise supplied. Hoeffding bound, no shift, no Sarvam-30B. The baseline applies the soft-cap and adds the noise, like the L4 baseline here; E1's stock head was the cuBLAS product with argmax (0.82 and 0.89 ms).
+
+# The unified kernel: the byte runs' certificate in the fast kernels (17 Nov 2026)
+
+`fused.py` wins at batch 1 on the A100 but uses the Hoeffding bound with no shift and has no K2 correction, so it does not cover Sarvam-30B and loses on Gemma 4 from batch 8. `fused2.py` puts the certificate of the byte tables into the same kernels:
+- **First pass:** the sub-Gaussian bound, copies of the shifted head `W_t` with the exact add-back, and K2's correction on Sarvam-30B.
+- **INT8 stage:** T1's dithered INT8 copy with the same bound, in place of the worst-case INT8 rows.
+- **Select and exact kernels, tensor-core product and its slack:** unchanged from `fused.py`.
+
+Protocol `unified_protocol.json` (sha256 `fb6ed5fa…`, logged before `fused2.py` ran on any GPU). Code `cert_head2.py`, `fused2.py`, `fused2_modal.py`, `test_cert_head2.py`; results `results/fused2_<model>_A100-80GB.json`, table `logs/fused2_summary_a100.txt`. Same states, batches, repeats and baseline as the A100 run above; shifts 0.5 (Qwen3-8B, Sarvam-30B) and 1.5 (Gemma 4).
+
+Checks, all pass:
+- **Copies:** `test_cert_head2.py` on the CPU: the stored copies equal `cert_core`'s and `mix_lib`'s quantizers bit for bit, and the kernel's formula in plain PyTorch gives the byte runs' intervals.
+- **Synthetic head** with a shift and a direction: every token equals the reference, eager and graph-captured.
+- **Intervals** on 64 real states per model and rule: no reference logit outside the first-pass interval or, for the listed rows, the INT8-stage interval. The kernel's first-pass logit equals the plain-PyTorch formula to within 0.01% of the bound. Its bound is 1.01 to 1.07 times that formula's on Qwen3-8B and Gemma 4 and up to 1.47 times on Sarvam-30B, because the tensor-core slack weighs more once K2 has shrunk the statistical term.
+- **Tokens:** no certified token differs from the FP32 reference on any timed batch or repeat.
+
+A100-80GB, graph-captured, milliseconds:
+
+| Model | Rule | Batch | BF16 head, median | Unified: median, p99, largest | Ratio, median | Batches slower than the BF16 median |
+|---|---|---|---|---|---|---|
+| Qwen3-8B | greedy | 1 | 0.74 | 0.53, 0.54, 0.54 | 0.72 | 0 of 512 |
+| Qwen3-8B | greedy | 8 | 0.77 | 0.59, 0.60, 0.60 | 0.77 | 0 of 64 |
+| Qwen3-8B | greedy | 32 | 0.87 | 0.83, 0.84, 0.84 | 0.95 | 0 of 16 |
+| Gemma 4 E4B | greedy | 1 | 0.82 | 0.56, 0.57, 0.57 | 0.68 | 0 of 512 |
+| Gemma 4 E4B | greedy | 8 | 0.87 | 0.63, 0.65, 0.67 | 0.72 | 0 of 64 |
+| Gemma 4 E4B | greedy | 32 | 1.09 | 0.97, 1.04, 1.14 | 0.88 | 1 of 16 |
+| Sarvam-30B | greedy | 1 | 1.24 | 0.82, 0.83, 0.99 | 0.66 | 0 of 512 |
+| Sarvam-30B | greedy | 8 | 1.34 | 0.90, 1.08, 2.02 | 0.67 | 1 of 64 |
+| Sarvam-30B | greedy | 32 | 1.42 | 1.43, 2.06, 5.71 | 1.01 | 8 of 16 |
+
+Gumbel T = 1 is within 0.02 of greedy's ratio in every row (`logs/fused2_summary_a100.txt`), with the noise supplied.
+
+What it says:
+1. **With the paper's certificate, the head is faster than the stock head on an A100 at batch 1 and 8 on all three models:** 0.66 to 0.77 of its time, and no batch-1 state is slower. Sarvam-30B takes 0.82 ms against 1.24.
+2. **Gemma 4 no longer loses.** Its p99 shortlist is 376 rows, where `fused.py` had 26,209, and its ratio is 0.72 at batch 8 (was 1.09) and 0.88 at batch 32 (was 3.10).
+3. **At batch 32 the gain is small or gone:** 0.95 on Qwen3-8B, 0.88 on Gemma 4, 1.01 on Sarvam-30B. On Sarvam-30B one state with a 17,083-row shortlist takes its batch to 5.7 ms.
+4. **The tails are short at batch 1 and 8** except on Sarvam-30B, whose largest batch-8 time is 2.0 ms.
+5. **Where the time goes** (eager, a device sync between kernels, so each part carries launch overhead): at batch 1 on Qwen3-8B the per-state preparation takes 0.26 ms, the first pass 0.50, select 0.05, the INT8 stage 0.08, the exact stage 0.13. At batch 32 only the first pass grows, to 0.74 ms. It is the part to work on for larger batches.
+
+Against the predictions: the checks pass; Gemma 4's shortlist is below 1,000 rows (376) and its ratios are within the predicted limits; batch 1 is 0.68 to 0.73 on Qwen3-8B and Gemma 4 (predicted 0.66 to 0.82) and 0.66 on Sarvam-30B (predicted 0.55 to 0.80). The breakdown prediction missed narrowly: the first pass is 57% of the eager step at batch 32 on Qwen3-8B, not above 60%.
+
+Limits: head alone, one run per model, two A100 variants, Gumbel noise supplied. Sarvam-30B's direction is K2's, fitted on half of the prompts the timed states come from. M2's group stage is not in this kernel. Not yet run on an L4. E1's end-to-end finding is unchanged by this.
