@@ -1,0 +1,39 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-e8Kp6HdUpEz3Zo6lQKp8dE
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/e3_modal.py
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/../kernel/fused2.py
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/../kernel/fused.py
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/../kernel/int4_pass1.py
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/../kernel/cert_head2.py
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/../kernel/cert_head.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+└── ✓ Created Function run.
+
+[1ALoading weights:   0%|          | 0/311 [00:00<?, ?it/s]
+[1ALoading weights:   0%|          | 1/311 [00:00<00:57,  5.42it/s]
+[1ALoading weights:  17%|█▋        | 52/311 [00:00<00:01, 225.37it/s]
+[1ALoading weights:  51%|█████     | 158/311 [00:00<00:00, 545.36it/s]
+[1ALoading weights:  83%|████████▎ | 259/311 [00:00<00:00, 707.21it/s]
+[1ALoading weights: 100%|██████████| 311/311 [00:00<00:00, 587.30it/s]
+
+[1ALoading weights:   0%|          | 0/311 [00:00<?, ?it/s]
+[1ALoading weights:   5%|▌         | 17/311 [00:00<00:01, 169.75it/s]
+[1ALoading weights:  74%|███████▎  | 229/311 [00:00<00:00, 1315.86it/s]
+[1ALoading weights: 100%|██████████| 311/311 [00:00<00:00, 1268.47it/s]
+/usr/local/lib/python3.12/site-packages/triton/knobs.py:504: UserWarning: TRITON_DEFAULT_FP_FUSION is unset: defaulting to FP fusion ENABLED for backward compatibility in Triton 3.9. The default will change to DISABLED in Triton 3.10; set TRITON_DEFAULT_FP_FUSION=1 to keep fusion enabled or =0 to adopt the new default early and silence this warning.
+  warn_once(FP_FUSION_DEFAULT_WARNING)
+stock {'median': 5.315233469009399, 'p99': 5.3186492919921875, 'mean': 5.255134403705597, 'n': 6}
+certified {'median': 4.902599334716797, 'p99': 4.918379545211792, 'mean': 4.855999151865642, 'n': 6}
+stock again {'median': 5.368053078651428, 'p99': 5.3850308656692505, 'mean': 5.358672539393107, 'n': 6}
+A10G NVIDIA A10 | step ms {'stock': 5.315, 'certified': 4.903, 'stock_again': 5.368} | certified / stock 0.9224 | drift 1.0099 | check {'tokens': 432, 'mismatches_vs_reference': 0, 'prompts': 6, 'sequences_identical_to_stock': 3}
+Stopping app - local entrypoint completed.
+Runner terminated.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-e8Kp6HdUpEz3Zo6lQKp8dE
+exit 0

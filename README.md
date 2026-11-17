@@ -23,6 +23,7 @@ Models: Qwen3-8B (151,936 × 4,096 head), Gemma 4 E4B (262,144 × 2,560, tied, s
   - **R1**, Sarvam-30B on a second prompt set and with four dither draws: the result holds with nothing refitted
   - **G1**, the parts on three more off-floor models: greedy passes its gate on Sarvam-1, SmolLM3-3B and Phi-4-mini
   - **E2**, the head's share of a decode step on Qwen3-0.6B with a static cache: 12% on an A10G, where the certified head would make the step an estimated 7% faster
+  - **E3**, the certified head inside that decode loop: the step is a measured 6% to 7% faster on an A10G, with every token equal to the reference, and unchanged on an A100
 
   Results and caveats are in [`exp01_repro/README.md`](exp01_repro/README.md).
 - [`kernel/`](kernel/): a second, independently built set of L4 kernels for the certified step (15 Nov 2026): a PyTorch baseline, a tensor-core first pass, and a fused, graph-captured step with per-state row lists for greedy and Gumbel sampling. See [`kernel/README.md`](kernel/README.md), including how it relates to the graph-captured step in `exp01_repro`.
@@ -53,6 +54,8 @@ On time (17 Nov 2026): with the tensor-core first pass of `kernel/`, the batch-1
 With the byte runs' own certificate in those kernels (sub-Gaussian bound, shift, K2 on Sarvam-30B, the dithered INT8 stage), the head step on an A100-80GB takes 0.66 to 0.77 of the stock BF16 head at batch 1 and 8 on all three models, with exact tokens: 0.82 ms against 1.24 ms on Sarvam-30B. At batch 32 it is 0.88 to 1.01. Head alone.
 
 End to end, the first case where the head matters (E2): on Qwen3-0.6B with Hugging Face's static cache on an A10G, the head is 12% of a decode step and the certified head takes 0.41 of its time, so the step would be an estimated 7% faster. This is an estimate by substitution, not an integration. On an A100 the same model shows no gain.
+
+Measured in the loop (E3): with the certified head producing every token, the decode step of Qwen3-0.6B on an A10G takes 5.18 ms against 5.50 ms for the stock model (0.94; 0.93 against the mean of two stock runs), and every token equals the FP32 reference. On an A100 it is 1.00. One small model, batch 1.
 
 On memory (17 Nov 2026): keeping every copy on the GPU takes 1.77 times the stock head's bytes. With the BF16 copy in host memory the GPU holds 0.77 of them, and at batch 1 on an A100 the step is still as fast as the stock head on the three large heads (0.86 to 0.99), with exact tokens. With only the 4-bit copy on the GPU (0.26) the median step is 1.0 to 1.3 times the stock head and the tail is long. Neither holds at batch 8. See [`kernel/README.md`](kernel/README.md).
 

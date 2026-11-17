@@ -1,0 +1,58 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-GHfCOGhnVY2XsZH4SMOy8J
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/e3_modal.py
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/../kernel/fused2.py
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/../kernel/int4_pass1.py
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/../kernel/fused.py
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/../kernel/cert_head2.py
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/../kernel/cert_head.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+└── ✓ Created Function run.
+
+[1ALoading weights:   0%|          | 0/311 [00:00<?, ?it/s]
+[1ALoading weights:   0%|          | 1/311 [00:00<00:46,  6.66it/s]
+[1ALoading weights:  21%|██        | 65/311 [00:00<00:00, 310.94it/s]
+[1ALoading weights:  56%|█████▋    | 175/311 [00:00<00:00, 614.09it/s]
+[1ALoading weights:  90%|█████████ | 281/311 [00:00<00:00, 771.17it/s]
+[1ALoading weights: 100%|██████████| 311/311 [00:00<00:00, 645.11it/s]
+
+[1ALoading weights:   0%|          | 0/311 [00:00<?, ?it/s]
+[1ALoading weights:  25%|██▌       | 79/311 [00:00<00:00, 789.33it/s]
+[1ALoading weights:  94%|█████████▍| 292/311 [00:00<00:00, 1567.27it/s]
+[1ALoading weights: 100%|██████████| 311/311 [00:00<00:00, 1495.74it/s]
+/usr/local/lib/python3.12/site-packages/triton/knobs.py:504: UserWarning: TRITON_DEFAULT_FP_FUSION is unset: defaulting to FP fusion ENABLED for backward compatibility in Triton 3.9. The default will change to DISABLED in Triton 3.10; set TRITON_DEFAULT_FP_FUSION=1 to keep fusion enabled or =0 to adopt the new default early and silence this warning.
+  warn_once(FP_FUSION_DEFAULT_WARNING)
+
+[1ALoading weights:   0%|          | 0/311 [00:00<?, ?it/s]
+[1ALoading weights:   0%|          | 1/311 [00:00<01:28,  3.52it/s]
+[1ALoading weights:  11%|█▏        | 35/311 [00:00<00:02, 114.75it/s]
+[1ALoading weights:  36%|███▋      | 113/311 [00:00<00:00, 328.12it/s]
+[1ALoading weights:  56%|█████▋    | 175/311 [00:00<00:00, 416.60it/s]
+[1ALoading weights:  83%|████████▎ | 258/311 [00:00<00:00, 543.06it/s]
+[1ALoading weights: 100%|██████████| 311/311 [00:00<00:00, 413.90it/s]
+
+[1ALoading weights:   0%|          | 0/311 [00:00<?, ?it/s]
+[1ALoading weights:  26%|██▌       | 81/311 [00:00<00:00, 798.56it/s]
+[1ALoading weights:  95%|█████████▌| 296/311 [00:00<00:00, 1583.02it/s]
+[1ALoading weights: 100%|██████████| 311/311 [00:00<00:00, 1494.46it/s]
+/usr/local/lib/python3.12/site-packages/triton/knobs.py:504: UserWarning: TRITON_DEFAULT_FP_FUSION is unset: defaulting to FP fusion ENABLED for backward compatibility in Triton 3.9. The default will change to DISABLED in Triton 3.10; set TRITON_DEFAULT_FP_FUSION=1 to keep fusion enabled or =0 to adopt the new default early and silence this warning.
+  warn_once(FP_FUSION_DEFAULT_WARNING)
+stock {'median': 5.503539323806763, 'p99': 5.581023812294006, 'mean': 5.452574412027995, 'n': 24}
+stock {'median': 4.109427809715271, 'p99': 4.170888543128967, 'mean': 4.072291096051534, 'n': 24}
+certified {'median': 5.182855844497681, 'p99': 5.393331527709961, 'mean': 5.1496845583120985, 'n': 24}
+certified {'median': 4.142401933670044, 'p99': 4.186651229858398, 'mean': 4.10166900853316, 'n': 24}
+stock again {'median': 5.666839361190796, 'p99': 5.717318654060364, 'mean': 5.665935556093852, 'n': 24}
+stock again {'median': 4.175600051879883, 'p99': 4.231844186782837, 'mean': 4.182150652011235, 'n': 24}
+A10G NVIDIA A10 | step ms {'stock': 5.504, 'certified': 5.183, 'stock_again': 5.667} | certified / stock 0.9417 | drift 1.0297 | check {'tokens': 1728, 'mismatches_vs_reference': 0, 'prompts': 24, 'sequences_identical_to_stock': 12}
+A100-80GB NVIDIA A100-SXM4-80GB | step ms {'stock': 4.109, 'certified': 4.142, 'stock_again': 4.176} | certified / stock 1.008 | drift 1.0161 | check {'tokens': 1728, 'mismatches_vs_reference': 0, 'prompts': 24, 'sequences_identical_to_stock': 12}
+Stopping app - local entrypoint completed.
+Runner terminated.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-GHfCOGhnVY2XsZH4SMOy8J
+exit 0

@@ -1,0 +1,24 @@
+{
+  "experiment": "E3: the certified head inside the decode loop of Qwen3-0.6B, measured end to end",
+  "written": "2026-11-17, after E2 and the memory-tier run were read, before any E3 code ran",
+  "why": "E2's 7% on an A10G was an estimate by substitution: the certified head was timed alone and swapped into the step on paper. E3 puts it in the loop and measures the step.",
+  "model": "Qwen/Qwen3-0.6B at c1899de2, BF16, batch 1, greedy, the 24 prompts of E2, Hugging Face generate with cache_implementation = 'static' (E2's fastest working configuration)",
+  "variants": {
+    "stock": "the model as shipped: the BF16 output layer inside the forward pass, generate takes the argmax",
+    "certified": "the output layer replaced by an identity, so the forward pass returns the final hidden state; a logits processor runs the unified kernel (kernel/fused2.py, shift 0.5, graph-captured) on that state and hands generate a score vector whose argmax is the certified token. The 4-bit, INT8 and BF16 copies are all on the GPU."
+  },
+  "settings_common_to_both": "end-of-sequence stopping disabled so that exactly the requested number of tokens is generated, repetition penalty 1, no sampling",
+  "measured": "milliseconds per new token: (time for 72 new tokens - time for 8) / 64, each prompt warmed up and then timed, minimum of two runs; order stock, certified, stock again, to see drift",
+  "checks": {
+    "tokens": "in a separate untimed pass the certified loop records every state and token: each token equals the argmax of the FP32 product of that state with the BF16 head",
+    "sequences": "the share of prompts whose 72-token continuation is identical between the two variants is reported; they can differ where the stock BF16 head breaks a tie differently from the FP32 reference"
+  },
+  "gpus": "A10G and A100-80GB",
+  "prediction_written_before_running": {
+    "tokens": "no certified token differs from the reference",
+    "a10g": "the certified step is 0.93 to 0.97 of the stock step: E2 estimated 0.928, and the logits processor and its copies cost something",
+    "a100": "between 0.99 and 1.03 of the stock step: nothing to gain there",
+    "drift": "the two stock measurements agree within 2%",
+    "takeaway_if_wrong": "If the A10G ratio is at or below 0.95, this is the first measured end-to-end gain and belongs in the paper as such. If it is above 0.99, the integration overhead eats the head's saving and E2's estimate was too optimistic."
+  }
+}

@@ -42,7 +42,7 @@ Evidence: no token mismatch and no bound violation on any state, in over 700,000
 | A100-80GB | 1 and 8 | 0.66 to 0.77 on Qwen3-8B, Gemma 4, Sarvam-30B |
 | A100-80GB | 32 | 0.88 to 1.01 |
 
-End to end: in an eager Hugging Face loop the head is 1% to 4% of a step on 8B-and-larger models, so the step is unchanged. On Qwen3-0.6B with a static cache on an A10G the head is 12% of a step and the certified head takes 0.41 of its time: an estimated 7% faster step, by substitution. On an A100 that model shows no gain.
+End to end: in an eager Hugging Face loop the head is 1% to 4% of a step on 8B-and-larger models, so the step is unchanged. On Qwen3-0.6B with a static cache on an A10G the head is 12% of a step. With the certified head inside the loop the step is a measured 6% to 7% faster (5.18 ms against 5.50), every token equal to the reference. On an A100 that model shows no gain.
 
 Memory: all copies on the GPU take 1.77 times the stock head's bytes. With the BF16 copy in host memory (GPU: 0.77) the batch-1 step on an A100 is as fast as the stock head on the three large heads (0.86 to 0.99). With only the 4-bit copy on the GPU (0.26) the median is 1.0 to 1.3 times the stock head, with a long tail. Not shown for batches.
 
@@ -52,11 +52,11 @@ Memory: all copies on the GPU take 1.77 times the stock head's bytes. With the B
 - **Top-50** does not pass on Sarvam-1, SmolLM3-3B or Phi-4-mini.
 - The guarantee is probabilistic (δ per row and per dithered read: up to 3δ), and it certifies the FP32-accumulated reference, which the stock BF16 head itself misses on 0.2% to 2.5% of steps through ties.
 - Shift, directions and groups are chosen per model on half of one prompt set. Only Sarvam-30B has been checked on new prompts.
-- Time is for the head alone, with Gumbel noise supplied. The one end-to-end figure is an estimate.
+- Head timings are with Gumbel noise supplied. The one measured end-to-end gain is on one small model, at batch 1, on one mid-range GPU.
 
 ## Open before writing
 
-1. A real end-to-end integration: E2's 7% on an A10G is an estimate by substitution.
+1. End to end beyond one small model at batch 1: a larger share of the step, batches, and an L4.
 2. The unified kernel on an L4, and tail timings of the first kernels there.
 3. Batch 32: the first pass's per-state work.
 4. What in Sarvam-30B's last block writes the shared vector.

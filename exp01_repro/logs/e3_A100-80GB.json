@@ -1,0 +1,44 @@
+{
+ "model": "qwen3_0.6b",
+ "repo": "Qwen/Qwen3-0.6B",
+ "rev": "c1899de289a04d12100db370d81485cdf75e47ca",
+ "gpu": "NVIDIA A100-SXM4-80GB",
+ "torch": "2.15.0+cu132",
+ "transformers": "5.22.2",
+ "rule_sha": "d4c85b620fc9230c1fc41a3349130ce5fa6fce8477689d6faf66e0ece5c6f982",
+ "smoke": false,
+ "step_ms": {
+  "stock": {
+   "median": 4.109427809715271,
+   "p99": 4.170888543128967,
+   "mean": 4.072291096051534,
+   "n": 24
+  },
+  "certified": {
+   "median": 4.142401933670044,
+   "p99": 4.186651229858398,
+   "mean": 4.10166900853316,
+   "n": 24
+  },
+  "stock_again": {
+   "median": 4.175600051879883,
+   "p99": 4.231844186782837,
+   "mean": 4.182150652011235,
+   "n": 24
+  }
+ },
+ "ratio_per_prompt": {
+  "median": 1.010398578542077,
+  "p99": 1.0218277048157391,
+  "mean": 1.0073637435042186,
+  "n": 24
+ },
+ "ratio_of_medians": 1.008024018301725,
+ "stock_drift": 1.0161025440106701,
+ "check": {
+  "tokens": 1728,
+  "mismatches_vs_reference": 0,
+  "prompts": 24,
+  "sequences_identical_to_stock": 12
+ }
+}

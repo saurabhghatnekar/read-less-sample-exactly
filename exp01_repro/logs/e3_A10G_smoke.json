@@ -1,0 +1,44 @@
+{
+ "model": "qwen3_0.6b",
+ "repo": "Qwen/Qwen3-0.6B",
+ "rev": "c1899de289a04d12100db370d81485cdf75e47ca",
+ "gpu": "NVIDIA A10",
+ "torch": "2.15.0+cu132",
+ "transformers": "5.22.2",
+ "rule_sha": "d4c85b620fc9230c1fc41a3349130ce5fa6fce8477689d6faf66e0ece5c6f982",
+ "smoke": true,
+ "step_ms": {
+  "stock": {
+   "median": 5.315233469009399,
+   "p99": 5.3186492919921875,
+   "mean": 5.255134403705597,
+   "n": 6
+  },
+  "certified": {
+   "median": 4.902599334716797,
+   "p99": 4.918379545211792,
+   "mean": 4.855999151865642,
+   "n": 6
+  },
+  "stock_again": {
+   "median": 5.368053078651428,
+   "p99": 5.3850308656692505,
+   "mean": 5.358672539393107,
+   "n": 6
+  }
+ },
+ "ratio_per_prompt": {
+  "median": 0.9253365019407945,
+  "p99": 0.9259945889554244,
+  "mean": 0.9240756169548838,
+  "n": 6
+ },
+ "ratio_of_medians": 0.9223676369629902,
+ "stock_drift": 1.0099374016118003,
+ "check": {
+  "tokens": 432,
+  "mismatches_vs_reference": 0,
+  "prompts": 6,
+  "sequences_identical_to_stock": 3
+ }
+}

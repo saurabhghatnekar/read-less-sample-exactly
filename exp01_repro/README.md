@@ -1003,3 +1003,28 @@ Rule `e2_rule.json` (sha256 `cd115191…`, logged before any E2 code ran). Code 
 Against the predictions: tokens exact, held. Head share in the eager loop under 3%, held. Head share in the fastest configuration, held on both GPUs (5.1% and 12.3%). Head ratio: held on the A10G (0.41), missed on the A100 (0.96 against a predicted 0.60 to 0.85). Estimated step ratio: both just outside the predicted ranges, the A100 on the side of less gain (0.998) and the A10G on the side of more (0.928).
 
 Limits: an estimate, not an integration; one small model; batch 1; `generate`'s own per-token overhead is part of the step. The A10G sits between the L4 and the A100 in memory bandwidth, and that is where the head's time is large enough to matter.
+
+## E3: the certified head inside the decode loop, measured (17 Nov 2026)
+
+E2's figure was an estimate by substitution. E3 puts the certified head in the loop and measures the step.
+
+Rule `e3_rule.json` (sha256 `d4c85b62…`, logged before any E3 code ran). Code `e3_modal.py`; results `logs/e3_<gpu>.json`. Qwen3-0.6B, batch 1, greedy, E2's 24 prompts, Hugging Face `generate` with the static cache.
+
+- **Stock:** the model as shipped. The BF16 output layer runs inside the forward pass and `generate` takes the argmax.
+- **Certified:** the output layer is replaced by an identity, so the forward pass returns the final hidden state. A logits processor runs the unified kernel (`kernel/fused2.py`, shift 0.5, graph-captured) on that state and hands `generate` a score vector whose argmax is the certified token. All three copies are on the GPU.
+
+Both generate exactly the requested number of tokens (end-of-sequence stopping off, repetition penalty 1). The step is (time for 72 new tokens − time for 8) / 64 per prompt, in the order stock, certified, stock again.
+
+| GPU | Stock | Certified | Stock again | Certified / stock (first) | Certified / mean of the two stock runs |
+|---|---|---|---|---|---|
+| A10G | 5.50 ms | 5.18 ms | 5.67 ms | 0.942 | 0.928 |
+| A100-80GB | 4.11 ms | 4.14 ms | 4.18 ms | 1.008 | 1.000 |
+
+- **On the A10G the decode step is 6% to 7% faster with the certified head.** This is a measured end-to-end gain, with the token coming from the certified head on every step. Per prompt the ratio has a median of 0.939; the second largest of the 24 is 0.984 (the largest was not saved).
+- **On the A100 there is no gain,** as E2 estimated.
+- **Every certified token equals the reference.** In a separate untimed pass the loop recorded all 1,728 states and tokens on each GPU: each token is the argmax of the FP32 product of its state with the BF16 head.
+- **The stock model's own text differs.** On 12 of the 24 prompts the stock continuation departs from the certified one within 72 tokens, because the stock BF16 head breaks near-ties differently from the FP32 reference.
+
+Against the predictions: tokens exact, held. A10G ratio 0.93 to 0.97, held (0.942); E2's estimate of 0.928 is what the mean of the two stock runs gives. A100 ratio 0.99 to 1.03, held (1.008). Stock drift within 2%: held on the A100 (1.6%), missed on the A10G (3.0%), which is why both ratios are shown.
+
+Limits: one small model whose output layer is 21% of its weights, batch 1, greedy, one run per GPU, 24 prompts. `generate`'s per-token overhead is in both variants. The stock measurement drifted by 3% on the A10G over the run, which is half the size of the effect. The all-GPU layout takes 1.77 times the stock head's memory (see the memory tiers in `kernel/README.md`). Not run on an L4.
