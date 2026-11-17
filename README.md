@@ -22,6 +22,7 @@ Models: Qwen3-8B (151,936 × 4,096 head), Gemma 4 E4B (262,144 × 2,560, tied, s
   - **T1**, a dithered INT8 stage: top-50 passes its gate on all three models and the BF16 head is almost never read; a leaner top-k rule that does not work; top-p, exact but cheap on Qwen3-8B only
   - **R1**, Sarvam-30B on a second prompt set and with four dither draws: the result holds with nothing refitted
   - **G1**, the parts on three more off-floor models: greedy passes its gate on Sarvam-1, SmolLM3-3B and Phi-4-mini
+  - **E2**, the head's share of a decode step on Qwen3-0.6B with a static cache: 12% on an A10G, where the certified head would make the step an estimated 7% faster
 
   Results and caveats are in [`exp01_repro/README.md`](exp01_repro/README.md).
 - [`kernel/`](kernel/): a second, independently built set of L4 kernels for the certified step (15 Nov 2026): a PyTorch baseline, a tensor-core first pass, and a fused, graph-captured step with per-state row lists for greedy and Gumbel sampling. See [`kernel/README.md`](kernel/README.md), including how it relates to the graph-captured step in `exp01_repro`.
@@ -48,7 +49,9 @@ Keeping Sarvam-30B's one heavy coordinate group in INT8 for every row (M1, 17 No
 
 On time (17 Nov 2026): with the tensor-core first pass of `kernel/`, the batch-1 head step on an A100-80GB takes 0.66 to 0.69 of the stock BF16 head on Qwen3-8B and Gemma 4, with exact tokens. So the sentence above about the A100 holds for `exp01_repro`'s kernels only. The win shrinks with batch size and is gone at batch 32, Gemma 4 loses from batch 8, and the end-to-end step in a Hugging Face loop is still unchanged. See [`kernel/README.md`](kernel/README.md).
 
-With the byte runs' own certificate in those kernels (sub-Gaussian bound, shift, K2 on Sarvam-30B, the dithered INT8 stage), the head step on an A100-80GB takes 0.66 to 0.77 of the stock BF16 head at batch 1 and 8 on all three models, with exact tokens: 0.82 ms against 1.24 ms on Sarvam-30B. At batch 32 it is 0.88 to 1.01. Head alone; the end-to-end step is still unmeasured in a loop where the head matters.
+With the byte runs' own certificate in those kernels (sub-Gaussian bound, shift, K2 on Sarvam-30B, the dithered INT8 stage), the head step on an A100-80GB takes 0.66 to 0.77 of the stock BF16 head at batch 1 and 8 on all three models, with exact tokens: 0.82 ms against 1.24 ms on Sarvam-30B. At batch 32 it is 0.88 to 1.01. Head alone.
+
+End to end, the first case where the head matters (E2): on Qwen3-0.6B with Hugging Face's static cache on an A10G, the head is 12% of a decode step and the certified head takes 0.41 of its time, so the step would be an estimated 7% faster. This is an estimate by substitution, not an integration. On an A100 the same model shows no gain.
 
 Later the same day (17 Nov 2026), three checks on the byte results:
 - **Top-50 passes its gate on all three models** once the INT8 stage is a dithered copy with the probabilistic bound (T1). At the p99, two to 48 rows need the BF16 read, where 4,833 (Gemma 4) and 7,813 (Sarvam-30B) did. Bytes change little: top-50 is still the most expensive rule (p99 0.32 to 0.34). Top-p 0.9 is exact but passes its gate on Qwen3-8B only.

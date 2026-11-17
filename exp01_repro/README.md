@@ -982,3 +982,24 @@ Limits: the choices are made per model on half of the same prompt set, so they a
 ## The head's share of the weights (17 Nov 2026, from public model metadata)
 
 `logs/head_share.json`. The output layer as a share of all parameters: 2.5% to 8.4% for the 8B-and-larger models surveyed, 16% for Phi-4-mini, about 21% for Qwen3-0.6B and SmolLM2-135M. Where input and output tables are untied, the input table is not read per token, so the head's share of the weights read per token is a little higher (Qwen3-8B: 8.2%). For a decode step limited by memory, that share is an upper limit on what a cheaper head can save: with the head at 0.26 of its bytes, about 6% of a step on Qwen3-8B and about 15% on Qwen3-0.6B. Nothing here measures such a step.
+
+## E2: the head's share of a decode step on a small model, and the step with the certified head by substitution (17 Nov 2026)
+
+E1 found the head to be 1% to 4% of a decode step on 8B-and-larger models in an eager Hugging Face loop. E2 takes the most favourable case we can measure: Qwen3-0.6B, whose output layer is 21% of its weights and which sits at the byte floor untuned, with Hugging Face's static cache, which removes most of the host overhead.
+
+Rule `e2_rule.json` (sha256 `cd115191…`, logged before any E2 code ran). Code `e2_modal.py`; results `logs/e2_<gpu>.json`. Batch 1, greedy, 24 prompts. The step is the time per new token of `generate` ((time for 72 tokens − time for 8) / 64). The heads are timed alone on 512 saved states, graph-captured: the stock BF16 product with argmax, and the unified kernel (`kernel/fused2.py`, shift 0.5). **The certified step is an estimate by substitution** (step − stock head + certified head); the certified head was not run inside `generate`.
+
+| GPU | Step, eager | Step, static cache | Stock head | Certified head | Head's share of the static-cache step | Estimated certified step / stock step |
+|---|---|---|---|---|---|---|
+| A100-80GB | 37.3 ms | 4.51 ms | 0.229 ms | 0.219 ms | 5.1% | 0.998 |
+| A10G | 25.8 ms | 5.65 ms | 0.697 ms | 0.289 ms | 12.3% | 0.928 |
+
+- **On the A10G the estimate is a 7% faster step.** The head is 12% of a static-cache step there, and the certified head takes 0.41 of the stock head's time.
+- **On the A100 there is nothing to gain on this model.** The stock head takes 0.23 ms for 311 MB, and the certified head 0.22 ms: at this size both are close to the fixed cost of a few kernel launches.
+- **The static cache matters more than anything we do.** It takes the step from 37 to 4.5 ms on the A100. In the eager loop the head is 0.6% (A100) and 2.7% (A10G) of a step.
+- No certified token differs from the FP32 reference; the stock BF16 head differs on 3 of 512 states, through ties.
+- Compiling `model.forward` explicitly with `torch.compile(mode="reduce-overhead")` on top of the static cache failed on both GPUs with a CUDA-graph error inside `generate`; recorded in the results, not pursued.
+
+Against the predictions: tokens exact, held. Head share in the eager loop under 3%, held. Head share in the fastest configuration, held on both GPUs (5.1% and 12.3%). Head ratio: held on the A10G (0.41), missed on the A100 (0.96 against a predicted 0.60 to 0.85). Estimated step ratio: both just outside the predicted ranges, the A100 on the side of less gain (0.998) and the A10G on the side of more (0.928).
+
+Limits: an estimate, not an integration; one small model; batch 1; `generate`'s own per-token overhead is part of the step. The A10G sits between the L4 and the A100 in memory bandwidth, and that is where the head's time is large enough to matter.

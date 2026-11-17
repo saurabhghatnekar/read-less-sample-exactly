@@ -1,0 +1,22 @@
+{
+  "experiment": "E2: the head's share of a decode step on a small model, in the fastest Hugging Face configuration, and the step with the certified head by substitution",
+  "written": "2026-11-17, after E1, the head-share table, G1's addendum on Qwen3-0.6B and the unified kernel's A100 run were read, before any E2 code ran",
+  "why": "E1 found the head to be 1% to 4% of a decode step on 8B-and-larger models in an eager Hugging Face loop, so no head speed-up could show. Qwen3-0.6B's output layer is 21% of its weights, and it sits at the byte floor untuned. A compiled body with a static cache removes most of the host overhead. This is the most favourable case we can measure with the tools at hand.",
+  "model": "Qwen/Qwen3-0.6B at c1899de2, BF16, batch 1, 24 prompts (four per language group), greedy",
+  "measured": {
+    "step_eager": "milliseconds per new token of model.generate with the default cache: (time for 72 new tokens - time for 8) / 64, each prompt run once to warm up and once timed",
+    "step_static": "the same with cache_implementation = 'static', and again with model.forward compiled by torch.compile(mode = 'reduce-overhead'). Whichever is fastest is the step used below. Failures are recorded, not hidden.",
+    "head_stock": "the stock head alone on 512 saved greedy states of this model: BF16 product and argmax, graph-captured, CUDA events",
+    "head_cert": "the unified kernel (fused2.py, shift 0.5, no K2) on the same states, graph-captured; every token checked against the FP32 reference"
+  },
+  "derived": "head share = head_stock / step; estimated certified step = step - head_stock + head_cert. This is an estimate by substitution: the certified head is not run inside generate.",
+  "gpus": "A100-80GB and A10G",
+  "prediction_written_before_running": {
+    "tokens": "no certified token differs from the reference",
+    "eager": "in the eager loop the head is under 3% of a step on both GPUs",
+    "fastest": "in the fastest configuration the head is 4% to 9% of a step on the A100 and 7% to 15% on the A10G",
+    "head_ratio": "the certified head takes 0.60 to 0.85 of the stock head on the A100 and 0.40 to 0.75 on the A10G",
+    "end_to_end": "the estimated certified step is 0.97 to 0.995 of the stock step on the A100 and 0.93 to 0.98 on the A10G. So even here the end-to-end gain is a few percent.",
+    "takeaway_if_wrong": "If the head's share exceeds 20% in the fastest configuration, an end-to-end saving of 5% or more is within reach and a real integration (the certified head inside the compiled step) is worth building. If the compiled configurations fail, the eager number stands and the question stays open."
+  }
+}

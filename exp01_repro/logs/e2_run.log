@@ -1,0 +1,59 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-QQ5v853MTaQYwtJZs9QgX8
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/e2_modal.py
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/../kernel/fused2.py
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/../kernel/fused.py
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/../kernel/int4_pass1.py
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/../kernel/cert_head2.py
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/../kernel/cert_head.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+└── ✓ Created Function run.
+/usr/local/lib/python3.12/site-packages/triton/knobs.py:504: UserWarning: TRITON_DEFAULT_FP_FUSION is unset: defaulting to FP fusion ENABLED for backward compatibility in Triton 3.9. The default will change to DISABLED in Triton 3.10; set TRITON_DEFAULT_FP_FUSION=1 to keep fusion enabled or =0 to adopt the new default early and silence this warning.
+  warn_once(FP_FUSION_DEFAULT_WARNING)
+/usr/local/lib/python3.12/site-packages/triton/knobs.py:504: UserWarning: TRITON_DEFAULT_FP_FUSION is unset: defaulting to FP fusion ENABLED for backward compatibility in Triton 3.9. The default will change to DISABLED in Triton 3.10; set TRITON_DEFAULT_FP_FUSION=1 to keep fusion enabled or =0 to adopt the new default early and silence this warning.
+  warn_once(FP_FUSION_DEFAULT_WARNING)
+head alone: {"stock_ms": {"median": 0.6970880031585693, "p99": 0.7001919746398926, "mean": 0.6970959996106103, "n": 512}, "cert_ms": {"median": 0.2887040078639984, "p99": 0.3112320005893707, "mean": 0.29004943545442075, "n": 512}, "states": 512, "cert_mismatches": 0, "stock_mismatches": 3, "int8_rows": {"median": 5, "p99": 97, "mean": 11.0703125, "n": 512}, "V": 151936, "d": 1024, "head_bytes_bf16": 311164928, "first_pass_bytes": 80222208}
+head alone: {"stock_ms": {"median": 0.22864000499248505, "p99": 0.23075200617313385, "mean": 0.22871518734609708, "n": 512}, "cert_ms": {"median": 0.21913599967956543, "p99": 0.22220799326896667, "mean": 0.21890799951506779, "n": 512}, "states": 512, "cert_mismatches": 0, "stock_mismatches": 3, "int8_rows": {"median": 5, "p99": 97, "mean": 11.0703125, "n": 512}, "V": 151936, "d": 1024, "head_bytes_bf16": 311164928, "first_pass_bytes": 80222208}
+
+[1ALoading weights:   0%|          | 0/311 [00:00<?, ?it/s]
+[1ALoading weights:   0%|          | 1/311 [00:00<00:51,  6.01it/s]
+[1ALoading weights:  16%|█▌        | 50/311 [00:00<00:01, 227.13it/s]
+[1ALoading weights:  51%|█████     | 158/311 [00:00<00:00, 563.63it/s]
+[1ALoading weights:  83%|████████▎ | 258/311 [00:00<00:00, 720.50it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 601.53it/s]
+
+[1ALoading weights:   0%|          | 0/311 [00:00<?, ?it/s]
+[1ALoading weights:   0%|          | 1/311 [00:00<01:24,  3.67it/s]
+[1ALoading weights:   1%|          | 2/311 [00:00<01:11,  4.33it/s]
+[1ALoading weights:  10%|█         | 32/311 [00:00<00:03, 81.28it/s]
+[1ALoading weights:  23%|██▎       | 70/311 [00:00<00:01, 162.00it/s]
+[1ALoading weights:  44%|████▍     | 137/311 [00:00<00:00, 290.30it/s]
+[1ALoading weights:  62%|██████▏   | 192/311 [00:00<00:00, 349.50it/s]
+[1ALoading weights:  84%|████████▎ | 260/311 [00:01<00:00, 440.53it/s]
+[1ALoading weights: 100%|██████████| 311/311 [00:01<00:00, 285.34it/s]
+eager step: {'median': 25.826824426651, 'p99': 26.0624258518219, 'mean': 25.82849598924319, 'n': 24}
+eager step: {'median': 37.30182695388794, 'p99': 37.55420970916748, 'mean': 37.160817901293434, 'n': 24}
+static_cache step: {'median': 5.654896259307861, 'p99': 5.708426117897034, 'mean': 5.597447946667671, 'n': 24}
+static_cache_compiled FAILED RuntimeError: Error: accessing tensor output of CUDAGraphs that has been overwritten by a subsequent run. Stack trace: File "/usr/local/lib/python3.12/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+static_cache step: {'median': 4.51092255115509, 'p99': 4.694215536117554, 'mean': 4.515416602293651, 'n': 24}
+[modal-client] 2026-11-17T03:59:17+0000 Detected 1 background thread(s) [ThreadPoolExecutor-2_0] still running after container exit. This will prevent runner shutdown for up to 30 seconds.
+static_cache_compiled FAILED RuntimeError: Error: accessing tensor output of CUDAGraphs that has been overwritten by a subsequent run. Stack trace: File "/usr/local/lib/python3.12/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A100-80GB NVIDIA A100-SXM4-80GB | head stock/cert ms 0.229 0.219 ratio 0.96 mismatches 0 | derived {'eager': {'step_ms': 37.302, 'head_share': 0.006, 'estimated_certified_step_ratio': 1.0}, 'static_cache': {'step_ms': 4.511, 'head_share': 0.051, 'estimated_certified_step_ratio': 0.998}} | errors {'static_cache_compiled': 'RuntimeError: Error: accessing tensor output of CUDAGraphs that has been overwritten by a subsequent run. Stack trace: File "/usr/local/lib/python3.12/site-packages/transformers/utils/generic.py", line 943, in wrapper\n    output = func(self, *args, **kwargs)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/usr/local/lib/python3.12/site-packages/transformers/models/qwen3/modeling_qwen3.py", line 469, in forward\n    outputs: BaseModelOutputWithPast = self.model(\n                                       ^^^^^^^^^^^\n  File "/usr/local/lib/python3.12/site-packages/transformers/utils/generic.py", lin'}
+A10G NVIDIA A10 | head stock/cert ms 0.697 0.289 ratio 0.41 mismatches 0 | derived {'eager': {'step_ms': 25.827, 'head_share': 0.027, 'estimated_certified_step_ratio': 0.984}, 'static_cache': {'step_ms': 5.655, 'head_share': 0.123, 'estimated_certified_step_ratio': 0.928}} | errors {'static_cache_compiled': 'RuntimeError: Error: accessing tensor output of CUDAGraphs that has been overwritten by a subsequent run. Stack trace: File "/usr/local/lib/python3.12/site-packages/transformers/utils/generic.py", line 943, in wrapper\n    output = func(self, *args, **kwargs)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/usr/local/lib/python3.12/site-packages/transformers/models/qwen3/modeling_qwen3.py", line 469, in forward\n    outputs: BaseModelOutputWithPast = self.model(\n                                       ^^^^^^^^^^^\n  File "/usr/local/lib/python3.12/site-packages/transformers/utils/generic.py", lin'}
+Stopping app - local entrypoint completed.
+[modal-client] 2026-11-17T03:59:57+0000 Detected 1 background thread(s) [ThreadPoolExecutor-2_0] still running after container exit. This will prevent runner shutdown for up to 30 seconds.
+[modal-client] 2026-11-17T09:30:07+0530 Timed out waiting for final app logs.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-QQ5v853MTaQYwtJZs9QgX8
+exit 0

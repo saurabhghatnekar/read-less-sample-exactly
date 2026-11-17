@@ -1,0 +1,73 @@
+{
+ "model": "qwen3_0.6b",
+ "repo": "Qwen/Qwen3-0.6B",
+ "rev": "c1899de289a04d12100db370d81485cdf75e47ca",
+ "gpu": "NVIDIA A100-SXM4-80GB",
+ "torch": "2.15.0+cu132",
+ "transformers": "5.22.2",
+ "rule_sha": "cd115191b3b643cc48ce0f5a1b766596909147324cabd1111f455be8351617d3",
+ "errors": {
+  "static_cache_compiled": "RuntimeError: Error: accessing tensor output of CUDAGraphs that has been overwritten by a subsequent run. Stack trace: File \"/usr/local/lib/python3.12/site-packages/transformers/utils/generic.py\", line 943, in wrapper\n    output = func(self, *args, **kwargs)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/transformers/models/qwen3/modeling_qwen3.py\", line 469, in forward\n    outputs: BaseModelOutputWithPast = self.model(\n                                       ^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/transformers/utils/generic.py\", lin"
+ },
+ "head": {
+  "stock_ms": {
+   "median": 0.22864000499248505,
+   "p99": 0.23075200617313385,
+   "mean": 0.22871518734609708,
+   "n": 512
+  },
+  "cert_ms": {
+   "median": 0.21913599967956543,
+   "p99": 0.22220799326896667,
+   "mean": 0.21890799951506779,
+   "n": 512
+  },
+  "states": 512,
+  "cert_mismatches": 0,
+  "stock_mismatches": 3,
+  "int8_rows": {
+   "median": 5,
+   "p99": 97,
+   "mean": 11.0703125,
+   "n": 512
+  },
+  "V": 151936,
+  "d": 1024,
+  "head_bytes_bf16": 311164928,
+  "first_pass_bytes": 80222208
+ },
+ "prompt_tokens": {
+  "median": 147,
+  "p99": 191,
+  "mean": 137.0,
+  "n": 24
+ },
+ "step": {
+  "eager": {
+   "median": 37.30182695388794,
+   "p99": 37.55420970916748,
+   "mean": 37.160817901293434,
+   "n": 24
+  },
+  "static_cache": {
+   "median": 4.51092255115509,
+   "p99": 4.694215536117554,
+   "mean": 4.515416602293651,
+   "n": 24
+  }
+ },
+ "derived": {
+  "eager": {
+   "step_ms": 37.30182695388794,
+   "head_share": 0.006129458626118421,
+   "estimated_certified_step_ratio": 0.9997452134093949
+  },
+  "static_cache": {
+   "step_ms": 4.51092255115509,
+   "head_share": 0.05068586356773922,
+   "estimated_certified_step_ratio": 0.9978931127269108
+  }
+ },
+ "fastest": "static_cache",
+ "head_ratio": 0.9584324479295213
+}

@@ -22,3 +22,4 @@
 2026-11-17 08:49:58 IST g1_rule.json sha256 67d8c11fbd96ac84b3c5ce0869f10e00a4312bd4283e812a2282e0c0d9ed983e (written before any certificate ran on the three models' new states)
 2026-11-17 09:00:10 IST kernel/unified_protocol.json sha256 fb6ed5fa63a2de5334e65261b1c6732dbe8514b9e409afe80e58d09b03f3c004 (written before fused2.py ran on any GPU; test_cert_head2.py passed on the CPU)
 2026-11-17 09:15:57 IST g1_addendum_small.json sha256 c6c0b6c6f2f0406187e47636737d2db2ba6638dee1225e2c73ebb0b05098050e (written before any certificate ran on Qwen3-0.6B's states)
+2026-11-17 09:21:34 IST e2_rule.json sha256 cd115191b3b643cc48ce0f5a1b766596909147324cabd1111f455be8351617d3 (written before any E2 code ran)
