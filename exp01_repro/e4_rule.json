@@ -1,0 +1,45 @@
+{
+  "experiment": "E4: does the end-to-end gain grow with the head's share of a decode step? Head share, and the certified head inside the loop, on Qwen3-1.7B and Gemma 4 E4B at batch 1 and 8",
+  "written": "2026-11-18, after E2, E3 and the A10G kernel runs were read, before any E4 code was written or run",
+  "why": "E3's measured gain (6% per step) is from one small model at batch 1. If the head is a larger part of the step on another model, the gain should be larger there. E4 measures the share on two more models and at batch 8, and runs the full loop.",
+  "models": {
+    "qwen3_1.7b": "Qwen/Qwen3-1.7B at 70d244cc86ccca08cf5af4e1e306ecf908b1ad5e, BF16, tied head 151,936 x 2,048, shift 0.5, no soft-cap. New to this project: no saved states and no tuning. The shift is the one used for the other Qwen3 models; the certificate holds for any shift, only the cost depends on it.",
+    "gemma4_e4b": "google/gemma-4-E4B-it at 4ecc2ba63bcac23ba4a767fc87025b1450f84c9c, BF16, tied head 262,144 x 2,560, shift 1.5, soft-cap 30"
+  },
+  "gpu": "A10G",
+  "loop": "Hugging Face generate, greedy, cache_implementation = 'static' (E2's fastest working configuration), end-of-sequence stopping off so exactly the requested number of tokens is generated, repetition penalty 1. If the static cache fails on a model, that model is run with its default cache and reported as such.",
+  "prompts": "batch 1: the 24 prompts of E2 and E3 (ids with id mod 40 < 4). Batch 8: the 96 prompts with id mod 40 < 16, in order, 12 batches of 8, left-padded.",
+  "measured": {
+    "step": "milliseconds per decode step: (time for 72 new tokens - time for 8) / 64, per prompt (batch 1) or per batch (batch 8), warmed up, minimum of two runs; order stock, certified, stock again",
+    "head_alone": "on states recorded from the certified loop at the same batch size: the stock head (BF16 product, soft-cap where the model has one, FP32 argmax) and the unified kernel (kernel/fused2.py), both graph-captured, CUDA events, median of 3",
+    "share": "stock head alone / stock step",
+    "estimate": "(stock step - stock head + certified head) / stock step, E2's estimate by substitution",
+    "in_loop": "certified step / stock step, measured as in E3"
+  },
+  "variants": {
+    "stock": "the model as shipped",
+    "certified": "a second model object that shares every weight with the first; its output layer is replaced by an identity and its soft-cap switched off, so the forward pass returns the final hidden state; a logits processor runs the graph-captured unified kernel on that state (with the soft-cap inside the kernel for Gemma 4) and hands generate a score vector whose argmax is the certified token. INT4, INT8 and BF16 copies all on the GPU."
+  },
+  "controls": {
+    "state": "on two prompts, the certified model's forward output at the last position equals, bit for bit, the tensor the stock model's output layer receives. Without this the token check below would certify the wrong state. If it fails the run is void.",
+    "head_weights": "the head the kernel was built from equals the loaded model's output-layer weight bit for bit",
+    "tokens": "in an untimed pass every certified token equals the argmax of the FP32 product of its recorded state with the BF16 head (the soft-cap is monotone, so it does not change the argmax)",
+    "emitted": "the tokens the processor chose are the tokens generate emitted",
+    "sequences": "the share of rows whose 72-token continuation is identical between the variants is reported, not required",
+    "drift": "the two stock measurements are compared"
+  },
+  "scope_of_the_loop": "The plan was to run the loop only on the model with the larger share. Both models are loaded anyway to measure the share, so the loop is run on both, at both batch sizes, in the same containers. The primary result is the model with the larger share at batch 1; the other is reported beside it.",
+  "prediction_written_before_running": {
+    "tokens": "no certified token differs from the reference; both controls on state and weights hold exactly",
+    "static_cache": "works on Qwen3-1.7B. On Gemma 4 E4B it may fail; I give it two chances in three.",
+    "share_batch_1": "Qwen3-1.7B 10% to 16%; Gemma 4 E4B 7% to 13% (if the static cache works). Qwen3-1.7B has the larger share.",
+    "share_batch_8": "on each model between 0.7 and 1.0 times its batch-1 share",
+    "reasoning": "On Qwen3-0.6B the head was 12.3% of the step although it holds 26% of the bytes read per step, because about 3 ms of the 5.65 ms step is fixed per-layer overhead. Qwen3-1.7B's head holds 18% of the bytes read per step and the overhead is about the same, so its share should come out close to Qwen3-0.6B's, not above it.",
+    "head_ratio": "certified head / stock head alone: 0.34 to 0.45 at batch 1 and 0.36 to 0.50 at batch 8 on both models",
+    "in_loop_batch_1": "certified step / stock step on the larger-share model: 0.90 to 0.96",
+    "in_loop_batch_8": "0.91 to 0.97",
+    "agreement": "the measured saving (1 - in-loop ratio) is within 2 points of the estimate by substitution, on every model and batch size where the stock drift is under 2%",
+    "headline": "The gain is about the size of E3's (6%) and not clearly larger, because neither model's head is a clearly larger part of the step than Qwen3-0.6B's.",
+    "takeaway_if_wrong": "If a share comes out above 18%, the in-loop gain there should exceed 10% and the paper can show the gain growing with the share. If the shares are 10% to 16% as predicted, the paper's end-to-end claim becomes: about 6% to 8% per step on an A10G across three models and two batch sizes, tracking the head's share. If Gemma 4's static cache fails, its share is that of an eager loop (a few percent) and says nothing about the question."
+  }
+}
