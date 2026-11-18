@@ -1,0 +1,42 @@
+== Qwen3-1.7B on NVIDIA A10: cache static; torch 2.15.0+cu132, transformers 5.22.2
+controls: head weights equal True; state max abs diff [0.0, 0.0]; soft-cap switched off none; head replaced at lm_head; errors none
+GPU memory: 4.7 GB after load, 5.6 GB peak
+
+batch 1: 24 prompt batches, prompt tokens median 147
+  step ms (median; p99): stock 10.612; 10.699 | certified 9.880; 10.009 | stock again 10.831; 10.961
+  head alone ms (median): stock 1.337, certified 0.523, ratio 0.391; INT8 rows per step median 2, p99 30
+  head share 12.6% | estimate by substitution 0.9233 | in loop 0.9310 | against the mean of the two stock runs 0.9215 | stock drift 1.0206
+  per prompt batch, certified / stock: min 0.9177, median 0.9294, max 0.9483
+  check: 1728 tokens, 0 differ from the reference; 12 of 24 continuations identical to the stock model's | head alone: 256 states, certified differs on 0, stock BF16 head on 3
+
+batch 8: 12 prompt batches, prompt tokens median 207
+  step ms (median; p99): stock 15.216; 15.263 | certified 14.483; 14.508 | stock again 15.315; 15.362
+  head alone ms (median): stock 1.345, certified 0.596, ratio 0.443; INT8 rows per step median 47, p99 198
+  head share 8.8% | estimate by substitution 0.9508 | in loop 0.9519 | against the mean of the two stock runs 0.9488 | stock drift 1.0066
+  per prompt batch, certified / stock: min 0.9466, median 0.9513, max 0.9655
+  check: 6912 tokens, 0 differ from the reference; 59 of 96 continuations identical to the stock model's | head alone: 2048 states, certified differs on 0, stock BF16 head on 9
+
+== Gemma 4 E4B on NVIDIA A10: cache static; torch 2.15.0+cu132, transformers 5.22.2
+controls: head weights equal True; state max abs diff [0.0, 0.0]; soft-cap switched off {'config.get_text_config()': 30.0}; head replaced at lm_head; errors none
+GPU memory: 18.6 GB after load, 19.4 GB peak
+
+batch 1: 24 prompt batches, prompt tokens median 148
+  step ms (median; p99): stock 25.988; 26.257 | certified 24.140; 24.286 | stock again 26.322; 26.470
+  head alone ms (median): stock 2.817, certified 1.016, ratio 0.361; INT8 rows per step median 2, p99 230
+  head share 10.8% | estimate by substitution 0.9307 | in loop 0.9289 | against the mean of the two stock runs 0.9230 | stock drift 1.0128
+  per prompt batch, certified / stock: min 0.9097, median 0.9287, max 0.9480
+  check: 1728 tokens, 0 differ from the reference; 22 of 24 continuations identical to the stock model's | head alone: 256 states, certified differs on 0, stock BF16 head on 0
+
+batch 8: 12 prompt batches, prompt tokens median 199
+  step ms (median; p99): stock 31.861; 32.074 | certified 30.105; 30.258 | stock again 32.104; 32.243
+  head alone ms (median): stock 2.961, certified 1.123, ratio 0.379; INT8 rows per step median 44, p99 1401
+  head share 9.3% | estimate by substitution 0.9423 | in loop 0.9449 | against the mean of the two stock runs 0.9413 | stock drift 1.0076
+  per prompt batch, certified / stock: min 0.9357, median 0.9442, max 0.9730
+  check: 6912 tokens, 0 differ from the reference; 74 of 96 continuations identical to the stock model's | head alone: 2048 states, certified differs on 0, stock BF16 head on 3
+
+| Model, batch | Stock step | Certified step | Stock again | Stock head | Certified head | Head's share | Estimate | In loop | In loop, vs mean of stock runs |
+|---|---|---|---|---|---|---|---|---|---|
+| Qwen3-1.7B, 1 | 10.61 ms | 9.88 ms | 10.83 ms | 1.337 ms | 0.523 ms | 12.6% | 0.923 | 0.931 | 0.921 |
+| Qwen3-1.7B, 8 | 15.22 ms | 14.48 ms | 15.32 ms | 1.345 ms | 0.596 ms | 8.8% | 0.951 | 0.952 | 0.949 |
+| Gemma 4 E4B, 1 | 25.99 ms | 24.14 ms | 26.32 ms | 2.817 ms | 1.016 ms | 10.8% | 0.931 | 0.929 | 0.923 |
+| Gemma 4 E4B, 8 | 31.86 ms | 30.11 ms | 32.10 ms | 2.961 ms | 1.123 ms | 9.3% | 0.942 | 0.945 | 0.941 |

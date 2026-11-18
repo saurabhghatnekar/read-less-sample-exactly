@@ -1030,3 +1030,55 @@ Against the predictions: tokens exact, held. A10G ratio 0.93 to 0.97, held (0.94
 **A second A10G run** (`logs/e3_A10G_run2.json`; the first is `logs/e3_A10G_run1.json`) gives the same: stock 5.50 ms, certified 5.19 ms, stock again 5.58 ms, a ratio of 0.944 (0.938 against the mean of the two stock runs), drift 1.4%, and again no token differing from the reference in 1,728. The two runs' main ratios are 0.942 and 0.944.
 
 Limits: one small model whose output layer is 21% of its weights, batch 1, greedy, two runs on the A10G and one on the A100, 24 prompts. `generate`'s per-token overhead is in both variants. The stock measurement drifted by 3% on the A10G over the run, which is half the size of the effect. The all-GPU layout takes 1.77 times the stock head's memory (see the memory tiers in `kernel/README.md`). Not run on an L4.
+
+## E4: does the end-to-end gain grow with the head's share of the step? (18 Nov 2026)
+
+E3's gain is from one small model at batch 1. E4 measures the head's share of a decode step on two more models and at batch 8, and runs the certified head inside the loop on both.
+
+Rule `e4_rule.json` (sha256 `77839770…`, logged before any E4 code was written). Code `e4_lib.py`, `e4_modal.py`, `e4_summarize.py`; CPU test `test_e4.py`; results `logs/e4_<model>_A10G.json`, table `logs/e4_summary.txt`. A10G, greedy, Hugging Face `generate` with the static cache, which works on both models.
+
+- **Models.** Qwen3-1.7B (tied head 151,936 × 2,048; new to this project, so it has no tuning: shift 0.5 as on the other Qwen3 models) and Gemma 4 E4B (262,144 × 2,560, shift 1.5, soft-cap 30).
+- **Stock:** the model as shipped.
+- **Certified:** a second model object that shares every weight with the first. Its output layer is an identity and its soft-cap is off, so the forward pass returns the final hidden state; a logits processor runs the graph-captured unified kernel (`kernel/fused2.py`) on that state, with the soft-cap inside the kernel for Gemma 4. All three copies are on the GPU. Sharing the weights is what lets both variants of Gemma 4 fit a 24 GB card (19.4 GB at the peak).
+- **Step:** (time for 72 new tokens − time for 8) / 64 per prompt batch, in the order stock, certified, stock again. Batch 1 uses E3's 24 prompts; batch 8 uses 96 prompts in 12 left-padded batches.
+- **Head alone:** the stock head and the certified kernel, graph-captured, on states recorded from the loop at the same batch size.
+
+Controls, all held on both models: the certified model's output at the last position equals bit for bit the tensor the stock output layer receives (two prompts); the head the kernel was built from equals the loaded model's output weights bit for bit; the tokens the processor chose are the tokens `generate` emitted; and in an untimed pass **no certified token differs from the FP32 reference in 17,280** (1,728 at batch 1 and 6,912 at batch 8, per model).
+
+| Model, batch | Stock step | Certified step | Stock again | Stock head | Certified head | Head's share | Estimate by substitution | Certified / stock, in the loop | Against the mean of the two stock runs |
+|---|---|---|---|---|---|---|---|---|---|
+| Qwen3-1.7B, 1 | 10.61 ms | 9.88 ms | 10.83 ms | 1.337 ms | 0.523 ms | 12.6% | 0.923 | 0.931 | 0.921 |
+| Qwen3-1.7B, 8 | 15.22 ms | 14.48 ms | 15.32 ms | 1.345 ms | 0.596 ms | 8.8% | 0.951 | 0.952 | 0.949 |
+| Gemma 4 E4B, 1 | 25.99 ms | 24.14 ms | 26.32 ms | 2.817 ms | 1.016 ms | 10.8% | 0.931 | 0.929 | 0.923 |
+| Gemma 4 E4B, 8 | 31.86 ms | 30.11 ms | 32.10 ms | 2.961 ms | 1.123 ms | 9.3% | 0.942 | 0.945 | 0.941 |
+
+For comparison, E2 and E3 on Qwen3-0.6B at batch 1: share 12.3%, estimate 0.928, in the loop 0.942 and 0.944.
+
+- **The decode step is 5% to 7% faster on both models at both batch sizes.** The saving is 6.9% (Qwen3-1.7B) and 7.1% (Gemma 4) at batch 1, and 4.8% and 5.5% at batch 8. Per prompt batch the ratio stays below 1 everywhere: the largest of the 72 is 0.973.
+- **The gain is not larger than E3's, because the head's share is not larger.** The share is 8.8% to 12.6% here against 12.3% on Qwen3-0.6B. A bigger model has a bigger head and a bigger body: Gemma 4's head takes 2.8 ms, four times Qwen3-0.6B's, in a step of 26 ms.
+- **The gain follows the share.** The measured saving is within 0.8 points of share × (1 − certified head / stock head) on all four rows (7.7%, 4.9%, 6.9%, 5.8% estimated; 6.9%, 4.8%, 7.1%, 5.5% measured). So the head-alone timings predict the end-to-end result.
+- **Batch 8 lowers the share.** The stock head takes about the same time at batch 8 as at batch 1 while the body takes more, so the share falls to 0.70 (Qwen3-1.7B) and 0.86 (Gemma 4) of its batch-1 value.
+- **Qwen3-1.7B needs no tuning.** With the untuned shift the INT8 stage reads a median of 2 rows a step at batch 1 (p99 30); Gemma 4 reads 2 (p99 230).
+- **The stock model's own text differs** on 12 of 24 (Qwen3-1.7B) and 2 of 24 (Gemma 4) continuations at batch 1, and on 37 and 22 of 96 at batch 8: the stock BF16 head breaks near-ties differently from the FP32 reference. On the recorded states the stock head differs from the reference on 12 of 2,304 (Qwen3-1.7B) and 3 of 2,304 (Gemma 4); the certified head on none.
+
+Against the predictions, all held:
+
+| Prediction | Result |
+|---|---|
+| No certified token differs; the state and weight controls hold exactly | held |
+| The static cache works on Qwen3-1.7B; on Gemma 4 two chances in three | works on both |
+| Share at batch 1: Qwen3-1.7B 10% to 16%, Gemma 4 7% to 13%, Qwen3-1.7B the larger | 12.6% and 10.8% |
+| Share at batch 8 between 0.7 and 1.0 of the batch-1 share | 0.70 and 0.86; the first is on the edge |
+| Certified head / stock head: 0.34 to 0.45 at batch 1, 0.36 to 0.50 at batch 8 | 0.39, 0.36; 0.44, 0.38 |
+| In the loop on the larger-share model: 0.90 to 0.96 at batch 1, 0.91 to 0.97 at batch 8 | 0.931, 0.952 |
+| Measured saving within 2 points of the estimate where the stock drift is under 2% | within 0.3 points on the three such rows |
+| The gain is about the size of E3's and not clearly larger | held |
+
+Notes and deviations:
+- The plan was to run the loop only on the model with the larger share. Both were loaded to measure the share, so the loop ran on both; the rule says so. Qwen3-1.7B has the larger share at batch 1 and is the primary result.
+- The stock measurement drifted by 2.1% on Qwen3-1.7B at batch 1, just over the 2% in the rule, and by 0.7% to 1.3% on the other three rows. Both ratios are shown for every row.
+- The kernel's Gumbel-noise input is a dummy tensor here, since greedy decoding does not read it; E3 passed a zero vector of the vocabulary's length.
+- A smoke run on 6 prompts and 2 batches (`logs/e4_summary_smoke.txt`) gave the same picture: 0.926, 0.966, 0.923, 0.941.
+- Cost on Modal: $0.63 for the smoke and $1.19 for the full run.
+
+Limits: one run per model; greedy; one GPU type; 24 prompts at batch 1 and 12 batches at batch 8. `generate`'s per-token overhead is in both variants. The stock measurement drifts by up to 2% over a run, under a third of the effect. The all-GPU layout takes 1.77 times the stock head's memory. Qwen3-1.7B has no byte table of its own: only its INT8 row counts in the loop are recorded. No model here has a head above 13% of the step, so the claim that the gain keeps growing with the share is supported by the formula above, not by a measured larger case.

@@ -1,0 +1,79 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-ZRfTvgacjzELR5ZSxQwFUj
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/e4_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/e4_lib.py
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/../kernel/common.py
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/../kernel/fused2.py
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/../kernel/int4_pass1.py
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/../kernel/fused.py
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/../kernel/cert_head2.py
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/../kernel/cert_head.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+└── ✓ Created Function run.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+[1ALoading weights:   0%|          | 0/311 [00:00<?, ?it/s]
+[1ALoading weights:   1%|          | 2/311 [00:00<00:55,  5.55it/s]
+[1ALoading weights:   9%|▉         | 28/311 [00:00<00:03, 77.30it/s]
+[1ALoading weights:  18%|█▊        | 56/311 [00:00<00:01, 132.97it/s]
+[1ALoading weights:  29%|██▉       | 90/311 [00:00<00:01, 183.61it/s]
+[1ALoading weights:  41%|████      | 126/311 [00:00<00:00, 230.40it/s]
+[1ALoading weights:  50%|█████     | 156/311 [00:00<00:00, 243.51it/s]
+[1ALoading weights:  61%|██████    | 189/311 [00:01<00:00, 260.39it/s]
+[1ALoading weights:  72%|███████▏  | 225/311 [00:01<00:00, 287.66it/s]
+[1ALoading weights:  82%|████████▏ | 256/311 [00:01<00:00, 275.39it/s]
+[1ALoading weights:  92%|█████████▏| 286/311 [00:01<00:00, 272.92it/s]
+[1ALoading weights: 100%|██████████| 311/311 [00:01<00:00, 222.65it/s]
+
+[1ALoading weights:   0%|          | 0/2076 [00:00<?, ?it/s]
+[1ALoading weights:  13%|█▎        | 268/2076 [00:00<00:00, 2674.46it/s]
+[1ALoading weights:  26%|██▌       | 536/2076 [00:00<00:00, 2548.78it/s]
+[1ALoading weights:  38%|███▊      | 792/2076 [00:02<00:05, 214.55it/s] 
+[1ALoading weights:  45%|████▌     | 936/2076 [00:03<00:05, 226.05it/s]
+[1ALoading weights:  50%|████▉     | 1034/2076 [00:03<00:04, 233.84it/s]
+[1ALoading weights:  53%|█████▎    | 1106/2076 [00:03<00:04, 240.99it/s]
+[1ALoading weights:  56%|█████▌    | 1164/2076 [00:04<00:03, 246.32it/s]
+[1ALoading weights:  58%|█████▊    | 1212/2076 [00:04<00:03, 242.35it/s]
+[1ALoading weights:  60%|██████    | 1252/2076 [00:04<00:03, 237.95it/s]
+[1ALoading weights:  62%|██████▏   | 1286/2076 [00:04<00:03, 243.95it/s]
+[1ALoading weights:  64%|██████▎   | 1319/2076 [00:04<00:03, 239.49it/s]
+[1ALoading weights:  65%|██████▍   | 1349/2076 [00:04<00:03, 235.60it/s]
+[1ALoading weights:  66%|██████▋   | 1376/2076 [00:05<00:02, 241.54it/s]
+[1ALoading weights:  68%|██████▊   | 1403/2076 [00:05<00:02, 245.44it/s]
+[1ALoading weights:  76%|███████▌  | 1569/2076 [00:05<00:00, 563.71it/s]
+[1ALoading weights:  91%|█████████ | 1893/2076 [00:05<00:00, 1213.71it/s]
+[1ALoading weights: 100%|██████████| 2076/2076 [00:05<00:00, 385.84it/s] 
+/usr/local/lib/python3.12/site-packages/triton/knobs.py:504: UserWarning: TRITON_DEFAULT_FP_FUSION is unset: defaulting to FP fusion ENABLED for backward compatibility in Triton 3.9. The default will change to DISABLED in Triton 3.10; set TRITON_DEFAULT_FP_FUSION=1 to keep fusion enabled or =0 to adopt the new default early and silence this warning.
+  warn_once(FP_FUSION_DEFAULT_WARNING)
+/usr/local/lib/python3.12/site-packages/triton/knobs.py:504: UserWarning: TRITON_DEFAULT_FP_FUSION is unset: defaulting to FP fusion ENABLED for backward compatibility in Triton 3.9. The default will change to DISABLED in Triton 3.10; set TRITON_DEFAULT_FP_FUSION=1 to keep fusion enabled or =0 to adopt the new default early and silence this warning.
+  warn_once(FP_FUSION_DEFAULT_WARNING)
+qwen3_1.7b 1 stock {'median': 10.612364768981934, 'p99': 10.69861352443695, 'mean': 10.566298390428225, 'n': 24}
+qwen3_1.7b 1 certified {'median': 9.880052924156189, 'p99': 10.00924015045166, 'mean': 9.824811612566313, 'n': 24}
+gemma4_e4b 1 stock {'median': 25.988399028778076, 'p99': 26.256774187088013, 'mean': 25.8639734685421, 'n': 24}
+qwen3_1.7b 1 | step ms {'stock': 10.612, 'certified': 9.88, 'stock_again': 10.831} | head ms 1.337 0.523 | share 0.126 | estimate 0.9233 | in loop 0.931 | drift 1.0206 | check {'tokens': 1728, 'mismatches_vs_reference': 0, 'rows': 24, 'rows_identical_to_stock': 12}
+qwen3_1.7b 8 stock {'median': 15.215674638748169, 'p99': 15.262946128845215, 'mean': 15.191571752230326, 'n': 12}
+gemma4_e4b 1 certified {'median': 24.13996982574463, 'p99': 24.285924434661865, 'mean': 24.004003922144573, 'n': 24}
+qwen3_1.7b 8 certified {'median': 14.483250141143799, 'p99': 14.507503509521484, 'mean': 14.46518329779307, 'n': 12}
+qwen3_1.7b 8 | step ms {'stock': 15.216, 'certified': 14.483, 'stock_again': 15.315} | head ms 1.345 0.596 | share 0.0884 | estimate 0.9508 | in loop 0.9519 | drift 1.0066 | check {'tokens': 6912, 'mismatches_vs_reference': 0, 'rows': 96, 'rows_identical_to_stock': 59}
+qwen3_1.7b NVIDIA A10 | cache static | controls True [0.0, 0.0] | errors {}
+  batch 1: share 0.1260, head ratio 0.391, estimate 0.9233, in loop 0.9310, drift 1.0206, check {'tokens': 1728, 'mismatches_vs_reference': 0, 'rows': 24, 'rows_identical_to_stock': 12}
+  batch 8: share 0.0884, head ratio 0.443, estimate 0.9508, in loop 0.9519, drift 1.0066, check {'tokens': 6912, 'mismatches_vs_reference': 0, 'rows': 96, 'rows_identical_to_stock': 59}
+gemma4_e4b 1 | step ms {'stock': 25.988, 'certified': 24.14, 'stock_again': 26.322} | head ms 2.817 1.016 | share 0.1084 | estimate 0.9307 | in loop 0.9289 | drift 1.0128 | check {'tokens': 1728, 'mismatches_vs_reference': 0, 'rows': 24, 'rows_identical_to_stock': 22}
+gemma4_e4b 8 stock {'median': 31.86123275756836, 'p99': 32.07359504699707, 'mean': 31.76267417271932, 'n': 12}
+gemma4_e4b 8 certified {'median': 30.105046272277832, 'p99': 30.257668495178223, 'mean': 30.061875065167744, 'n': 12}
+gemma4_e4b 8 | step ms {'stock': 31.861, 'certified': 30.105, 'stock_again': 32.104} | head ms 2.961 1.123 | share 0.0929 | estimate 0.9423 | in loop 0.9449 | drift 1.0076 | check {'tokens': 6912, 'mismatches_vs_reference': 0, 'rows': 96, 'rows_identical_to_stock': 74}
+gemma4_e4b NVIDIA A10 | cache static | controls True [0.0, 0.0] | errors {}
+  batch 1: share 0.1084, head ratio 0.361, estimate 0.9307, in loop 0.9289, drift 1.0128, check {'tokens': 1728, 'mismatches_vs_reference': 0, 'rows': 24, 'rows_identical_to_stock': 22}
+  batch 8: share 0.0929, head ratio 0.379, estimate 0.9423, in loop 0.9449, drift 1.0076, check {'tokens': 6912, 'mismatches_vs_reference': 0, 'rows': 96, 'rows_identical_to_stock': 74}
+Stopping app - local entrypoint completed.
+Runner terminated.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-ZRfTvgacjzELR5ZSxQwFUj
+exit 0

@@ -1,0 +1,82 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-X7VeRp3Nb2qQqw0yc84kxj
+✓ Created objects.
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/e4_modal.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/e4_lib.py
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/../kernel/fused2.py
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/../kernel/fused.py
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/../kernel/common.py
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/../kernel/int4_pass1.py
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/../kernel/cert_head2.py
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/../kernel/cert_head.py
+├── ✓ Uploaded /Volumes/attic/GpuKernelEngg/research/exp01_repro/cert_core.py
+└── ✓ Created Function run.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+[1ALoading weights:   0%|          | 0/2076 [00:00<?, ?it/s]
+[1ALoading weights:  11%|█▏        | 235/2076 [00:00<00:00, 2338.94it/s]
+[1ALoading weights:  23%|██▎       | 469/2076 [00:00<00:00, 2184.56it/s]
+[1ALoading weights:  36%|███▋      | 753/2076 [00:00<00:01, 1174.09it/s]
+[1AFetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]
+[1ALoading weights:  44%|████▍     | 909/2076 [00:03<00:07, 161.58it/s] 
+[1ALoading weights:  48%|████▊     | 1006/2076 [00:04<00:06, 173.05it/s]
+[1ALoading weights:  52%|█████▏    | 1077/2076 [00:04<00:05, 181.36it/s]
+[1ALoading weights:  55%|█████▍    | 1132/2076 [00:04<00:05, 187.15it/s]
+[1ALoading weights:  57%|█████▋    | 1176/2076 [00:04<00:04, 189.21it/s]
+[1ALoading weights:  58%|█████▊    | 1213/2076 [00:04<00:04, 191.48it/s]
+[1ALoading weights:  60%|█████▉    | 1245/2076 [00:05<00:04, 196.35it/s]
+[1ALoading weights:  61%|██████▏   | 1274/2076 [00:05<00:04, 199.06it/s]
+[1ALoading weights:  63%|██████▎   | 1301/2076 [00:05<00:04, 192.18it/s]
+[1ALoading weights:  64%|██████▍   | 1325/2076 [00:05<00:04, 187.36it/s]
+[1ALoading weights:  65%|██████▍   | 1347/2076 [00:05<00:03, 184.01it/s]
+[1ALoading weights:  66%|██████▌   | 1369/2076 [00:05<00:03, 180.79it/s]
+[1ALoading weights:  67%|██████▋   | 1397/2076 [00:05<00:03, 201.29it/s]
+[1ALoading weights:  68%|██████▊   | 1420/2076 [00:06<00:03, 207.77it/s]
+[1ALoading weights:  81%|████████▏ | 1687/2076 [00:06<00:00, 812.76it/s]
+[1ALoading weights:  98%|█████████▊| 2036/2076 [00:06<00:00, 1506.73it/s]
+[1ALoading weights: 100%|██████████| 2076/2076 [00:06<00:00, 333.13it/s] 
+
+[1AFetching 2 files: 100%|██████████| 2/2 [00:14<00:00,  7.09s/it]
+[1AFetching 2 files: 100%|██████████| 2/2 [00:14<00:00,  7.09s/it]
+
+[1ALoading weights:   0%|          | 0/311 [00:00<?, ?it/s]
+[1ALoading weights:   1%|          | 2/311 [00:00<00:26, 11.85it/s]
+[1ALoading weights:  22%|██▏       | 69/311 [00:00<00:00, 311.32it/s]
+[1ALoading weights:  43%|████▎     | 135/311 [00:00<00:00, 442.38it/s]
+[1ALoading weights:  65%|██████▍   | 202/311 [00:00<00:00, 520.15it/s]
+[1ALoading weights:  85%|████████▍ | 263/311 [00:00<00:00, 547.50it/s]
+[1ALoading weights: 100%|██████████| 311/311 [00:00<00:00, 479.25it/s]
+/usr/local/lib/python3.12/site-packages/triton/knobs.py:504: UserWarning: TRITON_DEFAULT_FP_FUSION is unset: defaulting to FP fusion ENABLED for backward compatibility in Triton 3.9. The default will change to DISABLED in Triton 3.10; set TRITON_DEFAULT_FP_FUSION=1 to keep fusion enabled or =0 to adopt the new default early and silence this warning.
+  warn_once(FP_FUSION_DEFAULT_WARNING)
+/usr/local/lib/python3.12/site-packages/triton/knobs.py:504: UserWarning: TRITON_DEFAULT_FP_FUSION is unset: defaulting to FP fusion ENABLED for backward compatibility in Triton 3.9. The default will change to DISABLED in Triton 3.10; set TRITON_DEFAULT_FP_FUSION=1 to keep fusion enabled or =0 to adopt the new default early and silence this warning.
+  warn_once(FP_FUSION_DEFAULT_WARNING)
+qwen3_1.7b 1 stock {'median': 10.394176006317139, 'p99': 10.409294843673706, 'mean': 10.357393085956573, 'n': 6}
+qwen3_1.7b 1 certified {'median': 9.626270651817322, 'p99': 9.660848259925842, 'mean': 9.593310912450155, 'n': 6}
+qwen3_1.7b 1 | step ms {'stock': 10.394, 'certified': 9.626, 'stock_again': 10.522} | head ms 1.336 0.517 | share 0.1285 | estimate 0.9212 | in loop 0.9261 | drift 1.0123 | check {'tokens': 432, 'mismatches_vs_reference': 0, 'rows': 6, 'rows_identical_to_stock': 2}
+gemma4_e4b 1 stock {'median': 25.57471990585327, 'p99': 25.596778869628906, 'mean': 25.49039852619171, 'n': 6}
+qwen3_1.7b 8 stock {'median': 13.653609275817871, 'p99': 13.043487310409546, 'mean': 13.348548293113708, 'n': 2}
+qwen3_1.7b 8 certified {'median': 13.191221952438354, 'p99': 12.885398149490356, 'mean': 13.038310050964355, 'n': 2}
+qwen3_1.7b 8 | step ms {'stock': 13.654, 'certified': 13.191, 'stock_again': 13.69} | head ms 1.342 0.586 | share 0.0983 | estimate 0.9446 | in loop 0.9661 | drift 1.0026 | check {'tokens': 1152, 'mismatches_vs_reference': 0, 'rows': 16, 'rows_identical_to_stock': 10}
+qwen3_1.7b NVIDIA A10 | cache static | controls True [0.0, 0.0] | errors {}
+  batch 1: share 0.1285, head ratio 0.387, estimate 0.9212, in loop 0.9261, drift 1.0123, check {'tokens': 432, 'mismatches_vs_reference': 0, 'rows': 6, 'rows_identical_to_stock': 2}
+  batch 8: share 0.0983, head ratio 0.437, estimate 0.9446, in loop 0.9661, drift 1.0026, check {'tokens': 1152, 'mismatches_vs_reference': 0, 'rows': 16, 'rows_identical_to_stock': 10}
+gemma4_e4b 1 certified {'median': 23.603785276412964, 'p99': 23.657313108444214, 'mean': 23.511688709259033, 'n': 6}
+gemma4_e4b 1 | step ms {'stock': 25.575, 'certified': 23.604, 'stock_again': 25.714} | head ms 2.815 1.013 | share 0.1101 | estimate 0.9295 | in loop 0.9229 | drift 1.0055 | check {'tokens': 432, 'mismatches_vs_reference': 0, 'rows': 6, 'rows_identical_to_stock': 6}
+gemma4_e4b 8 stock {'median': 29.4645357131958, 'p99': 28.113849639892578, 'mean': 28.78919267654419, 'n': 2}
+gemma4_e4b 8 certified {'median': 27.71829319000244, 'p99': 26.259700775146484, 'mean': 26.988996982574463, 'n': 2}
+gemma4_e4b NVIDIA A10 | cache static | controls True [0.0, 0.0] | errors {}
+  batch 1: share 0.1101, head ratio 0.360, estimate 0.9295, in loop 0.9229, drift 1.0055, check {'tokens': 432, 'mismatches_vs_reference': 0, 'rows': 6, 'rows_identical_to_stock': 6}
+  batch 8: share 0.1004, head ratio 0.373, estimate 0.9371, in loop 0.9407, drift 1.0044, check {'tokens': 1152, 'mismatches_vs_reference': 0, 'rows': 16, 'rows_identical_to_stock': 12}
+gemma4_e4b 8 | step ms {'stock': 29.465, 'certified': 27.718, 'stock_again': 29.593} | head ms 2.959 1.104 | share 0.1004 | estimate 0.9371 | in loop 0.9407 | drift 1.0044 | check {'tokens': 1152, 'mismatches_vs_reference': 0, 'rows': 16, 'rows_identical_to_stock': 12}
+Stopping app - local entrypoint completed.
+Runner terminated.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-X7VeRp3Nb2qQqw0yc84kxj
+exit 0

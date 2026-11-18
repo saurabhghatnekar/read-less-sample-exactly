@@ -24,6 +24,7 @@ Models: Qwen3-8B (151,936 × 4,096 head), Gemma 4 E4B (262,144 × 2,560, tied, s
   - **G1**, the parts on three more off-floor models: greedy passes its gate on Sarvam-1, SmolLM3-3B and Phi-4-mini
   - **E2**, the head's share of a decode step on Qwen3-0.6B with a static cache: 12% on an A10G, where the certified head would make the step an estimated 7% faster
   - **E3**, the certified head inside that decode loop: the step is a measured 6% to 7% faster on an A10G, with every token equal to the reference, and unchanged on an A100
+  - **E4**, the same on Qwen3-1.7B and Gemma 4 E4B at batch 1 and 8: the head is 9% to 13% of the step and the step is 5% to 7% faster, as the head-alone timings predict
 
   Results and caveats are in [`exp01_repro/README.md`](exp01_repro/README.md).
 - [`kernel/`](kernel/): a second, independently built set of L4 kernels for the certified step (15 Nov 2026): a PyTorch baseline, a tensor-core first pass, and a fused, graph-captured step with per-state row lists for greedy and Gumbel sampling. See [`kernel/README.md`](kernel/README.md), including how it relates to the graph-captured step in `exp01_repro`.
@@ -56,6 +57,8 @@ With the byte runs' own certificate in those kernels (sub-Gaussian bound, shift,
 End to end, the first case where the head matters (E2): on Qwen3-0.6B with Hugging Face's static cache on an A10G, the head is 12% of a decode step and the certified head takes 0.41 of its time, so the step would be an estimated 7% faster. This is an estimate by substitution, not an integration. On an A100 the same model shows no gain.
 
 Measured in the loop (E3): with the certified head producing every token, the decode step of Qwen3-0.6B on an A10G takes 5.18 ms against 5.50 ms for the stock model (0.94; 0.93 against the mean of two stock runs), and every token equals the FP32 reference. On an A100 it is 1.00. One small model, batch 1. A second A10G run gave 0.944.
+
+On two more models and at batch 8 (E4, 18 Nov 2026): on an A10G the head is 12.6% of a decode step on Qwen3-1.7B and 10.8% on Gemma 4 E4B at batch 1, and 8.8% and 9.3% at batch 8. With the certified head in the loop the step takes 0.931 and 0.929 of the stock step at batch 1 and 0.952 and 0.945 at batch 8, and none of 17,280 tokens differs from the reference. The gain is the size of E3's, not larger, because the head's share is no larger; the measured saving is within 0.8 points of share × (1 − certified head / stock head) on all four.
 
 On an A10G (17 Nov 2026; no L4 could be had), the unified kernel takes 0.34 to 0.40 of the stock head at batch 1 and 8 on Qwen3-8B, Gemma 4 and Sarvam-30B, and 0.42 to 0.50 at batch 32, with exact tokens and short tails. With only the 4-bit copy on the GPU, a quarter of the stock head's bytes, the batch-1 step still takes about half the stock head's time (0.45 to 0.55). The slower the GPU's memory, the more the certified head saves. See [`kernel/README.md`](kernel/README.md).
 

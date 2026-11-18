@@ -1,0 +1,179 @@
+{
+ "model": "gemma4_e4b",
+ "repo": "google/gemma-4-E4B-it",
+ "rev": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+ "gpu": "NVIDIA A10",
+ "torch": "2.15.0+cu132",
+ "transformers": "5.22.2",
+ "rule_sha": "778397705590dfc3488af353914120fe53d4ee873a587ba96aed90ea04203a00",
+ "smoke": true,
+ "errors": {},
+ "batches": {
+  "1": {
+   "n_batches": 6,
+   "prompt_tokens": {
+    "median": 156,
+    "p99": 161,
+    "mean": 125.66666666666667,
+    "n": 6
+   },
+   "step_ms": {
+    "stock": {
+     "median": 25.57471990585327,
+     "p99": 25.596778869628906,
+     "mean": 25.49039852619171,
+     "n": 6
+    },
+    "certified": {
+     "median": 23.603785276412964,
+     "p99": 23.657313108444214,
+     "mean": 23.511688709259033,
+     "n": 6
+    },
+    "stock_again": {
+     "median": 25.714484453201294,
+     "p99": 25.843650579452515,
+     "mean": 25.85404435793559,
+     "n": 6
+    }
+   },
+   "ratio_per_batch": {
+    "median": 0.9242300849234625,
+    "p99": 0.9256929570459704,
+    "mean": 0.9224025127551232,
+    "n": 6
+   },
+   "ratio_per_batch_all": [
+    0.9221648236867767,
+    0.9261483330952356,
+    0.9134875663322333,
+    0.9256929570459704,
+    0.9226913114470605,
+    0.9242300849234625
+   ],
+   "in_loop_ratio": 0.9229342633391179,
+   "stock_drift": 1.0054649492883023,
+   "check": {
+    "tokens": 432,
+    "mismatches_vs_reference": 0,
+    "rows": 6,
+    "rows_identical_to_stock": 6
+   },
+   "head_ms": {
+    "stock": {
+     "median": 2.8150720596313477,
+     "p99": 2.820672035217285,
+     "mean": 2.815410254523158,
+     "n": 256
+    },
+    "certified": {
+     "median": 1.0127359628677368,
+     "p99": 1.035264015197754,
+     "mean": 1.015993386041373,
+     "n": 256
+    }
+   },
+   "head_check": {
+    "states": 256,
+    "cert_mismatches": 0,
+    "stock_mismatches": 0,
+    "int8_rows_per_step": {
+     "median": 2,
+     "p99": 319,
+     "mean": 21.06640625,
+     "n": 256
+    }
+   },
+   "head_share": 0.11007244927781452,
+   "head_ratio": 0.35975489842358116,
+   "estimate_by_substitution": 0.9295266535313604
+  },
+  "8": {
+   "n_batches": 2,
+   "prompt_tokens": {
+    "median": 208,
+    "p99": 161,
+    "mean": 184.5,
+    "n": 2
+   },
+   "step_ms": {
+    "stock": {
+     "median": 29.4645357131958,
+     "p99": 28.113849639892578,
+     "mean": 28.78919267654419,
+     "n": 2
+    },
+    "certified": {
+     "median": 27.71829319000244,
+     "p99": 26.259700775146484,
+     "mean": 26.988996982574463,
+     "n": 2
+    },
+    "stock_again": {
+     "median": 29.59296417236328,
+     "p99": 29.053580284118652,
+     "mean": 29.323272228240967,
+     "n": 2
+    }
+   },
+   "ratio_per_batch": {
+    "median": 0.940734089951694,
+    "p99": 0.9340485601048701,
+    "mean": 0.9373913250282822,
+    "n": 2
+   },
+   "ratio_per_batch_all": [
+    0.9340485601048701,
+    0.940734089951694
+   ],
+   "in_loop_ratio": 0.940734089951694,
+   "stock_drift": 1.004358747085567,
+   "check": {
+    "tokens": 1152,
+    "mismatches_vs_reference": 0,
+    "rows": 16,
+    "rows_identical_to_stock": 12
+   },
+   "head_ms": {
+    "stock": {
+     "median": 2.958591938018799,
+     "p99": 2.9628798961639404,
+     "mean": 2.9585082266065807,
+     "n": 144
+    },
+    "certified": {
+     "median": 1.1038719415664673,
+     "p99": 1.1529920101165771,
+     "mean": 1.1070088926288817,
+     "n": 144
+    }
+   },
+   "head_check": {
+    "states": 1152,
+    "cert_mismatches": 0,
+    "stock_mismatches": 1,
+    "int8_rows_per_step": {
+     "median": 35,
+     "p99": 1283,
+     "mean": 165.21527777777777,
+     "n": 144
+    }
+   },
+   "head_share": 0.10041196531373758,
+   "head_ratio": 0.37310719581885554,
+   "estimate_by_substitution": 0.9370524614911312
+  }
+ },
+ "control_head_weights_equal": true,
+ "softcap_switched_off": {
+  "config.get_text_config()": 30.0
+ },
+ "head_replaced": "lm_head",
+ "gpu_mem_gb_after_load": 18.595554816,
+ "control_state_max_abs_diff": [
+  0.0,
+  0.0
+ ],
+ "cache": "static",
+ "gpu_mem_gb_peak": 19.2666496
+}
