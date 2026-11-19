@@ -1,4 +1,4 @@
-# Paper outline (one page, updated 18 Nov 2026)
+# Paper outline (one page, updated 19 Nov 2026)
 
 Working title: **Read less, sample exactly: a certified low-bit output layer**
 
@@ -8,7 +8,7 @@ The output layer of a language model is read in full for every token: one BF16 r
 
 ## 2. The method
 
-**Base certificate.** Read a dithered 4-bit copy of every row. The dither makes each row's error random with a known spread, so each logit gets an interval that holds with probability 1 − δ (δ = 1e-15 per row). Rows the sampling rule cannot yet decide are re-read from a dithered INT8 copy with the same kind of bound, then in BF16. The token equals the reference token (BF16 values, FP32 accumulation). Floor: 0.258 of the BF16 head's bytes. With the dithered INT8 stage the BF16 head is almost never read: 2 to 48 rows at the p99 on Qwen3-8B, Gemma 4 and Sarvam-30B, for every rule that passes.
+**Base certificate.** Read a dithered 4-bit copy of every row. The dither makes each row's error random with a known spread, so each logit gets an interval that holds with probability 1 − δ (δ = 1e-15 per row). Rows the sampling rule cannot yet decide are re-read from a dithered INT8 copy with the same kind of bound, then in BF16. The token equals the reference token (BF16 values, FP32 accumulation). Floor: 0.258 of the BF16 head's bytes, where an 8-bit first pass alone reads half. With the dithered INT8 stage the BF16 head is almost never read: 2 to 48 rows at the p99 on Qwen3-8B, Gemma 4 and Sarvam-30B, for every rule that passes.
 
 **Part 1: remove a few state directions exactly.** Where the intervals are too wide, most of the state's energy lies along a few fixed directions. Store one number per row and direction, the row's error along it, and subtract that part of the error exactly. Only the rest of the state is bounded. Cost: 4 bytes per row and direction. No added probability. One direction on Sarvam-30B (the last block writes it, the final norm's gain doubles it); four on Sarvam-1, SmolLM3-3B and Phi-4-mini.
 
@@ -44,7 +44,7 @@ Evidence: no token mismatch and no bound violation on any state, in over 700,000
 | A100-80GB | 1 and 8 | 0.66 to 0.77 on Qwen3-8B, Gemma 4, Sarvam-30B |
 | A100-80GB | 32 | 0.88 to 1.01 |
 
-End to end: in an eager Hugging Face loop the head is 1% to 4% of a step on 8B-and-larger models, so the step is unchanged. On Qwen3-0.6B with a static cache on an A10G the head is 12% of a step. With the certified head inside the loop the step is a measured 6% faster in each of two runs (5.18 and 5.19 ms against 5.50), every token equal to the reference. On an A100 that model shows no gain. On Qwen3-1.7B and Gemma 4 E4B on the A10G the head is 12.6% and 10.8% of a step at batch 1 (8.8% and 9.3% at batch 8), and the step is 7% faster at batch 1 and about 5% faster at batch 8 on both, with no token differing in 17,280. The saving is within 0.8 points of share × (1 − certified head / stock head) each time.
+End to end: in an eager Hugging Face loop the head is 1% to 4% of a step on 8B-and-larger models, so the step is unchanged. On Qwen3-0.6B with a static cache on an A10G the head is 12% of a step. With the certified head inside the loop the step is a measured 6% faster in each of two runs (5.18 and 5.19 ms against 5.50), every token equal to the reference. On an A100 that model shows no gain. On Qwen3-1.7B and Gemma 4 E4B on the A10G the head is 12.6% and 10.8% of a step at batch 1 (8.8% and 9.3% at batch 8), and the step is 6.9% and 7.1% faster at batch 1 and 4.8% and 5.5% faster at batch 8, with no token differing in 17,280 (19,008 with Qwen3-0.6B's 1,728). The saving is within 0.8 points of share × (1 − certified head / stock head) on these two models, and 1.4 points below it on Qwen3-0.6B.
 
 Memory: all copies on the GPU take 1.77 times the stock head's bytes. On an A10G at batch 1, with only the 4-bit copy on the GPU (0.26 of the bytes) and the rest in host memory, the step takes 0.45 to 0.55 of the stock head on the three large heads, with a long tail on Sarvam-30B. On an A100: With the BF16 copy in host memory (GPU: 0.77) the batch-1 step on an A100 is as fast as the stock head on the three large heads (0.86 to 0.99). With only the 4-bit copy on the GPU (0.26) the median is 1.0 to 1.3 times the stock head, with a long tail. Not shown for batches.
 
@@ -52,9 +52,9 @@ Memory: all copies on the GPU take 1.77 times the stock head's bytes. On an A10G
 
 - **Top-p** is exact but cheap on Qwen3-8B only; on Gemma 4 and Sarvam-30B it reads the whole vocabulary in INT8 on over 1% of states.
 - **Top-50** does not pass on Sarvam-1, SmolLM3-3B or Phi-4-mini.
-- The guarantee is probabilistic (δ per row and per dithered read: up to 3δ), and it certifies the FP32-accumulated reference, which the stock BF16 head itself misses on 0.2% to 2.5% of steps through ties.
+- The guarantee is probabilistic (δ = 1e-15 per row and per dithered read: up to 3δ for a row, and under 1e-9 per step for a 262,144-token vocabulary by a union bound), and it certifies the FP32-accumulated reference, which the stock BF16 head itself misses on 0.2% to 2.5% of steps through ties.
 - Shift, directions and groups are chosen per model on half of one prompt set. Only Sarvam-30B has been checked on new prompts.
-- Head timings are with Gumbel noise supplied. The measured end-to-end gain is 5% to 7%, on three models up to Gemma 4 E4B, greedy, on one mid-range GPU. No measured case has the head above 13% of the step.
+- Head timings are with Gumbel noise supplied. The measured end-to-end gain is 4.8% to 7.1%, on three models up to Gemma 4 E4B, greedy, on one mid-range GPU. No measured case has the head above 13% of the step.
 - **L4.** Only the first kernels were timed on an L4 (medians). The unified kernel, the memory layouts, the in-loop run and the tail timings were not: no L4 container could be started on Modal in five attempts over the three days to 17 Nov 2026, and the A10G stands in as the slow-memory GPU.
 
 ## Open before writing

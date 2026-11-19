@@ -1054,7 +1054,7 @@ Controls, all held on both models: the certified model's output at the last posi
 
 For comparison, E2 and E3 on Qwen3-0.6B at batch 1: share 12.3%, estimate 0.928, in the loop 0.942 and 0.944.
 
-- **The decode step is 5% to 7% faster on both models at both batch sizes.** The saving is 6.9% (Qwen3-1.7B) and 7.1% (Gemma 4) at batch 1, and 4.8% and 5.5% at batch 8. Per prompt batch the ratio stays below 1 everywhere: the largest of the 72 is 0.973.
+- **The decode step is 4.8% to 7.1% faster on both models at both batch sizes.** The saving is 6.9% (Qwen3-1.7B) and 7.1% (Gemma 4) at batch 1, and 4.8% and 5.5% at batch 8. Per prompt batch the ratio stays below 1 everywhere: the largest of the 72 is 0.973.
 - **The gain is not larger than E3's, because the head's share is not larger.** The share is 8.8% to 12.6% here against 12.3% on Qwen3-0.6B. A bigger model has a bigger head and a bigger body: Gemma 4's head takes 2.8 ms, four times Qwen3-0.6B's, in a step of 26 ms.
 - **The gain follows the share.** The measured saving is within 0.8 points of share × (1 − certified head / stock head) on all four rows (7.7%, 4.9%, 6.9%, 5.8% estimated; 6.9%, 4.8%, 7.1%, 5.5% measured). So the head-alone timings predict the end-to-end result.
 - **Batch 8 lowers the share.** The stock head takes about the same time at batch 8 as at batch 1 while the body takes more, so the share falls to 0.70 (Qwen3-1.7B) and 0.86 (Gemma 4) of its batch-1 value.

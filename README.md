@@ -24,7 +24,7 @@ Models: Qwen3-8B (151,936 × 4,096 head), Gemma 4 E4B (262,144 × 2,560, tied, s
   - **G1**, the parts on three more off-floor models: greedy passes its gate on Sarvam-1, SmolLM3-3B and Phi-4-mini
   - **E2**, the head's share of a decode step on Qwen3-0.6B with a static cache: 12% on an A10G, where the certified head would make the step an estimated 7% faster
   - **E3**, the certified head inside that decode loop: the step is a measured 6% to 7% faster on an A10G, with every token equal to the reference, and unchanged on an A100
-  - **E4**, the same on Qwen3-1.7B and Gemma 4 E4B at batch 1 and 8: the head is 9% to 13% of the step and the step is 5% to 7% faster, as the head-alone timings predict
+  - **E4**, the same on Qwen3-1.7B and Gemma 4 E4B at batch 1 and 8: the head is 9% to 13% of the step and the step is 4.8% to 7.1% faster, as the head-alone timings predict
 
   Results and caveats are in [`exp01_repro/README.md`](exp01_repro/README.md).
 - [`kernel/`](kernel/): a second, independently built set of L4 kernels for the certified step (15 Nov 2026): a PyTorch baseline, a tensor-core first pass, and a fused, graph-captured step with per-state row lists for greedy and Gumbel sampling. See [`kernel/README.md`](kernel/README.md), including how it relates to the graph-captured step in `exp01_repro`.
