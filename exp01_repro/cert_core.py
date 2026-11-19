@@ -75,7 +75,7 @@ def make_int4_dither(W, G=128, seed=1234):
     ug = u.view(1, d // G, G)
     x = Wg / s + ug
     q = torch.round(x)
-    assert q.abs().max() <= 8, "dither clipped"
+    assert q.max() <= 7 and q.min() >= -8, "dither clipped"     # strict: the clamp below must change nothing
     q = torch.clamp(q, -8, 7)
     Wq = ((q - ug) * s).view(V, d)
     emax, enorm = _group_stats(Wq - W, G)

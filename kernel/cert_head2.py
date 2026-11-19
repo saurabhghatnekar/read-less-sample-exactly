@@ -45,7 +45,7 @@ class CertHead2:
             s_h = (amax / 6.5).half()
             s = s_h.float().clamp_min(1e-12)
             q = torch.round(wg / s + ug)
-            assert q.abs().max() <= 8, "dither clipped"
+            assert q.max() <= 7 and q.min() >= -8, "dither clipped"     # strict: the clamp below must change nothing
             q = torch.clamp(q, -8, 7)
             wq4 = ((q - ug) * s).view(n, d)
             qq = (q + 8).to(torch.uint8).view(n, d)

@@ -26,7 +26,7 @@ def make_mixed_dither(W, groups8=(), G=128, seed=1234):
     s = (Wg.abs().amax(-1, keepdim=True) / div).half().float().clamp_min(1e-12)
     ug = u.view(1, ng, G)
     q = torch.round(Wg / s + ug)
-    assert bool((q <= hi + (~is8)[None, :, None]).all()) and bool((q >= lo).all()), "dither clipped"
+    assert bool((q <= hi).all()) and bool((q >= lo).all()), "dither clipped"     # strict: the clamp below must change nothing
     q = torch.minimum(torch.maximum(q, lo), hi)
     Wq = ((q - ug) * s).view(V, d)
     emax, enorm = cc._group_stats(Wq - W, G)
