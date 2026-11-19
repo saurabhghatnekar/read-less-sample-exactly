@@ -1,0 +1,13 @@
+{
+  "check": "Do any dithered codes leave their range when the low-bit copies are built? A strict count on the real heads.",
+  "written": "2026-11-19, after the clipping assertions in cert_core.py, kernel/cert_head2.py and mix_lib.py were found to accept a 4-bit code of +8 (which the clamp that follows would cut to 7) and were made strict, before this check ran",
+  "why": "The uniform-error argument behind the bound needs every dithered code to stay in range. The scale is the group's largest magnitude over 6.5 (4-bit) or 126.5 (8-bit), rounded to FP16, so a value plus its dither stays below 7.5 (127.5) and the code within -7..7 (-127..127), unless a group's largest weight is so small that FP16 cannot hold its scale. The strict assertion had run on real weights only in the first kernels (Qwen3-8B, Gemma 4 E4B).",
+  "heads": "Qwen3-8B, Gemma 4 E4B, Sarvam-30B, Qwen3-0.6B, Qwen3-1.7B, Sarvam-1, SmolLM3-3B, Phi-4-mini",
+  "settings": "every mean-row shift used or offered anywhere in the project (0, 0.5, 1, 1.5), dither seed 1234; on Sarvam-30B at shift 0.5 also seeds 1, 2 and 3 (the draws of R1). The quantizer is the one in cert_core.make_int4_dither and kernel/cert_head2.py, written out again here so that codes are counted before any clamp.",
+  "counted": "per head and setting: 4-bit codes above 7 and below -8; 4-bit codes equal to -8; 8-bit codes outside -127..127; the largest |w/s + u|; groups whose FP16 scale is zero or subnormal, and how many of those are not all-zero groups",
+  "prediction_written_before_running": {
+    "main": "no code out of range on any head at any setting; the largest |w/s + u| is at most 7.01 (4-bit) and 127.1 (8-bit)",
+    "small_scales": "a few all-zero groups or rows may exist (unused tokens); they give scale 0, code round(u) = 0, and no clipping. I do not expect a nonzero group with a subnormal scale.",
+    "if_wrong": "If any code is out of range, the affected rows and groups are listed, the size of the clipped error is reported, and the results that used that head are named before anything else is changed."
+  }
+}

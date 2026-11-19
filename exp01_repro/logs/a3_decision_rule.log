@@ -27,3 +27,4 @@
 2026-11-17 19:18:25 IST e3_rule.json sha256 d4c85b620fc9230c1fc41a3349130ce5fa6fce8477689d6faf66e0ece5c6f982 (written before any E3 code ran)
 2026-11-17 20:01:10 IST kernel/a10g_protocol.json sha256 a1caf90fdb99d5ce1bba83ccc827522aa037b3364e9910f995da94b76b5c73f1 (written before any of these kernels' timing harnesses ran on an A10G; E3 had run there)
 2026-11-18 08:36:39 IST e4_rule.json sha256 778397705590dfc3488af353914120fe53d4ee873a587ba96aed90ea04203a00 (written before any E4 code was written or run)
+2026-11-19 22:58:16 IST clip_check.json sha256 eda1fe95d3a0ec9b938667c61e080900fb5fa51587b99b0f2c99165847caabd3 (written before the strict clipping count ran on any real head)

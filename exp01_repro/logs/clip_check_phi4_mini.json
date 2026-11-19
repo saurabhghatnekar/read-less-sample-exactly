@@ -1,0 +1,73 @@
+{
+ "model": "phi4_mini",
+ "V": 200064,
+ "d": 3072,
+ "rule_sha": "eda1fe95d3a0ec9b938667c61e080900fb5fa51587b99b0f2c99165847caabd3",
+ "torch": "2.15.0+cu132",
+ "settings": [
+  {
+   "shift": 0.0,
+   "seed": 1234,
+   "int4_above_7": 0,
+   "int4_below_minus_8": 0,
+   "int4_equal_minus_8": 0,
+   "int4_max_abs_x": 7.002828121185303,
+   "int8_out_of_range": 0,
+   "int8_max_abs_x": 127.05177307128906,
+   "groups": 4801536,
+   "zero_scale_groups": 0,
+   "subnormal_scale_groups": 0,
+   "subnormal_scale_nonzero_groups": 0,
+   "min_nonzero_group_max": 0.0284423828125,
+   "examples": []
+  },
+  {
+   "shift": 0.5,
+   "seed": 1234,
+   "int4_above_7": 0,
+   "int4_below_minus_8": 0,
+   "int4_equal_minus_8": 0,
+   "int4_max_abs_x": 7.002928256988525,
+   "int8_out_of_range": 0,
+   "int8_max_abs_x": 127.05841064453125,
+   "groups": 4801536,
+   "zero_scale_groups": 0,
+   "subnormal_scale_groups": 0,
+   "subnormal_scale_nonzero_groups": 0,
+   "min_nonzero_group_max": 0.04420572146773338,
+   "examples": []
+  },
+  {
+   "shift": 1.0,
+   "seed": 1234,
+   "int4_above_7": 0,
+   "int4_below_minus_8": 0,
+   "int4_equal_minus_8": 0,
+   "int4_max_abs_x": 7.003052234649658,
+   "int8_out_of_range": 0,
+   "int8_max_abs_x": 127.05864715576172,
+   "groups": 4801536,
+   "zero_scale_groups": 0,
+   "subnormal_scale_groups": 0,
+   "subnormal_scale_nonzero_groups": 0,
+   "min_nonzero_group_max": 0.08254603296518326,
+   "examples": []
+  },
+  {
+   "shift": 1.5,
+   "seed": 1234,
+   "int4_above_7": 0,
+   "int4_below_minus_8": 0,
+   "int4_equal_minus_8": 0,
+   "int4_max_abs_x": 7.002784729003906,
+   "int8_out_of_range": 0,
+   "int8_max_abs_x": 127.05937194824219,
+   "groups": 4801536,
+   "zero_scale_groups": 0,
+   "subnormal_scale_groups": 0,
+   "subnormal_scale_nonzero_groups": 0,
+   "min_nonzero_group_max": 0.10835672169923782,
+   "examples": []
+  }
+ ]
+}

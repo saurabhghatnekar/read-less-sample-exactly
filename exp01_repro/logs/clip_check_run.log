@@ -1,0 +1,78 @@
+✓ Initialized. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-LKEMPzDpkhFUgBP8Z8eSJ4
+✓ Created objects.
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/clip_check_modal.py
+├── ✓ Uploaded 
+│   /Volumes/attic/GpuKernelEngg/research/exp01_repro/../kernel/common.py
+└── ✓ Created Function run.
+qwen3_8b {"shift": 0.0, "seed": 1234, "int4_above_7": 0, "int4_below_minus_8": 0, "int4_equal_minus_8": 0, "int4_max_abs_x": 7.002828121185303, "int8_out_of_range": 0, "int8_max_abs_x": 127.05177307128906, "groups": 4861952, "zero_scale_groups": 0, "subnormal_scale_groups": 0, "subnormal_scale_nonzero_groups": 0, "min_nonzero_group_max": 0.01220703125}
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+qwen3_8b {"shift": 0.5, "seed": 1234, "int4_above_7": 0, "int4_below_minus_8": 0, "int4_equal_minus_8": 0, "int4_max_abs_x": 7.002777576446533, "int8_out_of_range": 0, "int8_max_abs_x": 127.05921173095703, "groups": 4861952, "zero_scale_groups": 0, "subnormal_scale_groups": 0, "subnormal_scale_nonzero_groups": 0, "min_nonzero_group_max": 0.007052639964967966}
+gemma4_e4b {"shift": 0.0, "seed": 1234, "int4_above_7": 0, "int4_below_minus_8": 0, "int4_equal_minus_8": 0, "int4_max_abs_x": 7.002828121185303, "int8_out_of_range": 0, "int8_max_abs_x": 127.05177307128906, "groups": 5242880, "zero_scale_groups": 0, "subnormal_scale_groups": 0, "subnormal_scale_nonzero_groups": 0, "min_nonzero_group_max": 0.031005859375}
+qwen3_8b {"shift": 1.0, "seed": 1234, "int4_above_7": 0, "int4_below_minus_8": 0, "int4_equal_minus_8": 0, "int4_max_abs_x": 7.002667427062988, "int8_out_of_range": 0, "int8_max_abs_x": 127.06066131591797, "groups": 4861952, "zero_scale_groups": 0, "subnormal_scale_groups": 0, "subnormal_scale_nonzero_groups": 0, "min_nonzero_group_max": 0.004920026753097773}
+gemma4_e4b {"shift": 0.5, "seed": 1234, "int4_above_7": 0, "int4_below_minus_8": 0, "int4_equal_minus_8": 0, "int4_max_abs_x": 7.0031208992004395, "int8_out_of_range": 0, "int8_max_abs_x": 127.0561752319336, "groups": 5242880, "zero_scale_groups": 0, "subnormal_scale_groups": 0, "subnormal_scale_nonzero_groups": 0, "min_nonzero_group_max": 0.02569926716387272}
+qwen3_8b {"shift": 1.5, "seed": 1234, "int4_above_7": 0, "int4_below_minus_8": 0, "int4_equal_minus_8": 0, "int4_max_abs_x": 7.00303840637207, "int8_out_of_range": 0, "int8_max_abs_x": 127.05899047851562, "groups": 4861952, "zero_scale_groups": 0, "subnormal_scale_groups": 0, "subnormal_scale_nonzero_groups": 0, "min_nonzero_group_max": 0.008713419549167156}
+gemma4_e4b {"shift": 1.0, "seed": 1234, "int4_above_7": 0, "int4_below_minus_8": 0, "int4_equal_minus_8": 0, "int4_max_abs_x": 7.002743244171143, "int8_out_of_range": 0, "int8_max_abs_x": 127.05894470214844, "groups": 5242880, "zero_scale_groups": 0, "subnormal_scale_groups": 0, "subnormal_scale_nonzero_groups": 0, "min_nonzero_group_max": 0.025976082310080528}
+qwen3_8b V 151936 d 4096: out-of-range codes over 4 settings = 0; largest |x| 4-bit 7.003 8-bit 127.061
+gemma4_e4b {"shift": 1.5, "seed": 1234, "int4_above_7": 0, "int4_below_minus_8": 0, "int4_equal_minus_8": 0, "int4_max_abs_x": 7.0030293464660645, "int8_out_of_range": 0, "int8_max_abs_x": 127.05973052978516, "groups": 5242880, "zero_scale_groups": 0, "subnormal_scale_groups": 0, "subnormal_scale_nonzero_groups": 0, "min_nonzero_group_max": 0.030922217294573784}
+gemma4_e4b V 262144 d 2560: out-of-range codes over 4 settings = 0; largest |x| 4-bit 7.0031 8-bit 127.06
+qwen3_1.7b {"shift": 0.0, "seed": 1234, "int4_above_7": 0, "int4_below_minus_8": 0, "int4_equal_minus_8": 0, "int4_max_abs_x": 7.002828121185303, "int8_out_of_range": 0, "int8_max_abs_x": 127.05177307128906, "groups": 2430976, "zero_scale_groups": 0, "subnormal_scale_groups": 0, "subnormal_scale_nonzero_groups": 0, "min_nonzero_group_max": 0.0103759765625}
+qwen3_1.7b {"shift": 0.5, "seed": 1234, "int4_above_7": 0, "int4_below_minus_8": 0, "int4_equal_minus_8": 0, "int4_max_abs_x": 7.00294303894043, "int8_out_of_range": 0, "int8_max_abs_x": 127.06060028076172, "groups": 2430976, "zero_scale_groups": 0, "subnormal_scale_groups": 0, "subnormal_scale_nonzero_groups": 0, "min_nonzero_group_max": 0.007754939142614603}
+qwen3_1.7b {"shift": 1.0, "seed": 1234, "int4_above_7": 0, "int4_below_minus_8": 0, "int4_equal_minus_8": 0, "int4_max_abs_x": 7.003138065338135, "int8_out_of_range": 0, "int8_max_abs_x": 127.0586929321289, "groups": 2430976, "zero_scale_groups": 0, "subnormal_scale_groups": 0, "subnormal_scale_nonzero_groups": 0, "min_nonzero_group_max": 0.006170764099806547}
+sarvam_30b {"shift": 0.0, "seed": 1234, "int4_above_7": 0, "int4_below_minus_8": 0, "int4_equal_minus_8": 0, "int4_max_abs_x": 7.002828121185303, "int8_out_of_range": 0, "int8_max_abs_x": 127.05177307128906, "groups": 8388608, "zero_scale_groups": 0, "subnormal_scale_groups": 0, "subnormal_scale_nonzero_groups": 0, "min_nonzero_group_max": 0.0233154296875}
+qwen3_1.7b {"shift": 1.5, "seed": 1234, "int4_above_7": 0, "int4_below_minus_8": 0, "int4_equal_minus_8": 0, "int4_max_abs_x": 7.00286340713501, "int8_out_of_range": 0, "int8_max_abs_x": 127.06004333496094, "groups": 2430976, "zero_scale_groups": 0, "subnormal_scale_groups": 0, "subnormal_scale_nonzero_groups": 0, "min_nonzero_group_max": 0.01144295185804367}
+qwen3_0.6b {"shift": 0.0, "seed": 1234, "int4_above_7": 0, "int4_below_minus_8": 0, "int4_equal_minus_8": 0, "int4_max_abs_x": 7.000802993774414, "int8_out_of_range": 0, "int8_max_abs_x": 127.04975128173828, "groups": 1215488, "zero_scale_groups": 0, "subnormal_scale_groups": 0, "subnormal_scale_nonzero_groups": 0, "min_nonzero_group_max": 0.0142822265625}
+qwen3_0.6b {"shift": 0.5, "seed": 1234, "int4_above_7": 0, "int4_below_minus_8": 0, "int4_equal_minus_8": 0, "int4_max_abs_x": 7.000820159912109, "int8_out_of_range": 0, "int8_max_abs_x": 127.05512237548828, "groups": 1215488, "zero_scale_groups": 0, "subnormal_scale_groups": 0, "subnormal_scale_nonzero_groups": 0, "min_nonzero_group_max": 0.008556153625249863}
+qwen3_0.6b {"shift": 1.0, "seed": 1234, "int4_above_7": 0, "int4_below_minus_8": 0, "int4_equal_minus_8": 0, "int4_max_abs_x": 7.000823020935059, "int8_out_of_range": 0, "int8_max_abs_x": 127.05692291259766, "groups": 1215488, "zero_scale_groups": 0, "subnormal_scale_groups": 0, "subnormal_scale_nonzero_groups": 0, "min_nonzero_group_max": 0.006849872879683971}
+qwen3_0.6b {"shift": 1.5, "seed": 1234, "int4_above_7": 0, "int4_below_minus_8": 0, "int4_equal_minus_8": 0, "int4_max_abs_x": 7.000749588012695, "int8_out_of_range": 0, "int8_max_abs_x": 127.05558013916016, "groups": 1215488, "zero_scale_groups": 0, "subnormal_scale_groups": 0, "subnormal_scale_nonzero_groups": 0, "min_nonzero_group_max": 0.011731616221368313}
+sarvam_1 {"shift": 0.0, "seed": 1234, "int4_above_7": 0, "int4_below_minus_8": 0, "int4_equal_minus_8": 0, "int4_max_abs_x": 7.002828121185303, "int8_out_of_range": 0, "int8_max_abs_x": 127.05177307128906, "groups": 1089536, "zero_scale_groups": 0, "subnormal_scale_groups": 0, "subnormal_scale_nonzero_groups": 0, "min_nonzero_group_max": 0.053955078125}
+sarvam_1 {"shift": 0.5, "seed": 1234, "int4_above_7": 0, "int4_below_minus_8": 0, "int4_equal_minus_8": 0, "int4_max_abs_x": 7.0027055740356445, "int8_out_of_range": 0, "int8_max_abs_x": 127.06027221679688, "groups": 1089536, "zero_scale_groups": 0, "subnormal_scale_groups": 0, "subnormal_scale_nonzero_groups": 0, "min_nonzero_group_max": 0.03148594871163368}
+sarvam_1 {"shift": 1.0, "seed": 1234, "int4_above_7": 0, "int4_below_minus_8": 0, "int4_equal_minus_8": 0, "int4_max_abs_x": 7.002906322479248, "int8_out_of_range": 0, "int8_max_abs_x": 127.05818176269531, "groups": 1089536, "zero_scale_groups": 0, "subnormal_scale_groups": 0, "subnormal_scale_nonzero_groups": 0, "min_nonzero_group_max": 0.020456664264202118}
+sarvam_1 {"shift": 1.5, "seed": 1234, "int4_above_7": 0, "int4_below_minus_8": 0, "int4_equal_minus_8": 0, "int4_max_abs_x": 7.002619743347168, "int8_out_of_range": 0, "int8_max_abs_x": 127.05835723876953, "groups": 1089536, "zero_scale_groups": 0, "subnormal_scale_groups": 0, "subnormal_scale_nonzero_groups": 0, "min_nonzero_group_max": 0.022933533415198326}
+smollm3_3b {"shift": 0.0, "seed": 1234, "int4_above_7": 0, "int4_below_minus_8": 0, "int4_equal_minus_8": 0, "int4_max_abs_x": 7.002665996551514, "int8_out_of_range": 0, "int8_max_abs_x": 127.05177307128906, "groups": 2052096, "zero_scale_groups": 0, "subnormal_scale_groups": 0, "subnormal_scale_nonzero_groups": 0, "min_nonzero_group_max": 0.10498046875}
+smollm3_3b {"shift": 0.5, "seed": 1234, "int4_above_7": 0, "int4_below_minus_8": 0, "int4_equal_minus_8": 0, "int4_max_abs_x": 7.002635955810547, "int8_out_of_range": 0, "int8_max_abs_x": 127.05517578125, "groups": 2052096, "zero_scale_groups": 0, "subnormal_scale_groups": 0, "subnormal_scale_nonzero_groups": 0, "min_nonzero_group_max": 0.10923729091882706}
+smollm3_3b {"shift": 1.0, "seed": 1234, "int4_above_7": 0, "int4_below_minus_8": 0, "int4_equal_minus_8": 0, "int4_max_abs_x": 7.003096580505371, "int8_out_of_range": 0, "int8_max_abs_x": 127.05721282958984, "groups": 2052096, "zero_scale_groups": 0, "subnormal_scale_groups": 0, "subnormal_scale_nonzero_groups": 0, "min_nonzero_group_max": 0.09372297674417496}
+smollm3_3b {"shift": 1.5, "seed": 1234, "int4_above_7": 0, "int4_below_minus_8": 0, "int4_equal_minus_8": 0, "int4_max_abs_x": 7.002583980560303, "int8_out_of_range": 0, "int8_max_abs_x": 127.05807495117188, "groups": 2052096, "zero_scale_groups": 0, "subnormal_scale_groups": 0, "subnormal_scale_nonzero_groups": 0, "min_nonzero_group_max": 0.07468387484550476}
+phi4_mini {"shift": 0.0, "seed": 1234, "int4_above_7": 0, "int4_below_minus_8": 0, "int4_equal_minus_8": 0, "int4_max_abs_x": 7.002828121185303, "int8_out_of_range": 0, "int8_max_abs_x": 127.05177307128906, "groups": 4801536, "zero_scale_groups": 0, "subnormal_scale_groups": 0, "subnormal_scale_nonzero_groups": 0, "min_nonzero_group_max": 0.0284423828125}
+phi4_mini {"shift": 0.5, "seed": 1234, "int4_above_7": 0, "int4_below_minus_8": 0, "int4_equal_minus_8": 0, "int4_max_abs_x": 7.002928256988525, "int8_out_of_range": 0, "int8_max_abs_x": 127.05841064453125, "groups": 4801536, "zero_scale_groups": 0, "subnormal_scale_groups": 0, "subnormal_scale_nonzero_groups": 0, "min_nonzero_group_max": 0.04420572146773338}
+sarvam_30b {"shift": 0.5, "seed": 1234, "int4_above_7": 0, "int4_below_minus_8": 0, "int4_equal_minus_8": 0, "int4_max_abs_x": 7.003010272979736, "int8_out_of_range": 0, "int8_max_abs_x": 127.05744934082031, "groups": 8388608, "zero_scale_groups": 0, "subnormal_scale_groups": 0, "subnormal_scale_nonzero_groups": 0, "min_nonzero_group_max": 0.01199523825198412}
+sarvam_30b {"shift": 0.5, "seed": 1, "int4_above_7": 0, "int4_below_minus_8": 0, "int4_equal_minus_8": 0, "int4_max_abs_x": 7.002638339996338, "int8_out_of_range": 0, "int8_max_abs_x": 127.05882263183594, "groups": 8388608, "zero_scale_groups": 0, "subnormal_scale_groups": 0, "subnormal_scale_nonzero_groups": 0, "min_nonzero_group_max": 0.01199523825198412}
+sarvam_30b {"shift": 0.5, "seed": 2, "int4_above_7": 0, "int4_below_minus_8": 0, "int4_equal_minus_8": 0, "int4_max_abs_x": 7.002755641937256, "int8_out_of_range": 0, "int8_max_abs_x": 127.0586166381836, "groups": 8388608, "zero_scale_groups": 0, "subnormal_scale_groups": 0, "subnormal_scale_nonzero_groups": 0, "min_nonzero_group_max": 0.01199523825198412}
+sarvam_30b {"shift": 0.5, "seed": 3, "int4_above_7": 0, "int4_below_minus_8": 0, "int4_equal_minus_8": 0, "int4_max_abs_x": 7.002640247344971, "int8_out_of_range": 0, "int8_max_abs_x": 127.05797576904297, "groups": 8388608, "zero_scale_groups": 0, "subnormal_scale_groups": 0, "subnormal_scale_nonzero_groups": 0, "min_nonzero_group_max": 0.01199523825198412}
+phi4_mini {"shift": 1.0, "seed": 1234, "int4_above_7": 0, "int4_below_minus_8": 0, "int4_equal_minus_8": 0, "int4_max_abs_x": 7.003052234649658, "int8_out_of_range": 0, "int8_max_abs_x": 127.05864715576172, "groups": 4801536, "zero_scale_groups": 0, "subnormal_scale_groups": 0, "subnormal_scale_nonzero_groups": 0, "min_nonzero_group_max": 0.08254603296518326}
+phi4_mini {"shift": 1.5, "seed": 1234, "int4_above_7": 0, "int4_below_minus_8": 0, "int4_equal_minus_8": 0, "int4_max_abs_x": 7.002784729003906, "int8_out_of_range": 0, "int8_max_abs_x": 127.05937194824219, "groups": 4801536, "zero_scale_groups": 0, "subnormal_scale_groups": 0, "subnormal_scale_nonzero_groups": 0, "min_nonzero_group_max": 0.10835672169923782}
+sarvam_30b {"shift": 1.0, "seed": 1234, "int4_above_7": 0, "int4_below_minus_8": 0, "int4_equal_minus_8": 0, "int4_max_abs_x": 7.003010272979736, "int8_out_of_range": 0, "int8_max_abs_x": 127.06037902832031, "groups": 8388608, "zero_scale_groups": 0, "subnormal_scale_groups": 0, "subnormal_scale_nonzero_groups": 0, "min_nonzero_group_max": 0.0056379674933850765}
+sarvam_30b V 262144 d 4096: out-of-range codes over 7 settings = 0; largest |x| 4-bit 7.003 8-bit 127.06
+qwen3_1.7b V 151936 d 2048: out-of-range codes over 4 settings = 0; largest |x| 4-bit 7.0031 8-bit 127.061
+qwen3_0.6b V 151936 d 1024: out-of-range codes over 4 settings = 0; largest |x| 4-bit 7.0008 8-bit 127.057
+sarvam_1 V 68096 d 2048: out-of-range codes over 4 settings = 0; largest |x| 4-bit 7.0029 8-bit 127.06
+smollm3_3b V 128256 d 2048: out-of-range codes over 4 settings = 0; largest |x| 4-bit 7.0031 8-bit 127.058
+phi4_mini V 200064 d 3072: out-of-range codes over 4 settings = 0; largest |x| 4-bit 7.0031 8-bit 127.059
+an error occurred during closing of asynchronous generator <async_generator object Synchronizer._run_generator_async at 0x106cdbec0>
+asyncgen: <async_generator object Synchronizer._run_generator_async at 0x106cdbec0>
+Traceback (most recent call last):
+  File "/Users/saurabhghatnekar/miniconda3/lib/python3.10/site-packages/modal/_utils/async_utils.py", line 858, in __iter__
+    yield from run_async_gen(runner, self._async_iterable)
+GeneratorExit
+
+During handling of the above exception, another exception occurred:
+
+RuntimeError: aclose(): asynchronous generator is already running
+an error occurred during closing of asynchronous generator <async_generator object async_merge at 0x106e09ac0>
+asyncgen: <async_generator object async_merge at 0x106e09ac0>
+Traceback (most recent call last):
+  File "/Users/saurabhghatnekar/miniconda3/lib/python3.10/site-packages/modal/_utils/async_utils.py", line 858, in __iter__
+    yield from run_async_gen(runner, self._async_iterable)
+GeneratorExit
+
+During handling of the above exception, another exception occurred:
+
+RuntimeError: aclose(): asynchronous generator is already running
+Task was destroyed but it is pending!
+task: <Task pending name='Task-822' coro=<<async_generator_athrow without __name__>()> wait_for=<Future finished result=None>>
+sarvam_30b {"shift": 1.5, "seed": 1234, "int4_above_7": 0, "int4_below_minus_8": 0, "int4_equal_minus_8": 0, "int4_max_abs_x": 7.00270414352417, "int8_out_of_range": 0, "int8_max_abs_x": 127.05895233154297, "groups": 8388608, "zero_scale_groups": 0, "subnormal_scale_groups": 0, "subnormal_scale_nonzero_groups": 0, "min_nonzero_group_max": 0.016848500818014145}
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/saurabhghatnekar/main/ap-LKEMPzDpkhFUgBP8Z8eSJ4
+exit 0

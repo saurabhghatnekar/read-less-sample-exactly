@@ -1082,3 +1082,19 @@ Notes and deviations:
 - Cost on Modal: $0.63 for the smoke and $1.19 for the full run.
 
 Limits: one run per model; greedy; one GPU type; 24 prompts at batch 1 and 12 batches at batch 8. `generate`'s per-token overhead is in both variants. The stock measurement drifts by up to 2% over a run, under a third of the effect. The all-GPU layout takes 1.77 times the stock head's memory. Qwen3-1.7B has no byte table of its own: only its INT8 row counts in the loop are recorded. No model here has a head above 13% of the step, so the claim that the gain keeps growing with the share is supported by the formula above, not by a measured larger case.
+
+## Control: no dithered code is clipped (19 Nov 2026)
+
+The uniform-error argument behind the bound needs every dithered code to stay in its range. The scale of a group is its largest magnitude over 6.5 (4-bit) or 126.5 (8-bit), rounded to FP16, so a value plus its dither stays below 7.5 (127.5) and the code within −7..7 (−127..127). That can fail only where a group's largest weight is so small that FP16 cannot hold its scale.
+
+**A mistake of mine, found while checking this for the paper.** The assertions in `cert_core.py`, `kernel/cert_head2.py` and `mix_lib.py` accepted a 4-bit code of +8, which the clamp on the next line would have cut to 7 without a word. Only the first kernels (`kernel/cert_head.py`) had the strict check, and they had run on Qwen3-8B and Gemma 4 E4B only. All three assertions are now strict; the local self-tests pass unchanged.
+
+Protocol `clip_check.json` (sha256 `eda1fe95…`, logged before the count ran on any real head). Code `clip_check_modal.py`, CPU only; results `logs/clip_check_<model>.json`. The quantizer is written out again there so that codes are counted before any clamp. Eight heads (Qwen3-8B, Gemma 4 E4B, Sarvam-30B, Qwen3-0.6B, Qwen3-1.7B, Sarvam-1, SmolLM3-3B, Phi-4-mini), each at every shift used or offered in the project (0, 0.5, 1, 1.5) with dither seed 1234, and Sarvam-30B at shift 0.5 also with R1's seeds 1, 2 and 3: 35 settings.
+
+- **No code is out of range on any head at any setting.** Not one 4-bit code above 7 or below −8, and not one 8-bit code outside −127..127, in 35 builds.
+- The largest value of |w/s + u| is 7.0031 for the 4-bit copy and 127.061 for the 8-bit copy, as the FP16 rounding of the scale predicts. No 4-bit code equals −8 either, so the codes use −7..7.
+- No group has a zero or subnormal FP16 scale. The smallest group maximum on any head is 0.0049 (Qwen3-8B), more than a thousand times above the size at which a scale could be mis-stored (about 0.000002).
+
+So the loose assertion never let a clipped code through, and every result stands as reported. Against the prediction: zero out-of-range codes, held; largest |w/s + u| at most 7.01 and 127.1, held; a few all-zero groups, not found (there are none).
+
+A synthetic check, run locally before the job: a head with normal weights gives zero, and a group with weights around 0.0000003 does produce clipped codes, so the count can see the failure it is looking for.
